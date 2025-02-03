@@ -5,28 +5,82 @@ import {
   NetworkGraphScreen,
   GroupsScreen,
 } from "@/screens";
-import { Link, Route, Switch } from "wouter";
+import { Route, RouteComponentProps, Switch, useLocation } from "wouter";
+import { NavigationListItem, NavLayout } from "./sections/nav";
+
+const navItems: {
+  href: string;
+  title: string;
+  component: React.ComponentType<
+    RouteComponentProps<{
+      [param: number]: string | undefined;
+    }>
+  >;
+}[] = [
+  { href: "/list", title: "List", component: ListScreen },
+  {
+    href: "/frequency-venn-diagram",
+    title: "Frequency Venn Diagram",
+    component: VennDiagramScreen,
+  },
+  {
+    href: "/dependency-network-graph",
+    title: "Dependency Network Graph",
+    component: NetworkGraphScreen,
+  },
+  {
+    href: "/grouped-by-onyomi",
+    title: "Grouped by Onyomi",
+    component: GroupsScreen,
+  },
+];
+
+export const Nav = () => {
+  const [location] = useLocation();
+
+  const triggerTitle =
+    navItems.find((item) => item.href === location)?.title ?? "Menu";
+
+  return (
+    <NavLayout triggerTitle={triggerTitle}>
+      <ul className="flex flex-col justify-start items-start text-start">
+        {navItems.map((item) => {
+          return (
+            <NavigationListItem
+              key={item.href}
+              href={item.href}
+              title={item.title}
+            >
+              Description here
+            </NavigationListItem>
+          );
+        })}
+      </ul>
+    </NavLayout>
+  );
+};
 
 const App = () => (
   <>
-    <div className="space-x-6 font-bold underline">
-      <Link href="/list">List</Link>
-      <Link href="/frequency-venn-diagram">Frequency Venn Diagram</Link>
-      <Link href="/dependency-network-graph">Dependency Network Graph</Link>
-      <Link href="/grouped-by-onyomi">Grouped by Onyomi</Link>
-    </div>
-    {/* 
-      Routes below are matched exclusively -
-      the first matched route gets rendered
-    */}
-    <Switch>
-      <Route path="/list" component={ListScreen} />
-      <Route path="/frequency-venn-diagram" component={VennDiagramScreen} />
-      <Route path="/dependency-network-graph" component={NetworkGraphScreen} />
-      <Route path="/grouped-by-onyomi" component={GroupsScreen} />
-      {/* Default route in a switch */}
-      <Route>404: No such page!</Route>
-    </Switch>
+    <header className="flex pl-2 py-1 items-center">
+      <div className="font-bold mr-2">Kanji Companion</div>
+      <Nav />
+    </header>
+    <main>
+      <Switch>
+        {navItems.map((item) => {
+          return (
+            <Route
+              key={item.href}
+              path={item.href}
+              component={item.component}
+            />
+          );
+        })}
+
+        <Route>404: No such page!</Route>
+      </Switch>
+    </main>
   </>
 );
 
