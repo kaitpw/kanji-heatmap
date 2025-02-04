@@ -1,12 +1,13 @@
 import "./App.css";
+import { Route, RouteComponentProps, Switch, useLocation } from "wouter";
 import {
   ListScreen,
   VennDiagramScreen,
   NetworkGraphScreen,
   GroupsScreen,
-} from "@/screens";
-import { Route, RouteComponentProps, Switch, useLocation } from "wouter";
-import { NavigationListItem, NavLayout } from "./sections/nav";
+} from "@/components/screens";
+import { NavigationListItem, NavLayout } from "@/components/layouts/nav";
+import Header from "@/components/sections/Header";
 
 const navItems: {
   href: string;
@@ -17,7 +18,7 @@ const navItems: {
     }>
   >;
 }[] = [
-  { href: "/list", title: "List", component: ListScreen },
+  { href: "/", title: "Basic List", component: ListScreen },
   {
     href: "/frequency-venn-diagram",
     title: "Frequency Venn Diagram",
@@ -43,7 +44,7 @@ export const Nav = () => {
 
   return (
     <NavLayout triggerTitle={triggerTitle}>
-      <ul className="flex flex-col justify-start items-start text-start">
+      <>
         {navItems.map((item) => {
           return (
             <NavigationListItem
@@ -55,17 +56,14 @@ export const Nav = () => {
             </NavigationListItem>
           );
         })}
-      </ul>
+      </>
     </NavLayout>
   );
 };
 
 const App = () => (
   <>
-    <header className="flex pl-2 py-1 items-center">
-      <div className="font-bold mr-2">Kanji Companion</div>
-      <Nav />
-    </header>
+    <Header nav={<Nav />} />
     <main>
       <Switch>
         {navItems.map((item) => {
@@ -77,7 +75,6 @@ const App = () => (
             />
           );
         })}
-
         <Route>404: No such page!</Route>
       </Switch>
     </main>

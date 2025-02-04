@@ -23,7 +23,11 @@ export const NavLayout = ({
           <NavigationMenuTrigger className="bg-gray-100 py-0">
             {triggerTitle}
           </NavigationMenuTrigger>
-          <NavigationMenuContent>{children}</NavigationMenuContent>
+          <NavigationMenuContent>
+            <ul className="flex flex-col justify-start items-start text-start">
+              {children}
+            </ul>
+          </NavigationMenuContent>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
