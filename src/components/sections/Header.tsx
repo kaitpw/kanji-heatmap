@@ -15,10 +15,10 @@ const HeaderLayout = ({
     <>
       <header className="flex w-full items-center justify-between border-dotted border-b-2 px-1 sm:py-1">
         <section className="flex items-center space-x-1">
-          <h1 className="font-bold text-xl md:text-2xl">{title}</h1>
+          <h1 className="font-bold text-xl md:text-2xl px-1">{title}</h1>
           <div className="hidden sm:flex space-x-1">{main}</div>
         </section>
-        <section className="flex space-x-2 my-1">{side}</section>
+        <section className="flex space-x-1 my-1">{side}</section>
       </header>
       <section className="flex sm:hidden space-x-1 m-2">{main}</section>
     </>

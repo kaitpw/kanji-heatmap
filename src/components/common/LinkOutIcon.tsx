@@ -20,14 +20,14 @@ const LinkOutIcon = ({
   return (
     <HoverCard openDelay={0} closeDelay={100}>
       <HoverCardTrigger asChild>
-        <Button asChild variant="outline" size={"icon"}>
-          <a href={href}>
+        <Button asChild variant="outline" className="h-8 w-8" size={"icon"}>
+          <a href={href} target="_blank" rel="noreferrer">
             {icon}
             <span className="sr-only">{srOnlyText}</span>
           </a>
         </Button>
       </HoverCardTrigger>
-      <HoverCardContent className="p-2 w-32 text-xs">
+      <HoverCardContent className="p-2 w-32 text-xs mx-2">
         {hoverText}
       </HoverCardContent>
     </HoverCard>

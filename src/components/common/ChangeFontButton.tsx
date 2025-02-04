@@ -9,12 +9,12 @@ const ChangeFontButton = () => {
   return (
     <HoverCard openDelay={0}>
       <HoverCardTrigger asChild>
-        <Button className="font-bold text-lg" variant={"outline"}>
-          字
+        <Button className="font-bold h-7 px-2" variant={"secondary"}>
+          文字
         </Button>
       </HoverCardTrigger>
-      <HoverCardContent className="p-2 w-32 uppercase text-xs">
-        Change Font
+      <HoverCardContent className="p-2 w-32 text-xs">
+        Change Kanji Font
       </HoverCardContent>
     </HoverCard>
   );

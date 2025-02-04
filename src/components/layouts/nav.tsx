@@ -20,7 +20,7 @@ export const NavLayout = ({
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="bg-gray-100 py-0">
+          <NavigationMenuTrigger className="py-0 font-bold px-3 h-7 bg-black text-white data-[state=open]:bg-black data-[state=open]:text-white focus:bg-black focus:text-white hover:bg-black hover:text-white">
             {triggerTitle}
           </NavigationMenuTrigger>
           <NavigationMenuContent>
@@ -49,7 +49,7 @@ export const NavigationListItem = ({
         <Link
           href={href}
           className={
-            "m-1 block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+            "my-2 ml-1 mr-2 block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
           }
         >
           <div className="text-sm font-medium leading-none w-48">{title}</div>
