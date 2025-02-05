@@ -1,55 +1,43 @@
 import { Grid2X2, Grid3X3, Search } from "lucide-react";
-import { Input } from "../ui/input";
-
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Input } from "../../ui/input";
 import { useState } from "react";
-
-import { RadioButton, RadioButtonGroupDiv } from "../common/RadioButtonGroup";
+import {
+  RadioButton,
+  RadioButtonGroupDiv,
+} from "../../common/RadioButtonGroup";
+import BasicSelect from "@/components/common/BasicSelect";
 
 export function SelectSearchInputType({ className }: { className?: string }) {
   const [value, setValue] = useState("meaning");
+
   return (
-    <Select value={value} onValueChange={setValue}>
-      <SelectTrigger
-        className={`absolute right-1 top-1 w-28 h-7 bg-gray-100 ${className}`}
-      >
-        <SelectValue />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectItem value="meaning">Meaning</SelectItem>
-          <SelectItem value="onyomi">Onyomi</SelectItem>
-          <SelectItem value="kunyomi">Kunyomi</SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+    <BasicSelect
+      value={value}
+      onChange={(newValue) => setValue(newValue)}
+      triggerCN={`absolute right-1 top-1 w-28 h-7 bg-gray-100 ${className}`}
+      options={[
+        { value: "meaning", label: "Meaning" },
+        { value: "onyomi", label: "Onyomi" },
+        { value: "kunyomi", label: "Kunyomi" },
+      ]}
+    />
   );
 }
 
 export function SelectFrequencySource({ className }: { className?: string }) {
   const [value, setValue] = useState("netflix");
+
   return (
-    <Select value={value} onValueChange={setValue}>
-      <SelectTrigger
-        className={`absolute right-1 top-1 w-28 h-7 bg-gray-100 ${className}`}
-      >
-        <SelectValue />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectItem value="netflix">Netflix</SelectItem>
-          <SelectItem value="twitter">Twitter</SelectItem>
-          <SelectItem value="newspaper">Newspaper</SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+    <BasicSelect
+      value={value}
+      onChange={(newValue) => setValue(newValue)}
+      triggerCN={`absolute right-1 top-1 w-28 h-7 bg-gray-100 ${className}`}
+      options={[
+        { value: "netflix", label: "Netflix" },
+        { value: "twitter", label: "Twitter" },
+        { value: "newspaper", label: "Newspaper" },
+      ]}
+    />
   );
 }
 
@@ -107,11 +95,12 @@ const FrequencySourceInput = () => {
     </section>
   );
 };
-const SearchRowSection = () => {
+
+const ControlBar = () => {
   return (
     <section className="mx-auto max-w-screen-xl flex flex-col md:flex-row border-0 space-y-1 md:space-y-0 md:space-x-1">
       <SearchInput />
-      <div className="w-full relative flex flex-col sm:flex-row space-x-1 m-0 p-0 space-y-1 md:space-y-0 ">
+      <div className="w-full relative flex flex-col sm:flex-row space-x-1 m-0 p-0 space-y-1 md:space-y-0">
         <FrequencySourceInput />
         <RadioGroup />
       </div>
@@ -119,12 +108,4 @@ const SearchRowSection = () => {
   );
 };
 
-const ListScreen = () => {
-  return (
-    <div className="w-full text-sm p-2 mx-auto">
-      <SearchRowSection />
-    </div>
-  );
-};
-
-export default ListScreen;
+export default ControlBar;
