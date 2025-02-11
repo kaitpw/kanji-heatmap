@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@500&family=Klee+One&family=Noto+Sans+JP:wght@100..900&family=Yuji+Mai&family=Zen+Old+Mincho&display=swap");
+
+@font-face {
+  font-family: "MaruJ";
+  src: url("/fonts/MaruJ30.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "gutsukku";
+  src: url("/fonts/gutsukku/gutsukku.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --jap-font-0: "MaruJ";
+  --jap-font-1: "Noto Sans JP";
+  --jap-font-2: "gutsukku";
+  --jap-font-3: "Kiwi Maru";
+  --jap-font-4: "Zen Old Mincho";
+  --jap-font-5: "Klee One";
+  --jap-font-6: "Yuji Mai";
+  --kanji-font: var(--jap-font-0);
+}
+
+.kanji-font {
+  font-family: var(--kanji-font);
+}

@@ -24,6 +24,9 @@
   --thumb-bg: rgba(120, 120, 120, 0.4);
   scrollbar-width: thin;
   scrollbar-color: var(--thumb-bg) var(--scrollbar-bg);
+
+  margin: 0 auto;
+  text-align: center;
 }
 
 ::-webkit-scrollbar {

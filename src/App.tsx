@@ -1,4 +1,4 @@
-import "./App.css";
+import "./JFonts.css";
 import { Route, RouteComponentProps, Switch, useLocation } from "wouter";
 import {
   ListScreen,
