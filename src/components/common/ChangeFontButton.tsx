@@ -10,7 +10,7 @@ const ChangeFontButton = () => {
     <HoverCard openDelay={0}>
       <HoverCardTrigger asChild>
         <Button className="font-bold h-7 px-2" variant={"secondary"}>
-          文字
+          字体
         </Button>
       </HoverCardTrigger>
       <HoverCardContent className="p-2 w-32 text-xs">

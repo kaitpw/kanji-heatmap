@@ -34,6 +34,21 @@ const navItems: {
     title: "Grouped by Onyomi",
     component: GroupsScreen,
   },
+  {
+    href: "/kanji-100",
+    title: "100 Most Frequent Kanji By Kanshudo",
+    component: ListScreen,
+  },
+  {
+    href: "/components-50",
+    title: "50 Most Common Components By Kanshudo",
+    component: ListScreen,
+  },
+  {
+    href: "/jouyou-kanji-components",
+    title: "Jouyou Kanji Components",
+    component: ListScreen,
+  },
 ];
 
 export const Nav = () => {

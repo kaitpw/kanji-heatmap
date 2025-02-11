@@ -16,7 +16,7 @@ const SimpleAccordion = ({
   return (
     <Accordion type="single" collapsible>
       <AccordionItem value="item-1">
-        <AccordionTrigger className="px-4 py-2 flex justify-start focus:outline-none">
+        <AccordionTrigger className="p-2 flex justify-start focus:outline-none">
           {trigger}
         </AccordionTrigger>
         <AccordionContent>{content}</AccordionContent>

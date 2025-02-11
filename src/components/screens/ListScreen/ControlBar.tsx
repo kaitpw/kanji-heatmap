@@ -17,9 +17,10 @@ export function SelectSearchInputType({ className }: { className?: string }) {
       triggerCN={`absolute right-1 top-1 w-28 h-7 bg-gray-100 ${className}`}
       options={[
         { value: "meaning", label: "Meaning" },
-        { value: "onyomi", label: "Onyomi" },
+        { value: "onyomi", label: "Onyomi", disabled: true },
         { value: "kunyomi", label: "Kunyomi" },
       ]}
+      srOnlyLabel="Search Type"
     />
   );
 }
@@ -37,6 +38,7 @@ export function SelectFrequencySource({ className }: { className?: string }) {
         { value: "twitter", label: "Twitter" },
         { value: "newspaper", label: "Newspaper" },
       ]}
+      srOnlyLabel="Frequency Rank Source for Kanji Card Background Color Intensity Meaning"
     />
   );
 }
