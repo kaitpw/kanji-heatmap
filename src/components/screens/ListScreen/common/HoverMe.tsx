@@ -12,8 +12,8 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-} from "../ui/drawer";
-import { Button } from "../ui/button";
+} from "@/components/ui/drawer";
+import { Button } from "@/components/ui/button";
 import React from "react";
 
 export const randomStyle = () => {
