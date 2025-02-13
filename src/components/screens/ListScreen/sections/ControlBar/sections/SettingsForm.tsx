@@ -1,6 +1,6 @@
 import { ReactNode, useId, useState } from "react";
 
-import BasicSelect from "../../common/BasicSelect";
+import BasicSelect from "../../../../../common/BasicSelect";
 import { Badge } from "@/components/ui/badge";
 import { DualRangeSlider } from "@/components/ui/dual-range-slider";
 import { Label } from "@/components/ui/label";
@@ -77,7 +77,7 @@ const UppercaseHeading = ({
   icon: ReactNode;
 }) => {
   return (
-    <h1 className="mb-3 text-md font-extralight flex items-center border-b w-full border-dotted ">
+    <h1 className="mb-3 text-md font-bold flex items-center border-b w-full border-dotted ">
       {icon} <span className="pl-1">{title}</span>
     </h1>
   );
@@ -201,7 +201,7 @@ const FilterSection = () => {
 
 const SettingsForm = () => {
   return (
-    <section className="flex flex-col items-start justify-start w-full border p-2 md:p-4 rounded-md">
+    <section className="flex flex-col items-start justify-start w-full">
       <form className="w-full flex flex-col space-y-4">
         <SortOrderSection />
         <FilterSection />

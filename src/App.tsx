@@ -1,5 +1,11 @@
 import "./JFonts.css";
-import { Route, RouteComponentProps, Switch, useLocation } from "wouter";
+import {
+  Redirect,
+  Route,
+  RouteComponentProps,
+  Switch,
+  useLocation,
+} from "wouter";
 import {
   ListScreen,
   VennDiagramScreen,
@@ -9,6 +15,7 @@ import {
 import { NavigationListItem, NavLayout } from "@/components/layouts/nav";
 import Header from "@/components/sections/Header";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import React from "react";
 const navItems: {
   href: string;
   title: string;
@@ -83,14 +90,15 @@ const App = () => (
       <Switch>
         {navItems.map((item) => {
           return (
-            <Route
-              key={item.href}
-              path={item.href}
-              component={item.component}
-            />
+            <React.Fragment key={item.href}>
+              <Route path={item.href} component={item.component} />
+              <Route path={`${item.href}/*`}>
+                <Redirect to={item.href} replace />
+              </Route>
+            </React.Fragment>
           );
         })}
-        <Route>404: No such page!</Route>
+        <Redirect to="/" replace />
       </Switch>
     </main>
   </ThemeProvider>

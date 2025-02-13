@@ -48,6 +48,10 @@
   background: var(--scrollbar-bg);
 }
 
+body {
+  overflow: hidden;
+}
+
 *,
 *::before,
 *::after {
@@ -77,7 +81,12 @@ button {
   cursor: pointer;
 }
 
-button:focus,
+.dark button:focus,
+button:focus-visible.light {
+  outline: 1px auto white;
+}
+
+.light button:focus,
 button:focus-visible {
   outline: 1px auto black;
 }

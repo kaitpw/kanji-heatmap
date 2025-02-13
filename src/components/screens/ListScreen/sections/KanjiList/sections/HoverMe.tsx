@@ -16,36 +16,6 @@ import {
 import { Button } from "@/components/ui/button";
 import React from "react";
 
-export const randomStyle = () => {
-  const num = Math.random();
-
-  if (num < 0.25) {
-    return {
-      border: `orange 2px solid`,
-      background: `hsl(195 100% 44%)`,
-    };
-  }
-
-  if (num < 0.5) {
-    return {
-      border: `red 2px solid`,
-      background: `hsl(195 100% 44% / 0.75)`,
-    };
-  }
-
-  if (num < 0.75) {
-    return {
-      border: `green 2px solid`,
-      background: `hsl(195 100% 44% / 0.5)`,
-    };
-  }
-
-  return {
-    border: `yellow 2px solid`,
-    background: `hsl(195 90% 44% / 0.25)`,
-  };
-};
-
 export function DrawerDemoRaw({
   onClose,
   isOpen,
