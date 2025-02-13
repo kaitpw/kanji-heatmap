@@ -14,7 +14,7 @@ import {
 } from "@/components/screens";
 import { NavigationListItem, NavLayout } from "@/components/layouts/nav";
 import Header from "@/components/sections/Header";
-import { ThemeProvider } from "@/components/providers/theme-provider";
+import { ThemeProvider } from "@/providers/theme-provider";
 import React from "react";
 const navItems: {
   href: string;

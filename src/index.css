@@ -20,7 +20,7 @@
   margin: 0;
   display: flex;
 
-  --scrollbar-bg: rgba(255, 255, 255, 1);
+  --scrollbar-bg: rgba(255, 255, 255, 0);
   --thumb-bg: rgba(120, 120, 120, 0.4);
   scrollbar-width: thin;
   scrollbar-color: var(--thumb-bg) var(--scrollbar-bg);

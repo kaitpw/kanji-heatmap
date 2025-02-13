@@ -1,5 +1,5 @@
 const VennDiagramScreen = () => {
-  return <div> VennDiagram Screen </div>;
+  return <div className="mt-20"> VennDiagram Screen </div>;
 };
 
 export default VennDiagramScreen;

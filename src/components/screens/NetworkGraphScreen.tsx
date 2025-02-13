@@ -1,5 +1,5 @@
 const NetworkGraphScreen = () => {
-  return <div> NetworkGraph Screen </div>;
+  return <div className="mt-20"> NetworkGraph Screen </div>;
 };
 
 export default NetworkGraphScreen;
