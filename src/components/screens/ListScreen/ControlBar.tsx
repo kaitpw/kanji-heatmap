@@ -14,7 +14,7 @@ export function SelectSearchInputType({ className }: { className?: string }) {
     <BasicSelect
       value={value}
       onChange={(newValue) => setValue(newValue)}
-      triggerCN={`absolute right-1 top-1 w-28 h-7 bg-gray-100 ${className}`}
+      triggerCN={`absolute right-1 top-1 w-28 h-7 bg-gray-100 dark:bg-gray-900 ${className}`}
       options={[
         { value: "meaning", label: "Meaning" },
         { value: "onyomi", label: "Onyomi", disabled: true },
@@ -32,7 +32,7 @@ export function SelectFrequencySource({ className }: { className?: string }) {
     <BasicSelect
       value={value}
       onChange={(newValue) => setValue(newValue)}
-      triggerCN={`absolute right-1 top-1 w-28 h-7 bg-gray-100 ${className}`}
+      triggerCN={`absolute right-1 top-1 w-28 h-7 bg-gray-100 dark:bg-gray-900 ${className}`}
       options={[
         { value: "netflix", label: "Netflix" },
         { value: "twitter", label: "Twitter" },

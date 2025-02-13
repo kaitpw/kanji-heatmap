@@ -8,7 +8,7 @@ import {
 } from "@/components/screens";
 import { NavigationListItem, NavLayout } from "@/components/layouts/nav";
 import Header from "@/components/sections/Header";
-
+import { ThemeProvider } from "@/components/providers/theme-provider";
 const navItems: {
   href: string;
   title: string;
@@ -77,7 +77,7 @@ export const Nav = () => {
 };
 
 const App = () => (
-  <>
+  <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
     <Header nav={<Nav />} />
     <main>
       <Switch>
@@ -93,7 +93,7 @@ const App = () => (
         <Route>404: No such page!</Route>
       </Switch>
     </main>
-  </>
+  </ThemeProvider>
 );
 
 export default App;

@@ -1,9 +1,11 @@
 import LinkOutIcon from "../common/LinkOutIcon";
 import { GithubIcon, KoFiIcon } from "../icons";
+import { ModeToggle } from "../ui/mode-toggle";
 
 const LinkOutSection = () => {
   return (
     <>
+      <ModeToggle />
       <LinkOutIcon
         href="https://github.com/mithi/"
         hoverText=" View source code on Github"

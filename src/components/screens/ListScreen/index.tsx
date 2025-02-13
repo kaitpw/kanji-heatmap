@@ -80,7 +80,7 @@ const ListScreenRaw = () => {
       <section className="mx-auto max-w-screen-xl my-1 rounded-sm">
         <SettingsAccordion />
       </section>
-      <div className="flex flex-wrap mt-4">
+      <div className="flex flex-wrap mt-4 items-center justify-center">
         {keys.map((key) => {
           return (
             <HoverMe
