@@ -22,7 +22,7 @@ const KanjiListRaw = () => {
 
   return (
     <>
-      <div className="flex flex-wrap mt-4 items-center justify-center">
+      <div className="flex flex-wrap mt-4 items-center justify-center z-0">
         {keys.map((key) => {
           return (
             <HoverMe

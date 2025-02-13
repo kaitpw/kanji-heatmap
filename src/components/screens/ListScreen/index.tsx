@@ -4,7 +4,7 @@ import KanjiList from "./sections/KanjiList";
 const ListScreen = () => {
   return (
     <div className="relative">
-      <div className="sticky top-[50px] bg-white dark:bg-black bg-opacity-50 backdrop-blur-sm z-0 px-2 pb-2">
+      <div className="sticky top-[50px] bg-white dark:bg-black bg-opacity-50 backdrop-blur-sm px-2 pb-2 z-50">
         <ControlBar />
       </div>
 

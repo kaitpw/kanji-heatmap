@@ -70,13 +70,9 @@ const HoverMeRaw = ({
       >
         <HoverCardTrigger asChild>
           <button
-            className="p-1.5 rounded-sm text-2xl border-2 mr-1 mb-1 kanji-font"
+            className="p-1.5 rounded-lg text-2xl border-4 mr-1 mb-1 kanji-font text-white border-lime-300 bg-fuchsia-500 z-0"
             style={{
-              border: `yellow 1px solid`,
-              background: isOpen
-                ? `hsla(320 98.4% 49.6% / 0.91))`
-                : `hsla(320 98.4% 49.6% / 0.91)`,
-              color: "white",
+              background: "hsla(320 98.4% 49.6% / 0.91)",
             }}
             onClick={() => {
               setOpen(null);
