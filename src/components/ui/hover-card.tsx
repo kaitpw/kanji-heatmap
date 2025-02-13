@@ -7,7 +7,7 @@ const HoverCard = HoverCardPrimitive.Root;
 const HoverCardArrow = () => {
   return (
     <HoverCardPrimitive.Arrow
-      className="-my-px border-none fill-[white] drop-shadow-[0_1px_0_#dddddd]"
+      className="-my-px border-none fill-[white] dark:fill-black drop-shadow-[0_1px_0_#dddddd] dark:drop-shadow-[0_1px_0_#000000]"
       width={15}
       height={10}
       stroke={"5"}
