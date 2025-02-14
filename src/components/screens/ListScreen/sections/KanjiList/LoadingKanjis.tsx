@@ -8,7 +8,7 @@ const LoadingKanjis = () => {
   return (
     <div
       role="status"
-      className="w-full flex flex-wrap mx-4 justify-center"
+      className="w-full flex flex-wrap justify-center mx-0 px-[12px]"
       style={{ maxHeight: listHeight }}
     >
       <div className="sr-only">loading</div>
@@ -16,7 +16,7 @@ const LoadingKanjis = () => {
         return (
           <div
             key={i}
-            className={`h-12 w-10 animate-pulse rounded-lg border-4 mr-1 mb-1 border-gray-300 bg-gray-200 dark:border-gray-700 dark:bg-gray-800 `}
+            className={`h-[52px] w-[42px] animate-pulse rounded-lg border-4 mr-1 mb-1 border-gray-200 bg-gray-100 dark:border-gray-700 dark:bg-gray-800 `}
           />
         );
       })}
