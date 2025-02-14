@@ -16,7 +16,7 @@ const LoadingKanjis = () => {
         return (
           <div
             key={i}
-            className={`h-[52px] w-[42px] animate-pulse rounded-lg border-4 mr-1 mb-1 border-gray-200 bg-gray-100 dark:border-gray-700 dark:bg-gray-800 `}
+            className={`h-[55px] w-[45px] animate-pulse rounded-lg border-4 mr-1 mb-1 border-gray-200 bg-gray-100 dark:border-gray-700 dark:bg-gray-800 `}
           />
         );
       })}
