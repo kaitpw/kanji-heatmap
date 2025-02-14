@@ -57,10 +57,10 @@ const SearchInput = () => {
 
   const placeHolder =
     value === "meaning"
-      ? "Search by Meaning"
+      ? "Meaning Search"
       : value === "onyomi"
-      ? "オニョミ"
-      : "くにょみ";
+      ? "オニョミ Search"
+      : "くにょみ Search";
   return (
     <section className="w-full relative">
       <Input

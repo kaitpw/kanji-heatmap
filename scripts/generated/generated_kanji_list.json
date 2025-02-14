@@ -1,4 +1,4 @@
-const keys = [
+[
   "一",
   "二",
   "三",
@@ -2425,7 +2425,5 @@ const keys = [
   "笠",
   "勿",
   "蒲",
-  "烏",
-];
-
-export default keys;
+  "烏"
+]

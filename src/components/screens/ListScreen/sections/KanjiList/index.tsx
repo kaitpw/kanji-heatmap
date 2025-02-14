@@ -5,7 +5,7 @@ import HoverMe, { DrawerDemo } from "./sections/HoverMe";
 import { useWindowSize } from "@react-hook/window-size"; // Debounced values
 import VirtualList from "react-tiny-virtual-list";
 import { HEADER_HEIGHT, TILE_SIZE } from "./constants";
-import kanjiKeys from "./kanji-keys";
+import kanjiKeys from "@/db/generated_kanji_list.json";
 
 const KanjiListRaw = () => {
   const [hoveredKanji, setHoveredKanji] = useState<string | null>(null);
