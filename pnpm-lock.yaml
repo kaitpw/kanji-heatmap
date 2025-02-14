@@ -77,6 +77,9 @@ dependencies:
   vaul:
     specifier: ^1.1.2
     version: 1.1.2(@types/react-dom@18.3.5)(@types/react@18.3.18)(react-dom@18.3.1)(react@18.3.1)
+  wanakana:
+    specifier: ^5.3.1
+    version: 5.3.1
   wouter:
     specifier: ^3.5.1
     version: 3.5.1(react@18.3.1)
@@ -3703,6 +3706,11 @@ packages:
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
+
+  /wanakana@5.3.1:
+    resolution: {integrity: sha512-OSDqupzTlzl2LGyqTdhcXcl6ezMiFhcUwLBP8YKaBIbMYW1wAwDvupw2T9G9oVaKT9RmaSpyTXjxddFPUcFFIw==}
+    engines: {node: '>=12'}
+    dev: false
 
   /which@2.0.2:
     resolution: {integrity: sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==}
