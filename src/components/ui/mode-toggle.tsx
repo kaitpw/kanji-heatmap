@@ -10,7 +10,7 @@ import {
 import { useTheme } from "@/providers/theme-provider";
 import { useState } from "react";
 
-// Copied from: https://ui.shadcn.com/docs/dark-mode/vite
+// Copied and modified from: https://ui.shadcn.com/docs/dark-mode/vite
 
 export function ModeToggle() {
   const { setTheme } = useTheme();

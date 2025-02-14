@@ -44,7 +44,7 @@ const BasicSelect = ({
                   value={option.value}
                   disabled={option.disabled}
                 >
-                  {option.value}
+                  {option.label}
                 </SelectItem>
               );
             })}

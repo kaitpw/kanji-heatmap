@@ -7,24 +7,6 @@ import * as wanakana from "wanakana";
 import SortAndFilterSettings from "./sections/SortAndFilterSettings";
 import CardPresentationSettings from "./sections/CardPresentationSettings";
 
-export function SelectSearchInputType({ className }: { className?: string }) {
-  const [value, setValue] = useState("meaning");
-
-  return (
-    <BasicSelect
-      value={value}
-      onChange={(newValue) => setValue(newValue)}
-      triggerCN={`absolute right-1 top-1 w-28 h-7 bg-gray-100 dark:bg-gray-900 ${className}`}
-      options={[
-        { value: "meaning", label: "Meaning" },
-        { value: "onyomi", label: "Onyomi", disabled: true },
-        { value: "kunyomi", label: "Kunyomi" },
-      ]}
-      srOnlyLabel="Search Type"
-    />
-  );
-}
-
 const SearchInput = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const inputRef = useRef<any>();
@@ -77,12 +59,12 @@ const SearchInput = () => {
     value === "meaning"
       ? "Search by Meaning"
       : value === "onyomi"
-      ? "Search by Onyomi Reading - オニョミ"
-      : "Search by Kunyomi Reading - くにょみ";
+      ? "オニョミ"
+      : "くにょみ";
   return (
     <section className="w-full relative">
       <Input
-        className="pl-7 pr-32 h-9"
+        className={`pl-7 pr-32 h-9 ${value === "meaning" ? "" : "kanji-font"}`}
         placeholder={placeHolder}
         ref={inputRef}
       />
