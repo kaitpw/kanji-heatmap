@@ -21,10 +21,12 @@ export const NavLayout = ({
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger className="py-0 font-bold px-3 h-7 bg-black dark:bg-white text-white dark:text-black data-[state=open]:bg-black data-[state=open]:text-white focus:bg-black focus:text-white hover:bg-black hover:text-white">
-            {triggerTitle}
+            <span className=" w-24 text-ellipsis truncate sm:max-w-[240px]">
+              {triggerTitle}
+            </span>
           </NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="flex flex-col justify-start items-start text-start">
+            <ul className="flex flex-col justify-start items-start text-start h-96 overflow-y-auto overflow-x-hidden">
               {children}
             </ul>
           </NavigationMenuContent>
