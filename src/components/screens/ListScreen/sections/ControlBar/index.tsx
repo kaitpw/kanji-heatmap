@@ -41,7 +41,7 @@ const SearchInput = () => {
 const CardPresentationSettingsContent = () => {
   return (
     <section>
-      <h1> Card Presentation</h1>
+      <h1>Card Presentation</h1>
     </section>
   );
 };
@@ -64,8 +64,8 @@ const ControlBar = () => {
   return (
     <section className="mx-auto max-w-screen-xl flex border-0 space-x-1 sticky">
       <SearchInput />
-      <CardPresentationSettings />
       <SortAndFilterSettings />
+      <CardPresentationSettings />
     </section>
   );
 };

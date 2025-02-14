@@ -48,10 +48,6 @@
   background: var(--scrollbar-bg);
 }
 
-body {
-  overflow: hidden;
-}
-
 *,
 *::before,
 *::after {
