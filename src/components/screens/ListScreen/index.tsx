@@ -1,10 +1,9 @@
 import { lazy, Suspense } from "react";
 import ControlBar from "./sections/ControlBar";
+import LoadingKanjis from "./sections/KanjiList/LoadingKanjis";
+
 const KanjiList = lazy(() => import("./sections/KanjiList"));
 
-const Loading = () => {
-  return <div>Loading</div>;
-};
 const ListScreen = () => {
   return (
     <>
@@ -13,7 +12,7 @@ const ListScreen = () => {
       </div>
 
       <div className="relative top-12 -z-0 flex flex-wrap items-center justify-center pt-1 overflow-x-hidden">
-        <Suspense fallback={<Loading />}>
+        <Suspense fallback={<LoadingKanjis />}>
           <KanjiList />
         </Suspense>
       </div>
