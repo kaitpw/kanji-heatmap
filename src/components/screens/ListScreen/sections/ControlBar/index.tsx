@@ -1,14 +1,10 @@
-import { Flower, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import { Input } from "../../../../ui/input";
 import { useState } from "react";
 import BasicSelect from "@/components/common/BasicSelect";
-import { Button } from "@/components/ui/button";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
+
 import SortAndFilterSettings from "./sections/SortAndFilterSettings";
+import CardPresentationSettings from "./sections/CardPresentationSettings";
 
 export function SelectSearchInputType({ className }: { className?: string }) {
   const [value, setValue] = useState("meaning");
@@ -38,28 +34,6 @@ const SearchInput = () => {
   );
 };
 
-const CardPresentationSettingsContent = () => {
-  return (
-    <section>
-      <h1>Card Presentation</h1>
-    </section>
-  );
-};
-const CardPresentationSettings = () => {
-  return (
-    <HoverCard openDelay={0} closeDelay={0}>
-      <HoverCardTrigger asChild>
-        <Button variant="outline" size="icon" className="h-9 w-9">
-          <Flower />
-          <span className="sr-only">Card Presentation Settings</span>
-        </Button>
-      </HoverCardTrigger>
-      <HoverCardContent className="p-2 w-32 text-xs">
-        <CardPresentationSettingsContent />
-      </HoverCardContent>
-    </HoverCard>
-  );
-};
 const ControlBar = () => {
   return (
     <section className="mx-auto max-w-screen-xl flex border-0 space-x-1 sticky">
