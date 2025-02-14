@@ -116,7 +116,7 @@ const CardPresentationSettingsContent = () => {
       </section>
       <section>
         <H2>Background Color Meaning</H2>
-        <LabeledCheckbox label="Attach Background Meaning" />
+        <LabeledCheckbox label="Attach Background Color Meaning" />
         <div className="flex my-3 space-x-1 items-center">
           <div className="text-xs">Less</div>
           <FreqSquare srOnly={"0"} cn="bg-opacity-[0]" />

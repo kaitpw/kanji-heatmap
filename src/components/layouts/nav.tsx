@@ -21,7 +21,7 @@ export const NavLayout = ({
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger className="py-0 font-bold px-3 h-7 bg-black dark:bg-white text-white dark:text-black data-[state=open]:bg-black data-[state=open]:text-white focus:bg-black focus:text-white hover:bg-black hover:text-white">
-            <span className=" w-24 text-ellipsis truncate sm:max-w-[240px]">
+            <span className=" w-24 text-ellipsis truncate sm:w-[240px]">
               {triggerTitle}
             </span>
           </NavigationMenuTrigger>
