@@ -4,11 +4,45 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { Button } from "@/components/ui/button";
-import { useRef } from "react";
+import { useCallback, useLayoutEffect, useRef } from "react";
 
+const LOCAL_STORAGE_KANJI_FONT_KEY = "kanji-font";
 const NUMBER_OF_FONTS = 7;
-const ChangeFontButton = () => {
+
+const useChangeFont = () => {
   const fontIdRef = useRef(0);
+
+  const setFont = useCallback((fontNum: number) => {
+    document.documentElement.style.setProperty(
+      "--kanji-font",
+      `var(--jap-font-${fontNum})`
+    );
+    localStorage.setItem(LOCAL_STORAGE_KANJI_FONT_KEY, fontNum.toString());
+  }, []);
+
+  const nextFont = useCallback(() => {
+    fontIdRef.current = (fontIdRef.current + 1) % NUMBER_OF_FONTS;
+    setFont(fontIdRef.current);
+  }, [setFont]);
+
+  useLayoutEffect(() => {
+    const kanjiFont = Number(
+      localStorage.getItem(LOCAL_STORAGE_KANJI_FONT_KEY)
+    );
+
+    if (Number.isNaN(kanjiFont)) {
+      setFont(0);
+      return;
+    }
+
+    setFont(kanjiFont);
+  }, [setFont]);
+
+  return nextFont;
+};
+
+const ChangeFontButton = () => {
+  const nextFont = useChangeFont();
 
   return (
     <HoverCard openDelay={0}>
@@ -16,15 +50,7 @@ const ChangeFontButton = () => {
         <Button
           className="font-bold h-7 px-2 kanji-font"
           variant={"secondary"}
-          onClick={() => {
-            fontIdRef.current = (fontIdRef.current + 1) % NUMBER_OF_FONTS;
-            document.documentElement.style.setProperty(
-              "--kanji-font",
-              `var(--jap-font-${fontIdRef.current})`
-            );
-
-            console.log(fontIdRef.current);
-          }}
+          onClick={nextFont}
         >
           字体
         </Button>
