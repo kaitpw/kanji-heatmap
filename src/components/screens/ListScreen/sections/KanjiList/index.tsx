@@ -18,33 +18,32 @@ const KanjiListRaw = () => {
     [setSearchParams]
   );
 
-  const [width, height] = useWindowSize();
+  const [windowWidth, windowHeight] = useWindowSize();
 
   const openedKanji = searchParams.get("openedKanji");
-  const cols = Math.floor(width / TILE_SIZE.sm.width);
+  const cols = Math.floor(windowWidth / TILE_SIZE.sm.width);
   const rows = Math.ceil(kanjiKeys.length / cols);
-
+  const listHeight = windowHeight - HEADER_HEIGHT;
   return (
     <>
       <VirtualList
+        style={{ overflowX: "hidden" }}
         width="100%"
-        height={height - HEADER_HEIGHT}
+        height={listHeight}
         itemCount={rows}
         itemSize={TILE_SIZE.sm.height}
         renderItem={({ index: rowIndex, style }) => {
+          const items = rowIndex < rows - 1 ? cols : kanjiKeys.length % cols;
+
           return (
             <div
               key={rowIndex}
               style={style}
               className="flex items-center justify-center w-full"
             >
-              {[...Array(cols).keys()].map((colIndex: number) => {
+              {new Array(items).fill(null).map((_, colIndex: number) => {
                 const index = cols * rowIndex + colIndex;
                 const key = kanjiKeys[index];
-
-                if (key == null) {
-                  return <React.Fragment key={colIndex} />;
-                }
 
                 return (
                   <HoverMe
