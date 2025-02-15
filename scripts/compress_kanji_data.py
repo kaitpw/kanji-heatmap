@@ -8,21 +8,14 @@ import json
 kanji_main_info_json
 ----------------
 
-1. main meaning
-2. main on 
-3. main kun
-4. jlpt
-5. stroke
-6. rtk
-7. wanikani
-
 kanji_main_info[kanji] = [
     meaning,
     on_reading,
     kun_reading,
     jlpt,
     strokes,
-    rtk_index
+    rtk_index,
+    wanikani 🚧
 ]
 
 ----------------
@@ -30,12 +23,20 @@ kanji_frequency_info.json
 ----------------
 
 1 to 6. aozora, online news and wikipedia - https://github.com/scriptin/kanji-frequency/
-7. zcanning 5100 Novels - https://drive.google.com/file/d/1zbClv0H5VgswEDAkVmF3ikiVnoi6yGsW/view, https://www.reddit.com/r/LearnJapanese/comments/fhx27j/comment/fkdyksq/
+7. scanning 5100 Novels - https://drive.google.com/file/d/1zbClv0H5VgswEDAkVmF3ikiVnoi6yGsW/view, https://www.reddit.com/r/LearnJapanese/comments/fhx27j/comment/fkdyksq/
 8. drama subtitles - https://github.com/Matchoo95/JP-Subtitles, https://github.com/chriskempson/japanese-subtitles-word-kanji-frequency-lists
 9. netflix - OhTalkWho オタク - https://www.youtube.com/watch?v=DwJWld8hW0M 
 10. newspapers 1 - https://github.com/Lemmmy/KanjiSchool/blob/master/src/data/jisho-data.json
 11. newspapers 2 - https://github.com/davidluzgouveia/kanji-data
-12 rank_twitter - https://github.com/scriptin/kanji-frequency/
+12. twitter - https://github.com/scriptin/kanji-frequency/
+13. 2242 KANJI FREQUENCY LIST VER. 1.1 https://docs.google.com/spreadsheets/d/1MBYfKPrlST3F51KIKbAlsGw1x4c_atuHfPwSSRN5sLs/edit?gid=479449032#gid=479449032, https://www.researchgate.net/publication/357159664_2242_Kanji_Frequency_List_ver_11
+-> 🚧 Shibano's Gooogle
+-> 🚧 KUF
+-> 🚧 MCD
+-> 🚧 Japanese Agency of Cultural Affairs
+-> 🚧 Jisho
+-> 🚧 KD
+-> 🚧 WKFR
 
 [
     rank_aozora_char,
@@ -44,7 +45,7 @@ kanji_frequency_info.json
     rank_aozora_doc,
     rank_online_news_doc,
     rank_wikipedia_doc,
-    rank_fiction_5100,
+    rank_novels_5100,
     rank_drama_subtitles,
     rank_netflix,
     rank_newspapers_1,
@@ -122,22 +123,6 @@ def get_rtk_index(kanji_info):
 # FUNCTIONS TO GET FREQUENCY RANK INFORMATION
 # -------------------
 
-'''
-1 frequency - drama subtitles rank
-2 frequency - netflix rank
-3 frequency - fiction 5100 rank
-4 frequency - aozora document rank
-5 frequency - aozora character rank
-6 frequency - online news document rank
-7 frequency - online news character rank
-8 frequency - wikipedia document rank
-9 frequency - wikipedia character rank
-10 frequency - twitter rank
-11 frequency - newspaper rank (kanji school)
-'''
-
-
-
 def get_ranks(kanji_info):
     all_ = kanji_info.get('frequency', {})
     def dig_1224(source_key):
@@ -155,7 +140,7 @@ def get_ranks(kanji_info):
     rank_aozora_doc = dig_scriptin('aozora', 'docRank') or '❌'
     rank_online_news_doc = dig_scriptin('news', 'docRank') or '❌'
     rank_wikipedia_doc = dig_scriptin('wikipedia', 'docRank')     or '❌'
-    rank_fiction_5100 = dig_1224('rtk5100') or '❌'
+    rank_novels_5100 = dig_1224('rtk5100') or '❌'
     rank_drama_subtitles = dig_1224('chriskempsonSubtitles') or '❌'
     rank_netflix = dig_1224('ohTalkWhoNetflix') or '❌'
     rank_newspapers_1 = all_.get('davidluzgouveiaJlpt', None) or '❌'
@@ -168,7 +153,7 @@ def get_ranks(kanji_info):
         rank_aozora_doc,
         rank_online_news_doc,
         rank_wikipedia_doc,
-        rank_fiction_5100,
+        rank_novels_5100,
         rank_drama_subtitles,
         rank_netflix,
         rank_newspapers_1,
@@ -176,25 +161,49 @@ def get_ranks(kanji_info):
     ]
     
 
-def get_sorted_by_twitter_occurence(kanji_data):
-    def get_twitter_occurrence(kanji):
-        return kanji_data[kanji].get('frequency', {}).get('scriptin', {}).get('year2015',{}).get('twitter', {}).get('occurence', 0)
+def get_sorted_by_twitter_occurence_data(kanji_data):
 
-    kanji_count_pairs = [{'kanji': kanji , 'count': get_twitter_occurrence(kanji) } for kanji in kanji_data.keys()]
+    def get_twitter_data(kanji):
+        all_ = kanji_data[kanji].get('frequency', {}).get('scriptin', {}).get('year2015',{}).get('twitter', {})
+        fraction =  all_.get('fraction', 0)
 
-    def sortFunc(item):
+        result = {
+            'kanji': kanji,
+            'fraction': fraction,
+            'count': all_.get('occurence', 0),
+        }
+        return result
+
+    twitter_array = [get_twitter_data(kanji) for kanji in kanji_data.keys()]
+
+    def sort_func(item):
         return item['count']
 
-    kanji_count_pairs.sort(key=sortFunc, reverse=True)
+    running_cum_use = 0
+    def include_rank(pair):
+        [rank, item] = pair
 
+        nonlocal running_cum_use 
+        fraction = item['fraction'] 
+        running_cum_use += fraction
+
+        item['rank'] = rank + 1
+        item['cum_use'] = running_cum_use
+        return item
+
+    # An array of items { kanji, count, fraction, cum_use } now sorted by frequency, most frequent at the top 
+    twitter_array.sort(key=sort_func, reverse=True)
+    twitter_array_with_rank = [include_rank(pair) for pair in enumerate(twitter_array)]
+    return twitter_array_with_rank
+
+ # { kanji, count }[]
+def build_twitter_dictionary(twitter_array):
     twitter_freq_ranks = {}
-    for idx, item in enumerate(kanji_count_pairs):
-        twitter_freq_ranks[item['kanji']] = { 'rank': idx, 'count': item['count'] }
+    # A dictionary where key=kanji value={ rank, count, occurence, cum_use }
+    for item in twitter_array:
+        twitter_freq_ranks[item['kanji']] = { 'rank': item['rank'], 'count': item['count'] }
 
     return twitter_freq_ranks
-
-    
-
 
 
 # -------------------
@@ -225,7 +234,6 @@ with open("./src/db/kanji.json", mode="r", encoding="utf-8") as read_file:
 
         # TODO: include wanikani level as well
 
-
         kanji_main_info[kanji] = [
             meaning,
             on_reading,
@@ -237,14 +245,16 @@ with open("./src/db/kanji.json", mode="r", encoding="utf-8") as read_file:
     # -----------
     # Frequency Info
     # -----------
-    twitter_freq_data = get_sorted_by_twitter_occurence(kanji_data)
+    twitter_freq_array = get_sorted_by_twitter_occurence_data(kanji_data)
+    twitter_freq_data = build_twitter_dictionary(twitter_freq_array)
+
     for kanji in kanji_list:
         kanji_info = kanji_data[kanji]
         kanji_frequency_rank_info[kanji] = get_ranks(kanji_info)
         kanji_frequency_rank_info[kanji].append(twitter_freq_data[kanji]['rank'])
 
 with open("./scripts/generated/generated_kanji_twitter_freq.json", mode="w", encoding="utf-8") as write_file:
-    json.dump(twitter_freq_data, write_file, indent=2, ensure_ascii=False)
+    json.dump(twitter_freq_array, write_file, indent=2, ensure_ascii=False)
 
 
 with open("./scripts/generated/generated_kanji_list.json", mode="w", encoding="utf-8") as write_file:
