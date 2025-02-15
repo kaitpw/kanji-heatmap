@@ -153,6 +153,7 @@ const CardPresentationSettings = () => {
         onMouseEnter={() => {
           setIsOpen(true);
         }}
+        asChild
       >
         <Button variant="outline" size="icon" className="h-9 w-9">
           <Flower />
