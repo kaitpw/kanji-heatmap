@@ -1,3 +1,4 @@
+from functools import reduce
 import json
 
 # Get Twitter Frequency Rank for Each Kanji 
@@ -82,21 +83,22 @@ def get_meaning(kanji_info):
     return dig('kanjiKeys') \
         or dig('rtk5100') \
         or dig('davidluzgouveiaJlpt') \
-        or dig('shirabeJishou')
+        or dig('shirabeJishou') \
+        or dig('waniKani')
 
 def get_on_reading(kanji_info):
     all_ = kanji_info.get('readings', {}).get('onyomi', {})
     def dig(source_key):
         return (all_.get(source_key, {}) or {}).get('main', None)
 
-    return dig('davidluzgouveiaJlpt')
+    return dig('davidluzgouveiaJlpt') or dig('waniKani')
 
 def get_kun_reading(kanji_info):
     all_ = kanji_info.get('readings', {}).get('kunyomi', {})  
     def dig(source_key):
         return (all_.get(source_key, {}) or {}).get('main', None)
 
-    return dig('davidluzgouveiaJlpt')
+    return dig('davidluzgouveiaJlpt') or dig('waniKani')
 
 def get_jlpt(kanji_info):
     all_ = kanji_info.get('jlpt', {})
@@ -110,7 +112,8 @@ def get_strokes(kanji_info):
     def dig(source_key):
         return all_.get(source_key, None)
     
-    return dig('topoKanji') or dig('davidluzgouveiaJlpt') or dig('kanjiSchool')
+    strokes = dig('topoKanji') or dig('davidluzgouveiaJlpt') or dig('kanjiSchool')
+    return strokes
 
 def get_rtk_index(kanji_info):
     all_ = kanji_info.get('rtkIndex', {})
@@ -118,6 +121,9 @@ def get_rtk_index(kanji_info):
         return all_.get(source_key, None)
     
     return to_int(dig('rtk5100'))
+
+def get_wanikani_lvl(kanji_info):
+    return kanji_info.get('waniKani', {}).get('level', None)
 
 # -------------------
 # FUNCTIONS TO GET FREQUENCY RANK INFORMATION
@@ -216,7 +222,7 @@ kanji_list = []
 
 with open("./src/db/kanji.json", mode="r", encoding="utf-8") as read_file:
     kanji_data = json.load(read_file);
-    kanji_list = [x for x in kanji_data.keys()]
+    kanji_list = [kanji for kanji in kanji_data.keys()]
 
     # -----------
     # Main Info
@@ -231,8 +237,7 @@ with open("./src/db/kanji.json", mode="r", encoding="utf-8") as read_file:
         jlpt = get_jlpt(kanji_info) or '❌'
         strokes = get_strokes(kanji_info) or '❌'
         rtk_index = get_rtk_index(kanji_info) or '❌'
-
-        # TODO: include wanikani level as well
+        wk_lvl = get_wanikani_lvl(kanji_info) or '❌'
 
         kanji_main_info[kanji] = [
             meaning,
@@ -240,8 +245,11 @@ with open("./src/db/kanji.json", mode="r", encoding="utf-8") as read_file:
             kun_reading,
             jlpt,
             strokes,
-            rtk_index
+            rtk_index,
+            wk_lvl
         ]
+
+
     # -----------
     # Frequency Info
     # -----------
@@ -252,6 +260,19 @@ with open("./src/db/kanji.json", mode="r", encoding="utf-8") as read_file:
         kanji_info = kanji_data[kanji]
         kanji_frequency_rank_info[kanji] = get_ranks(kanji_info)
         kanji_frequency_rank_info[kanji].append(twitter_freq_data[kanji]['rank'])
+    
+def get_max_strokes(acc, kanji):
+    kanji_info = kanji_data[kanji]
+    strokes = get_strokes(kanji_info)
+    if isinstance(strokes, (int)):
+        return max(strokes, acc)
+    
+    return acc
+
+    
+
+max_strokes = reduce(get_max_strokes, kanji_list, 0)
+print("max strokes", max_strokes)
 
 with open("./scripts/generated/generated_kanji_twitter_freq.json", mode="w", encoding="utf-8") as write_file:
     json.dump(twitter_freq_array, write_file, indent=2, ensure_ascii=False)
