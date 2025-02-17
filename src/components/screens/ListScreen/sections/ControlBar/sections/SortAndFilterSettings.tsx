@@ -36,7 +36,7 @@ const SortAndFilterSettings = () => {
               <div className="absolute -top-1.5 -right-2 h-[18px] w-[18px] border-4 border-white dark:border-black bg-red-500 rounded-full font-bold flex items-center justify-center" />
             </Button>
           </HoverCardTrigger>
-          <HoverCardContent className="p-2 w-32 text-xs z-50 rounded-md border bg-popover text-popover-foreground shadow-md outline-none">
+          <HoverCardContent className="p-2 w-24 text-xs z-50 rounded-md border bg-popover text-popover-foreground shadow-md outline-none">
             Sort and Filter Settings
           </HoverCardContent>
         </HoverCard>
