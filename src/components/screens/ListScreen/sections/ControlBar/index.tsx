@@ -10,7 +10,7 @@ import CardPresentationSettings from "./sections/CardPresentationSettings";
 const SearchInput = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const inputRef = useRef<any>();
-  const [value, setValue] = useState("meaning");
+  const [value, setValue] = useState("keyword");
 
   useEffect(() => {
     console.log("text", inputRef?.current?.value);
@@ -20,7 +20,7 @@ const SearchInput = () => {
       return;
     }
 
-    if (value === "meaning") {
+    if (value === "keyword") {
       inputRef.current.value = wanakana.toRomaji(currentValue);
       try {
         wanakana.unbind(inputRef.current);
@@ -56,15 +56,15 @@ const SearchInput = () => {
   }, [value]);
 
   const placeHolder =
-    value === "meaning"
-      ? "Meaning Search"
+    value === "keyword"
+      ? "Keyword Search"
       : value === "onyomi"
       ? "オニョミ Search"
       : "くにょみ Search";
   return (
     <section className="w-full relative">
       <Input
-        className={`pl-7 pr-32 h-9 ${value === "meaning" ? "" : "kanji-font"}`}
+        className={`pl-7 pr-32 h-9 ${value === "keyword" ? "" : "kanji-font"}`}
         placeholder={placeHolder}
         ref={inputRef}
       />
@@ -76,7 +76,7 @@ const SearchInput = () => {
           "absolute right-1 top-1 w-28 h-7 bg-gray-100 dark:bg-gray-900"
         }
         options={[
-          { value: "meaning", label: "Meaning" },
+          { value: "keyword", label: "Keyword" },
           { value: "onyomi", label: "Onyomi" },
           { value: "kunyomi", label: "Kunyomi" },
         ]}
