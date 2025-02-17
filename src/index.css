@@ -78,6 +78,10 @@ button {
   cursor: pointer;
 }
 
+::selection {
+  background: chartreuse;
+}
+
 .dark button:focus,
 button:focus-visible.light {
   outline: 1px auto white;
