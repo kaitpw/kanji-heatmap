@@ -143,9 +143,6 @@ const CardPresentationSettings = () => {
     <Popover
       open={isOpen}
       onOpenChange={(newState) => {
-        if (document.activeElement instanceof HTMLElement) {
-          document.activeElement.blur();
-        }
         setIsOpen(newState);
       }}
     >
