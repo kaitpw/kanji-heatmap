@@ -223,6 +223,7 @@ kanji_list = []
 with open("./src/db/kanji.json", mode="r", encoding="utf-8") as read_file:
     kanji_data = json.load(read_file);
     kanji_list = [kanji for kanji in kanji_data.keys()]
+    print("number of kanjis:", len(kanji_list))
 
     # -----------
     # Main Info
@@ -269,20 +270,30 @@ def get_max_strokes(acc, kanji):
     
     return acc
 
+def get_max_deps(acc, kanji):
+    kanji_info = kanji_data[kanji]
+    deps = kanji_info.get('componentDependencies', {}).get('topoKanji', [])
+    new_acc = max(len(deps), acc)
+
+    if new_acc > acc:
+        print(kanji, ":", deps)
+    return new_acc
     
 
 max_strokes = reduce(get_max_strokes, kanji_list, 0)
-print("max strokes", max_strokes)
+print("max strokes:", max_strokes)
 
-with open("./scripts/generated/generated_kanji_twitter_freq.json", mode="w", encoding="utf-8") as write_file:
-    json.dump(twitter_freq_array, write_file, indent=2, ensure_ascii=False)
+max_deps = reduce(get_max_deps, kanji_list, 0)
+print("max dependencies:", max_deps)
 
+INDENT = None # 4
+SEPARATORS = (',', ':') #None
 
-with open("./scripts/generated/generated_kanji_list.json", mode="w", encoding="utf-8") as write_file:
-    json.dump(kanji_list, write_file, indent=2, ensure_ascii=False)
+def dump_json(file_name, data, indent=INDENT, separators=SEPARATORS):
+    with open(file_name, mode="w", encoding="utf-8") as write_file:
+        json.dump(data, write_file, indent=indent, separators=separators, ensure_ascii=False)
 
-with open("./scripts/generated/generated_kanji_main.json", mode="w", encoding="utf-8") as write_file:
-    json.dump(kanji_main_info, write_file, indent=2, ensure_ascii=False)
-
-with open("./scripts/generated/generated_kanji_freq.json", mode="w", encoding="utf-8") as write_file:
-    json.dump(kanji_frequency_rank_info, write_file, indent=2, ensure_ascii=False)
+dump_json("./scripts/generated/generated_kanji_main.json", kanji_main_info)
+dump_json("./scripts/generated/generated_kanji_list.json", kanji_list)
+dump_json("./scripts/generated/generated_kanji_freq.json", kanji_frequency_rank_info)
+dump_json("./scripts/generated/generated_kanji_twitter_freq.json", twitter_freq_array)
