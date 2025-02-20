@@ -1,8 +1,8 @@
 import { lazy, Suspense } from "react";
-import ControlBar from "./sections/ControlBar";
-import LoadingKanjis from "./sections/KanjiList/LoadingKanjis";
+import ControlBar from "./ControlBar";
+import LoadingKanjis from "./KanjiList/LoadingKanjis";
 
-const KanjiList = lazy(() => import("./sections/KanjiList"));
+const KanjiList = lazy(() => import("./KanjiList"));
 
 const ListScreen = () => {
   return (

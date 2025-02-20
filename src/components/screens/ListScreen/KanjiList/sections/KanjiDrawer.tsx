@@ -1,0 +1,129 @@
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerTitle,
+} from "@/components/ui/drawer";
+import { Button } from "@/components/ui/button";
+import React from "react";
+import { X } from "lucide-react";
+import { KanjiInfoLayout } from "./KanjiCard/layouts";
+import { KanjiCard } from "./KanjiCard";
+import SimpleAccordion from "@/components/common/SimpleAccordion";
+
+const LongContent = () => {
+  return (
+    <div className="my-4">
+      Test TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
+      TestTestTestTest TestTestTestTest TestTestTestTestTest
+    </div>
+  );
+};
+
+const KanjiAllInfo = () => {
+  return (
+    <div className="py-2 mx-2">
+      <SimpleAccordion trigger={"General"}>
+        <LongContent />l
+      </SimpleAccordion>
+      <SimpleAccordion trigger={"Notes"}>
+        <LongContent />
+      </SimpleAccordion>
+      <SimpleAccordion trigger={"Selected Vocabulary"}>
+        <LongContent />
+      </SimpleAccordion>
+      <SimpleAccordion trigger={"Stroke Order"}>
+        <LongContent />
+      </SimpleAccordion>
+      <SimpleAccordion trigger={"Frequency Rank"}>
+        <LongContent />
+      </SimpleAccordion>
+      <SimpleAccordion trigger={"Found in Kanji"}>
+        <LongContent />
+      </SimpleAccordion>
+    </div>
+  );
+};
+export function KanjiDrawerRaw({
+  isOpen,
+  onClose,
+  kanji,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  kanji: string;
+}) {
+  return (
+    <Drawer open={isOpen} onClose={onClose}>
+      <DrawerContent
+        className="!select-text h-[95svh] !duration-150"
+        aria-hidden="true"
+      >
+        <DrawerTitle className="sr-only">
+          Information for Kanji {kanji}
+        </DrawerTitle>
+        <DrawerDescription className="sr-only">
+          Includes Sample Usage, Semantic Phonetic Compositions etc.
+        </DrawerDescription>
+        <KanjiInfoLayout
+          first={<KanjiCard kanji={kanji} />}
+          second={<KanjiAllInfo />}
+        />
+        <DrawerClose asChild className="absolute -top-1 right-0">
+          <Button variant="ghost" size="icon" className="m-2">
+            <X />
+          </Button>
+        </DrawerClose>
+      </DrawerContent>
+    </Drawer>
+  );
+}
+
+export const KanjiDrawer = React.memo(KanjiDrawerRaw);

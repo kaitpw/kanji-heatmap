@@ -1,0 +1,64 @@
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { badgeCn, SpanBadge } from "@/components/ui/badge";
+import * as wanakana from "wanakana";
+
+const useHiraganaWordButton = (rawKana: string) => {
+  const [kana, setKana] = useState(rawKana);
+
+  const isHiragana = wanakana.isHiragana(kana.replace(/\s+/g, ""));
+  const fontCss = isHiragana ? "kanji-font" : "romaji-font";
+
+  const onToggle = () => {
+    const newKana = wanakana.isHiragana(kana.replace(/\s+/g, ""))
+      ? wanakana.toRomaji(kana)
+      : wanakana.toHiragana(kana);
+
+    setKana(newKana);
+  };
+
+  return { kana, fontCss, onToggle };
+};
+
+export const HiraganaWord = ({
+  rawKana,
+  highlightIndex,
+  spanCn = "",
+  btnCn = "",
+}: {
+  rawKana: string;
+  highlightIndex: number;
+  spanCn?: string;
+  btnCn?: string;
+}) => {
+  const { kana, fontCss, onToggle } = useHiraganaWordButton(rawKana);
+
+  return (
+    <Button
+      variant="ghost"
+      className={`flex z-0 text-md lg:text-2xl ${fontCss} ${btnCn}`}
+      onClick={onToggle}
+    >
+      {kana.split(" ").map((mora, index) => {
+        const key = `${mora}-${index}`;
+
+        if (index === highlightIndex) {
+          return (
+            <SpanBadge
+              className={`${badgeCn} text-[15px] md:text-[20px] ${spanCn}`}
+              key={key}
+            >
+              {mora}
+            </SpanBadge>
+          );
+        }
+
+        return (
+          <span className={`text-[15px] md:text-[20px] ${spanCn}`} key={key}>
+            {mora}
+          </span>
+        );
+      })}
+    </Button>
+  );
+};
