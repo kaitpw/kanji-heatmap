@@ -43,8 +43,10 @@ export const KanjiInfoLayout = ({
   second: ReactNode;
 }) => {
   return (
-    <div className="w-full flex flex-col md:flex-row md:space-x-1">
-      <div className="md:w-1/2 2xl:w-1/3">{first}</div>
+    <div className="w-full flex flex-col overflow-y-scroll md:flex-row md:space-x-1">
+      <div className="md:sticky top-[0px] left-[0px] md:w-1/2 2xl:w-1/3">
+        {first}
+      </div>
       <div className="md:w-1/2 2xl:w-2/3">{second}</div>
     </div>
   );

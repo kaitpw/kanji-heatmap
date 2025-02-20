@@ -41,7 +41,9 @@ const SortAndFilterSettings = () => {
           </HoverCardContent>
         </HoverCard>
       </DialogTrigger>
-      <DialogContent className={"overflow-y-scroll max-h-screen z-50"}>
+      <DialogContent
+        className={"overflow-y-scroll overflow-x-hidden max-h-screen z-50"}
+      >
         <DialogHeader>
           <DialogTitle>Sorting and Filtering Settings</DialogTitle>
           <DialogDescription className="sr-only">

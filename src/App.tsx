@@ -9,8 +9,7 @@ import {
 import {
   ListScreen,
   VennDiagramScreen,
-  NetworkGraphScreen,
-  GroupsScreen,
+  CumUseScreen,
 } from "@/components/screens";
 import { NavigationListItem, NavLayout } from "@/components/layouts/nav";
 import Header from "@/components/sections/Header";
@@ -19,32 +18,30 @@ import React from "react";
 const navItems: {
   href: string;
   title: string;
+  description: string;
   component: React.ComponentType<
     RouteComponentProps<{
       [param: number]: string | undefined;
     }>
   >;
 }[] = [
-  { href: "/", title: "Basic List", component: ListScreen },
+  {
+    href: "/",
+    title: "Basic List",
+    component: ListScreen,
+    description: "Quickly sort, filter and search Kanjis",
+  },
   {
     href: "/frequency-venn-diagram",
     title: "Frequency Venn Diagram",
     component: VennDiagramScreen,
-  },
-  {
-    href: "/dependency-network-graph",
-    title: "Dependency Network Graph",
-    component: NetworkGraphScreen,
-  },
-  {
-    href: "/grouped-by-onyomi",
-    title: "Grouped by Onyomi",
-    component: GroupsScreen,
+    description: "Learn overlap of various kanji frequency rankings data",
   },
   {
     href: "/cumulative-use-graph",
     title: "Frequency Cumulative Use Graph",
-    component: GroupsScreen,
+    description: "Learn cumulative use data based on various corpus",
+    component: CumUseScreen,
   },
 ];
 
@@ -64,7 +61,7 @@ export const Nav = () => {
               href={item.href}
               title={item.title}
             >
-              Description here
+              {item.description}
             </NavigationListItem>
           );
         })}

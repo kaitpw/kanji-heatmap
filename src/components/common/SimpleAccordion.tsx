@@ -8,10 +8,10 @@ import { ReactNode } from "react";
 
 const SimpleAccordion = ({
   trigger,
-  content,
+  children,
 }: {
   trigger: ReactNode;
-  content: ReactNode;
+  children: ReactNode;
 }) => {
   return (
     <Accordion type="single" collapsible>
@@ -19,7 +19,7 @@ const SimpleAccordion = ({
         <AccordionTrigger className="p-2 flex justify-start focus:outline-none">
           {trigger}
         </AccordionTrigger>
-        <AccordionContent>{content}</AccordionContent>
+        <AccordionContent>{children}</AccordionContent>
       </AccordionItem>
     </Accordion>
   );

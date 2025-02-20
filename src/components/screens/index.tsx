@@ -1,6 +1,5 @@
-import GroupsScreen from "./GroupsScreen";
 import ListScreen from "./ListScreen";
-import NetworkGraphScreen from "./NetworkGraphScreen";
+import CumUseScreen from "./CumUseScreen";
 import VennDiagramScreen from "./VennDiagramScreen";
 
-export { GroupsScreen, ListScreen, NetworkGraphScreen, VennDiagramScreen };
+export { CumUseScreen, ListScreen, VennDiagramScreen };

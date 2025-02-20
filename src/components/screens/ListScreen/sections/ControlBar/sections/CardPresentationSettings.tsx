@@ -157,7 +157,7 @@ const CardPresentationSettings = () => {
           <span className="sr-only">Card Presentation Settings</span>
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="mx-4 -translate-y-1">
+      <PopoverContent className="mx-4 -translate-y-1 max-h-[80svh] overflow-y-auto overflow-x-hidden">
         <CardPresentationSettingsContent />
       </PopoverContent>
     </Popover>
