@@ -102,7 +102,10 @@ export function KanjiDrawerRaw({
 }) {
   return (
     <Drawer open={isOpen} onClose={onClose}>
-      <DrawerContent className="!select-text h-[95svh] !duration-150">
+      <DrawerContent
+        className="!select-text h-[95svh] !duration-150"
+        aria-hidden="true"
+      >
         <DrawerTitle className="sr-only">
           Information for Kanji {kanji}
         </DrawerTitle>

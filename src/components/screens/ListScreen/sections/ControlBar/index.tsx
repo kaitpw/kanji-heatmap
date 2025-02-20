@@ -1,11 +1,11 @@
 import { Search } from "lucide-react";
-import { Input } from "../../../../ui/input";
 import { useEffect, useRef, useState } from "react";
 import BasicSelect from "@/components/common/BasicSelect";
 import * as wanakana from "wanakana";
 
 import SortAndFilterSettings from "./sections/SortAndFilterSettings";
 import CardPresentationSettings from "./sections/CardPresentationSettings";
+import { cn } from "@/lib/utils";
 
 const SearchInput = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -13,7 +13,6 @@ const SearchInput = () => {
   const [value, setValue] = useState("keyword");
 
   useEffect(() => {
-    console.log("text", inputRef?.current?.value);
     const currentValue = inputRef?.current?.value ?? "";
 
     if (inputRef.current?.value == null) {
@@ -25,7 +24,7 @@ const SearchInput = () => {
       try {
         wanakana.unbind(inputRef.current);
       } catch {
-        console.log("cannot unbind");
+        console.log("cannot unbind initial");
       }
       return;
     }
@@ -35,7 +34,7 @@ const SearchInput = () => {
       try {
         wanakana.unbind(inputRef.current);
       } catch {
-        console.log("cannot unbind");
+        console.log("cannot unbind to onyomi");
       }
       inputRef.current.value = newValue;
       wanakana.bind(inputRef.current, { IMEMode: "toKatakana" });
@@ -47,7 +46,7 @@ const SearchInput = () => {
       try {
         wanakana.unbind(inputRef.current);
       } catch {
-        console.log("cannot unbind");
+        console.log("cannot unbind to kunyomi");
       }
       inputRef.current.value = newValue;
       wanakana.bind(inputRef.current, { IMEMode: "toHiragana" });
@@ -66,8 +65,11 @@ const SearchInput = () => {
   const itemCNFunc = (v: string) => (v !== "keyword" ? "kanji-font" : "");
   return (
     <section className="w-full relative">
-      <Input
-        className={`pl-7 pr-32 h-9 ${fontCN}`}
+      <input
+        className={cn(
+          "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+          `pl-7 pr-32 h-9 ${fontCN}`
+        )}
         placeholder={placeHolder}
         ref={inputRef}
       />
