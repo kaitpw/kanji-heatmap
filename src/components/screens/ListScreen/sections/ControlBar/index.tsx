@@ -59,12 +59,15 @@ const SearchInput = () => {
     value === "keyword"
       ? "Keyword Search"
       : value === "onyomi"
-      ? "オニョミ Search"
-      : "くにょみ Search";
+      ? "オニョミ 検索"
+      : "くにょみ 検索";
+
+  const fontCN = value !== "keyword" ? "kanji-font" : "";
+  const itemCNFunc = (v: string) => (v !== "keyword" ? "kanji-font" : "");
   return (
     <section className="w-full relative">
       <Input
-        className={`pl-7 pr-32 h-9 ${value === "keyword" ? "" : "kanji-font"}`}
+        className={`pl-7 pr-32 h-9 ${fontCN}`}
         placeholder={placeHolder}
         ref={inputRef}
       />
@@ -72,13 +75,12 @@ const SearchInput = () => {
       <BasicSelect
         value={value}
         onChange={(newValue) => setValue(newValue)}
-        triggerCN={
-          "absolute right-1 top-1 w-28 h-7 bg-gray-100 dark:bg-gray-900"
-        }
+        triggerCN={`absolute right-1 top-1 w-28 h-7 bg-gray-100 dark:bg-gray-900 ${fontCN}`}
+        selectItemCNFunc={itemCNFunc}
         options={[
           { value: "keyword", label: "Keyword" },
-          { value: "onyomi", label: "Onyomi" },
-          { value: "kunyomi", label: "Kunyomi" },
+          { value: "onyomi", label: "オニョミ" },
+          { value: "kunyomi", label: "くにょみ" },
         ]}
         srOnlyLabel="Search Type"
       />

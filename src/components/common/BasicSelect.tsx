@@ -12,13 +12,15 @@ import { Label } from "../ui/label";
 const BasicSelect = ({
   value,
   onChange,
-  triggerCN,
   options,
+  triggerCN,
+  selectItemCNFunc,
   srOnlyLabel,
 }: {
   value: string;
   onChange: (value: string) => void;
   triggerCN?: string;
+  selectItemCNFunc?: (v: string) => string;
   options: { label: ReactNode; value: string; disabled?: boolean }[];
   srOnlyLabel: string;
 }) => {
@@ -40,6 +42,7 @@ const BasicSelect = ({
             {options.map((option) => {
               return (
                 <SelectItem
+                  className={selectItemCNFunc?.(option.value)}
                   key={option.value}
                   value={option.value}
                   disabled={option.disabled}

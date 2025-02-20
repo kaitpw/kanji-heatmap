@@ -28,3 +28,7 @@
 .kanji-font {
   font-family: var(--kanji-font);
 }
+
+.romaji-font {
+  font-family: Avenir, Inter, system-ui, Helvetica, Arial, sans-serif;
+}

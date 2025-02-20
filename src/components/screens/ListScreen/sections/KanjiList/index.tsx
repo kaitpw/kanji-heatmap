@@ -1,11 +1,12 @@
 import { useMemo, useState } from "react";
 import { useSearchParams } from "wouter";
 import React from "react";
-import HoverMe, { DrawerDemo } from "./sections/HoverMe";
+import HoverMe from "./sections/HoverMe";
 import { useWindowSize } from "@react-hook/window-size"; // Debounced values
 import VirtualList from "react-tiny-virtual-list";
 import { HEADER_HEIGHT, TILE_SIZE } from "./constants";
 import kanjiKeys from "@/db/generated_kanji_list.json";
+import { KanjiDrawer } from "./sections/KanjiDrawer";
 
 const KanjiListRaw = () => {
   const [hoveredKanji, setHoveredKanji] = useState<string | null>(null);
@@ -59,12 +60,12 @@ const KanjiListRaw = () => {
           );
         }}
       />
-      <DrawerDemo
+      <KanjiDrawer
         isOpen={openedKanji !== null}
         onClose={() => {
           setSearchParams({});
         }}
-        kanji={openedKanji}
+        kanji={openedKanji ?? ""}
       />
     </>
   );
