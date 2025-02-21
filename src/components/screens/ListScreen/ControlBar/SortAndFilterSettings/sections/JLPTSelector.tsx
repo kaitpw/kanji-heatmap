@@ -34,7 +34,7 @@ export function JLPTSelector() {
         defaultValue={selectedJLPT}
         placeholder="All JLPT levels are selected by default"
         variant="inverted"
-        maxCount={3}
+        maxCount={6}
       />
     </div>
   );

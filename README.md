@@ -26,7 +26,7 @@
 3. jlpt
 4. strokes
 5. rtk_index
-6. wanikani
+6. wanikani_lvl
 7. jouyou_grade
 
 ### Array Data Types
@@ -34,7 +34,7 @@
 1. all_meanings
 2. all_kun
 3. all_on
-4. component parts
+4. component_parts
 
 ### Frequency Info
 
@@ -62,7 +62,7 @@
 
 1. `ultimate_average_rank` = `(goog + kuf + mdc + bunka + jisho + kd + wkfr) / 7`
 2. `ultimate_average_weighted` = `( 2 * goog + 2 * kuf + 2 * bunka + mdc + jisho + kd + wkfr ) / 10`
-3. `rank_weighted5` = `(2 * goog + 3 * kuf + 2 *  mcd + 2 * bunka + jisho ) / 10`
+3. `ultimate_rank_weighted5` = `(2 * goog + 3 * kuf + 2 *  mcd + 2 * bunka + jisho ) / 10`
 4. Frequency star IE: `5⭐`.
 
 - `5⭐` - top 250
@@ -111,7 +111,7 @@
 
 ## Caching
 
-### `useKanjiCache`
+### `useKanjiCache()`
 
 1. `getKanjiInfo()`
 
@@ -131,7 +131,21 @@ Kanji Cache looks like this:
 {
     phonetic: { [part_component]: reading }
     part_component_keyword: { [part_component]: keyword }
-    kanjiInfo: { mainInfo: {}, vocab: }
+    kanjiInfo: {
+        [kanji]:
+            {
+                mainInfo: {},
+                vocab: { definition, spacedKana, word }[]
+        }
+    }
+    computed: {
+        [kanji]:
+            {
+                dependentKanjis: [],
+                similarKanjis: [],
+            }
+        }
+    }
 }
 ```
 
@@ -239,13 +253,24 @@ python ./scripts/compress_kanji_data.py
 
 ### Not priority
 
+- Add icons for frequency rank options
+- Improve fonts and font optimization with japanese fonts
 - Make Venn Diagram Page
 - Make Cumulative Use Page
 - Add a combo box for searching for onyomi readings
 - Add pictures for each notes of each Kanji
 - Handle the issue with having multiple tabs open with different indexdb versions
 - Allow search by:
+  - Meaning
   - Part Component
   - Phonetic Component
   - Visually Similar
 - Allow use of custom colors for card background and JLPT border
+
+## Generating PWA Manifest
+
+- https://maskable.app/
+- https://favicon.io
+- https://redketchup.io/icon-converter
+- https://vite-pwa-org.netlify.app/assets-generator/
+- https://progressier.com/pwa-manifest-generator

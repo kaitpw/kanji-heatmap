@@ -42,7 +42,7 @@ const HoverMeRaw = ({
         </HoverCardTrigger>
         <HoverCardContent className="w-auto p-1">
           <HoverCardArrow />
-          <div className="hidden [@media(min-height:800px)]:[@media(min-width:400px)]:block">
+          <div className="hidden[@media(min-height:800px)]:[@media(min-width:400px)]:block">
             <KanjiCard kanji={trigger} />
           </div>
           <Button
