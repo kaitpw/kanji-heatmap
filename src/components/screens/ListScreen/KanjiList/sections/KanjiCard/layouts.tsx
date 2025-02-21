@@ -58,14 +58,12 @@ export const KanjiCardLayout = ({
   secondWordCard,
   kanjiComponents,
   frequencyBadges,
-  phoneticComponent,
 }: {
   mainCard: ReactNode;
   firstWordCard: ReactNode;
   secondWordCard: ReactNode;
   kanjiComponents?: ReactNode;
   frequencyBadges?: ReactNode;
-  phoneticComponent?: ReactNode;
 }) => {
   return (
     <>
@@ -92,20 +90,11 @@ export const KanjiCardLayout = ({
           </div>
         </div>
       </div>
-      {kanjiComponents && phoneticComponent && (
-        <div className="flex justify-center items-center mb-2 mx-1 md:mx-2">
-          {phoneticComponent && (
-            <Card className="p-1.5 flex grow justify-center items-center mr-2">
-              {phoneticComponent}
-            </Card>
-          )}
-          {kanjiComponents && (
-            <Card className="p-1 flex grow justify-center items-center h-full">
-              {kanjiComponents}
-            </Card>
-          )}
-        </div>
-      )}
+      <div className="flex justify-center items-center mb-2 mx-1 md:mx-2">
+        <Card className="p-1 flex grow justify-center items-center h-full">
+          {kanjiComponents}
+        </Card>
+      </div>
       {frequencyBadges && (
         <div className="flex space-x-1 justify-center flex-wrap space-y-1 mb-4">
           <div />

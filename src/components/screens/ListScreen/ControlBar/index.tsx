@@ -5,7 +5,7 @@ import * as wanakana from "wanakana";
 
 import { cn } from "@/lib/utils";
 import SortAndFilterSettings from "./SortAndFilterSettings/SortAndFilterSettings";
-import CardPresentationSettings from "./CardPresentationSettings/CardPresentationSettings";
+import CardPresentationSettings from "./CardPresentationSettings";
 
 const SearchInput = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -68,7 +68,7 @@ const SearchInput = () => {
       <input
         className={cn(
           "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-          `pl-7 pr-32 h-9 ${fontCN}`
+          `pl-7 pr-[105px] h-9 ${fontCN}`
         )}
         placeholder={placeHolder}
         ref={inputRef}
@@ -77,7 +77,7 @@ const SearchInput = () => {
       <BasicSelect
         value={value}
         onChange={(newValue) => setValue(newValue)}
-        triggerCN={`absolute right-1 top-1 w-28 h-7 bg-gray-100 dark:bg-gray-900 ${fontCN}`}
+        triggerCN={`absolute right-1 top-1 w-26 h-7 bg-gray-100 dark:bg-gray-900 ${fontCN}`}
         selectItemCNFunc={itemCNFunc}
         options={[
           { value: "keyword", label: "Keyword" },
@@ -94,6 +94,9 @@ const ControlBar = () => {
   return (
     <section className="mx-auto max-w-screen-xl flex border-0 space-x-1 sticky">
       <SearchInput />
+      <div className="px-2 rounded-lg bg-opacity-75 bg-white dark:bg-black border absolute top-[39px] text-xs font-extrabold">
+        142 items
+      </div>
       <SortAndFilterSettings />
       <CardPresentationSettings />
     </section>

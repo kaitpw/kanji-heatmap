@@ -79,13 +79,13 @@ const KanjiAllInfo = () => {
       <SimpleAccordion trigger={"Selected Vocabulary"}>
         <LongContent />
       </SimpleAccordion>
-      <SimpleAccordion trigger={"Stroke Order"}>
+      <SimpleAccordion trigger={"Stroke Order Animation"}>
         <LongContent />
       </SimpleAccordion>
-      <SimpleAccordion trigger={"Frequency Rank"}>
+      <SimpleAccordion trigger={"Frequency Ranks"}>
         <LongContent />
       </SimpleAccordion>
-      <SimpleAccordion trigger={"Found in Kanji"}>
+      <SimpleAccordion trigger={"Related Kanji"}>
         <LongContent />
       </SimpleAccordion>
     </div>

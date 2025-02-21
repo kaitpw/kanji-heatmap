@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { ReactNode } from "react";
+import { ReactNode, useId } from "react";
 
 const SimpleAccordion = ({
   trigger,
@@ -13,10 +13,11 @@ const SimpleAccordion = ({
   trigger: ReactNode;
   children: ReactNode;
 }) => {
+  const accordionId = useId();
   return (
     <Accordion type="single" collapsible>
-      <AccordionItem value="item-1">
-        <AccordionTrigger className="p-2 flex justify-start focus:outline-none">
+      <AccordionItem value={`accordion-${accordionId}`}>
+        <AccordionTrigger className="p-2 flex justify-start space-x-2 focus:outline-none">
           {trigger}
         </AccordionTrigger>
         <AccordionContent>{children}</AccordionContent>

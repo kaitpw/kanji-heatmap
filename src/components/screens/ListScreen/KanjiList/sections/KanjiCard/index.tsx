@@ -29,21 +29,6 @@ export const KanjiLink = ({
   );
 };
 
-export const KanjiPhoneticComponent = ({
-  kana,
-  kanji,
-}: {
-  kana: string;
-  kanji: string;
-}) => {
-  return (
-    <div className="flex flex-col">
-      <HiraganaWord rawKana={kana} highlightIndex={0} />
-      <div className="text-4xl kanji-font">{kanji}</div>
-    </div>
-  );
-};
-
 export const WordCard = ({
   word,
   spacedKana,
@@ -144,7 +129,6 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
           })}
         </>
       }
-      phoneticComponent={<KanjiPhoneticComponent kanji={kanji} kana="じじ" />}
     />
   );
 };

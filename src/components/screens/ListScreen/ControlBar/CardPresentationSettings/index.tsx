@@ -1,4 +1,3 @@
-import BasicSelect from "@/components/common/BasicSelect";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
@@ -12,23 +11,7 @@ import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { Flower } from "lucide-react";
 import { useState, useId, ReactNode } from "react";
-
-export function DummySelect() {
-  const [value, setValue] = useState("meaning");
-
-  return (
-    <BasicSelect
-      value={value}
-      onChange={(newValue) => setValue(newValue)}
-      options={[
-        { value: "meaning", label: "Meaning" },
-        { value: "onyomi", label: "Onyomi", disabled: true },
-        { value: "kunyomi", label: "Kunyomi" },
-      ]}
-      srOnlyLabel="Search Type"
-    />
-  );
-}
+import { FrequencyRankDataSource } from "../SortAndFilterSettings/sections/common";
 
 const CardTypeSwitch = () => {
   const switchId = useId();
@@ -94,10 +77,9 @@ const CardPresentationSettingsContent = () => {
   return (
     <article className="text-left">
       <h1 className="text-lg font-bold flex space-x-2 items-center">
-        Card Presentation Settings
+        Item Presentation Settings
       </h1>
       <Separator className="mb-2" />
-      <p className="text-sm">Control How each Kanji Card look like</p>
       <section>
         <H2>Card Type</H2>
         <CardTypeSwitch />
@@ -127,7 +109,7 @@ const CardPresentationSettingsContent = () => {
           <div className="text-xs">More</div>
         </div>
         <p className="text-xs mt-3">Frequency Data Source*</p>
-        <DummySelect />
+        <FrequencyRankDataSource />
         <div className="text-xs mt-2">
           * Netflix Frequency is based on the list by OhTalkWho オタク.{" "}
           <span className="underline">See Source.</span>
