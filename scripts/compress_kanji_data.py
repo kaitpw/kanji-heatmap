@@ -5,19 +5,59 @@ import json
 
 # Build Data 
 '''
+
+TODO: 🚧 🚧 🚧  check if there is "disrepancy" for those with multiple sources
+
+db stores: 
+- main_info
+- freq_info
+- non-kanji component keywords map
+- semantic component mapping
+- 🚧 🚧 🚧 vocab_info: [WORD_WITH_KANJI, SPACED_KANA][]
+
+Info to add:
+// joyou grade
+// all meanings
+// all kun-readings
+// all on-readings
+// in: "component dependencies"
+// out: kanjis dependent on this as a component
+// 🚧 🚧 🚧 "Usually Confused with" Kanjis 
+
+listItem: 
+{ kanji, keyword, main_onyomi, main_kunyomi, bgRank, jlpt }
+
+hoverItem:
+main: { kanji, keyword }
+vocab: { spacedKana, kanji, meaning }[]
+components: { component, keyword }[]
+phonetic: { component, kana }
+---> badges[] 
+
+
+infoDetails:
+1. joyou grade
+2. all meanings
+3. all kun-readings
+4. all on-readings
+5. out: kanjis dependent on this kanji
+6. badges[]
+---> frequencyDetails
+
 ----------------
 kanji_main_info_json
 ----------------
 
 kanji_main_info[kanji] = [
-    meaning,
-    on_reading,
-    kun_reading,
+    keyword,
+    main_on_reading,
+    main_kun_reading,
     jlpt,
     strokes,
     rtk_index,
-    wanikani 🚧
+    wanikani
 ]
+
 
 ----------------
 kanji_frequency_info.json
@@ -30,14 +70,8 @@ kanji_frequency_info.json
 10. newspapers 1 - https://github.com/Lemmmy/KanjiSchool/blob/master/src/data/jisho-data.json
 11. newspapers 2 - https://github.com/davidluzgouveia/kanji-data
 12. twitter - https://github.com/scriptin/kanji-frequency/
-13. 2242 KANJI FREQUENCY LIST VER. 1.1 https://docs.google.com/spreadsheets/d/1MBYfKPrlST3F51KIKbAlsGw1x4c_atuHfPwSSRN5sLs/edit?gid=479449032#gid=479449032, https://www.researchgate.net/publication/357159664_2242_Kanji_Frequency_List_ver_11
--> 🚧 Shibano's Gooogle
--> 🚧 KUF
--> 🚧 MCD
--> 🚧 Japanese Agency of Cultural Affairs
--> 🚧 Jisho
--> 🚧 KD
--> 🚧 WKFR
+13+ 2242 KANJI FREQUENCY LIST VER. 1.1 https://docs.google.com/spreadsheets/d/1MBYfKPrlST3F51KIKbAlsGw1x4c_atuHfPwSSRN5sLs/edit?gid=479449032#gid=479449032, https://www.researchgate.net/publication/357159664_2242_Kanji_Frequency_List_ver_11
+
 
 [
     rank_aozora_char,
@@ -51,7 +85,15 @@ kanji_frequency_info.json
     rank_netflix,
     rank_newspapers_1,
     rank_newspapers_2,
-    rank_twitter,
+    rank_google,
+    rank_kuf,
+    rank_mcd,
+    rank_bunka,
+    rank_jisho,
+    rank_kd,
+    rank_avg,
+    rank_weighted,
+    rank_weighted5,
 ]
 '''
 
@@ -139,6 +181,11 @@ def get_ranks(kanji_info):
     def dig_scriptin(source_key, rank_type_key = 'charRank'):
         rank = all_scriptin.get(source_key, {}).get(rank_type_key, None)
         return to_int(rank)
+
+    all_ultimate = all_.get('ultimate', {})
+    def dig_ultimate(source_key):
+        rank = all_ultimate.get(source_key, None)
+        return to_int(rank)
     
     rank_aozora_char = dig_scriptin('aozora')  or '❌'
     rank_online_news_char = dig_scriptin('news') or '❌'
@@ -152,6 +199,16 @@ def get_ranks(kanji_info):
     rank_newspapers_1 = all_.get('davidluzgouveiaJlpt', None) or '❌'
     rank_newspapers_2 = all_.get('kanjiSchool', None) or '❌'
 
+    rank_google = dig_ultimate("google") or '❌'
+    rank_kuf = dig_ultimate("kuf") or '❌'
+    rank_mcd = dig_ultimate("mcd") or '❌'
+    rank_bunka = dig_ultimate("bunka") or '❌'
+    rank_jisho = dig_ultimate("jisho") or '❌'
+    rank_kd = dig_ultimate("kd") or '❌'
+    rank_avg = dig_ultimate("avg") or '❌'
+    rank_weighted = dig_ultimate("weighted") or '❌'
+    rank_weighted5 = dig_ultimate("weighted5") or '❌'
+
     return [
         rank_aozora_char,
         rank_online_news_char,
@@ -164,6 +221,15 @@ def get_ranks(kanji_info):
         rank_netflix,
         rank_newspapers_1,
         rank_newspapers_2,
+        rank_google,
+        rank_kuf,
+        rank_mcd,
+        rank_bunka,
+        rank_jisho,
+        rank_kd,
+        rank_avg,
+        rank_weighted,
+        rank_weighted5,
     ]
     
 
@@ -220,7 +286,11 @@ kanji_main_info = {}
 kanji_frequency_rank_info = {}
 kanji_list = []
 
-with open("./src/db/kanji.json", mode="r", encoding="utf-8") as read_file:
+ORIGINAL_KANJI_JSON = "./original_data/kanji.json"
+ORIGINAL_KANJI_COMPONENTS = "./original_data/kanji_components.json"
+ORIGINAL_KANJI_PHONETIC_COMPONENTS = "./original_data/phonetic_components.json"
+
+with open("./original_data/kanji.json", mode="r", encoding="utf-8") as read_file:
     kanji_data = json.load(read_file);
     kanji_list = [kanji for kanji in kanji_data.keys()]
     print("number of kanjis:", len(kanji_list))
@@ -262,6 +332,7 @@ with open("./src/db/kanji.json", mode="r", encoding="utf-8") as read_file:
         kanji_frequency_rank_info[kanji] = get_ranks(kanji_info)
         kanji_frequency_rank_info[kanji].append(twitter_freq_data[kanji]['rank'])
     
+
 def get_max_strokes(acc, kanji):
     kanji_info = kanji_data[kanji]
     strokes = get_strokes(kanji_info)
@@ -286,7 +357,7 @@ print("max strokes:", max_strokes)
 max_deps = reduce(get_max_deps, kanji_list, 0)
 print("max dependencies:", max_deps)
 
-INDENT = None # 4
+INDENT = None # 2 # None # 4
 SEPARATORS = (',', ':') #None
 
 def dump_json(file_name, data, indent=INDENT, separators=SEPARATORS):
