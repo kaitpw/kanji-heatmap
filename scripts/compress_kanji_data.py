@@ -423,51 +423,54 @@ dump_json(REFORMATTED_KANJI_FILE_PATH , kanji_reformatted)
 # Inspect Data 
 # -----------------
 
-def get_max_strokes(acc, kanji):
+def get_max_strokes(acc, iter):
+    kanji = iter[1]
     kanji_info = kanji_data[kanji]
-    strokes = get_strokes(kanji_info)
-    if strokes is not None:
-        return max(strokes, acc)
+    new_acc = get_strokes(kanji_info)
+    if new_acc is not None:
+        new_acc = max(new_acc, acc)
+        if new_acc > acc:
+            print("{:<2} {:<5}".format(kanji, new_acc))
+        return new_acc
     return acc
 
 def generic_get_max(retrieve_data):
-    def get_max(acc, kanji):
+    def get_max(acc, iter):
+        kanji = iter[1]
         kanji_info = kanji_data[kanji]
         items = retrieve_data(kanji_info) or []
         new_acc = max(len(items), acc)
 
         if new_acc > acc:
-            print(kanji, ":", items)
+            print("{:<4} {:<2} {:<0}".format(kanji, len(items), str(items)[:100]))
+
         return new_acc
 
     return get_max
 
-print("\n. . . . . . .\n")
+print("---> number of kanjis:", len(kanji_list))
+# 2427
 
-print("number of kanjis:", len(kanji_list))
-# number of kanjis: 2427
+iter = [x for x in enumerate(kanji_list)]
+max_strokes = reduce(get_max_strokes, iter, 0)
+print("---> max strokes count:", max_strokes)
+# 24
 
-max_strokes = reduce(get_max_strokes, kanji_list, 0)
-print("max strokes count:", max_strokes)
-# max strokes count: 24
-
-print("\n. . . . . . .\n")
-max_deps = reduce(generic_get_max(get_component_parts), kanji_list, 0)
-print("max dependencies count:", max_deps)
+max_deps = reduce(generic_get_max(get_component_parts), iter, 0)
+print("---> max dependencies count:", max_deps)
 # max dependencies count: 8
 
-print("\n. . . . . . .\n")
-max_on_readings = reduce(generic_get_max(get_all_on_readings), kanji_list, 0)
-print("max onyomi count:", max_on_readings)
+max_on_readings = reduce(generic_get_max(get_all_on_readings), iter, 0)
 
-print("\n. . . . . . .\n")
-max_kun_readings = reduce(generic_get_max(get_all_kun_readings), kanji_list, 0)
-print("max kun count:", max_kun_readings)
+print("---> max onyomi count:", max_on_readings)
+
+max_kun_readings = reduce(generic_get_max(get_all_kun_readings), iter, 0)
+print("---> max kun count:", max_kun_readings)
 # max kun count: 21
 
-print("\n. . . . . . .\n")
-max_meaning = reduce(generic_get_max(get_all_meanings), kanji_list, 0)
-print("max meaning count:", max_meaning)
+max_meaning = reduce(generic_get_max(get_all_meanings), iter, 0)
+
+print("---> max meaning count:", max_meaning)
 # max meaning count: 16
 
 # Verify if keyword is unique
@@ -475,78 +478,74 @@ keyword_list = [
     get_keyword(kanji_data[kanji]) for kanji in kanji_list
 ]
 
-print("Unique Keywords", len(set(keyword_list)))
+print("---> Unique Keywords", len(set(keyword_list)))
 # Unique Keywords 2423
 
 no_keys = list(filter(lambda x: get_keyword(kanji_data[x]) is None, kanji_list))
-print("No keywords:", no_keys)
+print("---> No keywords:", no_keys)
 # No keywords: ['呟', '睨', '頷']
 
 # TODO: Write a function to find duplicate keyword (there is atleast one)
 
-one_on_reading = list(filter(lambda x: len(get_all_on_readings(kanji_data[x]) or []) == 1, kanji_list))
-print("number of kanjis with one onyomi reading", len(one_on_reading))
-# one onyomi 1590 
+def get_reading_stats(get_readings):
+    # number of possible readings
+    def get_reading_set(acc, kanji):
+        kanji_info = kanji_data[kanji]
+        items = get_readings(kanji_info) or []
+        acc.update(items)
+        return acc
+    
+    
+    one_reading = list(filter(lambda x: len(get_all_kun_readings(kanji_data[x]) or []) == 1, kanji_list))
+    print("---> number of kanjis with one reading", len(one_reading))
+    
+    
+    all_on_readings = reduce(get_reading_set, kanji_list, set())
+    print("---> All possible readings", len(list(all_on_readings)))
+    
+    reading_counts = {}
+    for kanji in kanji_list:
+        readings = get_readings(kanji_data[kanji]) or []
+        for reading in readings:
+            reading_counts[reading] = reading_counts.get(reading, 0) + 1
+    
+    reading_counts_array = [ 
+        { 'reading': reading , 'count': count } for reading, count in reading_counts.items()
+    ]
+    
+    unique_reading_count = len(reading_counts_array)
+    print("---> unique_readings", unique_reading_count)
+    
+    multiple_on_count = len(list(filter(lambda x: x['count'] > 1, reading_counts_array)))
+    single_on_count = len(list(filter(lambda x: x['count'] <= 1, reading_counts_array)))
+    
+    print("---> reading with multiple kanjis:", multiple_on_count) 
+    print("---> reading with single kanji:", single_on_count) 
+    
+    def sort_func(item):
+        return item['count']
+    
+    # An array of items { kanji, count, fraction, cum_use } now sorted by frequency, most frequent at the top 
+    reading_counts_array.sort(key=sort_func, reverse=True)
+    
+    
+    # Top X readings
+    top_x = 20
+    # mapping count of reading
+    print(f"---- Top {top_x} Readings ---")
+    print("{:<10} {:<15}".format('Reading','Count'))
+    for item in reading_counts_array[:top_x]:
+        print("{:<10} {:<15}".format(item['count'], item['reading']))
 
-one_kun_reading = list(filter(lambda x: len(get_all_kun_readings(kanji_data[x]) or []) == 1, kanji_list))
-print("number of kanjis with one kunyomi reading", len(one_kun_reading))
-# one kunyomi 545
+print("..........")
+print("ONYOMI")
+print("..........")
+get_reading_stats(get_all_on_readings)
 
-# number of possible onyomi readings
-def get_on_set(acc, kanji):
-    kanji_info = kanji_data[kanji]
-    items = get_all_on_readings(kanji_info) or []
-    acc.update(items)
-    return acc
-
-def get_kun_set(acc, kanji):
-    kanji_info = kanji_data[kanji]
-    items = get_all_kun_readings(kanji_info) or []
-    acc.update(items)
-    return acc
-
-all_on_readings = reduce(get_on_set, kanji_list, set())
-print("All possible onyomi readings", len(list(all_on_readings)))
-# All possible onyomi readings 338
-
-all_kun_readings = reduce(get_kun_set, kanji_list, set())
-print("All possible kunyomi readings", len(list(all_kun_readings)))
-# There are many duplicates here. Need to clean up
-# All possible kunyomi readings 3199
-# Note that the number of kanji's with one onyomi reading is 545
-
-# Top X onyomi readings
-
-onyomi_counts = {}
-for kanji in kanji_list:
-    onyomis = get_all_on_readings(kanji_data[kanji]) or []
-    for on_reading in onyomis:
-        onyomi_counts[on_reading] = onyomi_counts.get(on_reading, 0) + 1
-
-onyomi_counts_array = [ 
-    { 'reading': reading , 'count': count } for reading, count in onyomi_counts.items()
-]
-
-unique_onyomi_count = len(onyomi_counts_array)
-print("unique onyomis", unique_onyomi_count)
-
-multiple_on_count = len(list(filter(lambda x: x['count'] > 1, onyomi_counts_array)))
-single_on_count = len(list(filter(lambda x: x['count'] <= 1, onyomi_counts_array)))
-
-print("onyomi with multiple kanjis", multiple_on_count) 
-print("onyomi with single kanji", single_on_count) 
-
-def sort_func(item):
-    return item['count']
-
-# An array of items { kanji, count, fraction, cum_use } now sorted by frequency, most frequent at the top 
-onyomi_counts_array.sort(key=sort_func, reverse=True)
-
-print("{:<10} {:<15}".format('On Reading','Count'))
-
-# mapping count of onyomi reading
-for item in onyomi_counts_array[:50]:
-    print("{:<10} {:<15}".format(item['count'], item['reading']))
+print("..........")
+print("KUNYOMI")
+print("..........")
+get_reading_stats(get_all_kun_readings)
 
 # -----------------
 # Questions to Answer
