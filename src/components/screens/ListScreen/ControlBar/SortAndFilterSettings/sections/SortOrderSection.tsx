@@ -3,12 +3,13 @@ import { useState } from "react";
 import BasicSelect from "@/components/common/BasicSelect";
 import { Badge } from "@/components/ui/badge";
 import { ArrowDownWideNarrow } from "lucide-react";
+
+import { UppercaseHeading } from "./common";
 import {
   OPTION_LABELS,
   PRIMARY_SORT_ORDER_SELECT,
   SECONDARY_SORT_ORDER_SELECT,
-} from "./frequency-types";
-import { UppercaseHeading } from "./common";
+} from "@/lib/frequency-rank";
 
 export const SortOrderSection = () => {
   const [value, setValue] = useState(PRIMARY_SORT_ORDER_SELECT[0].value);

@@ -4,6 +4,8 @@ import LoadingKanjis from "./KanjiList/LoadingKanjis";
 
 const KanjiList = lazy(() => import("./KanjiList"));
 
+// KanjiListItems
+//
 const ListScreen = () => {
   return (
     <>

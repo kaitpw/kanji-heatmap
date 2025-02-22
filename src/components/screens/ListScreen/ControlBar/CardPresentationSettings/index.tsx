@@ -12,6 +12,7 @@ import { Switch } from "@/components/ui/switch";
 import { Flower } from "lucide-react";
 import { useState, useId, ReactNode } from "react";
 import { FrequencyRankDataSource } from "../SortAndFilterSettings/sections/common";
+import { BackgroundColorGradient, H2, JLPTBordersMeanings } from "./common";
 
 const CardTypeSwitch = () => {
   const switchId = useId();
@@ -40,40 +41,16 @@ const LabeledCheckbox = ({ label }: { label: string }) => {
   );
 };
 
-const H2 = ({ children }: { children: ReactNode }) => (
-  <h2 className="font-bold border-b-2 border-dotted mt-6 mb-2">{children}</h2>
-);
+/*
 
-const JLPTListItem = ({
-  label,
-  color,
-  cn,
-}: {
-  label: string;
-  color: string;
-  cn: string;
-}) => {
-  return (
-    <li className="flex justify-center items-center space-x-1 text-xs font-bold">
-      <div className={`${cn} h-4 w-4 rounded-sm`}>
-        <span className="sr-only">{color}</span>
-      </div>
-      <span>{label}</span>
-    </li>
-  );
-};
+cardSettings = {
+	cardType: 'expanded'
+	borderMeaning: 'jlpt' | null
+	backgroundMeaning: 'freq-netflix' | null
+}
+*/
 
-// bg-lime-300 bg-[#fb02a8]
-const FreqSquare = ({ srOnly, cn }: { srOnly: string; cn: string }) => {
-  return (
-    <div
-      className={`${cn} bg-[#fb02a8] h-4 w-4 rounded-sm bg-opacity-0 border border-opacity-50 border-gray-500 dark:border-gray-600 dark:border-opacity-50`}
-    >
-      <span className="sr-only">{srOnly}</span>
-    </div>
-  );
-};
-const CardPresentationSettingsContent = () => {
+export const CardPresentationSettingsContent = () => {
   return (
     <article className="text-left">
       <h1 className="text-lg font-bold flex space-x-2 items-center">
@@ -87,27 +64,12 @@ const CardPresentationSettingsContent = () => {
       <section>
         <H2>Border Color Meaning</H2>
         <LabeledCheckbox label="Attach Border Meaning" />
-        <h3 className="text-xs mt-4 mb-1 font-extrabold"> JLPT </h3>
-        <ul className="flex space-x-3 mb-4 flex-wrap">
-          <JLPTListItem cn="bg-lime-400" color="lime" label="N1" />
-          <JLPTListItem cn="bg-pink-400" color="lime" label="N2" />
-          <JLPTListItem cn="bg-blue-400" color="lime" label="N3" />
-          <JLPTListItem cn="bg-yellow-400" color="lime" label="N4" />
-          <JLPTListItem cn="bg-red-400" color="lime" label="N5" />
-        </ul>
+        <JLPTBordersMeanings />
       </section>
       <section>
         <H2>Background Color Meaning</H2>
         <LabeledCheckbox label="Attach Background Color Meaning" />
-        <div className="flex my-3 space-x-1 items-center">
-          <div className="text-xs">Less</div>
-          <FreqSquare srOnly={"0"} cn="bg-opacity-[0]" />
-          <FreqSquare srOnly={"0.25"} cn="bg-opacity-[0.25]" />
-          <FreqSquare srOnly={"0.5"} cn="bg-opacity-[0.5]" />
-          <FreqSquare srOnly={"0.75"} cn="bg-opacity-[0.75]" />
-          <FreqSquare srOnly={"1.00"} cn="bg-opacity-[1.0]" />
-          <div className="text-xs">More</div>
-        </div>
+        <BackgroundColorGradient />
         <p className="text-xs mt-3">Frequency Data Source*</p>
         <FrequencyRankDataSource />
         <div className="text-xs mt-2">
@@ -119,7 +81,7 @@ const CardPresentationSettingsContent = () => {
   );
 };
 
-const CardPresentationSettings = () => {
+const CardPresentationSettings = ({ children }: { children: ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <Popover
@@ -140,7 +102,7 @@ const CardPresentationSettings = () => {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="mx-4 -translate-y-1 max-h-[80svh] overflow-y-auto overflow-x-hidden">
-        <CardPresentationSettingsContent />
+        {children}
       </PopoverContent>
     </Popover>
   );

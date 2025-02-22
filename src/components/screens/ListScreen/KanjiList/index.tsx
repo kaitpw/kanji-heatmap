@@ -5,10 +5,10 @@ import HoverMe from "./sections/HoverMe";
 import { useWindowSize } from "@react-hook/window-size"; // Debounced values
 import VirtualList from "react-tiny-virtual-list";
 import { HEADER_HEIGHT, TILE_SIZE } from "./constants";
-import kanjiKeys from "@/db/generated_kanji_list.json";
+import KANJI_KEYS from "@/db/generated_kanji_list.json";
 import { KanjiDrawer } from "./sections/KanjiDrawer";
 
-const KanjiListRaw = () => {
+const KanjiListRaw = ({ kanjiKeys = KANJI_KEYS }: { kanjiKeys?: string[] }) => {
   const [hoveredKanji, setHoveredKanji] = useState<string | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
 
