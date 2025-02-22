@@ -63,7 +63,15 @@ export const FREQ_RANK_SOURCES_INFO: Record<
   string,
   { description: string; links: string[] }
 > = {
-  [K_RANK_NETLIX]: { description: "", links: [] },
+  [K_RANK_NETLIX]: {
+    description:
+      "* Netflix Frequency is based on the list by OhTalkWho オタク (Dave Doebrick)",
+    links: [
+      "https://www.youtube.com/watch?v=DwJWld8hW0M",
+      "https://www.mediafire.com/folder/mvh6jhwj6xxo6/Frequency_Lists",
+      "https://drive.google.com/file/d/1qHEfYHXjEp83i6PxxMlSxluFyQg2W8Up/view",
+    ],
+  },
   [K_RANK_DRAMA_SUBTITLES]: { description: "", links: [] },
   [K_RANK_NOVELS_5100]: { description: "", links: [] },
   [K_RANK_TWITTER]: { description: "", links: [] },

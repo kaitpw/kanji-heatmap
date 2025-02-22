@@ -1,6 +1,6 @@
 import { ReactNode, useState } from "react";
 import BasicSelect from "@/components/common/BasicSelect";
-import { FREQUENCY_RANK_FILTER_OPTIONS } from "./frequency-types";
+import { FREQUENCY_RANK_FILTER_OPTIONS } from "../../../../../../lib/frequency-rank";
 
 export function FrequencyRankDataSource() {
   const [value, setValue] = useState(FREQUENCY_RANK_FILTER_OPTIONS[0].value);

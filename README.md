@@ -234,10 +234,11 @@ python ./scripts/compress_kanji_data.py
 
 ### Priority
 
-- Make app `PWA` including adding icons for manifest
+- ✅ Make app `PWA` including adding icons for manifest
 - Populate index db with kanji information using a loading screen at the beginning of page load if it doesn't exist yet
 - Create the cache hooks listed above to retrieve kanji information from index db
 - Make sorting and filtering work with web workers
+- Put sorting and item presentation settings in local storage
 - Add debouncing for text search
 - Make text search work with webworkers and fuzzy search
 - Design "expanded item card" layout
@@ -253,8 +254,12 @@ python ./scripts/compress_kanji_data.py
 
 ### Not priority
 
+- Add error boundaries
+- Add better descriptions for navigation items
+- Add links and better descriptions for frequency rank data source options
+- ✅ When selecting JLPT in filtering selection box display corresponding color for JLPT
 - Add icons for frequency rank options
-- Improve fonts and font optimization with japanese fonts
+- Use new fonts and improve fonts and font optimization with japanese fonts
 - Make Venn Diagram Page
 - Make Cumulative Use Page
 - Add a combo box for searching for onyomi readings
@@ -266,6 +271,10 @@ python ./scripts/compress_kanji_data.py
   - Phonetic Component
   - Visually Similar
 - Allow use of custom colors for card background and JLPT border
+
+**🛠️🛠️Bugs To Fix🛠️🛠️**
+
+- 🪲🐞 Some fonts don't load when app is installed and is working offline
 
 ## Generating PWA Manifest
 

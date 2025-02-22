@@ -2,26 +2,27 @@ import { useId, useState } from "react";
 
 import { Label } from "@/components/ui/label";
 import { MultiSelect } from "@/components/ui/multi-select";
+import { JLTPTtypes, JLPTListItems, JLPTOptions } from "@/lib/constants";
 
-const JLPTOptions = [
-  { value: "n1", label: "N1" },
-  { value: "n2", label: "N2" },
-  { value: "n3", label: "N3" },
-  { value: "n4", label: "N4" },
-  { value: "n5", label: "N5" },
-];
-
+const JLPTOptionsWithIcon = JLPTOptions.map((entry) => {
+  return {
+    label: entry.label,
+    value: entry.value,
+    iconNode: (
+      <div
+        className={`h-2 w-2 -translate-y-[1px] rounded-sm mx-1 ${entry.cn}`}
+      />
+    ),
+  };
+});
 export function JLPTSelector() {
-  const [selectedJLPT, setSelectedJLPT] = useState<string[]>([
-    "n1",
-    "n2",
-    "n3",
-    "n4",
-    "n5",
-  ]);
+  const [selectedJLPT, setSelectedJLPT] = useState<JLTPTtypes[]>(
+    Object.keys(JLPTListItems) as JLTPTtypes[]
+  );
   const id = useId();
   const fieldId = `multiselectframework-${id}`;
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onValueChange = setSelectedJLPT as any;
   return (
     <div className="max-w-xl">
       <Label className="text-xs font-thin" htmlFor={fieldId}>
@@ -29,8 +30,8 @@ export function JLPTSelector() {
       </Label>
       <MultiSelect
         name={fieldId}
-        options={JLPTOptions}
-        onValueChange={setSelectedJLPT}
+        options={JLPTOptionsWithIcon}
+        onValueChange={onValueChange}
         defaultValue={selectedJLPT}
         placeholder="All JLPT levels are selected by default"
         variant="inverted"

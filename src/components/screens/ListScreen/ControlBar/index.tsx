@@ -1,104 +1,84 @@
-import { Search } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
-import BasicSelect from "@/components/common/BasicSelect";
-import * as wanakana from "wanakana";
+import { useState } from "react";
 
-import { cn } from "@/lib/utils";
 import SortAndFilterSettings from "./SortAndFilterSettings/SortAndFilterSettings";
-import CardPresentationSettings from "./CardPresentationSettings";
+import CardPresentationSettings, {
+  CardPresentationSettingsContent,
+} from "./CardPresentationSettings";
+import { SearchInput } from "./SearchInput";
+import {
+  K_JLPT,
+  K_RANK_DRAMA_SUBTITLES,
+  K_RTK_INDEX,
+} from "@/lib/frequency-rank";
+import { JLTPTtypes } from "@/lib/constants";
 
-const SearchInput = () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const inputRef = useRef<any>();
-  const [value, setValue] = useState("keyword");
+export type SortSettings = { primary: string; secondary?: string };
+export type FilterSettings = {
+  strokeRange: { min: number; max: number };
+  jlpt: JLTPTtypes[];
+  freq: { source: string; rankRange: { min: number; max: number } };
+};
 
-  useEffect(() => {
-    const currentValue = inputRef?.current?.value ?? "";
+export type CardSettings = {
+  cardType: "expanded" | "compact";
+  borderMeaning?: "jlpt" | null;
+  backgroundMeaning?: "string" | null;
+};
 
-    if (inputRef.current?.value == null) {
-      return;
-    }
-
-    if (value === "keyword") {
-      inputRef.current.value = wanakana.toRomaji(currentValue);
-      try {
-        wanakana.unbind(inputRef.current);
-      } catch {
-        console.log("cannot unbind initial");
-      }
-      return;
-    }
-
-    if (value === "onyomi") {
-      const newValue = wanakana.toKatakana(currentValue);
-      try {
-        wanakana.unbind(inputRef.current);
-      } catch {
-        console.log("cannot unbind to onyomi");
-      }
-      inputRef.current.value = newValue;
-      wanakana.bind(inputRef.current, { IMEMode: "toKatakana" });
-      return;
-    }
-
-    if (value === "kunyomi") {
-      const newValue = wanakana.toHiragana(currentValue);
-      try {
-        wanakana.unbind(inputRef.current);
-      } catch {
-        console.log("cannot unbind to kunyomi");
-      }
-      inputRef.current.value = newValue;
-      wanakana.bind(inputRef.current, { IMEMode: "toHiragana" });
-      return;
-    }
-  }, [value]);
-
-  const placeHolder =
-    value === "keyword"
-      ? "Keyword Search"
-      : value === "onyomi"
-      ? "オニョミ 検索"
-      : "くにょみ 検索";
-
-  const fontCN = value !== "keyword" ? "kanji-font" : "";
-  const itemCNFunc = (v: string) => (v !== "keyword" ? "kanji-font" : "");
-  return (
-    <section className="w-full relative">
-      <input
-        className={cn(
-          "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-          `pl-7 pr-[105px] h-9 ${fontCN}`
-        )}
-        placeholder={placeHolder}
-        ref={inputRef}
-      />
-      <Search className="pointer-events-none absolute left-2 top-2 size-4 translate-y-0.5 select-none opacity-50" />
-      <BasicSelect
-        value={value}
-        onChange={(newValue) => setValue(newValue)}
-        triggerCN={`absolute right-1 top-1 w-26 h-7 bg-gray-100 dark:bg-gray-900 ${fontCN}`}
-        selectItemCNFunc={itemCNFunc}
-        options={[
-          { value: "keyword", label: "Keyword" },
-          { value: "onyomi", label: "オニョミ" },
-          { value: "kunyomi", label: "くにょみ" },
-        ]}
-        srOnlyLabel="Search Type"
-      />
-    </section>
-  );
+export type SearchSettings = {
+  text: string;
+  type: "Keyword" | "Onyomi" | "Kunyomi" | string; // TODO: Fix this later
 };
 
 const ControlBar = () => {
+  // TODO: Put better types, and better name
+
+  // put all these states in local storage
+  const [itemListSettings, setItemListSettings] = useState<{
+    searchSettings: SearchSettings;
+    sortSettings: SortSettings;
+    filterSettings: FilterSettings;
+  }>({
+    searchSettings: { text: "", type: "Keyword" as const },
+    sortSettings: { primary: K_JLPT, secondary: K_RTK_INDEX },
+    filterSettings: {
+      strokeRange: { min: 1, max: 100 },
+      jlpt: [],
+      freq: { source: K_RANK_DRAMA_SUBTITLES, rankRange: { min: 1, max: 500 } },
+    },
+  });
+
+  //  const [itemSettings, setItemSettings] = useState({
+  //    cardType: "expanded",
+  //    borderMeaning: "jlpt",
+  //    backgroundMeaning: K_RANK_DRAMA_SUBTITLES,
+  //  });
+
+  const itemCount = 143;
+
   return (
     <section className="mx-auto max-w-screen-xl flex border-0 space-x-1 sticky">
-      <SearchInput />
+      <SearchInput
+        onSettle={(text, searchType) => {
+          console.log(
+            "finished debouncing",
+            text,
+            searchType,
+            "old values",
+            itemListSettings
+          );
+          setItemListSettings((prev) => {
+            return { ...prev, searchSettings: { text, type: searchType } };
+          });
+        }}
+      />
       <div className="px-2 rounded-lg bg-opacity-75 bg-white dark:bg-black border absolute top-[39px] text-xs font-extrabold">
-        142 items
+        {itemCount} items
       </div>
       <SortAndFilterSettings />
-      <CardPresentationSettings />
+      <CardPresentationSettings>
+        <CardPresentationSettingsContent />
+      </CardPresentationSettings>
     </section>
   );
 };

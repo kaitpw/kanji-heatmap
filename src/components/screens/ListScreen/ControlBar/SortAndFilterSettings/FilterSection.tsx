@@ -1,4 +1,4 @@
-import { useId, useState } from "react";
+import { ReactNode, useId, useState } from "react";
 
 import { DualRangeSlider } from "@/components/ui/dual-range-slider";
 import { Label } from "@/components/ui/label";
@@ -56,18 +56,24 @@ const StrokeCountField = () => {
   );
 };
 
-export const FilterSection = () => {
+const FilterSectionLayout = ({
+  jlptField,
+  strokeCountField,
+  freqRankRangeField,
+  freqRankSourceField,
+}: {
+  jlptField: ReactNode;
+  strokeCountField: ReactNode;
+  freqRankSourceField: ReactNode;
+  freqRankRangeField: ReactNode;
+}) => {
   return (
     <section className="text-start w-full">
       <UppercaseHeading title="Filters" icon={<FilterX size={15} />} />
 
       <div className="flex w-full flex-col md:flex-row md:space-x-4">
-        <div className="w-full md:w-1/2 pb-8">
-          <StrokeCountField />
-        </div>
-        <div className="w-full md:w-1/2">
-          <JLPTSelector />
-        </div>
+        <div className="w-full md:w-1/2 pb-8">{strokeCountField}</div>
+        <div className="w-full md:w-1/2">{jlptField}</div>
       </div>
       <div className="py-2 mt-4 md:mt-0 uppercase text-xs">
         Frequency Ranking
@@ -76,14 +82,23 @@ export const FilterSection = () => {
         <div className="w-full md:w-1/2">
           <div className="text-left w-full pb-4 md:pb-0">
             <div className="text-xs">Data Source</div>
-            <FrequencyRankDataSource />
+            {freqRankSourceField}
           </div>
         </div>
 
-        <div className="w-full md:w-1/2 pb-8">
-          <FrequencyRankingRangeField />
-        </div>
+        <div className="w-full md:w-1/2 pb-8">{freqRankRangeField}</div>
       </div>
     </section>
+  );
+};
+
+export const FilterSection = () => {
+  return (
+    <FilterSectionLayout
+      strokeCountField={<StrokeCountField />}
+      jlptField={<JLPTSelector />}
+      freqRankSourceField={<FrequencyRankDataSource />}
+      freqRankRangeField={<FrequencyRankingRangeField />}
+    />
   );
 };
