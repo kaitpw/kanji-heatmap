@@ -260,8 +260,6 @@ python ./scripts/compress_kanji_data.py
 - ✅ When selecting JLPT in filtering selection box display corresponding color for JLPT
 - Add icons for frequency rank options
 - Use new fonts and improve fonts and font optimization with japanese fonts
-- Make Venn Diagram Page
-- Make Cumulative Use Page
 - Add a combo box for searching for onyomi readings
 - Add pictures for each notes of each Kanji
 - Handle the issue with having multiple tabs open with different indexdb versions
@@ -271,6 +269,20 @@ python ./scripts/compress_kanji_data.py
   - Phonetic Component
   - Visually Similar
 - Allow use of custom colors for card background and JLPT border
+
+### Pages
+
+- Make Venn Diagram Page
+- Make Cumulative Use Page (multiline chart)
+- Make page for certain kanji collections
+  1. Kanjis with only one kun reading
+  2. Kanjis with only one on reading
+  3. On reading with only one kanji
+  4. Kun reading with only one kanji
+- Make page for bar graph mapping field to count
+  1. on reading -> kanji count (max less than 400)
+  2. dependencies -> kanji count (max 8)
+  3. stroke -> kanji count (max 24)
 
 **🛠️🛠️Bugs To Fix🛠️🛠️**
 
