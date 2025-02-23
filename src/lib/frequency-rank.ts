@@ -57,6 +57,7 @@ export const FREQ_RANK_OPTIONS = [
   K_RANK_AVG,
   K_RANK_WEIGHTED,
   K_RANK_WEIGHTED5,
+  "None",
 ];
 
 export const FREQ_RANK_SOURCES_INFO: Record<
@@ -124,6 +125,7 @@ export const OPTION_LABELS: Record<string, string> = {
   [K_RANK_AVG]: "Freq Rank - AVG",
   [K_RANK_WEIGHTED]: "Freq Rank - Weighted",
   [K_RANK_WEIGHTED5]: "Freq Rank - Weighted5",
+  None: "None",
 };
 
 export const FREQUENCY_RANK_FILTER_OPTIONS: { value: string; label: string }[] =
