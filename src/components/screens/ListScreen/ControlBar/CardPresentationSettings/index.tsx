@@ -1,6 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
 
 import {
   Popover,
@@ -8,49 +6,27 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
-import { Switch } from "@/components/ui/switch";
 import { Flower } from "lucide-react";
-import { useState, useId, ReactNode } from "react";
+import { useState, ReactNode } from "react";
 import { FrequencyRankDataSource } from "../SortAndFilterSettings/sections/common";
-import { BackgroundColorGradient, H2, JLPTBordersMeanings } from "./common";
-
-const CardTypeSwitch = () => {
-  const switchId = useId();
-  return (
-    <div className="flex items-center space-x-2 my-2">
-      <Label>Compact</Label>
-      <Switch id={`cardType-${switchId}`} />
-      <Label htmlFor={`cardType-${switchId}`}>Expanded</Label>
-    </div>
-  );
-};
-
-const LabeledCheckbox = ({ label }: { label: string }) => {
-  const checkboxId = useId();
-  const myId = `checkbox-${checkboxId}`;
-  return (
-    <div className="flex items-center space-x-2">
-      <Checkbox id={myId} checked={true} />
-      <label
-        htmlFor={myId}
-        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-      >
-        {label}
-      </label>
-    </div>
-  );
-};
-
-/*
-
-cardSettings = {
-	cardType: 'expanded'
-	borderMeaning: 'jlpt' | null
-	backgroundMeaning: 'freq-netflix' | null
-}
-*/
+import {
+  BackgroundColorGradient,
+  CardTypeSwitch,
+  H2,
+  JLPTBordersMeanings,
+  LabeledCheckbox,
+} from "./common";
+import {
+  useCardSettings,
+  useCardSettingsDispatch,
+} from "@/providers/card-settings-provider";
 
 export const CardPresentationSettingsContent = () => {
+  const cardState = useCardSettings();
+  const dispatch = useCardSettingsDispatch();
+  const [shouldAttachMeaning, setShouldAttachMeaning] = useState(
+    cardState.backgroundColorSettingDataSource !== "None"
+  );
   return (
     <article className="text-left">
       <h1 className="text-lg font-bold flex space-x-2 items-center">
@@ -59,23 +35,48 @@ export const CardPresentationSettingsContent = () => {
       <Separator className="mb-2" />
       <section>
         <H2>Card Type</H2>
-        <CardTypeSwitch />
+        <CardTypeSwitch
+          value={cardState.cardType !== "compact"}
+          setValue={(v) => {
+            dispatch("cardType", v === false ? "compact" : "expanded");
+          }}
+        />
       </section>
       <section>
         <H2>Border Color Meaning</H2>
-        <LabeledCheckbox label="Attach Border Meaning" />
-        <JLPTBordersMeanings />
+        <LabeledCheckbox
+          label="Attach Border Color Meaning (JLPT)"
+          value={cardState.borderColorAttached}
+          onChange={(v) => {
+            dispatch("borderColorAttached", v);
+          }}
+        />
+        {cardState.borderColorAttached && <JLPTBordersMeanings />}
       </section>
       <section>
         <H2>Background Color Meaning</H2>
-        <LabeledCheckbox label="Attach Background Color Meaning" />
-        <BackgroundColorGradient />
-        <p className="text-xs mt-3">Frequency Data Source*</p>
-        <FrequencyRankDataSource />
-        <div className="text-xs mt-2">
-          * Netflix Frequency is based on the list by OhTalkWho オタク.{" "}
-          <span className="underline">See Source.</span>
-        </div>
+        <LabeledCheckbox
+          label="Attach Background Color Meaning"
+          value={shouldAttachMeaning}
+          onChange={(v) => {
+            if (v === false) {
+              dispatch("backgroundColorSettingDataSource", "None");
+            }
+            setShouldAttachMeaning(v);
+          }}
+        />
+        {shouldAttachMeaning && (
+          <>
+            <BackgroundColorGradient />
+            <p className="text-xs mt-3">Frequency Data Source*</p>
+            <FrequencyRankDataSource
+              value={cardState.backgroundColorSettingDataSource}
+              setValue={(v) => {
+                dispatch("backgroundColorSettingDataSource", v);
+              }}
+            />
+          </>
+        )}
       </section>
     </article>
   );

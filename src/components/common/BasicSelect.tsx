@@ -15,14 +15,16 @@ const BasicSelect = ({
   options,
   triggerCN,
   selectItemCNFunc,
-  srOnlyLabel,
+  label,
+  isLabelSrOnly,
 }: {
   value: string;
   onChange: (value: string) => void;
   triggerCN?: string;
   selectItemCNFunc?: (v: string) => string;
   options: { label: ReactNode; value: string; disabled?: boolean }[];
-  srOnlyLabel: string;
+  label: string;
+  isLabelSrOnly?: boolean;
 }) => {
   const id = useId();
 
@@ -30,8 +32,13 @@ const BasicSelect = ({
   // https://www.radix-ui.com/primitives/docs/components/select#labelling
   return (
     <>
-      <Label className="sr-only" htmlFor={`select-${id}`}>
-        {srOnlyLabel}
+      <Label
+        className={
+          isLabelSrOnly ? "sr-only text-xs font-normal" : "text-xs font-normal"
+        }
+        htmlFor={`select-${id}`}
+      >
+        {label}
       </Label>
       <Select value={value} onValueChange={onChange}>
         <SelectTrigger className={triggerCN} id={`select-${id}`}>

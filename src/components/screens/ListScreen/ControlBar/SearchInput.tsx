@@ -117,7 +117,8 @@ export const SearchInput = ({
         triggerCN={cn(SELECT_CLASS, fontCN)}
         selectItemCNFunc={itemCNFunc}
         options={SEARCH_TYPE_OPTIONS}
-        srOnlyLabel="Search Type"
+        label="Search Type"
+        isLabelSrOnly={true}
       />
     </section>
   );

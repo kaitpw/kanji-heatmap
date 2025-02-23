@@ -1,6 +1,135 @@
 from functools import reduce
 import json
 
+'''
+    --------------------------------
+    KANJI INFORMATION
+    --------------------------------
+
+    -------------
+    SIMPLE DATA TYPES: string | number
+    -------------
+    
+    0 - keyword
+    1 - main_on_reading
+    2 - main_kun_reading
+    3 - jlpt
+    4 - strokes
+    5 - rtk_index
+    6 - wanikani_lvl
+    7 - jouyou_grade
+    
+    -------------
+    ARRAY DATA TYPES: string[]
+    -------------
+    
+    0 - all_meanings
+    1 - all_on
+    2 - all_kun 
+    3 - component_parts
+    
+    -------------
+    FREQUENCY RANK INFO: number
+    -------------
+    
+    0  - rank_aozora_char
+    1  - rank_aozora_doc
+    2  - rank_online_news_char
+    3  - rank_online_news_doc
+    4  - rank_wikipedia_char
+    5  - rank_wikipedia_doc
+    6  - rank_novels_5100
+    7  - rank_drama_subtitles
+    8  - rank_netflix
+    9  - rank_google
+    10 - rank_kuf
+    11 - rank_mcd
+    12 - rank_bunka
+    13 - rank_kd
+    14 - rank_jisho
+    15 - rank_newspapers_1
+    16 - rank_newspapers_2
+
+
+------------------------------
+Kanji Info JSON Segregation
+------------------------------
+
+-----------
+MAIN DATA
+-----------
+
+0 - keyword
+1 - main_on_reading
+2 - main_kun_reading
+3 - all_meanings
+4 - all_on
+5 - all_kun
+
+6 - jlpt
+
+0 - 5 -> needed for searching
+6 -> needed for displaying the borders 
+
+-----------
+SECONDARY DATA
+-----------
+
+0 - rtk_index
+1 - wanikani_lvl
+2 - jouyou_grade
+3 - component_parts
+4 - strokes
+
+-----------
+FREQUENCY DATA
+-----------
+
+0  - rank_aozora_char
+1  - rank_aozora_doc
+2  - rank_online_news_char
+3  - rank_online_news_doc
+4  - rank_wikipedia_char
+5  - rank_wikipedia_doc
+6  - rank_novels_5100
+7  - rank_drama_subtitles
+8  - rank_netflix
+9  - rank_google
+10 - rank_kuf
+11 - rank_mcd
+12 - rank_bunka
+13 - rank_kd
+14 - rank_jisho
+15 - rank_newspapers_1
+16 - rank_newspapers_2
+
+-----------
+MAIN VOCAB DATA and SECONDARY VOCAB DATA
+-----------
+{ word, spacedKana, meaning}[]
+
+-----------
+Notes
+-----------
+
+string
+
+------------------------------
+JSON FILE SEGREGATION
+------------------------------
+
+In order of priority
+
+0 - main kanji data
+1 - main_vocab_data
+2 - part-component => keyword
+3 - semantic-component => reading
+4 - frequency data
+5 - secondary_kanji_data
+6 - secondary_vocab_data
+'''
+
+
 # -------------------
 # Compress existing json
 # -------------------
@@ -182,6 +311,8 @@ def get_jouyou(kanji_info):
     def dig(source_key):
         return all_.get(source_key, None)
 
+    # KanjiSchool is more accurate
+    # see: https://github.com/mithi/kanji-data/issues/5
     a = dig('kanjiSchool')
     b = dig('davidluzgouveiaJlpt')
 
@@ -195,12 +326,17 @@ def get_strokes(kanji_info):
     def dig(source_key):
         return all_.get(source_key, None)
 
-    a = dig('topoKanji')
-    b = dig('kanjiSchool')
-    c = dig('davidluzgouveiaJlpt')
+    
+    a = dig('kanjiSchool')
+    b = dig('davidluzgouveiaJlpt')
+    # upon inspection, topokanji is not a good source
+    # for strokes so avoid using it
+    # see: https://github.com/mithi/kanji-data/issues/5
+    c = dig('topoKanji')
+
     r = a or b or c
 
-    # running_count_diff_GLOBAL_COUNT_UNSTABLE(a, b, c, r, f"{kanji} sr:")
+    # running_count_diff_GLOBAL_COUNT_UNSTABLE(a, b, b, r, f"{kanji} sr:")
     # 96 Kanji do not match
     return r
 
@@ -303,11 +439,6 @@ def get_kanji_data_from_file(file_path):
 
 kanji_reformatted = {}
 
-kanji_reformatted_array_data = {}
-kanji_reformatted_simple_data = {}
-kanji_reformatted_freq_data = {}
-kanji_reformatted_parts_data = {}
-
 ORIGINAL_KANJI_JSON_FILE_PATH = "./original_data/kanji.json"
 REFORMATTED_KANJI_FILE_PATH = f"{OUT_DIR}/generated_reformatted_kanji.json"
 
@@ -319,54 +450,6 @@ global global_count
 global_count = 0
 
 for kanji in kanji_list:
-
-    '''
-    { [kanji]: { s: [], f: [], a: [] } }
-    
-    -------------
-    SIMPLE DATA TYPES: string | number
-    -------------
-    
-    0 - keyword
-    1 - main_on_reading
-    2 - main_kun_reading
-    3 - jlpt
-    4 - strokes
-    5 - rtk_index
-    6 - wanikani_lvl
-    7 - jouyou_grade
-    
-    -------------
-    ARRAY DATA TYPES: string[]
-    -------------
-    
-    0 - all_meanings
-    1 - all_on
-    2 - all_kun 
-    3 - component_parts
-    
-    -------------
-    FREQUENCY RANK INFO: number
-    -------------
-    
-    0  - rank_aozora_char
-    1  - rank_aozora_doc
-    2  - rank_online_news_char
-    3  - rank_online_news_doc
-    4  - rank_wikipedia_char
-    5  - rank_wikipedia_doc
-    6  - rank_novels_5100
-    7  - rank_drama_subtitles
-    8  - rank_netflix
-    9  - rank_google
-    10 - rank_kuf
-    11 - rank_mcd
-    12 - rank_bunka
-    13 - rank_kd
-    14 - rank_jisho
-    15 - rank_newspapers_1
-    16 - rank_newspapers_2
-    '''
 
     kanji_info = kanji_data[kanji]
 
@@ -389,22 +472,13 @@ for kanji in kanji_list:
         component_parts or DEFAULT_ARRAY_VAL,
     ]
 
-    freq_info = get_ranks(kanji_info)
 
-    kanji_reformatted[kanji] = {
-        's': simple_info, 
-        'f': freq_info,
-        'a': array_info
-    }
-
-    kanji_reformatted_freq_data[kanji] = freq_info
-    kanji_reformatted_array_data[kanji] = array_info
-    kanji_reformatted_simple_data[kanji] = simple_info
-    kanji_reformatted_parts_data[kanji] = component_parts
 
 # -----------------
 # Dump Json
 # -----------------
+
+# Sort by JLPT then by stroke count
 
 INDENT = None # 2 # None # 4
 SEPARATORS = (',', ':') #None
@@ -413,11 +487,7 @@ def dump_json(file_name, data, indent=INDENT, separators=SEPARATORS):
     with open(file_name, mode="w", encoding="utf-8") as write_file:
         json.dump(data, write_file, indent=indent, separators=separators, ensure_ascii=False)
 
-dump_json(REFORMATTED_KANJI_FILE_PATH , kanji_reformatted)
-# dump_json( f"{OUT_DIR}/generated_reformatted_kanji_array_data.json", kanji_reformatted_array_data)
-# dump_json( f"{OUT_DIR}/generated_reformatted_kanji_simple_data.json", kanji_reformatted_simple_data)
-# dump_json( f"{OUT_DIR}/generated_reformatted_kanji_freq_data.json", kanji_reformatted_freq_data)
-# dump_json( f"{OUT_DIR}/generated_reformatted_kanji_parts_data.json", kanji_reformatted_parts_data)
+# dump_json(REFORMATTED_KANJI_FILE_PATH , kanji_reformatted)
 
 # -----------------
 # Inspect Data 
@@ -554,7 +624,7 @@ get_reading_stats(get_all_kun_readings)
 # TODO: Check which have null data and populate them manually
 # TODO: How much KB will be saved if we remove main_on and main_kun since they're redundant information? 
 # TODO: Check is (1) jlpt, (2)jouyou, (3)strokes etc.. match for all sources or if there is a disrepancy
-# TODO: What are the maximum number of readings for single kanji?
+
 
 # Index DB MAIN STORES
 # 1. kanji_info: Kanji -> General Information and Frequency Information
