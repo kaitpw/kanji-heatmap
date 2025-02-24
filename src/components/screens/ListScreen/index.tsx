@@ -1,5 +1,5 @@
 import { lazy, Suspense, useRef } from "react";
-import ControlBar from "./ControlBar";
+import { ItemCountBadge, SortAndFilterSection } from "./ControlBar";
 import LoadingKanjis from "./KanjiList/LoadingKanjis";
 import { useState, useEffect } from "react";
 import createKanjiWorkerWrappedInPromise, {
@@ -7,36 +7,12 @@ import createKanjiWorkerWrappedInPromise, {
 } from "@/lib/kanji-worker-promise-wrapper";
 import { SearchSettingsProvider } from "@/providers/search-settings-provider";
 import { CardSettingsProvider } from "@/providers/card-settings-provider";
+import CardPresentationSettings, {
+  CardPresentationSettingsContent,
+} from "./ControlBar/CardPresentationSettings";
 
 const KanjiList = lazy(() => import("./KanjiList"));
 
-/*
-const useKanjiWorker = () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [result, setResult] = useState<any>(null);
-  const workerRef = useRef<PromiseWrappedWorker | null>(null);
-
-  useEffect(() => {
-    const myWorker = createKanjiWorkerWrappedInPromise();
-    workerRef.current = myWorker;
-    return () => {
-      myWorker.terminate();
-    };
-  }, []);
-
-  const request = (requestData: { action: string; payload: unknown }) => {
-    if (workerRef.current) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      workerRef.current.request(requestData).then((data: any) => {
-        setResult(data);
-      });
-    }
-  };
-
-  return request;
-};
-
-*/
 export const MyComponent = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [result, setResult] = useState<any>(null);
@@ -72,7 +48,13 @@ const ListScreen = () => {
     <SearchSettingsProvider>
       <CardSettingsProvider>
         <div className="sticky top-[50px] bg-white dark:bg-black bg-opacity-50 backdrop-blur-sm px-2 pb-2 z-40">
-          <ControlBar />
+          <section className="mx-auto max-w-screen-xl flex border-0 space-x-1 sticky">
+            <ItemCountBadge />
+            <SortAndFilterSection />
+            <CardPresentationSettings>
+              <CardPresentationSettingsContent />
+            </CardPresentationSettings>
+          </section>
         </div>
         <div className="relative top-12 -z-0 flex flex-wrap items-center justify-center pt-1 overflow-x-hidden">
           <Suspense fallback={<LoadingKanjis />}>

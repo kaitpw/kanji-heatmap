@@ -1,8 +1,8 @@
-import { ReactNode, useContext } from "react";
+import { ReactNode } from "react";
 import { useLocalStorage } from "../hooks/use-local-storage";
-import { createContext } from "react";
+import { createContextComponents, useContextWithCatch } from "./common";
 
-export type DispatchFunction<T> = (key: keyof T, value: T[keyof T]) => void;
+const storageKey = "card-settings";
 
 export type CardSettings = {
   cardType: "compact" | "expanded";
@@ -10,18 +10,14 @@ export type CardSettings = {
   backgroundColorSettingDataSource: string;
 };
 
-export const StateContext = createContext<unknown>(undefined);
-export const DispatchContext = createContext<
-  DispatchFunction<unknown> | undefined
->(undefined);
-
-const storageKey = "card-settings";
-
 export const defaultValue: CardSettings = {
   cardType: "compact",
   borderColorAttached: false,
   backgroundColorSettingDataSource: "None",
 };
+
+const { StateContext, DispatchContext } =
+  createContextComponents<CardSettings>(defaultValue);
 
 export function CardSettingsProvider({ children }: { children: ReactNode }) {
   const [storageData, setItem] = useLocalStorage<CardSettings>(
@@ -30,31 +26,25 @@ export function CardSettingsProvider({ children }: { children: ReactNode }) {
   );
   return (
     <StateContext.Provider value={storageData}>
-      <DispatchContext.Provider value={setItem as DispatchFunction<unknown>}>
+      <DispatchContext.Provider value={setItem}>
         {children}
       </DispatchContext.Provider>
     </StateContext.Provider>
   );
 }
 
+const providerName = "CardSettings";
+
 export function useCardSettings() {
-  const context = useContext(StateContext as React.Context<CardSettings>);
-  if (context === undefined) {
-    throw new Error(
-      "useCardSettings must be used within a CardSettingsProviderr"
-    );
-  }
+  const context = useContextWithCatch(StateContext, providerName);
   return context;
 }
 
 export function useCardSettingsDispatch() {
-  const context = useContext(
-    DispatchContext as React.Context<DispatchFunction<CardSettings>>
+  const context = useContextWithCatch(
+    DispatchContext,
+    providerName,
+    `${providerName}Dispatch`
   );
-  if (context === undefined) {
-    throw new Error(
-      "useCardSettingsDispatch must be used within a CardSettingsProviderr"
-    );
-  }
   return context;
 }

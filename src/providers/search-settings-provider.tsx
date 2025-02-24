@@ -1,9 +1,10 @@
-import { createContext, ReactNode, useContext } from "react";
+import { ReactNode } from "react";
 import { useLocalStorage } from "../hooks/use-local-storage";
 import { JLTPTtypes } from "@/lib/constants";
 import { K_JLPT, K_STROKES } from "@/lib/frequency-rank";
+import { createContextComponents, useContextWithCatch } from "./common";
 
-export type DispatchFunction<T> = (key: keyof T, value: T[keyof T]) => void;
+const storageKey = "search-settings";
 
 export type TextSearch = {
   type: string;
@@ -30,12 +31,6 @@ export type SearchSettings = {
   sortSettings: SortSettings;
 };
 
-const storageKey = "search-settings";
-export const StateContext = createContext<unknown>(undefined);
-export const DispatchContext = createContext<
-  DispatchFunction<unknown> | undefined
->(undefined);
-
 export const defaultValue: SearchSettings = {
   textSearch: {
     type: "keyword",
@@ -43,7 +38,7 @@ export const defaultValue: SearchSettings = {
   },
   filterSettings: {
     strokeRange: { min: 0, max: 50 },
-    jlpt: ["n1", "n2"] as const,
+    jlpt: ["n1", "n2", "n3", "n4", "n5"] as const,
     freq: {
       source: "None",
       rankRange: { min: 0, max: 1000 },
@@ -55,6 +50,9 @@ export const defaultValue: SearchSettings = {
   },
 };
 
+const { StateContext, DispatchContext } =
+  createContextComponents<SearchSettings>(defaultValue);
+
 export function SearchSettingsProvider({ children }: { children: ReactNode }) {
   const [storageData, setItem] = useLocalStorage<SearchSettings>(
     storageKey,
@@ -63,31 +61,25 @@ export function SearchSettingsProvider({ children }: { children: ReactNode }) {
 
   return (
     <StateContext.Provider value={storageData}>
-      <DispatchContext.Provider value={setItem as DispatchFunction<unknown>}>
+      <DispatchContext.Provider value={setItem}>
         {children}
       </DispatchContext.Provider>
     </StateContext.Provider>
   );
 }
 
+const providerName = "SearchSettings";
+
 export function useSearchSettings() {
-  const context = useContext(StateContext as React.Context<SearchSettings>);
-  if (context === undefined) {
-    throw new Error(
-      "useSearchSettings must be used within a SearchSettingsProviderr"
-    );
-  }
+  const context = useContextWithCatch(StateContext, providerName);
   return context;
 }
 
 export function useSearchSettingsDispatch() {
-  const context = useContext(
-    DispatchContext as React.Context<DispatchFunction<SearchSettings>>
+  const context = useContextWithCatch(
+    DispatchContext,
+    providerName,
+    `${providerName}Dispatch`
   );
-  if (context === undefined) {
-    throw new Error(
-      "useSearchSettingsDispatch must be used within a SearchSettingsProviderr"
-    );
-  }
   return context;
 }

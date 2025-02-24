@@ -34,5 +34,5 @@ export function useLocalStorage<T>(storageKey: string, defaultValue: T) {
     [storageKey]
   );
 
-  return [storageData, setItem];
+  return [storageData, setItem] as [T, DispatchFunction<T>];
 }
