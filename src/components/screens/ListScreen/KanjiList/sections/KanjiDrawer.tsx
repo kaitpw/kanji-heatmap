@@ -11,6 +11,7 @@ import { X } from "lucide-react";
 import { KanjiInfoLayout } from "./KanjiCard/layouts";
 import { KanjiCard } from "./KanjiCard";
 import SimpleAccordion from "@/components/common/SimpleAccordion";
+import { useIsKanjiWorkerReady } from "@/providers/kanji-worker-provider";
 
 const LongContent = () => {
   return (
@@ -100,6 +101,8 @@ export function KanjiDrawerRaw({
   onClose: () => void;
   kanji: string;
 }) {
+  const ready = useIsKanjiWorkerReady();
+
   return (
     <Drawer open={isOpen} onClose={onClose}>
       <DrawerContent
@@ -113,7 +116,13 @@ export function KanjiDrawerRaw({
           Includes Sample Usage, Semantic Phonetic Compositions etc.
         </DrawerDescription>
         <KanjiInfoLayout
-          first={<KanjiCard kanji={kanji} />}
+          first={
+            !ready ? (
+              <p className="p-20"> Initializing..</p>
+            ) : (
+              <KanjiCard kanji={kanji} />
+            )
+          }
           second={<KanjiAllInfo />}
         />
         <DrawerClose asChild className="absolute -top-1 right-0">

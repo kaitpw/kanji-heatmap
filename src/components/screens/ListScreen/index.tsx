@@ -17,7 +17,7 @@ const KanjiList = lazy(() => import("./KanjiList"));
 const ListScreenContent = () => {
   const ready = useIsKanjiWorkerReady();
   if (!ready) {
-    return <p className="p-20"> loading...</p>;
+    return <p className="p-20"> Initializing..</p>;
   }
   return (
     <>

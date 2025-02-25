@@ -85,8 +85,6 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
 
   const info = useKanjiInfo(kanji, "hover-card");
 
-  // Extract Kanji Information from Kanji
-
   return (
     <KanjiCardLayout
       mainCard={
