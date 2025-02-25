@@ -1,139 +1,19 @@
 from functools import reduce
 import json
 
-'''
-    --------------------------------
-    KANJI INFORMATION
-    --------------------------------
-
-    -------------
-    SIMPLE DATA TYPES: string | number
-    -------------
-    
-    0 - keyword
-    1 - main_on_reading
-    2 - main_kun_reading
-    3 - jlpt
-    4 - strokes
-    5 - rtk_index
-    6 - wanikani_lvl
-    7 - jouyou_grade
-    
-    -------------
-    ARRAY DATA TYPES: string[]
-    -------------
-    
-    0 - all_meanings
-    1 - all_on
-    2 - all_kun 
-    3 - component_parts
-    
-    -------------
-    FREQUENCY RANK INFO: number
-    -------------
-    
-    0  - rank_aozora_char
-    1  - rank_aozora_doc
-    2  - rank_online_news_char
-    3  - rank_online_news_doc
-    4  - rank_wikipedia_char
-    5  - rank_wikipedia_doc
-    6  - rank_novels_5100
-    7  - rank_drama_subtitles
-    8  - rank_netflix
-    9  - rank_google
-    10 - rank_kuf
-    11 - rank_mcd
-    12 - rank_bunka
-    13 - rank_kd
-    14 - rank_jisho
-    15 - rank_newspapers_1
-    16 - rank_newspapers_2
-
-
-------------------------------
-Kanji Info JSON Segregation
-------------------------------
-
------------
-MAIN DATA
------------
-
-0 - keyword
-1 - main_on_reading
-2 - main_kun_reading
-3 - all_meanings
-4 - all_on
-5 - all_kun
-
-6 - jlpt
-
-0 - 5 -> needed for searching
-6 -> needed for displaying the borders 
-
------------
-SECONDARY DATA
------------
-
-0 - rtk_index
-1 - wanikani_lvl
-2 - jouyou_grade
-3 - component_parts
-4 - strokes
-
------------
-FREQUENCY DATA
------------
-
-0  - rank_aozora_char
-1  - rank_aozora_doc
-2  - rank_online_news_char
-3  - rank_online_news_doc
-4  - rank_wikipedia_char
-5  - rank_wikipedia_doc
-6  - rank_novels_5100
-7  - rank_drama_subtitles
-8  - rank_netflix
-9  - rank_google
-10 - rank_kuf
-11 - rank_mcd
-12 - rank_bunka
-13 - rank_kd
-14 - rank_jisho
-15 - rank_newspapers_1
-16 - rank_newspapers_2
-
------------
-MAIN VOCAB DATA and SECONDARY VOCAB DATA
------------
-{ word, spacedKana, meaning}[]
-
------------
-Notes
------------
-
-string
-
-------------------------------
-JSON FILE SEGREGATION
-------------------------------
-
-In order of priority
-
-0 - main kanji data
-1 - main_vocab_data
-2 - part-component => keyword
-3 - semantic-component => reading
-4 - frequency data
-5 - secondary_kanji_data
-6 - secondary_vocab_data
-'''
-
-
+# see issue: https://github.com/mithi/kanji-data/issues/6
+OWN_KEYWORDS_OVERRIDE = {
+    #Duplicate keywords
+    "熙": "sunny",
+    "凜": "severe",
+    #Missing keywords:
+    "呟": "mutter",
+    "睨": "glaring at",
+    "頷": "nod approval",
+}
 # -------------------
 # Compress existing json
 # -------------------
-
 
 def compress_json(path_in, path_out):
     with open(path_in, mode="r", encoding="utf-8") as read_file:
@@ -148,8 +28,8 @@ def compress_json(path_in, path_out):
             )
 
 OUT_DIR = "./scripts/generated"
-ORIGINAL_COMPONENTS_FILE_PATH = "./original_data/kanji_components.json"
-REFORMATTED_COMPONENTS_FILE_PATH = f"{OUT_DIR}/generated_kanji_reformatted_info.json"
+ORIGINAL_COMPONENTS_FILE_PATH = "./original_data/missing_components.json"
+REFORMATTED_COMPONENTS_FILE_PATH = f"{OUT_DIR}/generated_reformatted_part_keyword_info.json"
 
 ORIGINAL_PHONETIC_FILE_PATH = "./original_data/phonetic_components.json"
 REFORMATTED_PHONETIC_FILE_PATH = f"{OUT_DIR}/generated_reformatted_phonetic.json"
@@ -245,7 +125,29 @@ def get_keyword(kanji_info):
         or dig('shirabeJishou') \
         or dig('waniKani')
     
+    # https://github.com/mithi/kanji-data/issues/6
+
+    # Duplicate keywords:
+    # 明, 熙 - bright
+    # 寒, 凜 - cold
+    # For the kanji with missing keywords, they all rely on the meaning from rtk5100.
+    # Missing keywords: 呟, 睨, 頷
+
+    #New keywords to assign as follows...
+    #Duplicate keywords:
+    #熙 - sunny
+    #凜 - severe
+    #Missing keywords:
+    #呟 - mutter
+    #睨 - glaring at
+    #頷 - nod approval
+
+    override = OWN_KEYWORDS_OVERRIDE.get(kanji_info["kanji"], None)
+    if override:
+        keyword = override
+
     if keyword is None:
+        print("No keyword:", kanji_info["kanji"])
         return None
 
     return keyword.strip().lower()
@@ -301,7 +203,8 @@ def get_jlpt(kanji_info):
     c = dig('davidluzgouveiaJlpt')
     r = a or b or c
 
-    # running_count_diff_GLOBAL_COUNT_UNSTABLE(a, b, c, r, f"{kanji} jl:")
+    kanji = kanji_info["kanji"]
+    #running_count_diff_GLOBAL_COUNT_UNSTABLE(a, b, c, r, f"{kanji} jl:")
     # 416 Kanji do not match
 
     return r
@@ -315,29 +218,61 @@ def get_jouyou(kanji_info):
     # see: https://github.com/mithi/kanji-data/issues/5
     a = dig('kanjiSchool')
     b = dig('davidluzgouveiaJlpt')
+    r = a or b
 
-    # running_count_diff_GLOBAL_COUNT_UNSTABLE(a, b, b, a or b, f"{kanji} jy:")
-    # 1437 Kanji do not match
+    #For the inconsistent Jouyou Grade between kanjiSchool and davidluzgouveiaJlpt 
+    # (found 56 discrepancies), kanjiSchool is more accurate when verified against
+    #  https://en.wikipedia.org/wiki/List_of_jōyō_kanji. 
+    # Note that grades are from 1-6 for elementary school,
+    # then kanjiSchool uses 9 while davidluzgouveiaJlpt uses 8 for secondary school.
+    # When comparing kanjiSchool and scriptin kanjidic2-en-3.6.1.json, 
+    # there are 55 kanji where kanjiSchool is 0 but kanjidic2 is 9:
+    # kanjidic2 is from https://github.com/scriptin/jmdict-simplified
 
-    return a or b
+
+    if a == 9 and b == 8:
+        return 9
+    
+    if a == 0 and b == 8:
+        return 9
+
+    # kanji = kanji_info["kanji"]
+    # running_count_diff_GLOBAL_COUNT_UNSTABLE(a, b, b, r, f"{kanji} jy:")
+    # Previously before new logic:: 1437 Kanji do not match
+    # With the new logic 56 kanji do not match
+
+    return r
 
 def get_strokes(kanji_info):
     all_ = kanji_info.get('strokes', {})
     def dig(source_key):
         return all_.get(source_key, None)
 
-    
     a = dig('kanjiSchool')
     b = dig('davidluzgouveiaJlpt')
-    # upon inspection, topokanji is not a good source
-    # for strokes so avoid using it
-    # see: https://github.com/mithi/kanji-data/issues/5
-    c = dig('topoKanji')
+    # c = dig('topoKanji')
+    # r = a or b or c
+    r = a or b
 
-    r = a or b or c
+    # There are 48 discrepancies in stroke count between topoKanji vs kanjiSchool 
+    # or davidluzgouveiaJlpt (latter two have the same count). 
+    # By manually verifying the stroke count with the help of https://jisho.org,
+    # topoKanji has been found to be consistently incorrect. 
+    # see: https://github.com/mithi/kanji-data/issues/5
+
+    # Found incorrect stroke count for davidluzgouveiaJlpt which indicates 稽 has stroke count of 16 when it should only have 15.
+    #  Discovered when comparing it against scriptin's kanjidic2-en-3.6.1.json.
+    # See also https://github.com/mithi/kanji-data/issues/8
+
+    if kanji_info["kanji"] == "稽":
+        return 15
+    
+    kanji = kanji_info["kanji"]
 
     # running_count_diff_GLOBAL_COUNT_UNSTABLE(a, b, b, r, f"{kanji} sr:")
-    # 96 Kanji do not match
+    # previous logic: 96 Kanji do not match
+    # Now: Everything matches
+
     return r
 
 def get_rtk_index(kanji_info):
@@ -351,7 +286,6 @@ def get_wanikani_lvl(kanji_info):
     return kanji_info.get('waniKani', {}).get('level', None)
 
 
-DEFAULT_VAL = -1
 DEFAULT_ARRAY_VAL = []
 # -------------------
 # FUNCTIONS TO GET FREQUENCY RANK INFORMATION
@@ -372,6 +306,8 @@ def get_ranks(kanji_info):
     def dig_ultimate(source_key):
         rank = all_ultimate.get(source_key, None)
         return to_int(rank)
+    
+    DEFAULT_VAL = -1
 
     rank_aozora_char = dig_scriptin('aozora') or DEFAULT_VAL
     rank_aozora_doc = dig_scriptin('aozora', 'docRank') or DEFAULT_VAL
@@ -379,6 +315,9 @@ def get_ranks(kanji_info):
     rank_wikipedia_doc = dig_scriptin('wikipedia', 'docRank') or DEFAULT_VAL
     rank_online_news_char = dig_scriptin('news') or DEFAULT_VAL
     rank_online_news_doc = dig_scriptin('news', 'docRank') or DEFAULT_VAL
+
+    rank_twitter_raw = all_.get('scriptin', {}).get('year2015', {}).get("twitter", {}).get("rank1224", None)
+    rank_twitter = to_int(rank_twitter_raw) or DEFAULT_VAL
 
     rank_netflix = dig_1224('ohTalkWhoNetflix') or DEFAULT_VAL
     rank_novels_5100 = dig_1224('rtk5100') or DEFAULT_VAL
@@ -389,10 +328,12 @@ def get_ranks(kanji_info):
     rank_mcd = dig_ultimate("mcd") or DEFAULT_VAL
     rank_bunka = dig_ultimate("bunka") or DEFAULT_VAL
     rank_kd = dig_ultimate("kd") or DEFAULT_VAL
+    rank_wkfr = dig_ultimate("wkfr") or DEFAULT_VAL
 
-    rank_jisho = dig_ultimate("jisho") or None
-    rank_newspapers_1 = all_.get('davidluzgouveiaJlpt', None) or None
-    rank_newspapers_2 = all_.get('kanjiSchool', None) or None
+    rank_jisho = dig_ultimate("jisho") or DEFAULT_VAL
+
+    # rank_newspapers_1 = all_.get('davidluzgouveiaJlpt', None) or None
+    # rank_newspapers_2 = all_.get('kanjiSchool', None) or None
 
     # a = rank_jisho
     # b = rank_newspapers_1
@@ -407,25 +348,39 @@ def get_ranks(kanji_info):
     # 5 殊 r: 1352 1361 1361
     # 6 緻 r: 2500 2460 None
 
-    return [
-    rank_aozora_char,
-    rank_aozora_doc,
-    rank_wikipedia_char,
-    rank_wikipedia_doc,
-    rank_online_news_char,
-    rank_online_news_doc,
-    rank_netflix,
-    rank_novels_5100,
-    rank_drama_subtitles,
-    rank_google,
-    rank_kuf,
-    rank_mcd,
-    rank_bunka,
-    rank_kd,
-    rank_jisho,
-    rank_newspapers_1 ,
-    rank_newspapers_2,
+    freqs = [
+        rank_netflix,
+        rank_twitter,
+        
+        rank_google,
+        rank_kd,
+
+        rank_wikipedia_char,
+        rank_wikipedia_doc,
+    
+        rank_aozora_char,
+        rank_aozora_doc,
+        
+        rank_online_news_char,
+        rank_online_news_doc,
+        
+        rank_novels_5100,
+        rank_drama_subtitles,
+        
+        rank_kuf,
+        rank_mcd,
+        rank_bunka,
+        rank_wkfr,
+        rank_jisho,
     ]
+
+    has_ranks = list(filter(lambda x: x != -1, freqs))
+
+    if len(has_ranks) == 0:
+        # only 々 has no rank
+        print("no_rank", kanji_info["kanji"], has_ranks)
+
+    return freqs 
 
 # -------------------
 # MAIN SCRIPT HERE
@@ -437,41 +392,77 @@ def get_kanji_data_from_file(file_path):
     
     return {}
 
-kanji_reformatted = {}
-
 ORIGINAL_KANJI_JSON_FILE_PATH = "./original_data/kanji.json"
-REFORMATTED_KANJI_FILE_PATH = f"{OUT_DIR}/generated_reformatted_kanji.json"
 
-kanji_data = get_kanji_data_from_file(ORIGINAL_KANJI_JSON_FILE_PATH) 
+kanji_data = get_kanji_data_from_file("./original_data/kanji.json") 
+kanji_vocab = get_kanji_data_from_file("./original_data/kanji_to_vocabulary.json") 
 
 kanji_list = [kanji for kanji in kanji_data.keys()]
+
+#    "一": {
+#        "一": {
+#            "furigana": "イチ",
+#            "meaning": "one"
+#        },
+#        "一つ": {
+#            "furigana": "ひとつ",
+#            "meaning": "one; for one thing; only; (not) even; just (e.g. \"just try it\"); some kind of, one type of"
+#        }
+#    }
+vocab_reformatted = {}
+for kanji in kanji_list:
+    vocab = kanji_vocab.get(kanji, None)
+    if vocab is None:
+        continue
+
+    def convert_to_array(key, value):
+        word = key
+        kana = value.get("furigana", "")
+        meaning = value.get("meaning", "")
+        return [word, kana, meaning]
+    
+    items = [convert_to_array(item[0], item[1]) for item in vocab.items()]
+    vocab_reformatted[kanji] = items
+
+for kanji in kanji_list: 
+    kanji_info = kanji_data[kanji]['kanji'] = kanji
 
 global global_count
 global_count = 0
 
+kanji_main_reformatted = {}
+kanji_other_reformatted = {}
 for kanji in kanji_list:
 
     kanji_info = kanji_data[kanji]
 
-    simple_info = [
-        get_keyword(kanji_info) or DEFAULT_VAL,
-        get_main_on_reading(kanji_info) or DEFAULT_VAL,
-        get_main_kun_reading(kanji_info) or DEFAULT_VAL,
-        get_jlpt(kanji_info) or DEFAULT_VAL,
-        get_strokes(kanji_info) or DEFAULT_VAL,
-        get_rtk_index(kanji_info) or DEFAULT_VAL,
-        get_wanikani_lvl(kanji_info) or DEFAULT_VAL,
-        get_jouyou(kanji_info) or DEFAULT_VAL,
+    main_info = [
+        get_keyword(kanji_info) or "",
+        get_main_on_reading(kanji_info) or "",
+        get_main_kun_reading(kanji_info) or "",
+        get_jlpt(kanji_info) or -1,    
+    ]
+    
+    kanji_main_reformatted[kanji] = main_info
+
+    secondary_info = [
+        get_component_parts(kanji_info) or [],
+        get_strokes(kanji_info) or -1,
+        get_rtk_index(kanji_info) or -1,
+        get_wanikani_lvl(kanji_info) or -1,
+        get_jouyou(kanji_info) or -1,
+        (get_all_meanings(kanji_info) or [])[:],
+        get_all_on_readings(kanji_info) or [],
+        get_all_kun_readings(kanji_info) or [],
     ]
 
-    component_parts = get_component_parts(kanji_info) or []
-    array_info = [
-        (get_all_meanings(kanji_info) or DEFAULT_ARRAY_VAL)[:],
-        (get_all_on_readings(kanji_info) or DEFAULT_ARRAY_VAL)[:],
-        (get_all_kun_readings(kanji_info) or DEFAULT_ARRAY_VAL)[:],
-        component_parts or DEFAULT_ARRAY_VAL,
-    ]
+    freq_info = get_ranks(kanji_info)
 
+    kanji_other_reformatted[kanji] = [
+        secondary_info,
+        freq_info,
+        vocab_reformatted.get(kanji, [])
+    ]
 
 
 # -----------------
@@ -487,7 +478,9 @@ def dump_json(file_name, data, indent=INDENT, separators=SEPARATORS):
     with open(file_name, mode="w", encoding="utf-8") as write_file:
         json.dump(data, write_file, indent=indent, separators=separators, ensure_ascii=False)
 
-# dump_json(REFORMATTED_KANJI_FILE_PATH , kanji_reformatted)
+# f"{OUT_DIR}/generated_reformatted_phonetic.json"
+dump_json(f"{OUT_DIR}/kanji_main_reformatted.json" , kanji_main_reformatted)
+dump_json(f"{OUT_DIR}/kanji_other_reformatted.json" , kanji_other_reformatted)
 
 # -----------------
 # Inspect Data 
@@ -620,16 +613,6 @@ get_reading_stats(get_all_kun_readings)
 # -----------------
 # Questions to Answer
 # -----------------
-
-# TODO: Check which have null data and populate them manually
 # TODO: How much KB will be saved if we remove main_on and main_kun since they're redundant information? 
-# TODO: Check is (1) jlpt, (2)jouyou, (3)strokes etc.. match for all sources or if there is a disrepancy
 
 
-# Index DB MAIN STORES
-# 1. kanji_info: Kanji -> General Information and Frequency Information
-# 2. parts_info: Part_Component -> Keyword
-# 3. phonetic_info: Phonetic_Part_Component -> Onyomi
-# 4. TODO: vocab_info kanji -> [[word, spacedKana, definition]]
-# 5. TODO: notes_info kanji -> Notes 
-# 6. TODO: cumulative_use_info

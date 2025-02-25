@@ -1,35 +1,10 @@
 import { ReactNode } from "react";
 import { useLocalStorage } from "../hooks/use-local-storage";
-import { JLTPTtypes } from "@/lib/constants";
 import { K_JLPT, K_STROKES } from "@/lib/frequency-rank";
 import { createContextComponents, useContextWithCatch } from "./common";
+import { SearchSettings } from "@/lib/constants";
 
 const storageKey = "search-settings";
-
-export type TextSearch = {
-  type: string;
-  text: string;
-};
-
-export type FilterSettings = {
-  strokeRange: { min: number; max: number };
-  jlpt: JLTPTtypes[];
-  freq: {
-    source: string;
-    rankRange: { min: number; max: number };
-  };
-};
-
-export type SortSettings = {
-  primary: string;
-  secondary: string;
-};
-
-export type SearchSettings = {
-  textSearch: TextSearch;
-  filterSettings: FilterSettings;
-  sortSettings: SortSettings;
-};
 
 export const defaultValue: SearchSettings = {
   textSearch: {

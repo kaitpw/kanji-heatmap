@@ -46,7 +46,7 @@ export const SearchInput = ({
       try {
         wanakana.unbind(inputRef.current);
       } catch {
-        console.log("cannot unbind romaji");
+        console.warn("cannot unbind romaji");
       }
       return;
     }
@@ -56,7 +56,7 @@ export const SearchInput = ({
       try {
         wanakana.unbind(inputRef.current);
       } catch {
-        console.log("cannot unbind to onyomi");
+        console.warn("cannot unbind to onyomi");
       }
       inputRef.current.value = newValue;
       wanakana.bind(inputRef.current, { IMEMode: "toKatakana" });
@@ -68,7 +68,7 @@ export const SearchInput = ({
       try {
         wanakana.unbind(inputRef.current);
       } catch {
-        console.log("cannot unbind to kunyomi");
+        console.warn("cannot unbind to kunyomi");
       }
       inputRef.current.value = newValue;
       wanakana.bind(inputRef.current, { IMEMode: "toHiragana" });
@@ -79,7 +79,7 @@ export const SearchInput = ({
     // const currentInput = inputRef.current;
     //    return () => {
     //      if (currentInput != null) {
-    //        console.log("unbind on cleen up");
+    //        console.log("unbind on clean up");
     //        wanakana.unbind(currentInput);
     //      }
     //    };

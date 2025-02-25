@@ -1,14 +1,45 @@
-export type JLTPTtypes = "n1" | "n2" | "n3" | "n4" | "n5";
+export type JLTPTtypes = "n1" | "n2" | "n3" | "n4" | "n5" | "none";
 
 export const JLPTListItems: Record<
   JLTPTtypes,
-  { cn: string; color: string; label: string }
+  { cn: string; color: string; label: string; cnBorder: string }
 > = {
-  n1: { cn: "bg-lime-400", color: "lime", label: "N1" },
-  n2: { cn: "bg-pink-400", color: "pink", label: "N2" },
-  n3: { cn: "bg-blue-400", color: "blue", label: "N3" },
-  n4: { cn: "bg-yellow-400", color: "yellow", label: "N4" },
-  n5: { cn: "bg-red-400", color: "orange", label: "N5" },
+  n1: {
+    cn: "bg-lime-400",
+    cnBorder: "border-lime-400",
+    color: "lime",
+    label: "N1",
+  },
+  n2: {
+    cn: "bg-pink-400",
+    cnBorder: "border-pink-400",
+    color: "pink",
+    label: "N2",
+  },
+  n3: {
+    cn: "bg-blue-400",
+    cnBorder: "border-blue-400",
+    color: "blue",
+    label: "N3",
+  },
+  n4: {
+    cn: "bg-yellow-400",
+    cnBorder: "border-yellow-400",
+    color: "yellow",
+    label: "N4",
+  },
+  n5: {
+    cn: "bg-red-400",
+    cnBorder: "border-red-400",
+    color: "orange",
+    label: "N5",
+  },
+  none: {
+    cn: "bg-gray-400",
+    cnBorder: "border-gray-400",
+    color: "gray",
+    label: "Not in JLPT",
+  },
 };
 
 export const allJLPTKeys = Object.keys(JLPTListItems) as JLTPTtypes[];
@@ -47,3 +78,34 @@ export const TILE_SIZE = {
 };
 
 export const HEADER_HEIGHT = 100;
+
+export type TextSearch = {
+  type: string;
+  text: string;
+};
+
+export type FilterSettings = {
+  strokeRange: { min: number; max: number };
+  jlpt: JLTPTtypes[];
+  freq: {
+    source: string;
+    rankRange: { min: number; max: number };
+  };
+};
+
+export type SortSettings = {
+  primary: string;
+  secondary: string;
+};
+
+export type SearchSettings = {
+  textSearch: TextSearch;
+  filterSettings: FilterSettings;
+  sortSettings: SortSettings;
+};
+
+export type CardSettings = {
+  cardType: "compact" | "expanded";
+  borderColorAttached: boolean;
+  backgroundColorSettingDataSource: string;
+};

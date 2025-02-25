@@ -5,10 +5,10 @@ import HoverMe from "./sections/HoverMe";
 import { useWindowSize } from "@react-hook/window-size"; // Debounced values
 import VirtualList from "react-tiny-virtual-list";
 import { HEADER_HEIGHT, TILE_SIZE } from "./constants";
-import KANJI_KEYS from "@/db/generated_kanji_list.json";
 import { KanjiDrawer } from "./sections/KanjiDrawer";
+import { useKanjiSearchResult } from "@/providers/kanji-worker-provider";
 
-const KanjiListRaw = ({ kanjiKeys = KANJI_KEYS }: { kanjiKeys?: string[] }) => {
+const KanjiListRaw = ({ kanjiKeys = [] }: { kanjiKeys?: string[] }) => {
   const [hoveredKanji, setHoveredKanji] = useState<string | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -25,6 +25,7 @@ const KanjiListRaw = ({ kanjiKeys = KANJI_KEYS }: { kanjiKeys?: string[] }) => {
   const cols = Math.floor(windowWidth / TILE_SIZE.sm.width);
   const rows = Math.ceil(kanjiKeys.length / cols);
   const listHeight = windowHeight - HEADER_HEIGHT;
+
   return (
     <>
       <VirtualList
@@ -73,4 +74,17 @@ const KanjiListRaw = ({ kanjiKeys = KANJI_KEYS }: { kanjiKeys?: string[] }) => {
 
 const KanjiList = React.memo(KanjiListRaw);
 
-export default KanjiList;
+const KanjiListWithSearch = () => {
+  const result = useKanjiSearchResult();
+
+  if (result.error != null) {
+    return <div className="p-20">Something went wrong</div>;
+  }
+
+  if (result.data == null) {
+    return <div className="p-20">Loading</div>;
+  }
+  return <KanjiList kanjiKeys={result.data} />;
+};
+
+export default KanjiListWithSearch;

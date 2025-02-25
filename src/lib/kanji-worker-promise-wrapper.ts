@@ -16,57 +16,66 @@
  *
  * In conclusion, the provided wrapper needs to be modified to store both resolve and reject functions for each request to handle errors properly.
  * The corrected implementation ensures promises resolve with normal responses and reject with errors, both for specific request errors and general worker errors.
- *  This is essential for React components, providing a robust way to manage web worker interactions with comprehensive error handling.
- *  The surprising detail is that general worker errors can reject all pending requests, which users should be aware of for proper error handling in their applications.
+ * This is essential for React components, providing a robust way to manage web worker interactions with comprehensive error handling.
+ * The surprising detail is that general worker errors can reject all pending requests, which users should be aware of for proper error handling in their applications.
  */
 
+import { KanjiWorkerRequest } from "./kanji-worker-constants";
+
+const SOURCE_URL = "/src/workers/kanji-worker.ts";
 export type PromiseWrappedWorker = {
-  request(data: unknown): Promise<unknown>;
+  request(data: KanjiWorkerRequest): Promise<unknown>;
   terminate(): void;
 };
 
-function createKanjiWorkerWrappedInPromise(): PromiseWrappedWorker {
-  const worker = new Worker(
-    new URL("/src/workers/kanji-worker.ts", import.meta.url),
-    {
+const KANJI_WORKER_SINGLETON =
+  (function createKanjiWorkerWrappedInPromise(): PromiseWrappedWorker {
+    const worker = new Worker(new URL(SOURCE_URL, import.meta.url), {
       type: "module",
-    }
-  );
+    });
 
-  let requestId = 0;
-  const pendingPromises = new Map();
+    let requestId = 0;
+    const pendingPromises = new Map();
 
-  worker.onmessage = (event) => {
-    const { id, response } = event.data;
-    const { resolve, reject } = pendingPromises.get(id);
-    if (response.error) {
-      reject(response.error);
-    } else {
-      resolve(response);
-    }
-    pendingPromises.delete(id);
-  };
+    worker.onmessage = (event) => {
+      const { id, response } = event.data;
+      const promise = pendingPromises.get(id);
 
-  worker.onerror = (error) => {
-    console.error("Worker error:", error);
-    for (const { reject } of pendingPromises.values()) {
-      reject("Worker encountered an error");
-    }
-    pendingPromises.clear();
-  };
+      if (promise == null) {
+        console.warn("promise doesn't exist for", id, response);
+        return;
+      }
 
-  return {
-    request(data: unknown) {
-      const id = requestId++;
-      return new Promise((resolve, reject) => {
-        worker.postMessage({ id, data });
-        pendingPromises.set(id, { resolve, reject });
-      });
-    },
-    terminate() {
-      worker.terminate();
-    },
-  };
-}
+      const { resolve, reject } = promise;
 
-export default createKanjiWorkerWrappedInPromise;
+      if (response.error) {
+        console.error("worker failed", id, response.error);
+        reject(response.error.message);
+      } else {
+        resolve(response.data);
+      }
+      pendingPromises.delete(id);
+    };
+
+    worker.onerror = (error) => {
+      for (const { reject } of pendingPromises.values()) {
+        reject("Worker encountered an error", error);
+      }
+      pendingPromises.clear();
+    };
+
+    return {
+      request(data: KanjiWorkerRequest) {
+        const id = requestId++;
+        return new Promise((resolve, reject) => {
+          worker.postMessage({ id, data });
+          pendingPromises.set(id, { resolve, reject });
+        });
+      },
+      terminate() {
+        worker.terminate();
+      },
+    };
+  })();
+
+export default KANJI_WORKER_SINGLETON;

@@ -1,14 +1,9 @@
 import { ReactNode } from "react";
 import { useLocalStorage } from "../hooks/use-local-storage";
 import { createContextComponents, useContextWithCatch } from "./common";
+import { CardSettings } from "@/lib/constants";
 
 const storageKey = "card-settings";
-
-export type CardSettings = {
-  cardType: "compact" | "expanded";
-  borderColorAttached: boolean;
-  backgroundColorSettingDataSource: string;
-};
 
 export const defaultValue: CardSettings = {
   cardType: "compact",

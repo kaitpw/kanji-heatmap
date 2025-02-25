@@ -18,43 +18,49 @@
 
 ## Kanji Information (found in `kanji` object store)
 
-### Simple Data Types
+### MAIN DATA
 
-0. keyword
-1. main_on_reading
-2. main_kun_reading
-3. jlpt
-4. strokes
-5. rtk_index
-6. wanikani_lvl
-7. jouyou_grade
+0 - keyword
+1 - main_on_reading
+2 - main_kun_reading
+3 - jlpt
 
-### Array Data Types
+### SECONDARY DATA
 
-1. all_meanings
-2. all_kun
-3. all_on
-4. component_parts
+0 - rtk_index
+1 - wanikani_lvl
+2 - strokes
+3 - component_parts
+4 - jouyou_grade
+5 - all_meanings
+6 - all_on
+7 - all_kun
 
-### Frequency Info
+### FREQUENCY DATA
 
-1. rank_aozora_char
-2. rank_online_news_char
-3. rank_wikipedia_char
-4. rank_aozora_doc
-5. rank_online_news_doc
-6. rank_wikipedia_doc
-7. rank_novels_5100
-8. rank_drama_subtitles
-9. rank_netflix
-10. rank_newspapers_1
-11. rank_newspapers_2
-12. rank_google
-13. rank_kuf
-14. rank_mcd
-15. rank_bunka
-16. rank_jisho
-17. rank_kd
+0 - rank_aozora_char
+1 - rank_aozora_doc
+2 - rank_online_news_char
+3 - rank_online_news_doc
+4 - rank_wikipedia_char
+5 - rank_wikipedia_doc
+6 - rank_novels_5100
+7 - rank_drama_subtitles
+8 - rank_netflix
+9 - rank_google
+10 - rank_kuf
+11 - rank_mcd
+12 - rank_bunka
+13 - rank_kd
+14 - rank_jisho
+
+### MAIN VOCAB DATA and SECONDARY VOCAB DATA
+
+`{ word, spacedKana, meaning}[]`
+
+### Notes
+
+`string`
 
 ### Information that can be computed on the fly
 
@@ -82,6 +88,17 @@
 
 - Given kanji `A`, check `part components of A` loop through each kanji `B` and look at `parts components of B`.If they have overlapping part components then this is a similar kanji. Then sort this list of kanjis by the difference of their stroke count. Then, given the difference in stroke count, sort by number of overlapping components they have. Get only the top 10.
 - This algorithm can be tweaked in the future.
+
+## JSON FILE SEGREGATION
+
+In order of priority
+
+1 - main kanji data
+2 - part-component => keyword
+3 - semantic-component => reading 4. ex
+5 - secondary_kanji_data
+6 - secondary_vocab_data
+7 - notes
 
 ## Web Worker Functions
 
@@ -111,110 +128,9 @@
 
 ## Caching
 
-### `useKanjiCache()`
-
-1. `getKanjiInfo()`
-
-- returns all information from `kanji-info` object store given a kanji, and if `phoneticComponent` exists, also return `phonetic: { kanji, kana }`
-
-2. `getPartComponentMeaning()`
-
-- given an array of part_component return an array of corresponding keyword
-
-3. `getKanjiVocab()`
-
-- Given a kanji, return all information from the `vocab_info` store, which is `{word, meaning, spacedKana }[]`
-
-Kanji Cache looks like this:
-
-```
-{
-    phonetic: { [part_component]: reading }
-    part_component_keyword: { [part_component]: keyword }
-    kanjiInfo: {
-        [kanji]:
-            {
-                mainInfo: {},
-                vocab: { definition, spacedKana, word }[]
-        }
-    }
-    computed: {
-        [kanji]:
-            {
-                dependentKanjis: [],
-                similarKanjis: [],
-            }
-        }
-    }
-}
-```
-
 ### `useVennDiagramCache()`
 
 - Caches `getVennDiagramCount()` and `getVennDiagramOverlap()`
-
-### `useCumulativeUseDataCache()`
-
-- Return cumulative information
-
-## Kanji Card Summary
-
-Contains
-
-## Kanji Drawer
-
-Aside from the main card. The drawer will have the following sections
-
-1. General
-2. Notes
-3. Selected Vocabulary
-4. Stroke Order Animation
-5. Frequency Rank
-6. Related Kanji
-
-## Settings
-
-```ts
-
-sortSettings =  {
-	primary: 'JLPT',
-	secondary: 'RTK Index'
-}
-
-filterSettings = {
-	strokeRange: { min: 10, max: 30 }
-	jlpt: ['N1'],
-	freq: {
-	    source: 'Netflix',
-	    rankRange: { min: 0, max: 250 }
-	}
-}
-
-cardSettings = {
-	cardType: 'expanded'
-	borderMeaning: 'jlpt' | null
-	backgroundMeaning: 'freq-netflix' | null
-}
-
-searchSettings = {
-    type: 'Keyword', 'Onyomi', 'Kunyomi', 'Part Component', 'Meaning'
-    text: "Shou"
-}
-```
-
-### Venn Diagram Page
-
-```ts
-{
-  source: {
-    A: 'Netflix'
-    B: 'Wikipedia',
-    C: 'Twitter',
-  },
-  maxRank: 50,
-  vennDiagramSelected: 'A intersection B'
-}
-```
 
 ## Data Generation
 
@@ -223,12 +139,6 @@ Run the script to generate data
 ```python
 python ./scripts/compress_kanji_data.py
 ```
-
-## Questions to Answer
-
-1. How many kanji are there with just one onyomi reading?
-2. What are the maximum number of readings for single kanji?
-3. Is it better to use `idb` or `idb-keyval`, how do I deal with indexdb upgrade when two tabs are open?
 
 ## Features To Do
 

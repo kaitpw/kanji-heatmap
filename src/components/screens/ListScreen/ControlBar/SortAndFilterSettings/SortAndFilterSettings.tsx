@@ -13,7 +13,7 @@ import {
 } from "@radix-ui/react-hover-card";
 import { Button } from "@/components/ui/button";
 import { Settings2 } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   FilterSectionLayout,
   FrequencyRankingRangeField,
@@ -32,12 +32,9 @@ import {
 } from "./sections/SortOrderSection";
 import BasicSelect from "@/components/common/BasicSelect";
 
-import {
-  FilterSettings,
-  SearchSettings,
-  SortSettings,
-} from "@/providers/search-settings-provider";
 import { Badge } from "@/components/ui/badge";
+import { FilterSettings, SearchSettings, SortSettings } from "@/lib/constants";
+import { useKanjiSearch } from "@/providers/kanji-worker-provider";
 
 const isEqualFilters = (a: FilterSettings, b: FilterSettings): boolean => {
   if (a === null || b === null) return a === b;
@@ -82,6 +79,16 @@ export const SortAndFilterSettingsForm = ({
     initialValue.filterSettings,
     filterValues
   );
+
+  const settings = useMemo(() => {
+    return {
+      ...initialValue,
+      sortSettings: sortValues,
+      filterSettings: filterValues,
+    };
+  }, [initialValue, sortValues, filterValues]);
+  const response = useKanjiSearch(settings);
+  console.log("response", response);
 
   const isDisabled = noChangeInFilterValues && noChangeInSortValues;
   return (

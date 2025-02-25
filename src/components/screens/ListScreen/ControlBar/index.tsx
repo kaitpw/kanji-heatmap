@@ -4,10 +4,23 @@ import {
   useSearchSettings,
   useSearchSettingsDispatch,
 } from "@/providers/search-settings-provider";
+import { useEffect } from "react";
 
 export const SortAndFilterSection = () => {
   const searchSettings = useSearchSettings();
   const dispatch = useSearchSettingsDispatch();
+
+  useEffect(() => {
+    /* when search and filter section is removed
+      (<SearchInput /> is no longer in the screen)
+      clear local storage searchText 
+
+    */
+
+    return () => {
+      dispatch("textSearch", { text: "", type: "keyword" });
+    };
+  }, [dispatch]);
 
   return (
     <>

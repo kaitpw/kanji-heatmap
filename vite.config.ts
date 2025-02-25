@@ -3,7 +3,7 @@ import { defineConfig, UserConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import { VitePWA } from "vite-plugin-pwa";
 
-const manifestForPlugin = {
+const pwaConfig = {
   registerType: "prompt" as const,
   includeAssets: [
     "favicon.io",
@@ -41,10 +41,26 @@ const manifestForPlugin = {
       },
     ],
   },
+  workbox: {
+    globPatterns: ["**/*.{js,css,html,json}"], // Include JSON files
+    runtimeCaching: [
+      {
+        urlPattern: /\.json$/i, // Cache JSON requests
+        handler: "CacheFirst" as const,
+        options: {
+          cacheName: "json-cache",
+          expiration: {
+            maxEntries: 50,
+            maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
+          },
+        },
+      },
+    ],
+  },
 };
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), VitePWA(manifestForPlugin)] as UserConfig["plugins"],
+  plugins: [react(), VitePWA(pwaConfig)] as UserConfig["plugins"],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
