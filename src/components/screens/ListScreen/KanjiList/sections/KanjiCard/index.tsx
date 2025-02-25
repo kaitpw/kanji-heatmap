@@ -87,20 +87,15 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
 
   return (
     <KanjiCardLayout
-      mainCard={
-        <MainCardContent
-          kanji={kanji}
-          keyword={`Interval ${JSON.stringify(info, null, 2)}`}
-        />
-      }
+      mainCard={<MainCardContent kanji={kanji} keyword={"Interval"} />}
       firstWordCard={
         <WordCard
           word="時時間"
-          definition="Time, Hours of..."
+          definition={"Time, Hours of..."}
           spacedKana="じ かん じ"
           highlightIndex={1}
           wordKanjis={[
-            { keyword: "time", kanji: "時" },
+            { keyword: `time ${JSON.stringify(info, null, 2)}`, kanji: "時" },
             { keyword: "interval", kanji: "時" },
           ]}
         />
