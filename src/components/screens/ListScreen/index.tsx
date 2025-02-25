@@ -7,11 +7,18 @@ import { CardSettingsProvider } from "@/providers/card-settings-provider";
 import CardPresentationSettings, {
   CardPresentationSettingsContent,
 } from "./ControlBar/CardPresentationSettings";
-import { KanjiWorkerProvider } from "@/providers/kanji-worker-provider";
+import {
+  KanjiWorkerProvider,
+  useIsKanjiWorkerReady,
+} from "@/providers/kanji-worker-provider";
 
 const KanjiList = lazy(() => import("./KanjiList"));
 
 const ListScreenContent = () => {
+  const ready = useIsKanjiWorkerReady();
+  if (!ready) {
+    return <p className="p-20"> loading...</p>;
+  }
   return (
     <>
       <div className="sticky top-[50px] bg-white dark:bg-black bg-opacity-50 backdrop-blur-sm px-2 pb-2 z-40">

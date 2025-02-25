@@ -24,9 +24,11 @@ type KanjiRequestFn = (
   type: KanjiInfoRequestType
 ) => Promise<unknown>;
 
-const StateContext = createContext<KanjiRequestFn | null>(null);
+const ActionContext = createContext<KanjiRequestFn | null>(null);
+const IsReadyContext = createContext<boolean>(false);
 
 export function KanjiWorkerProvider({ children }: { children: ReactNode }) {
+  const [isReady, setIsReady] = useState(false);
   const hasMounted = useRef(false);
 
   const kanjiCacheRef = useRef<KanjiCacheType | null>(null);
@@ -40,6 +42,20 @@ export function KanjiWorkerProvider({ children }: { children: ReactNode }) {
     }
 
     hasMounted.current = true;
+
+    let mainReady = false;
+    let partReady = false;
+    let phoneticReady = false;
+    let extendedReady = false;
+
+    const checkIfDone = () => {
+      if (mainReady && partReady && phoneticReady && extendedReady) {
+        console.log("ready! yay!");
+        setIsReady(true);
+        return;
+      }
+      console.log("not ready!");
+    };
 
     requestWorker({ type: "kanji-main-map" }).then((r) => {
       const res = r as Record<string, KanjiMainInfo>;
@@ -56,20 +72,29 @@ export function KanjiWorkerProvider({ children }: { children: ReactNode }) {
 
         kanjiCacheRef.current[item] = { main: info };
       });
+      mainReady = true;
+      checkIfDone();
     });
 
     requestWorker({
       type: "part-keyword-map",
     }).then((r) => {
       partKeywordCacheRef.current = r as KanjiPartKeywordCacheType;
+      partReady = true;
+      checkIfDone();
     });
 
     requestWorker({ type: "phonetic-map" }).then((r) => {
       phoneticCacheRef.current = r as KanjiPhoneticCacheType;
+      phoneticReady = true;
+      checkIfDone();
     });
 
     requestWorker({
       type: "initialize-extended-kanji-map",
+    }).then(() => {
+      extendedReady = true;
+      checkIfDone();
     });
   }, []);
 
@@ -100,7 +125,6 @@ export function KanjiWorkerProvider({ children }: { children: ReactNode }) {
         }
 
         if (type === "hover-card") {
-          console.log("hover-card", kanjiInfo);
           const result = {
             ...kanjiInfo.main,
             mainVocab: kanjiInfo.extended.mainVocab,
@@ -114,8 +138,6 @@ export function KanjiWorkerProvider({ children }: { children: ReactNode }) {
             }),
             frequency: kanjiInfo.extended.frequency,
           };
-          console.log("hover card result", kanjiInfo);
-
           return result;
         }
 
@@ -136,7 +158,10 @@ export function KanjiWorkerProvider({ children }: { children: ReactNode }) {
       };
 
       if (kanjiInfo.extended == null) {
-        requestWorker({ type: "kanji-extended", payload: k }).then((r) => {
+        const result = await requestWorker({
+          type: "kanji-extended",
+          payload: k,
+        }).then((r) => {
           const res = r as KanjiExtendedInfo;
 
           // NOTE: I don't know why typescript cant detect this
@@ -147,23 +172,31 @@ export function KanjiWorkerProvider({ children }: { children: ReactNode }) {
           kanjiCacheRef.current[k].extended = res;
           return getNecessaryValues();
         });
-      }
 
+        return result;
+      }
       return getNecessaryValues();
     },
     []
   );
 
   return (
-    <StateContext.Provider value={kanjiInfoRequest}>
-      {children}
-    </StateContext.Provider>
+    <ActionContext.Provider value={kanjiInfoRequest}>
+      <IsReadyContext.Provider value={isReady}>
+        {children}
+      </IsReadyContext.Provider>
+    </ActionContext.Provider>
   );
 }
 
 export const useKanjiWorkerRequest = () => {
-  const fn = useContextWithCatch(StateContext, "KanjiWorker");
+  const fn = useContextWithCatch(ActionContext, "KanjiWorker");
   return fn;
+};
+
+export const useIsKanjiWorkerReady = () => {
+  const ready = useContextWithCatch(IsReadyContext, "KanjiWorker");
+  return ready;
 };
 
 export type Status = "idle" | "loading" | "error" | "success";
