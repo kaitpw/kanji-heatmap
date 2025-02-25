@@ -21,8 +21,8 @@
  */
 
 import { KanjiWorkerRequest } from "./kanji-worker-constants";
+import KanjiWorker from "@/workers/kanji-worker.ts?worker";
 
-const SOURCE_URL = "/src/workers/kanji-worker.ts";
 export type PromiseWrappedWorker = {
   request(data: KanjiWorkerRequest): Promise<unknown>;
   terminate(): void;
@@ -30,10 +30,7 @@ export type PromiseWrappedWorker = {
 
 const KANJI_WORKER_SINGLETON =
   (function createKanjiWorkerWrappedInPromise(): PromiseWrappedWorker {
-    const worker = new Worker(new URL(SOURCE_URL, import.meta.url), {
-      type: "module",
-    });
-
+    const worker = new KanjiWorker();
     let requestId = 0;
     const pendingPromises = new Map();
 
@@ -58,9 +55,8 @@ const KANJI_WORKER_SINGLETON =
     };
 
     worker.onerror = (error) => {
-      for (const { reject } of pendingPromises.values()) {
-        reject("Worker encountered an error", error);
-      }
+      console.error("Worker failed to load", error);
+      pendingPromises.forEach(({ reject }) => reject("Worker failed to load"));
       pendingPromises.clear();
     };
 

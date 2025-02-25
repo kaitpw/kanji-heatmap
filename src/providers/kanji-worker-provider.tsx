@@ -50,11 +50,9 @@ export function KanjiWorkerProvider({ children }: { children: ReactNode }) {
 
     const checkIfDone = () => {
       if (mainReady && partReady && phoneticReady && extendedReady) {
-        console.log("ready! yay!");
         setIsReady(true);
         return;
       }
-      console.log("not ready!");
     };
 
     requestWorker({ type: "kanji-main-map" }).then((r) => {
@@ -107,7 +105,7 @@ export function KanjiWorkerProvider({ children }: { children: ReactNode }) {
 
       const kanjiInfo = kanjiCacheRef.current[k];
       if (kanjiInfo == null) {
-        throw Error("No information about this Kanji");
+        throw Error(`${k}:No information about this Kanji `);
       }
 
       if (type === "item-card") {

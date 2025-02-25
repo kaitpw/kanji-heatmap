@@ -53,7 +53,7 @@ export const loadExtendedKanjiInfo = (items: ExtendedKanjiInfoResponseType) => {
   extendedInfoComplete = true;
 };
 
-onmessage = function (event: { data: OnMessageRequestType }) {
+self.onmessage = function (event: { data: OnMessageRequestType }) {
   const eventType = event.data.data.type;
   const payload = event.data.data.payload;
   const id = event.data.id;

@@ -61,6 +61,9 @@ const pwaConfig = {
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), VitePWA(pwaConfig)] as UserConfig["plugins"],
+  build: {
+    target: "esnext", // Needed for module workers
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
