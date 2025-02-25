@@ -1,8 +1,8 @@
-import { useId, useState } from "react";
+import { useId } from "react";
 
 import { Label } from "@/components/ui/label";
 import { MultiSelect } from "@/components/ui/multi-select";
-import { JLTPTtypes, JLPTListItems, JLPTOptions } from "@/lib/constants";
+import { JLTPTtypes, JLPTOptions } from "@/lib/constants";
 
 const JLPTOptionsWithIcon = JLPTOptions.map((entry) => {
   return {
@@ -15,12 +15,15 @@ const JLPTOptionsWithIcon = JLPTOptions.map((entry) => {
     ),
   };
 });
-export function JLPTSelector() {
-  const [selectedJLPT, setSelectedJLPT] = useState<JLTPTtypes[]>(
-    Object.keys(JLPTListItems) as JLTPTtypes[]
-  );
+export function JLPTSelector({
+  selectedJLPT,
+  setSelectedJLPT,
+}: {
+  selectedJLPT: JLTPTtypes[];
+  setSelectedJLPT: (v: JLTPTtypes[]) => void;
+}) {
   const id = useId();
-  const fieldId = `multiselectframework-${id}`;
+  const fieldId = `jlpt-multiselect-${id}`;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onValueChange = setSelectedJLPT as any;
   return (

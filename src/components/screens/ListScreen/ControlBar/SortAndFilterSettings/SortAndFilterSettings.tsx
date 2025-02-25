@@ -1,6 +1,7 @@
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -12,32 +13,242 @@ import {
 } from "@radix-ui/react-hover-card";
 import { Button } from "@/components/ui/button";
 import { Settings2 } from "lucide-react";
-import { DialogDescription } from "@radix-ui/react-dialog";
-import { useState } from "react";
-import { SortOrderSection } from "./sections/SortOrderSection";
-import { FilterSection } from "./FilterSection";
+import { useMemo, useState } from "react";
+import {
+  FilterSectionLayout,
+  FrequencyRankingRangeField,
+  StrokeCountField,
+} from "./FilterSection";
+import { FrequencyRankDataSource } from "./sections/common";
+import { JLPTSelector } from "./sections/JLPTSelector";
+import {
+  OPTION_LABELS,
+  PRIMARY_SORT_ORDER_SELECT,
+  SECONDARY_SORT_ORDER_SELECT,
+} from "@/lib/frequency-rank";
+import {
+  SortAdditionalInfo,
+  SortOrderSectionLayout,
+} from "./sections/SortOrderSection";
+import BasicSelect from "@/components/common/BasicSelect";
 
-const SettingsForm = () => {
+import { Badge } from "@/components/ui/badge";
+import { FilterSettings, SearchSettings, SortSettings } from "@/lib/constants";
+import { useKanjiSearch } from "@/providers/kanji-worker-provider";
+
+const isEqualFilters = (a: FilterSettings, b: FilterSettings): boolean => {
+  if (a === null || b === null) return a === b;
+  if (a === undefined || b === undefined) return a === b;
+
+  if (a.strokeRange.min !== b.strokeRange.min) return false;
+  if (a.strokeRange.max !== b.strokeRange.max) return false;
+
+  if (a.jlpt.length !== b.jlpt.length) return false;
+  for (let i = 0; i < a.jlpt.length; i++) {
+    if (a.jlpt[i] !== b.jlpt[i]) return false;
+  }
+
+  if (a.freq.source !== b.freq.source) return false;
+  if (a.freq.rankRange.min !== b.freq.rankRange.min) return false;
+  if (a.freq.rankRange.max !== b.freq.rankRange.max) return false;
+
+  return true;
+};
+
+export const SortAndFilterSettingsForm = ({
+  initialValue,
+  onSettle,
+}: {
+  onSettle: (x: SearchSettings) => void;
+  initialValue: SearchSettings;
+}) => {
+  const [sortValues, setSortValues] = useState<SortSettings>(
+    initialValue.sortSettings
+  );
+  const [filterValues, setFilterValues] = useState<FilterSettings>(
+    initialValue.filterSettings
+  );
+
+  const itemCount = 143;
+
+  const noChangeInSortValues =
+    sortValues.primary === initialValue.sortSettings.primary &&
+    sortValues.secondary == initialValue.sortSettings.secondary;
+
+  const noChangeInFilterValues = isEqualFilters(
+    initialValue.filterSettings,
+    filterValues
+  );
+
+  const settings = useMemo(() => {
+    return {
+      ...initialValue,
+      sortSettings: sortValues,
+      filterSettings: filterValues,
+    };
+  }, [initialValue, sortValues, filterValues]);
+  const response = useKanjiSearch(settings);
+  console.log("response", response);
+
+  const isDisabled = noChangeInFilterValues && noChangeInSortValues;
   return (
     <section className="flex flex-col items-start justify-start w-full">
-      <form className="w-full flex flex-col space-y-4">
-        <SortOrderSection />
-        <FilterSection />
-        <div className="flex w-full justify-end">
-          A total of<span className="font-extrabold mx-1">146</span> Kanji
-          Characters match your filters
-        </div>
+      <form
+        className="w-full flex flex-col space-y-4"
+        onSubmit={(e) => {
+          e.preventDefault();
+          onSettle({
+            ...initialValue,
+            filterSettings: filterValues,
+            sortSettings: sortValues,
+          });
+        }}
+      >
+        <SortOrderSectionLayout
+          primaryField={
+            <BasicSelect
+              value={sortValues.primary}
+              onChange={(newValue) =>
+                setSortValues((prev) => {
+                  return { ...prev, primary: newValue };
+                })
+              }
+              triggerCN={"h-8 w-full"}
+              options={PRIMARY_SORT_ORDER_SELECT}
+              label="Primary"
+              isLabelSrOnly={false}
+            />
+          }
+          secondaryField={
+            sortValues.secondary && (
+              <BasicSelect
+                value={sortValues.secondary}
+                onChange={(newValue) =>
+                  setSortValues((prev) => {
+                    return { ...prev, secondary: newValue };
+                  })
+                }
+                triggerCN={"h-8 w-full"}
+                options={SECONDARY_SORT_ORDER_SELECT}
+                label="Secondary"
+                isLabelSrOnly={false}
+              />
+            )
+          }
+          additionalInfo={
+            <SortAdditionalInfo
+              val1={OPTION_LABELS?.[sortValues?.primary] ?? "None"}
+              val2={
+                sortValues.secondary
+                  ? OPTION_LABELS[sortValues.secondary]
+                  : undefined
+              }
+            />
+          }
+        />
+
+        <FilterSectionLayout
+          strokeCountField={
+            <StrokeCountField
+              values={[
+                filterValues.strokeRange.min,
+                filterValues.strokeRange.max,
+              ]}
+              setValues={(val) => {
+                setFilterValues((prev) => {
+                  return {
+                    ...prev,
+                    strokeRange: { min: val[0] ?? 0, max: val[1] ?? 2500 },
+                  };
+                });
+              }}
+            />
+          }
+          jlptField={
+            <JLPTSelector
+              selectedJLPT={filterValues.jlpt}
+              setSelectedJLPT={(val) => {
+                setFilterValues((prev) => {
+                  return { ...prev, jlpt: val };
+                });
+              }}
+            />
+          }
+          freqRankSourceField={
+            <FrequencyRankDataSource
+              value={filterValues.freq.source}
+              setValue={(val) => {
+                setFilterValues((prev) => {
+                  return {
+                    ...prev,
+                    freq: {
+                      ...prev.freq,
+                      source: val,
+                    },
+                  };
+                });
+              }}
+            />
+          }
+          freqRankRangeField={
+            <FrequencyRankingRangeField
+              values={[
+                filterValues.freq.rankRange.min,
+                filterValues.freq.rankRange.max,
+              ]}
+              setValues={(val) => {
+                setFilterValues((prev) => {
+                  return {
+                    ...prev,
+                    freq: {
+                      ...prev.freq,
+                      rankRange: { min: val[0] ?? 0, max: val[1] ?? 2500 },
+                    },
+                  };
+                });
+              }}
+            />
+          }
+        />
+        {!isDisabled && (
+          <div className="flex w-full justify-end items-center">
+            {initialValue.textSearch.text.length > 0 && (
+              <>
+                Considering your search text{" "}
+                <Badge className="m-1 px-3 py-1 text-sm" variant={"outline"}>
+                  {initialValue.textSearch.text}
+                </Badge>
+                ,
+              </>
+            )}{" "}
+            a total of<span className="font-extrabold mx-1">{itemCount}</span>{" "}
+            Kanji Characters match your filters{" "}
+          </div>
+        )}
+        {isDisabled && (
+          <div className="flex w-full justify-end items-center">
+            There are no changes to apply yet.
+          </div>
+        )}
         <div className="flex justify-end space-x-1 border-t pt-3">
-          <Button variant={"secondary"}>Reset</Button>
-          <Button>Apply</Button>
+          <Button disabled={isDisabled} type="submit">
+            Apply
+          </Button>
         </div>
       </form>
     </section>
   );
 };
 
-const SortAndFilterSettings = () => {
+export const SortAndFilterSettingsDialog = ({
+  initialValue,
+  onSettle,
+}: {
+  onSettle: (x: SearchSettings) => void;
+  initialValue: SearchSettings;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <Dialog open={isOpen} onOpenChange={(state) => setIsOpen(state)}>
       <DialogTrigger asChild>
@@ -70,10 +281,14 @@ const SortAndFilterSettings = () => {
             Manage your Sorting and Filtering Settings
           </DialogDescription>
         </DialogHeader>
-        <SettingsForm />
+        <SortAndFilterSettingsForm
+          initialValue={initialValue}
+          onSettle={(val) => {
+            onSettle(val);
+            setIsOpen(false);
+          }}
+        />
       </DialogContent>
     </Dialog>
   );
 };
-
-export default SortAndFilterSettings;

@@ -1,15 +1,19 @@
-import { ReactNode, useId, useState } from "react";
+import { ReactNode, useId } from "react";
 
 import { DualRangeSlider } from "@/components/ui/dual-range-slider";
 import { Label } from "@/components/ui/label";
 import { FilterX } from "lucide-react";
-import { JLPTSelector } from "./sections/JLPTSelector";
-import { FrequencyRankDataSource, UppercaseHeading } from "./sections/common";
+import { UppercaseHeading } from "./sections/common";
 
-const FrequencyRankingRangeField = () => {
-  const [values, setValues] = useState([0, 1000]);
+export const FrequencyRankingRangeField = ({
+  values,
+  setValues,
+}: {
+  values: [min: number, max: number];
+  setValues: (val: [min: number, max: number]) => void;
+}) => {
   const id = useId();
-  const fieldId = `strokecountfilter-${id}`;
+  const fieldId = `frequency-rank-range-${id}`;
 
   return (
     <div className="w-full">
@@ -31,8 +35,13 @@ const FrequencyRankingRangeField = () => {
   );
 };
 
-const StrokeCountField = () => {
-  const [values, setValues] = useState([1, 250]);
+export const StrokeCountField = ({
+  values,
+  setValues,
+}: {
+  values: [min: number, max: number];
+  setValues: (val: [min: number, max: number]) => void;
+}) => {
   const id = useId();
   const fieldId = `strokecountfilter-${id}`;
 
@@ -56,7 +65,7 @@ const StrokeCountField = () => {
   );
 };
 
-const FilterSectionLayout = ({
+export const FilterSectionLayout = ({
   jlptField,
   strokeCountField,
   freqRankRangeField,
@@ -70,7 +79,6 @@ const FilterSectionLayout = ({
   return (
     <section className="text-start w-full">
       <UppercaseHeading title="Filters" icon={<FilterX size={15} />} />
-
       <div className="flex w-full flex-col md:flex-row md:space-x-4">
         <div className="w-full md:w-1/2 pb-8">{strokeCountField}</div>
         <div className="w-full md:w-1/2">{jlptField}</div>
@@ -85,20 +93,8 @@ const FilterSectionLayout = ({
             {freqRankSourceField}
           </div>
         </div>
-
         <div className="w-full md:w-1/2 pb-8">{freqRankRangeField}</div>
       </div>
     </section>
-  );
-};
-
-export const FilterSection = () => {
-  return (
-    <FilterSectionLayout
-      strokeCountField={<StrokeCountField />}
-      jlptField={<JLPTSelector />}
-      freqRankSourceField={<FrequencyRankDataSource />}
-      freqRankRangeField={<FrequencyRankingRangeField />}
-    />
   );
 };

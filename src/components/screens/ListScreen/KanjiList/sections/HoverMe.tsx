@@ -5,8 +5,46 @@ import {
   HoverCardArrow,
 } from "@/components/ui/hover-card";
 import { Button } from "@/components/ui/button";
-import React from "react";
+import React, { forwardRef } from "react";
 import { KanjiCard } from "./KanjiCard";
+import { useKanjiInfo } from "@/providers/kanji-worker-provider";
+import { KanjiMainInfo } from "@/lib/kanji-worker-constants";
+import { JLPTListItems } from "@/lib/constants";
+
+interface TriggerProps {
+  onClick: () => void;
+  kanji: string;
+}
+
+const KanjiItemButton = forwardRef<HTMLButtonElement, TriggerProps>(
+  (props, ref) => {
+    const { kanji, onClick } = props;
+    const kanjiInfo = useKanjiInfo(kanji, "item-card");
+    const cn =
+      "p-1.5 rounded-lg text-2xl border-4 mr-1 mb-1 kanji-font text-white bg-opacity-100 bg-[#fb02a8] z-0 hover:border-[#2effff]";
+
+    if (kanjiInfo.data == null) {
+      return (
+        <button
+          ref={ref}
+          className={`${cn} animate-pulse border-lime-300 `}
+          onClick={onClick}
+        >
+          {kanji}
+        </button>
+      );
+    }
+
+    const data = kanjiInfo.data as KanjiMainInfo;
+    const jlpt = data.jlpt;
+    const border = JLPTListItems[jlpt].cnBorder;
+    return (
+      <button className={`${cn} ${border}`} ref={ref} onClick={onClick}>
+        {kanji}
+      </button>
+    );
+  }
+);
 
 const HoverMeRaw = ({
   trigger,
@@ -30,15 +68,13 @@ const HoverMeRaw = ({
         open={isOpen}
       >
         <HoverCardTrigger asChild>
-          <button
-            className="p-1.5 rounded-lg text-2xl border-4 mr-1 mb-1 kanji-font text-white border-lime-300 bg-[#fb02a8] bg-opacity-100 z-0 hover:border-[#2effff]"
+          <KanjiItemButton
             onClick={() => {
               setOpen(null);
               openDrawer(trigger);
             }}
-          >
-            {trigger}
-          </button>
+            kanji={trigger}
+          />
         </HoverCardTrigger>
         <HoverCardContent className="w-auto p-1">
           <HoverCardArrow />
