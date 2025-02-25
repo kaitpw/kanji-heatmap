@@ -1,70 +1,8 @@
 # Kanji Companion
 
-## Indexeddb Stores
-
-```
-1. kanji_info: Kanji -> General Information and Frequency Information
-2. parts_info: Part_Component -> Keyword
-3. phonetic_info: Phonetic_Part_Component -> Onyomi
-4. vocab_info kanji -> [[word, spacedKana, definition]]
-5. notes_info kanji -> Notes (coming soon)
-6. cumulative_use_info
-```
-
-1. The first store `kanji_info` contains information used potentially for "searching, sorting and filtering".
-   Note that `vocab_info` and `notes_info` are not use for this purpose which is why they're stored separately.
-
-2. `cumulative_use_info` is only used in the `Cumulative Use Graph` page
-
 ## Kanji Information (found in `kanji` object store)
 
-### MAIN DATA
-
-0 - keyword
-1 - main_on_reading
-2 - main_kun_reading
-3 - jlpt
-
-### SECONDARY DATA
-
-0 - rtk_index
-1 - wanikani_lvl
-2 - strokes
-3 - component_parts
-4 - jouyou_grade
-5 - all_meanings
-6 - all_on
-7 - all_kun
-
-### FREQUENCY DATA
-
-0 - rank_aozora_char
-1 - rank_aozora_doc
-2 - rank_online_news_char
-3 - rank_online_news_doc
-4 - rank_wikipedia_char
-5 - rank_wikipedia_doc
-6 - rank_novels_5100
-7 - rank_drama_subtitles
-8 - rank_netflix
-9 - rank_google
-10 - rank_kuf
-11 - rank_mcd
-12 - rank_bunka
-13 - rank_kd
-14 - rank_jisho
-
-### MAIN VOCAB DATA and SECONDARY VOCAB DATA
-
-`{ word, spacedKana, meaning}[]`
-
-### Notes
-
-`string`
-
 ### Information that can be computed on the fly
-
-**Additional Frequency Information**
 
 1. `ultimate_average_rank` = `(goog + kuf + mdc + bunka + jisho + kd + wkfr) / 7`
 2. `ultimate_average_weighted` = `( 2 * goog + 2 * kuf + 2 * bunka + mdc + jisho + kd + wkfr ) / 10`
@@ -88,43 +26,6 @@
 
 - Given kanji `A`, check `part components of A` loop through each kanji `B` and look at `parts components of B`.If they have overlapping part components then this is a similar kanji. Then sort this list of kanjis by the difference of their stroke count. Then, given the difference in stroke count, sort by number of overlapping components they have. Get only the top 10.
 - This algorithm can be tweaked in the future.
-
-## JSON FILE SEGREGATION
-
-In order of priority
-
-1 - main kanji data
-2 - part-component => keyword
-3 - semantic-component => reading 4. ex
-5 - secondary_kanji_data
-6 - secondary_vocab_data
-7 - notes
-
-## Web Worker Functions
-
-### Priority 0
-
-1. `getKanjiItems()`
-
-- Returns a list of kanjis given "search, sort, and filter settings"
-
-2. `getKanjiItemsCount()`
-
-- Returns the count of kanjist that match the "search, sort, and filter settings"
-
-3. `getRelatedKanji()`
-
-- Given a kanji returns `{ similarKanji: [], dependentKanjis: [] }`
-
-### Priority 1
-
-1. `getVennDiagramCount()`
-
-- Given three frequency ranks data source `A`, `B`, `C`, returns seven numbers - the count for each possible overlaps `A intersect B`, `A intersect B - C` etc.
-
-2. `getVennDiagramOverlap()`
-
-- Given one of the seven possible overlaps, return the list of kanjis
 
 ## Caching
 
