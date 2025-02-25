@@ -98,14 +98,14 @@ export function KanjiWorkerProvider({ children }: { children: ReactNode }) {
 
   // function that can accept kanji info requests
   const kanjiInfoRequest = useCallback(
-    async (k: string, type: KanjiInfoRequestType) => {
+    async (kanji: string, type: KanjiInfoRequestType) => {
       if (kanjiCacheRef.current == null) {
         throw Error("kanjiCache not initialized");
       }
 
-      const kanjiInfo = kanjiCacheRef.current[k];
+      const kanjiInfo = kanjiCacheRef.current[kanji];
       if (kanjiInfo == null) {
-        throw Error(`${k}:No information about this Kanji `);
+        throw Error(`${kanji}:No information about this Kanji `);
       }
 
       if (type === "item-card") {
@@ -130,8 +130,9 @@ export function KanjiWorkerProvider({ children }: { children: ReactNode }) {
               return {
                 part,
                 keyword:
-                  kanjiInfo.main.keyword ?? partKeywordCacheRef?.current?.[k],
-                phonetic: phoneticCacheRef?.current?.[k],
+                  kanjiInfo.main.keyword ??
+                  partKeywordCacheRef?.current?.[kanji],
+                phonetic: phoneticCacheRef?.current?.[kanji],
               };
             }),
             frequency: kanjiInfo.extended.frequency,
@@ -152,22 +153,22 @@ export function KanjiWorkerProvider({ children }: { children: ReactNode }) {
             strokes,
           };
         }
-        throw Error(`${type} Not Implemented (${k})`);
+        throw Error(`${type} Not Implemented (${kanji})`);
       };
 
       if (kanjiInfo.extended == null) {
         const result = await requestWorker({
           type: "kanji-extended",
-          payload: k,
+          payload: kanji,
         }).then((r) => {
           const res = r as KanjiExtendedInfo;
 
           // NOTE: I don't know why typescript cant detect this
-          if (kanjiCacheRef?.current?.[k] == null) {
+          if (kanjiCacheRef?.current?.[kanji] == null) {
             throw Error("No information about this Kanji");
           }
 
-          kanjiCacheRef.current[k].extended = res;
+          kanjiCacheRef.current[kanji].extended = res;
           return getNecessaryValues();
         });
 
@@ -220,7 +221,9 @@ export const useKanjiSearch = (searchSettings: SearchSettings) => {
 
     lastRequestedSettings.current = searchSettings;
 
-    setState({ status: "loading" });
+    setState((prev) => {
+      return { status: "loading", data: prev.data };
+    });
 
     requestWorker({ type: "search", payload: searchSettings })
       .then((result: unknown) => {
@@ -261,7 +264,9 @@ export const useKanjiInfo = (
 
       return;
     }
-    setState({ status: "loading" });
+    setState((prev) => {
+      return { status: "loading", data: prev.data };
+    });
     requestFn(kanji, requestType)
       .then((result: unknown) => {
         setState({
