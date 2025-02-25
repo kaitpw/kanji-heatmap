@@ -12,24 +12,22 @@ import { KanjiMainInfo } from "@/lib/kanji-worker-constants";
 import { JLPTListItems } from "@/lib/constants";
 
 interface TriggerProps {
-  onClick: () => void;
+  onClick?: () => void;
   kanji: string;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 }
 
 const KanjiItemButton = forwardRef<HTMLButtonElement, TriggerProps>(
   (props, ref) => {
-    const { kanji, onClick } = props;
+    const { kanji, onClick, onMouseEnter, onMouseLeave } = props;
     const kanjiInfo = useKanjiInfo(kanji, "item-card");
     const cn =
       "p-1.5 rounded-lg text-2xl border-4 mr-1 mb-1 kanji-font text-white bg-opacity-100 bg-[#fb02a8] z-0 hover:border-[#2effff]";
 
     if (kanjiInfo.data == null) {
       return (
-        <button
-          ref={ref}
-          className={`${cn} animate-pulse border-lime-300 `}
-          onClick={onClick}
-        >
+        <button ref={ref} className={`${cn} animate-pulse border-lime-300 `}>
           {kanji}
         </button>
       );
@@ -39,7 +37,13 @@ const KanjiItemButton = forwardRef<HTMLButtonElement, TriggerProps>(
     const jlpt = data.jlpt;
     const border = JLPTListItems[jlpt].cnBorder;
     return (
-      <button className={`${cn} ${border}`} ref={ref} onClick={onClick}>
+      <button
+        className={`${cn} ${border}`}
+        ref={ref}
+        onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
         {kanji}
       </button>
     );
@@ -59,26 +63,23 @@ const HoverMeRaw = ({
 }) => {
   return (
     <>
-      <HoverCard
-        openDelay={200}
-        closeDelay={200}
-        onOpenChange={() => {
-          setOpen(isOpen ? null : trigger);
-        }}
-        open={isOpen}
-      >
-        <HoverCardTrigger asChild>
-          <KanjiItemButton
-            onClick={() => {
-              setOpen(null);
-              openDrawer(trigger);
-            }}
-            kanji={trigger}
-          />
+      <HoverCard open={isOpen}>
+        <HoverCardTrigger
+          asChild
+          onClick={() => {
+            setOpen(null);
+            openDrawer(trigger);
+          }}
+          onMouseEnter={() => {
+            // FIXME: Figure out how to have openDelay and closeDelay
+            setOpen(trigger);
+          }}
+        >
+          <KanjiItemButton kanji={trigger} />
         </HoverCardTrigger>
-        <HoverCardContent className="w-auto p-1">
+        <HoverCardContent className="p-1  w-128 relative ">
           <HoverCardArrow />
-          <div className="hidden[@media(min-height:800px)]:[@media(min-width:400px)]:block">
+          <div className=" hidden[@media(min-height:800px)]:[@media(min-width:400px)]:block">
             <KanjiCard kanji={trigger} />
           </div>
           <Button
