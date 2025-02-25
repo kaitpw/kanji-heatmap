@@ -7,6 +7,7 @@ import VirtualList from "react-tiny-virtual-list";
 import { HEADER_HEIGHT, TILE_SIZE } from "./constants";
 import { KanjiDrawer } from "./sections/KanjiDrawer";
 import { useKanjiSearchResult } from "@/providers/kanji-worker-provider";
+import LoadingKanjis from "./LoadingKanjis";
 
 const KanjiListRaw = ({ kanjiKeys = [] }: { kanjiKeys?: string[] }) => {
   const [hoveredKanji, setHoveredKanji] = useState<string | null>(null);
@@ -76,13 +77,14 @@ const KanjiList = React.memo(KanjiListRaw);
 
 const KanjiListWithSearch = () => {
   const result = useKanjiSearchResult();
+  //   const ready = useIsKanjiWorkerReady();
 
   if (result.error != null) {
     return <div className="p-20">Something went wrong</div>;
   }
 
   if (result.data == null) {
-    return <div className="p-20">Loading</div>;
+    return <LoadingKanjis />;
   }
   return <KanjiList kanjiKeys={result.data} />;
 };

@@ -4,6 +4,7 @@ import BasicSelect from "@/components/common/BasicSelect";
 import * as wanakana from "wanakana";
 
 import { cn } from "@/lib/utils";
+import { ItemCountBadge } from ".";
 
 const SEARCH_TYPE_OPTIONS = [
   { value: "keyword", label: "Keyword" },
@@ -11,7 +12,7 @@ const SEARCH_TYPE_OPTIONS = [
   { value: "kunyomi", label: "くにょみ" },
 ];
 
-const INPUT_DEBOUNCE_TIME = 200;
+const INPUT_DEBOUNCE_TIME = 1000;
 
 const INPUT_CLASS =
   "flex w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-7 pr-[105px] h-9";
@@ -120,6 +121,7 @@ export const SearchInput = ({
         label="Search Type"
         isLabelSrOnly={true}
       />
+      <ItemCountBadge />
     </section>
   );
 };
