@@ -31,9 +31,14 @@ export const K_RANK_AVG = "rank_avg";
 export const K_RANK_WEIGHTED = "rank_weighted";
 export const K_RANK_WEIGHTED5 = "rank_weighted5";
 
-export const GROUP_OPTIONS = [K_JLPT, K_JOUYOU_KEY, K_STROKES, K_WK_LVL]; // removed K_KUNYOMI, K_ONYOMI for now
+export const GROUP_OPTIONS = [
+  K_JLPT,
+  K_JOUYOU_KEY,
+  K_STROKES,
+  K_WK_LVL,
+] as const; // removed K_KUNYOMI, K_ONYOMI for now
 
-export const NONGROUP_OPTIONS = [K_RTK_INDEX, K_MEANING_KEY];
+export const NONGROUP_OPTIONS = [K_RTK_INDEX, K_MEANING_KEY] as const;
 
 export const FREQ_RANK_OPTIONS = [
   K_RANK_NETLIX,
@@ -58,7 +63,7 @@ export const FREQ_RANK_OPTIONS = [
   K_RANK_WEIGHTED,
   K_RANK_WEIGHTED5,
   "None",
-];
+] as const;
 
 export const FREQ_RANK_SOURCES_INFO: Record<
   string,
@@ -132,6 +137,11 @@ export const FREQUENCY_RANK_FILTER_OPTIONS: { value: string; label: string }[] =
   FREQ_RANK_OPTIONS.map((optionValue) => {
     return { value: optionValue, label: OPTION_LABELS[optionValue] ?? "-" };
   });
+
+type SortGroup = (typeof GROUP_OPTIONS)[number];
+type SortNonGroup = (typeof NONGROUP_OPTIONS)[number];
+type SortFrequency = (typeof FREQ_RANK_OPTIONS)[number];
+export type SortKey = SortGroup | SortNonGroup | SortFrequency;
 
 export const PRIMARY_SORT_ORDER_SELECT: { value: string; label: string }[] = [
   ...GROUP_OPTIONS,

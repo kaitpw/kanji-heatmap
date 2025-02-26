@@ -1,4 +1,14 @@
+import { SortKey } from "./frequency-rank";
+
 export type JLTPTtypes = "n1" | "n2" | "n3" | "n4" | "n5" | "none";
+export const JLPTRank: Record<JLTPTtypes, number> = {
+  n5: 0,
+  n4: 1,
+  n3: 2,
+  n2: 3,
+  n1: 4,
+  none: 5,
+};
 
 export const JLPTListItems: Record<
   JLTPTtypes,
@@ -94,8 +104,8 @@ export type FilterSettings = {
 };
 
 export type SortSettings = {
-  primary: string;
-  secondary: string;
+  primary: SortKey;
+  secondary: SortKey;
 };
 
 export type SearchSettings = {
