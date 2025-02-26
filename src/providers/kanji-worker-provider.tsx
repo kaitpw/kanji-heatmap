@@ -153,6 +153,11 @@ export function KanjiWorkerProvider({ children }: { children: ReactNode }) {
             strokes,
           };
         }
+
+        if (type === "main-plus-extended") {
+          return kanjiInfo;
+        }
+
         throw Error(`${type} Not Implemented (${kanji})`);
       };
 

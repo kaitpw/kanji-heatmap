@@ -8,7 +8,6 @@ import {
   MainCardContent,
 } from "./layouts";
 import { HiraganaWord } from "./HiraganaWordButton";
-import { useKanjiInfo } from "@/providers/kanji-worker-provider";
 
 export const KanjiLink = ({
   kanji,
@@ -83,8 +82,6 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
     "News 2 ⭐",
   ];
 
-  const info = useKanjiInfo(kanji, "hover-card");
-
   return (
     <KanjiCardLayout
       mainCard={<MainCardContent kanji={kanji} keyword={"Interval"} />}
@@ -95,7 +92,7 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
           spacedKana="じ かん じ"
           highlightIndex={1}
           wordKanjis={[
-            { keyword: `time ${JSON.stringify(info, null, 2)}`, kanji: "時" },
+            { keyword: "time", kanji: "時" },
             { keyword: "interval", kanji: "時" },
           ]}
         />

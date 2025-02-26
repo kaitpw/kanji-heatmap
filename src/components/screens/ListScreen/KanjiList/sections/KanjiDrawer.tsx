@@ -11,7 +11,10 @@ import { X } from "lucide-react";
 import { KanjiInfoLayout } from "./KanjiCard/layouts";
 import { KanjiCard } from "./KanjiCard";
 import SimpleAccordion from "@/components/common/SimpleAccordion";
-import { useIsKanjiWorkerReady } from "@/providers/kanji-worker-provider";
+import {
+  useIsKanjiWorkerReady,
+  useKanjiInfo,
+} from "@/providers/kanji-worker-provider";
 
 const LongContent = () => {
   return (
@@ -68,11 +71,12 @@ const LongContent = () => {
   );
 };
 
-const KanjiAllInfo = () => {
+const KanjiAllInfo = ({ kanji }: { kanji: string }) => {
+  const info = useKanjiInfo(kanji, "main-plus-extended");
   return (
     <div className="py-2 mx-2">
       <SimpleAccordion trigger={"General"}>
-        <LongContent />l
+        <LongContent />
       </SimpleAccordion>
       <SimpleAccordion trigger={"Notes"}>
         <LongContent />
@@ -89,6 +93,7 @@ const KanjiAllInfo = () => {
       <SimpleAccordion trigger={"Related Kanji"}>
         <LongContent />
       </SimpleAccordion>
+      <code>{JSON.stringify(info, null, 2)}</code>
     </div>
   );
 };
@@ -123,7 +128,7 @@ export function KanjiDrawerRaw({
               <KanjiCard kanji={kanji} />
             )
           }
-          second={<KanjiAllInfo />}
+          second={<KanjiAllInfo kanji={kanji} />}
         />
         <DrawerClose asChild className="absolute -top-1 right-0">
           <Button variant="ghost" size="icon" className="m-2">

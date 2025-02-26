@@ -4,7 +4,8 @@ export type KanjiInfoRequestType =
   | "item-card"
   | "hover-card"
   | "general"
-  | "frequency-ranks";
+  | "frequency-ranks"
+  | "main-plus-extended";
 //  | "notes"
 //  | "related-kanji"
 //  | "all-vocab";
