@@ -90,6 +90,10 @@ const KanjiListWithSearch = () => {
   if (result.data == null) {
     return <LoadingKanjis />;
   }
+
+  if (result.data.length === 0) {
+    return <div className="p-20">No filters match your search</div>;
+  }
   return <KanjiList kanjiKeys={result.data} />;
 };
 

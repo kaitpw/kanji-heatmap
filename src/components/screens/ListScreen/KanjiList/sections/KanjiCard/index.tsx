@@ -8,6 +8,9 @@ import {
   MainCardContent,
 } from "./layouts";
 import { HiraganaWord } from "./HiraganaWordButton";
+import { useKanjiInfo } from "@/providers/kanji-worker-provider";
+import { JLTPTtypes } from "@/lib/constants";
+import { KanjiInfoFrequency } from "@/lib/kanji-worker-constants";
 
 export const KanjiLink = ({
   kanji,
@@ -74,58 +77,111 @@ export const WordCard = ({
 };
 
 export const KanjiCard = ({ kanji }: { kanji: string }) => {
-  const frequencyBadges = [
-    "JLPT N5",
-    "Netflix 5 ⭐",
-    "Twitter 4 ⭐",
-    "Wikipedia 2 ⭐",
-    "News 2 ⭐",
-  ];
+  const data = useKanjiInfo(kanji, "hover-card");
 
+  if (data.error) {
+    return (
+      <div>
+        Something went wrong in <code>Kanji Card</code>
+      </div>
+    );
+  }
+
+  if (data.status === "loading") {
+    return (
+      <div>
+        Something went wrong in <code>Loading</code>
+      </div>
+    );
+  }
+
+  if (data.data == null) {
+    return <div> No data available</div>;
+  }
+
+  const info = data.data as {
+    keyword: string;
+    on: string;
+    kun: string;
+    jlpt: JLTPTtypes;
+    parts: { part: string; keyword: string; phonetic?: string }[];
+    frequency?: KanjiInfoFrequency;
+    mainVocab: {
+      first: {
+        word: string;
+        spacedKana: string;
+        meaning: string;
+        partsList: {
+          kanji: string;
+          keyword: string;
+        }[];
+      };
+      second: {
+        word: string;
+        spacedKana: string;
+        meaning: string;
+        partsList: {
+          kanji: string;
+          keyword: string;
+        }[];
+      };
+    };
+  };
+  console.log(data.data);
   return (
     <KanjiCardLayout
-      mainCard={<MainCardContent kanji={kanji} keyword={"Interval"} />}
+      mainCard={<MainCardContent kanji={kanji} keyword={info.keyword} />}
       firstWordCard={
         <WordCard
-          word="時時間"
-          definition={"Time, Hours of..."}
-          spacedKana="じ かん じ"
+          word={info.mainVocab.first.word}
+          definition={info.mainVocab.first.meaning}
+          spacedKana={info.mainVocab.first.spacedKana}
           highlightIndex={1}
-          wordKanjis={[
-            { keyword: "time", kanji: "時" },
-            { keyword: "interval", kanji: "時" },
-          ]}
+          wordKanjis={info.mainVocab.first.partsList}
         />
       }
       secondWordCard={
-        <WordCard
-          word="時時間"
-          definition="Time, Hours of..."
-          spacedKana="じ かん じ"
-          highlightIndex={1}
-          wordKanjis={[
-            { keyword: "time", kanji: "時" },
-            { keyword: "interval", kanji: "時" },
-          ]}
-        />
+        info.mainVocab.second && (
+          <WordCard
+            word={info.mainVocab.second.word}
+            definition={info.mainVocab.second.meaning}
+            spacedKana={info.mainVocab.second.spacedKana}
+            highlightIndex={1}
+            wordKanjis={info.mainVocab.second.partsList}
+          />
+        )
       }
       kanjiComponents={
         <>
-          <KanjiSingleComponent kanji={"時"} keyword={"Leaf"} />
-          <KanjiSingleComponent kanji={"時"} keyword={"Leaf"} />
-          <KanjiSingleComponent kanji={"時"} keyword={"Leaf"} />
-        </>
-      }
-      frequencyBadges={
-        <>
-          {frequencyBadges.map((text) => {
+          {info.parts.map((item) => {
             return (
-              <Badge key={text} className="text-nowrap" variant={"outline"}>
-                {text}
-              </Badge>
+              <KanjiSingleComponent
+                key={item.part}
+                kanji={item.part}
+                keyword={item.keyword}
+              />
             );
           })}
         </>
+      }
+      frequencyBadges={
+        info.frequency && (
+          <>
+            <Badge className="text-nowrap" variant={"outline"}>
+              JLPT {info.jlpt}
+            </Badge>
+
+            <Badge className="text-nowrap" variant={"outline"}>
+              Netflix: {info.frequency.netflix}
+            </Badge>
+            <Badge className="text-nowrap" variant={"outline"}>
+              Wikipedia: {info.frequency.wikiChar}
+            </Badge>
+            <Badge className="text-nowrap" variant={"outline"}>
+              Google: {info.frequency.google}
+            </Badge>
+          </>
+        )
       }
     />
   );

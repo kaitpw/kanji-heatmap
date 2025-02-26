@@ -58,7 +58,7 @@ export const StrokeCountField = ({
         value={values}
         onValueChange={setValues}
         min={1}
-        max={250}
+        max={30}
         step={1}
       />
     </div>
