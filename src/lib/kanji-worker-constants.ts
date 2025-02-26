@@ -14,6 +14,26 @@ export type KanjiMainInfo = {
   kun: string;
 };
 
+export type KanjiInfoFrequency = {
+  netflix: number; //rank_netflix,
+  twitter: number; //rank_twitter,
+  google: number; //rank_google,
+  kd: number; //rank_kd,
+  wikiChar: number; //rank_wikipedia_char,
+  wikiDoc: number; //rank_wikipedia_doc,
+  aozoraChar: number; //rank_aozora_char,
+  aozoraDoc: number; //rank_aozora_doc,
+  onlineNewsChar: number; //rank_online_news_char,
+  onlineNews: number; //rank_online_news_doc,
+  novels5100: number; //rank_novels_5100,
+  dramaSubs: number; //rank_drama_subtitles,
+  kuf: number; //rank_kuf,
+  mdc: number; //rank_mcd,
+  bunka: number; //rank_bunka,
+  wkfr: number; //rank_wkfr,
+  jishou: number; //rank_jisho,
+};
+
 export type KanjiExtendedInfo = {
   parts: string[];
   strokes: number;
@@ -23,25 +43,7 @@ export type KanjiExtendedInfo = {
   meanings: string[];
   allOn: string[];
   allKun: string[];
-  frequency?: {
-    netflix: number; //rank_netflix,
-    twitter: number; //rank_twitter,
-    google: number; //rank_google,
-    kd: number; //rank_kd,
-    wikiChar: number; //rank_wikipedia_char,
-    wikiDoc: number; //rank_wikipedia_doc,
-    aozoraChar: number; //rank_aozora_char,
-    aozoraDoc: number; //rank_aozora_doc,
-    onlineNewsChar: number; //rank_online_news_char,
-    onlineNews: number; //rank_online_news_doc,
-    novels5100: number; //rank_novels_5100,
-    dramaSubs: number; //rank_drama_subtitles,
-    kuf: number; //rank_kuf,
-    mdc: number; //rank_mcd,
-    bunka: number; //rank_bunka,
-    wkfr: number; //rank_wkfr,
-    jishou: number; //rank_jisho,
-  };
+  frequency?: KanjiInfoFrequency;
   mainVocab?: {
     first?: { word: string; spacedKana: string; meaning: string };
     second?: { word: string; spacedKana: string; meaning: string };

@@ -24,8 +24,11 @@ type KanjiRequestFn = (
   type: KanjiInfoRequestType
 ) => Promise<unknown>;
 
+type GetBasicKanjiInfo = (kanji: string) => KanjiMainInfo | null;
+
 const ActionContext = createContext<KanjiRequestFn | null>(null);
 const IsReadyContext = createContext<boolean>(false);
+const GetBasicKanjiInfoContext = createContext<GetBasicKanjiInfo | null>(null);
 
 export function KanjiWorkerProvider({ children }: { children: ReactNode }) {
   const [isReady, setIsReady] = useState(false);
@@ -123,15 +126,44 @@ export function KanjiWorkerProvider({ children }: { children: ReactNode }) {
         }
 
         if (type === "hover-card") {
+          const vocab = kanjiInfo.extended.mainVocab;
+
+          const getPartsList = (word: string) => {
+            const parts = word.split("");
+            const partCache: Record<string, string> = {};
+            parts.forEach((part) => {
+              const keyword =
+                kanjiCacheRef?.current?.[part]?.main.keyword ??
+                partKeywordCacheRef?.current?.[part];
+
+              if (keyword) {
+                partCache[part] = keyword;
+              }
+            });
+
+            return Object.keys(partCache).map((part) => {
+              return { kanji: part, keyword: partCache[part] };
+            });
+          };
           const result = {
             ...kanjiInfo.main,
-            mainVocab: kanjiInfo.extended.mainVocab,
+            mainVocab: {
+              first: vocab?.first
+                ? { ...vocab.first, partsList: getPartsList(vocab.first.word) }
+                : undefined,
+              second: vocab?.second
+                ? {
+                    ...vocab.second,
+                    partsList: getPartsList(vocab.second.word),
+                  }
+                : undefined,
+            },
             parts: kanjiInfo.extended.parts.map((part) => {
               return {
                 part,
                 keyword:
-                  kanjiInfo.main.keyword ??
-                  partKeywordCacheRef?.current?.[kanji],
+                  kanjiCacheRef?.current?.[part]?.main.keyword ??
+                  partKeywordCacheRef?.current?.[part],
                 phonetic: phoneticCacheRef?.current?.[kanji],
               };
             }),
@@ -184,23 +216,42 @@ export function KanjiWorkerProvider({ children }: { children: ReactNode }) {
     []
   );
 
+  const getKanjiBasicInfo: GetBasicKanjiInfo = useCallback((kanji) => {
+    return kanjiCacheRef.current?.[kanji]?.main ?? null;
+  }, []);
+
   return (
     <ActionContext.Provider value={kanjiInfoRequest}>
       <IsReadyContext.Provider value={isReady}>
-        {children}
+        <GetBasicKanjiInfoContext.Provider value={getKanjiBasicInfo}>
+          {children}
+        </GetBasicKanjiInfoContext.Provider>
       </IsReadyContext.Provider>
     </ActionContext.Provider>
   );
 }
 
 export const useKanjiWorkerRequest = () => {
-  const fn = useContextWithCatch(ActionContext, "KanjiWorker");
+  const fn = useContextWithCatch(ActionContext, "KanjiWorker", "WorkerRequest");
   return fn;
 };
 
 export const useIsKanjiWorkerReady = () => {
-  const ready = useContextWithCatch(IsReadyContext, "KanjiWorker");
+  const ready = useContextWithCatch(
+    IsReadyContext,
+    "KanjiWorker",
+    "IsKanjiWorkerReady"
+  );
   return ready;
+};
+
+export const useGetKanjiInfoFn = () => {
+  const fn = useContextWithCatch(
+    GetBasicKanjiInfoContext,
+    "KanjiWorker",
+    "GetKanjiInfoFn"
+  );
+  return fn;
 };
 
 export type Status = "idle" | "loading" | "error" | "success";
