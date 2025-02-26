@@ -25,6 +25,7 @@ import {
   OPTION_LABELS,
   PRIMARY_SORT_ORDER_SELECT,
   SECONDARY_SORT_ORDER_SELECT,
+  SortKey,
 } from "@/lib/frequency-rank";
 import {
   SortAdditionalInfo,
@@ -99,7 +100,7 @@ export const SortAndFilterSettingsForm = ({
               value={sortValues.primary}
               onChange={(newValue) =>
                 setSortValues((prev) => {
-                  return { ...prev, primary: newValue };
+                  return { ...prev, primary: newValue as SortKey };
                 })
               }
               triggerCN={"h-8 w-full"}
@@ -114,7 +115,7 @@ export const SortAndFilterSettingsForm = ({
                 value={sortValues.secondary}
                 onChange={(newValue) =>
                   setSortValues((prev) => {
-                    return { ...prev, secondary: newValue };
+                    return { ...prev, secondary: newValue as SortKey };
                   })
                 }
                 triggerCN={"h-8 w-full"}
