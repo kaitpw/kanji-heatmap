@@ -61,18 +61,17 @@ const HoverMeRaw = ({
   setOpen: (kanji: string | null) => void;
   openDrawer: (kanji: string | null) => void;
 }) => {
+  // FIXME: Figure out how to have openDelay and closeDelay
+  // DISABLED hover me functionality for now. because openDelay doesn't work
+  // and it's annoying. Add it back later.
   return (
     <>
-      <HoverCard open={isOpen}>
+      <HoverCard open={isOpen} openDelay={500}>
         <HoverCardTrigger
           asChild
           onClick={() => {
             setOpen(null);
             openDrawer(trigger);
-          }}
-          onMouseEnter={() => {
-            // FIXME: Figure out how to have openDelay and closeDelay
-            setOpen(trigger);
           }}
         >
           <KanjiItemButton kanji={trigger} />
