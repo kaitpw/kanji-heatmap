@@ -80,7 +80,11 @@ const KanjiListWithSearch = () => {
   //   const ready = useIsKanjiWorkerReady();
 
   if (result.error != null) {
-    return <div className="p-20">Something went wrong</div>;
+    return (
+      <div className="p-20">
+        Something went wrong in <code>{"<KanjiListWithSearch />"}</code>
+      </div>
+    );
   }
 
   if (result.data == null) {
