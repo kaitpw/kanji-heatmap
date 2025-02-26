@@ -22,16 +22,16 @@ export const K_RANK_NEWSPAPER_1 = "freq-rank-newspaper-1";
 export const K_RANK_NEWSPAPER_2 = "freq-rank-newspaper-2";
 
 export const K_RANK_GOOGLE = "rank_google";
-export const K_RANK_KUF = "  rank_kuf";
-export const K_RANK_MCD = "  rank_mcd";
-export const K_RANK_BUNKA = "  rank_bunka";
-export const K_RANK_JISHO = "  rank_jisho";
-export const K_RANK_KD = "  rank_kd";
-export const K_RANK_AVG = "  rank_avg";
-export const K_RANK_WEIGHTED = "  rank_weighted";
-export const K_RANK_WEIGHTED5 = "  rank_weighted5";
+export const K_RANK_KUF = "rank_kuf";
+export const K_RANK_MCD = "rank_mcd";
+export const K_RANK_BUNKA = "rank_bunka";
+export const K_RANK_JISHO = "rank_jisho";
+export const K_RANK_KD = "rank_kd";
+export const K_RANK_AVG = "rank_avg";
+export const K_RANK_WEIGHTED = "rank_weighted";
+export const K_RANK_WEIGHTED5 = "rank_weighted5";
 
-export const GROUP_OPTIONS = [K_JLPT, K_KUNYOMI, K_ONYOMI, K_STROKES, K_WK_LVL];
+export const GROUP_OPTIONS = [K_JLPT, K_JOUYOU_KEY, K_STROKES, K_WK_LVL]; // removed K_KUNYOMI, K_ONYOMI for now
 
 export const NONGROUP_OPTIONS = [K_RTK_INDEX, K_MEANING_KEY];
 
