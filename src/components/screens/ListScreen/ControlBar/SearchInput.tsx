@@ -90,8 +90,8 @@ export const SearchInput = ({
     value === "keyword"
       ? "Keyword Search"
       : value === "onyomi"
-      ? "オニョミ 検索"
-      : "くにょみ 検索";
+        ? "オニョミ 検索"
+        : "くにょみ 検索";
 
   const fontCN = value !== "keyword" ? "kanji-font" : "";
   const itemCNFunc = (v: string) => (v !== "keyword" ? "kanji-font" : "");

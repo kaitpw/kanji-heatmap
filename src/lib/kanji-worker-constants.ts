@@ -62,7 +62,7 @@ export type ExtendedKanjiInfoItemType = [
     number, // jouyou grade
     string[], // meanings
     string[], // on readings
-    string[] // kun readings
+    string[], // kun readings
   ],
   [
     number, //rank_netflix,
@@ -81,9 +81,9 @@ export type ExtendedKanjiInfoItemType = [
     number, //rank_mcd,
     number, //rank_bunka,
     number, //rank_wkfr,
-    number //rank_jisho,
+    number, //rank_jisho,
   ],
-  [string, string, string][]
+  [string, string, string][],
 ];
 
 export type ExtendedKanjiInfoResponseType = Record<

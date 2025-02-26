@@ -45,14 +45,14 @@ export const transformToMainKanjiInfo = (
     jlptRaw === 5
       ? "n5"
       : jlptRaw === 4
-      ? "n4"
-      : jlptRaw === 3
-      ? "n3"
-      : jlptRaw === 2
-      ? "n2"
-      : jlptRaw === 1
-      ? "n1"
-      : "none";
+        ? "n4"
+        : jlptRaw === 3
+          ? "n3"
+          : jlptRaw === 2
+            ? "n2"
+            : jlptRaw === 1
+              ? "n1"
+              : "none";
 
   return {
     keyword,
