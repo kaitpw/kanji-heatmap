@@ -2,6 +2,7 @@ import { JLPTRank, JLTPTtypes, SearchSettings } from "@/lib/constants";
 import {
   K_JLPT,
   K_JOUYOU_KEY,
+  K_MEANING_KEY,
   K_RANK_AOZORA_CHAR,
   K_RANK_AOZORA_DOC,
   K_RANK_DRAMA_SUBTITLES,
@@ -12,6 +13,7 @@ import {
   K_RANK_TWITTER,
   K_RANK_WIKIPEDIA_CHAR,
   K_RANK_WIKIPEDIA_DOC,
+  K_RTK_INDEX,
   K_STROKES,
   K_WK_LVL,
   SortKey,
@@ -33,7 +35,19 @@ const simpleSort = (a: number, b: number) => {
   return a - b;
 };
 
-const strokeSort = (a: number, b: number) => {
+const alphaSort = (a: string, b: string) => {
+  const lowerA = a.toLowerCase();
+  const lowerB = b.toLowerCase();
+  if (lowerA < lowerB) {
+    return -1;
+  }
+  if (lowerA > lowerB) {
+    return 1;
+  }
+  return 0;
+};
+
+const numericSort = (a: number, b: number) => {
   if (a == b) return 0;
   if (a == -1) return 1;
   if (b == -1) return -1;
@@ -80,9 +94,13 @@ export const searchKanji = (settings: SearchSettings, kanjiPool: DataPool) => {
         } else if (sortKey === K_JOUYOU_KEY) {
           return simpleSort(exInfoA.jouyouGrade, exInfoB.jouyouGrade);
         } else if (sortKey === K_STROKES) {
-          return strokeSort(exInfoA.strokes, exInfoB.strokes);
+          return numericSort(exInfoA.strokes, exInfoB.strokes);
         } else if (sortKey === K_WK_LVL) {
-          return simpleSort(exInfoA.wk, exInfoB.wk);
+          return numericSort(exInfoA.wk, exInfoB.wk);
+        } else if (sortKey === K_RTK_INDEX) {
+          return numericSort(exInfoA.rtk, exInfoB.rtk);
+        } else if (sortKey === K_MEANING_KEY) {
+          return alphaSort(infoA.keyword, infoB.keyword);
         } else if (sortKey === K_RANK_NETFLIX) {
           return freqSort(
             exInfoA.frequency?.netflix,
@@ -137,8 +155,10 @@ export const searchKanji = (settings: SearchSettings, kanjiPool: DataPool) => {
         return 0;
       };
 
-      let compareVal = sortBy(primarySort);
-      if (compareVal != 0) return compareVal;
+      const compareVal = sortBy(primarySort);
+      if (compareVal != 0) {
+        return compareVal;
+      }
       return sortBy(secondarySort);
     });
 
