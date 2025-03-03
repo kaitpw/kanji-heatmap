@@ -56,19 +56,18 @@ export const searchKanji = (settings: SearchSettings, kanjiPool: DataPool) => {
       const infoB = kanjiPool.main[b];
       const exInfoA = kanjiPool.extended[a];
       const exInfoB = kanjiPool.extended[b];
+
+      let compareVal = 0;
       if (primarySort === K_JLPT) {
-        const compareVal = jlptSort(infoA.jlpt, infoB.jlpt);
-        if (compareVal != 0) return compareVal;
+        compareVal = jlptSort(infoA.jlpt, infoB.jlpt);
       } else if (primarySort === K_JOUYOU_KEY) {
-        const compareVal = simpleSort(exInfoA.jouyouGrade, exInfoB.jouyouGrade);
-        if (compareVal != 0) return compareVal;
+        compareVal = simpleSort(exInfoA.jouyouGrade, exInfoB.jouyouGrade);
       } else if (primarySort === K_STROKES) {
-        const compareVal = strokeSort(exInfoA.strokes, exInfoB.strokes);
-        if (compareVal != 0) return compareVal;
+        compareVal = strokeSort(exInfoA.strokes, exInfoB.strokes);
       } else if (primarySort === K_WK_LVL) {
-        const compareVal = simpleSort(exInfoA.wk, exInfoB.wk);
-        if (compareVal != 0) return compareVal;
+        compareVal = simpleSort(exInfoA.wk, exInfoB.wk);
       }
+      if (compareVal != 0) return compareVal;
 
       if (secondarySort === K_JLPT) {
         return jlptSort(infoA.jlpt, infoB.jlpt);
