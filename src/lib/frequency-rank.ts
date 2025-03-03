@@ -143,15 +143,8 @@ type SortNonGroup = (typeof NONGROUP_OPTIONS)[number];
 type SortFrequency = (typeof FREQ_RANK_OPTIONS)[number];
 export type SortKey = SortGroup | SortNonGroup | SortFrequency;
 
-export const PRIMARY_SORT_ORDER_SELECT: { value: string; label: string }[] = [
+export const SORT_ORDER_SELECT: { value: string; label: string }[] = [
   ...GROUP_OPTIONS,
-  ...NONGROUP_OPTIONS,
-  ...FREQ_RANK_OPTIONS,
-].map((optionValue) => {
-  return { value: optionValue, label: OPTION_LABELS[optionValue] ?? "-" };
-});
-
-export const SECONDARY_SORT_ORDER_SELECT: { value: string; label: string }[] = [
   ...NONGROUP_OPTIONS,
   ...FREQ_RANK_OPTIONS,
 ].map((optionValue) => {

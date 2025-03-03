@@ -23,8 +23,7 @@ import { FrequencyRankDataSource } from "./sections/common";
 import { JLPTSelector } from "./sections/JLPTSelector";
 import {
   OPTION_LABELS,
-  PRIMARY_SORT_ORDER_SELECT,
-  SECONDARY_SORT_ORDER_SELECT,
+  SORT_ORDER_SELECT,
   SortKey,
 } from "@/lib/frequency-rank";
 import {
@@ -104,7 +103,7 @@ export const SortAndFilterSettingsForm = ({
                 })
               }
               triggerCN={"h-8 w-full"}
-              options={PRIMARY_SORT_ORDER_SELECT}
+              options={SORT_ORDER_SELECT}
               label="Primary"
               isLabelSrOnly={false}
             />
@@ -119,7 +118,7 @@ export const SortAndFilterSettingsForm = ({
                   })
                 }
                 triggerCN={"h-8 w-full"}
-                options={SECONDARY_SORT_ORDER_SELECT}
+                options={SORT_ORDER_SELECT}
                 label="Secondary"
                 isLabelSrOnly={false}
               />

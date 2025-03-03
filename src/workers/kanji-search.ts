@@ -1,4 +1,4 @@
-import { JLPTRank, SearchSettings } from "@/lib/constants";
+import { JLPTRank, JLTPTtypes, SearchSettings } from "@/lib/constants";
 import {
   K_JLPT,
   K_JOUYOU_KEY,
@@ -12,6 +12,23 @@ type DataPool = {
   extended: Record<string, KanjiExtendedInfo>;
 };
 
+const jlptSort = (a: JLTPTtypes, b: JLTPTtypes) => {
+  const rankA = JLPTRank[a];
+  const rankB = JLPTRank[b];
+  return rankA - rankB;
+};
+
+const simpleSort = (a: number, b: number) => {
+  return a - b;
+};
+
+const strokeSort = (a: number, b: number) => {
+  if (a == b) return 0;
+  if (a == -1) return 1;
+  if (b == -1) return -1;
+  return a - b;
+};
+
 export const searchKanji = (settings: SearchSettings, kanjiPool: DataPool) => {
   const allKanji = Object.keys(kanjiPool.main);
 
@@ -22,6 +39,7 @@ export const searchKanji = (settings: SearchSettings, kanjiPool: DataPool) => {
 
   // Sorting
   const primarySort = settings.sortSettings.primary;
+  const secondarySort = settings.sortSettings.secondary;
 
   const kanjiList = allKanji
     .filter((kanji) => {
@@ -39,25 +57,27 @@ export const searchKanji = (settings: SearchSettings, kanjiPool: DataPool) => {
       const exInfoA = kanjiPool.extended[a];
       const exInfoB = kanjiPool.extended[b];
       if (primarySort === K_JLPT) {
-        const rankA = JLPTRank[infoA.jlpt];
-        const rankB = JLPTRank[infoB.jlpt];
-        if (rankA != rankB) return rankA - rankB;
+        const compareVal = jlptSort(infoA.jlpt, infoB.jlpt);
+        if (compareVal != 0) return compareVal;
       } else if (primarySort === K_JOUYOU_KEY) {
-        const jouyouA = exInfoA.jouyouGrade;
-        const jouyouB = exInfoB.jouyouGrade;
-        if (jouyouA != jouyouB) return jouyouA - jouyouB;
+        const compareVal = simpleSort(exInfoA.jouyouGrade, exInfoB.jouyouGrade);
+        if (compareVal != 0) return compareVal;
       } else if (primarySort === K_STROKES) {
-        const strokesA = exInfoA.strokes;
-        const strokesB = exInfoB.strokes;
-        if (strokesA != strokesB) {
-          if (strokesA === -1) return 1;
-          if (strokesB === -1) return -1;
-          return strokesA - strokesB;
-        }
+        const compareVal = strokeSort(exInfoA.strokes, exInfoB.strokes);
+        if (compareVal != 0) return compareVal;
       } else if (primarySort === K_WK_LVL) {
-        const levelA = exInfoA.wk;
-        const levelB = exInfoB.wk;
-        if (levelA != levelB) return levelA - levelB;
+        const compareVal = simpleSort(exInfoA.wk, exInfoB.wk);
+        if (compareVal != 0) return compareVal;
+      }
+
+      if (secondarySort === K_JLPT) {
+        return jlptSort(infoA.jlpt, infoB.jlpt);
+      } else if (secondarySort === K_JOUYOU_KEY) {
+        return simpleSort(exInfoA.jouyouGrade, exInfoB.jouyouGrade);
+      } else if (secondarySort === K_STROKES) {
+        return strokeSort(exInfoA.strokes, exInfoB.strokes);
+      } else if (secondarySort === K_WK_LVL) {
+        return simpleSort(exInfoA.wk, exInfoB.wk);
       }
       return 0;
     });
