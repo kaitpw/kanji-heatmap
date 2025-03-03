@@ -12,7 +12,7 @@ OWN_KEYWORDS_OVERRIDE = {
     "頷": "nod approval",
 }
 # -------------------
-# Compress existing json
+# JSON utilities
 # -------------------
 
 def compress_json(path_in, path_out):
@@ -27,11 +27,32 @@ def compress_json(path_in, path_out):
                 ensure_ascii=False
             )
 
+INDENT = None # 2 # None # 4
+SEPARATORS = (',', ':') #None
+
+def dump_json(file_name, data, indent=INDENT, separators=SEPARATORS):
+    with open(file_name, mode="w", encoding="utf-8") as write_file:
+        json.dump(data, write_file, indent=indent, separators=separators, ensure_ascii=False)
+
+
+def get_data_from_file(file_path):
+    with open(file_path, mode="r", encoding="utf-8") as read_file:
+        return json.load(read_file)
+    
+    return {}
+
+
+# -------------------
+# JSON file paths
+# -------------------
+
+IN_DIR = "./original_data"
 OUT_DIR = "./scripts/generated"
-ORIGINAL_COMPONENTS_FILE_PATH = "./original_data/missing_components.json"
+
+ORIGINAL_COMPONENTS_FILE_PATH = f"{IN_DIR}/missing_components.json"
 REFORMATTED_COMPONENTS_FILE_PATH = f"{OUT_DIR}/generated_reformatted_part_keyword_info.json"
 
-ORIGINAL_PHONETIC_FILE_PATH = "./original_data/phonetic_components.json"
+ORIGINAL_PHONETIC_FILE_PATH = f"{IN_DIR}/phonetic_components.json"
 REFORMATTED_PHONETIC_FILE_PATH = f"{OUT_DIR}/generated_reformatted_phonetic.json"
 
 
@@ -229,7 +250,6 @@ def get_jouyou(kanji_info):
     # there are 55 kanji where kanjiSchool is 0 but kanjidic2 is 9:
     # kanjidic2 is from https://github.com/scriptin/jmdict-simplified
 
-
     if a == 9 and b == 8:
         return 9
     
@@ -267,12 +287,9 @@ def get_strokes(kanji_info):
     if kanji_info["kanji"] == "稽":
         return 15
     
-    kanji = kanji_info["kanji"]
-
     # running_count_diff_GLOBAL_COUNT_UNSTABLE(a, b, b, r, f"{kanji} sr:")
     # previous logic: 96 Kanji do not match
     # Now: Everything matches
-
     return r
 
 def get_rtk_index(kanji_info):
@@ -382,22 +399,18 @@ def get_ranks(kanji_info):
 
     return freqs 
 
-# -------------------
+# *******************
 # MAIN SCRIPT HERE
-# -------------------
+# *******************
 
-def get_kanji_data_from_file(file_path):
-    with open(file_path, mode="r", encoding="utf-8") as read_file:
-        return json.load(read_file)
-    
-    return {}
-
-ORIGINAL_KANJI_JSON_FILE_PATH = "./original_data/kanji.json"
-
-kanji_data = get_kanji_data_from_file("./original_data/kanji.json") 
-kanji_vocab = get_kanji_data_from_file("./original_data/kanji_to_vocabulary.json") 
+kanji_data = get_data_from_file(f"{IN_DIR}/kanji.json") 
+kanji_vocab = get_data_from_file(f"{IN_DIR}/kanji_to_vocabulary.json") 
 
 kanji_list = [kanji for kanji in kanji_data.keys()]
+
+# .......................
+# Transform schema from { [kanji]: [word]: { furigina, meaning} } to { [kanji]: [word, furigana, meaning][] }
+# .......................
 
 #    "一": {
 #        "一": {
@@ -409,6 +422,7 @@ kanji_list = [kanji for kanji in kanji_data.keys()]
 #            "meaning": "one; for one thing; only; (not) even; just (e.g. \"just try it\"); some kind of, one type of"
 #        }
 #    }
+
 vocab_reformatted = {}
 for kanji in kanji_list:
     vocab = kanji_vocab.get(kanji, None)
@@ -424,11 +438,84 @@ for kanji in kanji_list:
     items = [convert_to_array(item[0], item[1]) for item in vocab.items()]
     vocab_reformatted[kanji] = items
 
+# .......................
+# Transform schema from { [kanji]: [word]: { furigina, meaning} } to { word: [furigana] } }
+# .......................
+
+vocab_v2 = {}
+for kanji in kanji_list:
+    vocab = kanji_vocab.get(kanji, None)
+    if vocab is None:
+        continue
+    def convert_to_dict(key, value):
+        word = key
+        kana = value.get("furigana", "").split(",")[0]
+        meaning = value.get("meaning", "")
+        return { 'word': word, 'kana': kana, 'meaning': meaning }
+    
+    for key, value in vocab.items():
+        word = key
+        kana = value.get("furigana", "").split(",")[0]  
+        vocab_v2[word] = kana 
+
+dump_json(f"{OUT_DIR}/vocab.json", vocab_v2)
+
+# .......................
+#  { [kanji]: { on: [], kun: [] } } }
+# .......................
+kanji_readings = {}
+
+for kanji in kanji_list:
+    kanji_info = kanji_data[kanji]
+
+    on = get_all_on_readings(kanji_info) or [],
+    kun = get_all_kun_readings(kanji_info) or [],
+    kanji_readings[kanji] = { "on": on, "kun": kun }
+
+dump_json(f"{OUT_DIR}/readings.json", kanji_readings)
+
+# ......................
+# { [word]: [string, { [kanji]: [reading] }]
+# ......................
+vocab_readings = {}
+kanji_reading_map = get_data_from_file(f"{IN_DIR}/chatgpt/kanji_reading_map.json")
+segmented_vocab = get_data_from_file(f"{IN_DIR}/chatgpt/segmented_vocab.json")
+
+new_map = {}
+all_vocab_keys = segmented_vocab.keys()
+for word in all_vocab_keys:
+    spaced_kana = segmented_vocab[word]
+    if spaced_kana.split(" ") == 1:
+        continue;
+    
+    new_map[word] = [
+        spaced_kana, 
+        kanji_reading_map[word]
+    ]
+
+dump_json(f"{OUT_DIR}/vocab_segmentation.json", new_map)
+
+# .......................
+# We just put the kanji as part of the value of the dictionary
+# for quick access
+# .......................
+
 for kanji in kanji_list: 
     kanji_info = kanji_data[kanji]['kanji'] = kanji
 
+# .......................
+# This is a crutch to find use to count
+# the number of items that various sources differ
+# e.g source 1 says stroke is 15 while source 2 says it's 16.
+# .......................
+
 global global_count
 global_count = 0
+
+# .......................
+# Creates two jsons main_info and other_info
+# which contains information about each kanji
+# .......................
 
 kanji_main_reformatted = {}
 kanji_other_reformatted = {}
@@ -469,16 +556,6 @@ for kanji in kanji_list:
 # Dump Json
 # -----------------
 
-# Sort by JLPT then by stroke count
-
-INDENT = None # 2 # None # 4
-SEPARATORS = (',', ':') #None
-
-def dump_json(file_name, data, indent=INDENT, separators=SEPARATORS):
-    with open(file_name, mode="w", encoding="utf-8") as write_file:
-        json.dump(data, write_file, indent=indent, separators=separators, ensure_ascii=False)
-
-# f"{OUT_DIR}/generated_reformatted_phonetic.json"
 dump_json(f"{OUT_DIR}/kanji_main_reformatted.json" , kanji_main_reformatted)
 dump_json(f"{OUT_DIR}/kanji_other_reformatted.json" , kanji_other_reformatted)
 
