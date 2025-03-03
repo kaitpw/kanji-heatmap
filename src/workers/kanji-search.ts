@@ -41,25 +41,23 @@ export const searchKanji = (settings: SearchSettings, kanjiPool: DataPool) => {
       if (primarySort === K_JLPT) {
         const rankA = JLPTRank[infoA.jlpt];
         const rankB = JLPTRank[infoB.jlpt];
-        if (rankA < rankB) return -1;
-        if (rankA > rankB) return 1;
+        if (rankA != rankB) return rankA - rankB;
       } else if (primarySort === K_JOUYOU_KEY) {
         const jouyouA = exInfoA.jouyouGrade;
         const jouyouB = exInfoB.jouyouGrade;
-        if (jouyouA < jouyouB) return -1;
-        if (jouyouA > jouyouB) return 1;
+        if (jouyouA != jouyouB) return jouyouA - jouyouB;
       } else if (primarySort === K_STROKES) {
         const strokesA = exInfoA.strokes;
         const strokesB = exInfoB.strokes;
-        if (strokesA === -1) return 1;
-        if (strokesB === -1) return -1;
-        if (strokesA < strokesB) return -1;
-        if (strokesA > strokesB) return 1;
+        if (strokesA != strokesB) {
+          if (strokesA === -1) return 1;
+          if (strokesB === -1) return -1;
+          return strokesA - strokesB;
+        }
       } else if (primarySort === K_WK_LVL) {
         const levelA = exInfoA.wk;
         const levelB = exInfoB.wk;
-        if (levelA < levelB) return -1;
-        if (levelA > levelB) return 1;
+        if (levelA != levelB) return levelA - levelB;
       }
       return 0;
     });
