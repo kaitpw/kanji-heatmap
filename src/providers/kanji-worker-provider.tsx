@@ -50,9 +50,16 @@ export function KanjiWorkerProvider({ children }: { children: ReactNode }) {
     let partReady = false;
     let phoneticReady = false;
     let extendedReady = false;
+    let segmentedVocabReady = false;
 
     const checkIfDone = () => {
-      if (mainReady && partReady && phoneticReady && extendedReady) {
+      if (
+        mainReady &&
+        partReady &&
+        phoneticReady &&
+        extendedReady &&
+        segmentedVocabReady
+      ) {
         setIsReady(true);
         return;
       }
@@ -95,6 +102,11 @@ export function KanjiWorkerProvider({ children }: { children: ReactNode }) {
       type: "initialize-extended-kanji-map",
     }).then(() => {
       extendedReady = true;
+      checkIfDone();
+    });
+
+    requestWorker({ type: "initalize-segmented-vocab-map" }).then(() => {
+      segmentedVocabReady = true;
       checkIfDone();
     });
   }, []);
@@ -168,6 +180,7 @@ export function KanjiWorkerProvider({ children }: { children: ReactNode }) {
               };
             }),
             frequency: kanjiInfo.extended.frequency,
+            vocabInfo: kanjiInfo?.extended?.vocabInfo,
           };
           return result;
         }
@@ -198,7 +211,18 @@ export function KanjiWorkerProvider({ children }: { children: ReactNode }) {
           type: "kanji-extended",
           payload: kanji,
         }).then((r) => {
-          const res = r as KanjiExtendedInfo;
+          const res = r as KanjiExtendedInfo & {
+            vocabInfo: {
+              first?: {
+                spacedKana: string;
+                kanjis: Record<string, string>;
+              };
+              second?: {
+                spacedKana: string;
+                kanjis: Record<string, string>;
+              };
+            };
+          };
 
           // NOTE: I don't know why typescript cant detect this
           if (kanjiCacheRef?.current?.[kanji] == null) {

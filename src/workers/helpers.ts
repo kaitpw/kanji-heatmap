@@ -5,6 +5,8 @@ import {
   KanjiExtendedInfo,
   KanjiMainInfo,
   MainKanjiInfoResponseType,
+  SegmentedVocabInfo,
+  SegmentedVocabResponseType,
 } from "@/lib/kanji-worker-constants";
 
 export const kanjiMainInfoCache: Record<string, KanjiMainInfo> = {};
@@ -14,6 +16,7 @@ const MAIN_KANJI_INFO_FILE_PATH = "/json/kanji_main_reformatted.json";
 const EXTENDED_KANJI_INFO_FILE_PATH = "/json/kanji_other_reformatted.json";
 const PHONETIC_FILE = "/json/generated_reformatted_phonetic.json";
 const PART_KEYWORD_FILE = "/json/generated_reformatted_part_keyword_info.json";
+const SEGMENTED_VOCAB_FILE = "/json/vocab_segmentation.json";
 
 const createFetch = <T>(path: string) => {
   return () =>
@@ -35,6 +38,16 @@ export const fetchPhoneticInfo =
 
 export const fetchPartKeywordInfo =
   createFetch<Record<string, string>>(PART_KEYWORD_FILE);
+
+export const fetchSegmentedVocab =
+  createFetch<SegmentedVocabResponseType>(SEGMENTED_VOCAB_FILE);
+
+export const transformToSegmentedVocab = (
+  raw: [string, Record<string, string>]
+): SegmentedVocabInfo => {
+  const [spacedKana, kanjiReads] = raw;
+  return { spacedKana, kanjis: kanjiReads };
+};
 
 export const transformToMainKanjiInfo = (
   raw: [string, string, string, number]

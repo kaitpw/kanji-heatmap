@@ -10,9 +10,22 @@ export type KanjiInfoRequestType =
 //  | "related-kanji"
 //  | "all-vocab";
 
+type VocabExtendedInfo = {
+  vocabInfo?: {
+    first?: {
+      spacedKana: string;
+      kanjis: Record<string, string>;
+    };
+    second?: {
+      spacedKana: string;
+      kanjis: Record<string, string>;
+    };
+  };
+};
+
 export type KanjiCacheItem = {
   main: KanjiMainInfo;
-  extended?: KanjiExtendedInfo;
+  extended?: KanjiExtendedInfo & VocabExtendedInfo;
   //  notes?: string;
   //  otherVocab?: { word: string; spacedKana: string; meaning: string }[];
   //  relatedKanji?: {
