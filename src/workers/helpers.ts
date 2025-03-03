@@ -118,7 +118,7 @@ export const transformToExtendedKanjiInfo = (
       aozoraChar: freq[6], //rank_aozora_char
       aozoraDoc: freq[7], //rank_aozora_doc
       onlineNewsChar: freq[8], //rank_online_news_char
-      onlineNews: freq[9], //rank_online_news_doc
+      onlineNewsDoc: freq[9], //rank_online_news_doc
       novels5100: freq[10], //rank_novels_5100
       dramaSubs: freq[11], //rank_drama_subtitles
       kuf: freq[12], //rank_kuf

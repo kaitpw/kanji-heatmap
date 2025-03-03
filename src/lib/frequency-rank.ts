@@ -8,7 +8,7 @@ export const K_WK_LVL = "wanikani_level";
 export const K_RTK_INDEX = "rtk_index";
 export const K_MEANING_KEY = "meaning_key";
 
-export const K_RANK_NETLIX = "freq-rank-netflix";
+export const K_RANK_NETFLIX = "freq-rank-netflix";
 export const K_RANK_DRAMA_SUBTITLES = "freq-rank-drama-subtitles";
 export const K_RANK_NOVELS_5100 = "freq-rank-novels-5100";
 export const K_RANK_TWITTER = "freq-rank-twitter";
@@ -18,8 +18,6 @@ export const K_RANK_ONLINE_NEWS_DOC = "freq-rank-online-news-doc";
 export const K_RANK_ONLINE_NEWS_CHAR = "freq-rank-online-news-char";
 export const K_RANK_AOZORA_DOC = "freq-rank-aozora-doc";
 export const K_RANK_AOZORA_CHAR = "freq-rank-aozora-char";
-export const K_RANK_NEWSPAPER_1 = "freq-rank-newspaper-1";
-export const K_RANK_NEWSPAPER_2 = "freq-rank-newspaper-2";
 
 export const K_RANK_GOOGLE = "rank_google";
 export const K_RANK_KUF = "rank_kuf";
@@ -41,7 +39,7 @@ export const GROUP_OPTIONS = [
 export const NONGROUP_OPTIONS = [K_RTK_INDEX, K_MEANING_KEY] as const;
 
 export const FREQ_RANK_OPTIONS = [
-  K_RANK_NETLIX,
+  K_RANK_NETFLIX,
   K_RANK_DRAMA_SUBTITLES,
   K_RANK_NOVELS_5100,
   K_RANK_TWITTER,
@@ -51,8 +49,6 @@ export const FREQ_RANK_OPTIONS = [
   K_RANK_ONLINE_NEWS_CHAR,
   K_RANK_AOZORA_DOC,
   K_RANK_AOZORA_CHAR,
-  K_RANK_NEWSPAPER_1,
-  K_RANK_NEWSPAPER_2,
   K_RANK_GOOGLE,
   K_RANK_KUF,
   K_RANK_MCD,
@@ -69,7 +65,7 @@ export const FREQ_RANK_SOURCES_INFO: Record<
   string,
   { description: string; links: string[] }
 > = {
-  [K_RANK_NETLIX]: {
+  [K_RANK_NETFLIX]: {
     description:
       "* Netflix Frequency is based on the list by OhTalkWho オタク (Dave Doebrick)",
     links: [
@@ -87,8 +83,6 @@ export const FREQ_RANK_SOURCES_INFO: Record<
   [K_RANK_ONLINE_NEWS_CHAR]: { description: "", links: [] },
   [K_RANK_AOZORA_DOC]: { description: "", links: [] },
   [K_RANK_AOZORA_CHAR]: { description: "", links: [] },
-  [K_RANK_NEWSPAPER_1]: { description: "", links: [] },
-  [K_RANK_NEWSPAPER_2]: { description: "", links: [] },
   [K_RANK_GOOGLE]: { description: "", links: [] },
   [K_RANK_KUF]: { description: "", links: [] },
   [K_RANK_MCD]: { description: "", links: [] },
@@ -109,7 +103,7 @@ export const OPTION_LABELS: Record<string, string> = {
   [K_WK_LVL]: "Wanikani Level",
   [K_RTK_INDEX]: "RTK Index",
   [K_MEANING_KEY]: "Keyword",
-  [K_RANK_NETLIX]: "Freq Rank - Netflix",
+  [K_RANK_NETFLIX]: "Freq Rank - Netflix",
   [K_RANK_DRAMA_SUBTITLES]: "Freq Rank - Drama Subtitles Corpus ",
   [K_RANK_NOVELS_5100]: "Freq Rank - 5100 Novels Corpus",
   [K_RANK_TWITTER]: "Freq Rank - Twitter Corpus",
@@ -119,8 +113,6 @@ export const OPTION_LABELS: Record<string, string> = {
   [K_RANK_ONLINE_NEWS_CHAR]: "Freq Rank - Online News Char Count",
   [K_RANK_AOZORA_DOC]: "Freq Rank - Aozora Doc Count",
   [K_RANK_AOZORA_CHAR]: "Freq Rank - Aozora Char Count",
-  [K_RANK_NEWSPAPER_1]: "Freq Rank - Newspaper 1",
-  [K_RANK_NEWSPAPER_2]: "Freq Rank  - Newspaper 2",
   [K_RANK_GOOGLE]: "Freq Rank - Google ",
   [K_RANK_KUF]: "Freq Rank - KUF",
   [K_RANK_MCD]: "Freq Rank - MCD ",
