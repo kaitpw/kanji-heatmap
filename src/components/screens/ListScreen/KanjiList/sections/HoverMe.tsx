@@ -18,8 +18,8 @@ interface TriggerProps {
   onBlur?: () => void;
 }
 
-const HOVER_OPEN_DELAY = 500;
-const HOVER_CLOSE_DELAY = 0;
+const HOVER_OPEN_DELAY = 350;
+const HOVER_CLOSE_DELAY = 200;
 const KanjiItemButton = forwardRef<HTMLButtonElement, TriggerProps>(
   (props, ref) => {
     const { kanji, ...rest } = props;
@@ -89,7 +89,7 @@ const HoverMeRaw = ({
             onBlur={handleClose}
           />
         </HoverCardTrigger>
-        <HoverCardContent className="p-1  w-128 relative ">
+        <HoverCardContent className="p-1 w-128 relative ">
           <HoverCardArrow />
           <div className=" hidden[@media(min-height:800px)]:[@media(min-width:400px)]:block">
             <KanjiCard kanji={trigger} />

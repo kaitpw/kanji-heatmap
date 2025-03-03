@@ -17,58 +17,7 @@ import {
 } from "@/providers/kanji-worker-provider";
 
 const LongContent = () => {
-  return (
-    <div className="my-4">
-      Test TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest Test
-      TestTestTestTest TestTestTestTest TestTestTestTestTest
-    </div>
-  );
+  return <div className="my-4">Coming soon...</div>;
 };
 
 const KanjiAllInfo = ({ kanji }: { kanji: string }) => {
@@ -76,12 +25,6 @@ const KanjiAllInfo = ({ kanji }: { kanji: string }) => {
   return (
     <div className="py-2 mx-2">
       <SimpleAccordion trigger={"General"}>
-        <LongContent />
-      </SimpleAccordion>
-      <SimpleAccordion trigger={"Notes"}>
-        <LongContent />
-      </SimpleAccordion>
-      <SimpleAccordion trigger={"Selected Vocabulary"}>
         <LongContent />
       </SimpleAccordion>
       <SimpleAccordion trigger={"Stroke Order Animation"}>

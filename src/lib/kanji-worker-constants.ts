@@ -50,6 +50,16 @@ export type KanjiExtendedInfo = {
   };
 };
 
+export type SegmentedVocabResponseType = Record<
+  string,
+  [string, Record<string, string>]
+>;
+
+export type SegmentedVocabInfo = {
+  spacedKana: string;
+  kanjis: Record<string, string>;
+};
+
 export type MainKanjiInfoResponseType = Record<
   string,
   [string, string, string, number]
@@ -97,6 +107,7 @@ export type KanjiWorkerRequestName =
   | KanjiWorkerInfoRequestType
   | KanjiSearchRequestType
   | "initialize-extended-kanji-map"
+  | "initalize-segmented-vocab-map"
   | "kanji-main-map"
   | "phonetic-map"
   | "part-keyword-map";

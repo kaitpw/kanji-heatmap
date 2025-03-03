@@ -4,7 +4,10 @@ import { badgeCn, SpanBadge } from "@/components/ui/badge";
 import * as wanakana from "wanakana";
 
 const useHiraganaWordButton = (rawKana: string) => {
-  const [kana, setKana] = useState(rawKana);
+  const [kana, setKana] = useState(() => {
+    const firstDef = rawKana.split(",")[0];
+    return wanakana.toHiragana(firstDef);
+  });
 
   const isHiragana = wanakana.isHiragana(kana.replace(/\s+/g, ""));
   const fontCss = isHiragana ? "kanji-font" : "romaji-font";
