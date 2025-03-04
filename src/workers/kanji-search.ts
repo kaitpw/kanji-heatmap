@@ -159,6 +159,13 @@ export const searchKanji = (settings: SearchSettings, kanjiPool: DataPool) => {
             K_RANK_ONLINE_NEWS_CHAR,
             K_RANK_AOZORA_DOC,
             K_RANK_AOZORA_CHAR,
+            K_RANK_GOOGLE,
+            K_RANK_KUF,
+            K_RANK_MCD,
+            K_RANK_BUNKA,
+            K_RANK_JISHO,
+            K_RANK_KD,
+            K_RANK_WKFR,
           ].includes(sortKey)
         ) {
           return freqSort(
