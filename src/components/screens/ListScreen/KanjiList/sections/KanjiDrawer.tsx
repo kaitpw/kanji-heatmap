@@ -6,7 +6,7 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { X } from "lucide-react";
 import { KanjiInfoLayout } from "./KanjiCard/layouts";
 import { KanjiCard } from "./KanjiCard";
@@ -15,31 +15,44 @@ import {
   useIsKanjiWorkerReady,
   useKanjiInfo,
 } from "@/providers/kanji-worker-provider";
+import { KanjiGeneralSection } from "./AccordionContent/KanjiGeneralSection";
+import { KanjiCacheItem } from "@/lib/kanji-info-types";
 
-const LongContent = () => {
-  return <div className="my-4">Coming soon...</div>;
-};
+import { KanjiFrequencyRanks } from "./AccordionContent/KanjiFrequencyRankSection";
+
+const KanjiAnimationSection = lazy(
+  () => import("./AccordionContent/KanjiAnimation")
+);
 
 const KanjiAllInfo = ({ kanji }: { kanji: string }) => {
   const info = useKanjiInfo(kanji, "main-plus-extended");
+
+  if (info.error) {
+    return <div> Something went wrong</div>;
+  }
+
+  if (info.data == null) {
+    return <div>Loading</div>;
+  }
+
+  const data = info.data as KanjiCacheItem;
   return (
     <div className="py-2 mx-2">
       <SimpleAccordion trigger={"General"}>
-        <LongContent />
+        <KanjiGeneralSection kanji={kanji} />
       </SimpleAccordion>
       <SimpleAccordion trigger={"Stroke Order Animation"}>
-        <LongContent />
+        <Suspense fallback={<div>Loading...</div>}>
+          <KanjiAnimationSection kanji={kanji} />
+        </Suspense>
       </SimpleAccordion>
       <SimpleAccordion trigger={"Frequency Ranks"}>
-        <LongContent />
+        <KanjiFrequencyRanks freqRankInfo={data.extended?.frequency} />
       </SimpleAccordion>
-      <SimpleAccordion trigger={"Related Kanji"}>
-        <LongContent />
-      </SimpleAccordion>
-      <code>{JSON.stringify(info, null, 2)}</code>
     </div>
   );
 };
+
 export function KanjiDrawerRaw({
   isOpen,
   onClose,
@@ -66,7 +79,7 @@ export function KanjiDrawerRaw({
         <KanjiInfoLayout
           first={
             !ready ? (
-              <p className="p-20"> Initializing..</p>
+              <p className="p-20"> Initializing...</p>
             ) : (
               <KanjiCard kanji={kanji} />
             )

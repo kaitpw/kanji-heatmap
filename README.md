@@ -46,8 +46,6 @@ python ./scripts/compress_kanji_data.py
 ### Priority
 
 - ✅ Make app `PWA` including adding icons for manifest
-- Populate index db with kanji information using a loading screen at the beginning of page load if it doesn't exist yet
-- Create the cache hooks listed above to retrieve kanji information from index db
 - Make sorting and filtering work with web workers
 - Put sorting and item presentation settings in local storage
 - Add debouncing for text search

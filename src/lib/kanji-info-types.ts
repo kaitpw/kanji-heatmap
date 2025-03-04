@@ -1,4 +1,9 @@
-import { KanjiExtendedInfo, KanjiMainInfo } from "./kanji-worker-constants";
+import { JLTPTtypes } from "./constants";
+import {
+  KanjiExtendedInfo,
+  KanjiInfoFrequency,
+  KanjiMainInfo,
+} from "./kanji-worker-constants";
 
 export type KanjiInfoRequestType =
   | "item-card"
@@ -32,6 +37,45 @@ export type KanjiCacheItem = {
   //    similar: string[];
   //    partOf: string[];
   //  };
+};
+
+export type HoverItemReturnData = {
+  keyword: string;
+  on: string;
+  kun: string;
+  jlpt: JLTPTtypes;
+  parts: { part: string; keyword: string; phonetic?: string }[];
+  frequency?: KanjiInfoFrequency;
+  mainVocab: {
+    first: {
+      word: string;
+      spacedKana: string;
+      meaning: string;
+      partsList: {
+        kanji: string;
+        keyword: string;
+      }[];
+    };
+    second: {
+      word: string;
+      spacedKana: string;
+      meaning: string;
+      partsList: {
+        kanji: string;
+        keyword: string;
+      }[];
+    };
+  };
+  vocabInfo?: {
+    first?: {
+      spacedKana: string;
+      kanjis: Record<string, string>;
+    };
+    second?: {
+      spacedKana: string;
+      kanjis: Record<string, string>;
+    };
+  };
 };
 
 export type KanjiCacheType = Record<string, KanjiCacheItem>;

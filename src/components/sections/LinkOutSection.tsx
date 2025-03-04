@@ -1,6 +1,6 @@
 import { BugIcon, EllipsisIcon } from "lucide-react";
 import LinkOutIcon from "../common/LinkOutIcon";
-import { GithubIcon, KoFiIcon } from "../icons";
+import { KoFiIcon } from "../icons";
 import { ModeToggle } from "../ui/mode-toggle";
 import {
   DropdownMenu,
@@ -19,11 +19,6 @@ const linkOutItems: {
     href: "https://github.com/mithi/mithi/issues/new?title=Kanji%20Companion%20Bug",
     text: "Report Something Wrong",
     icon: <BugIcon />,
-  },
-  {
-    href: "https://github.com/mithi/",
-    text: "View source code on Github",
-    icon: <GithubIcon />,
   },
   {
     href: "https://ko-fi.com/minimithi",

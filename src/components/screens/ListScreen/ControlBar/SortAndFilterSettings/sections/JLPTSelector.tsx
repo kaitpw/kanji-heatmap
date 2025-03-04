@@ -15,6 +15,7 @@ const JLPTOptionsWithIcon = JLPTOptions.map((entry) => {
     ),
   };
 });
+
 export function JLPTSelector({
   selectedJLPT,
   setSelectedJLPT,
@@ -38,7 +39,7 @@ export function JLPTSelector({
         defaultValue={selectedJLPT}
         placeholder="All JLPT levels are selected by default"
         variant="inverted"
-        maxCount={6}
+        maxCount={JLPTOptionsWithIcon.length}
       />
     </div>
   );

@@ -4,6 +4,7 @@ import { DualRangeSlider } from "@/components/ui/dual-range-slider";
 import { Label } from "@/components/ui/label";
 import { FilterX } from "lucide-react";
 import { UppercaseHeading } from "./sections/common";
+import { KANJI_COUNT, MAX_STROKE_COUNT } from "@/lib/constants";
 
 export const FrequencyRankingRangeField = ({
   values,
@@ -28,7 +29,7 @@ export const FrequencyRankingRangeField = ({
         value={values}
         onValueChange={setValues}
         min={0}
-        max={2500}
+        max={KANJI_COUNT}
         step={50}
       />
     </div>
@@ -58,7 +59,7 @@ export const StrokeCountField = ({
         value={values}
         onValueChange={setValues}
         min={1}
-        max={30}
+        max={MAX_STROKE_COUNT}
         step={1}
       />
     </div>

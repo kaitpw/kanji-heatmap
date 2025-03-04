@@ -73,6 +73,9 @@ export const freqCategoryCn: Record<number, string> = {
   5: "bg-opacity-100",
 };
 
+export const KANJI_COUNT = 2427;
+export const MAX_STROKE_COUNT = 30;
+
 // TODO: Better typing
 export const SEARCH_TYPE_OPTIONS = [
   { value: "keyword", label: "Keyword" },
