@@ -132,8 +132,8 @@ export const FREQUENCY_RANK_FILTER_OPTIONS: { value: string; label: string }[] =
 
 type SortGroup = (typeof GROUP_OPTIONS)[number];
 type SortNonGroup = (typeof NONGROUP_OPTIONS)[number];
-type SortFrequency = (typeof FREQ_RANK_OPTIONS)[number];
-export type SortKey = SortGroup | SortNonGroup | SortFrequency;
+export type FrequencyType = (typeof FREQ_RANK_OPTIONS)[number];
+export type SortKey = SortGroup | SortNonGroup | FrequencyType;
 
 export const SORT_ORDER_SELECT: { value: string; label: string }[] = [
   ...GROUP_OPTIONS,
