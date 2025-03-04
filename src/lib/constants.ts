@@ -1,4 +1,4 @@
-import { SortKey } from "./frequency-rank";
+import { FrequencyType, SortKey } from "./frequency-rank";
 
 export type JLTPTtypes = "n1" | "n2" | "n3" | "n4" | "n5" | "none";
 export const JLPTRank: Record<JLTPTtypes, number> = {
@@ -101,7 +101,7 @@ export type FilterSettings = {
   strokeRange: { min: number; max: number };
   jlpt: JLTPTtypes[];
   freq: {
-    source: string;
+    source: FrequencyType;
     rankRange: { min: number; max: number };
   };
 };
