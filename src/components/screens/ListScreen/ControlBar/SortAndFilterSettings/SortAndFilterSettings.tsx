@@ -22,6 +22,7 @@ import {
 import { FrequencyRankDataSource } from "./sections/common";
 import { JLPTSelector } from "./sections/JLPTSelector";
 import {
+  FrequencyType,
   OPTION_LABELS,
   SORT_ORDER_SELECT,
   SortKey,
@@ -172,7 +173,7 @@ export const SortAndFilterSettingsForm = ({
                     ...prev,
                     freq: {
                       ...prev.freq,
-                      source: val,
+                      source: val as FrequencyType,
                     },
                   };
                 });

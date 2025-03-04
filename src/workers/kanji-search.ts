@@ -113,6 +113,7 @@ export const searchKanji = (settings: SearchSettings, kanjiPool: DataPool) => {
   const jlptFilters = new Set(settings.filterSettings.jlpt);
   const minStrokes = settings.filterSettings.strokeRange.min;
   const maxStrokes = settings.filterSettings.strokeRange.max;
+  const freqFilter = settings.filterSettings.freq;
 
   // Sorting
   const primarySort = settings.sortSettings.primary;
@@ -121,12 +122,24 @@ export const searchKanji = (settings: SearchSettings, kanjiPool: DataPool) => {
   const kanjiList = allKanji
     .filter((kanji) => {
       const info = kanjiPool.main[kanji];
-      if ([0, 6].includes(jlptFilters.size)) return true;
+      if ([0, 6].includes(jlptFilters.size)) {
+        return true;
+      }
       return jlptFilters.has(info.jlpt);
     })
     .filter((kanji) => {
       const exInfo = kanjiPool.extended[kanji];
       return maxStrokes >= exInfo.strokes && exInfo.strokes >= minStrokes;
+    })
+    .filter((kanji) => {
+      if (freqFilter.source === "None") {
+        return true;
+      }
+      const exInfo = kanjiPool.extended[kanji];
+      const freq = getFrequency(freqFilter.source, exInfo) ?? Number.MAX_VALUE;
+      return (
+        freq >= freqFilter.rankRange.min && freq <= freqFilter.rankRange.max
+      );
     })
     .sort((a, b) => {
       const infoA = kanjiPool.main[a];
