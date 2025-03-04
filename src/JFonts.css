@@ -28,7 +28,7 @@
 }
 
 .kanji-font {
-  font-family: var(--kanji-font);
+  font-family: var(--kanji-font), "Klee One", "Yuji Mai", "gutsukku";
 }
 
 .romaji-font {

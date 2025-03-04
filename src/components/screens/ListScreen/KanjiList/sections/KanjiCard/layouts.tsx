@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { Separator } from "@/components/ui/separator";
 import { GenericPopover } from "@/components/common/GenericPopover";
 
 export const MainCardContent = ({
@@ -29,7 +28,7 @@ export const KanjiSingleComponent = ({
   return (
     <GenericPopover
       trigger={
-        <button className="flex flex-col m-1 kanji-font text-4xl border-4 border-lime-400 rounded-3xl p-2">
+        <button className="flex flex-col m-1 kanji-font text-4xl border-2 border-dotted rounded-3xl p-2">
           {kanji}
         </button>
       }
@@ -47,8 +46,8 @@ export const KanjiInfoLayout = ({
 }) => {
   return (
     <div className="w-full flex flex-col overflow-y-scroll md:flex-row md:space-x-1">
-      <div className="md:sticky top-[0px] left-[0px] mx-6">{first}</div>
-      <div>{second}</div>
+      <div className="md:sticky top-[0px] left-[0px]">{first}</div>
+      <div className="grow"> {second}</div>
     </div>
   );
 };
@@ -67,29 +66,28 @@ export const KanjiCardLayout = ({
   frequencyBadges?: ReactNode;
 }) => {
   return (
-    <div className="m-2">
+    <article className="mx-2 w-96 rounded-lg border-2 border-dotted ">
       <div className="flex">
-        <div className="mr-4 border-r-2 border-dotted">{mainCard}</div>
-        <div>
+        <div className=" border-r-2 border-dotted">{mainCard}</div>
+        <div className="px-2 w-full pb-4 pt-4">
           {firstWordCard}
-          <Separator className="my-4" />
+          <div className="mt-6 mb-2 border-b-2 border-dotted w-full" />
           {secondWordCard}
         </div>
       </div>
       {kanjiComponents && (
         <>
-          <Separator className="my-4" />
-
-          <div className="flex w-full mr-4 p-2">{kanjiComponents}</div>
+          <div className="flex justify-center flex-wrap mr-4 p-2 border-t-2 border-dotted pt-3 w-full">
+            {kanjiComponents}
+          </div>
         </>
       )}
-      <Separator className="my-4" />
       {frequencyBadges && (
-        <div className="flex space-x-1 flex-wrap space-y-1">
+        <div className="flex space-x-1 justify-center flex-wrap space-y-1 border-t-2 border-dotted mt-1 mb-3 pt-4">
           <div />
           {frequencyBadges}
         </div>
       )}
-    </div>
+    </article>
   );
 };

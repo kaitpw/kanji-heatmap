@@ -39,7 +39,7 @@ export const HiraganaWord = ({
   return (
     <Button
       variant="ghost"
-      className={`flex z-0 text-md lg:text-2xl ${fontCss} ${btnCn}`}
+      className={`flex px-1 z-0 text-md lg:text-2xl ${fontCss} ${btnCn}`}
       onClick={onToggle}
     >
       {kana.split(" ").map((mora, index) => {

@@ -285,10 +285,7 @@ export const useKanjiSearch = (searchSettings: SearchSettings) => {
     status: Status;
     data?: string[];
     error?: string | null;
-  }>({
-    status: "idle",
-    data: [],
-  });
+  }>({ status: "idle" });
 
   const lastRequestedSettings = useRef<null | SearchSettings>(null);
 

@@ -12,9 +12,8 @@ import {
   useIsKanjiWorkerReady,
   useKanjiInfo,
 } from "@/providers/kanji-worker-provider";
-import { JLTPTtypes } from "@/lib/constants";
-import { KanjiInfoFrequency } from "@/lib/kanji-worker-constants";
 import { Separator } from "@/components/ui/separator";
+import { HoverItemReturnData } from "@/lib/kanji-info-types";
 
 export const KanjiLink = ({
   kanji,
@@ -55,45 +54,6 @@ const getHighlightIndex = (
   return index;
 };
 
-type HoverItemReturnData = {
-  keyword: string;
-  on: string;
-  kun: string;
-  jlpt: JLTPTtypes;
-  parts: { part: string; keyword: string; phonetic?: string }[];
-  frequency?: KanjiInfoFrequency;
-  mainVocab: {
-    first: {
-      word: string;
-      spacedKana: string;
-      meaning: string;
-      partsList: {
-        kanji: string;
-        keyword: string;
-      }[];
-    };
-    second: {
-      word: string;
-      spacedKana: string;
-      meaning: string;
-      partsList: {
-        kanji: string;
-        keyword: string;
-      }[];
-    };
-  };
-  vocabInfo?: {
-    first?: {
-      spacedKana: string;
-      kanjis: Record<string, string>;
-    };
-    second?: {
-      spacedKana: string;
-      kanjis: Record<string, string>;
-    };
-  };
-};
-
 export const WordCard = ({
   word,
   spacedKana,
@@ -114,7 +74,7 @@ export const WordCard = ({
         trigger={
           <Button
             variant="ghost"
-            className="flex text-5xl  h-auto p-0 z-1 kanji-font hover:bg-gray-200 dark:hover:bg-gray-800"
+            className="flex text-5xl h-auto p-0 my-2 z-1 kanji-font hover:bg-gray-200 dark:hover:bg-gray-800 text-clip"
           >
             {word}
           </Button>
@@ -213,18 +173,20 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
       frequencyBadges={
         info.frequency && (
           <>
-            <Badge className="text-nowrap" variant={"outline"}>
-              JLPT {info.jlpt}
-            </Badge>
+            {info.jlpt !== "none" && (
+              <Badge className="text-nowrap" variant={"outline"}>
+                JLPT {info.jlpt.toUpperCase()}
+              </Badge>
+            )}
 
             <Badge className="text-nowrap" variant={"outline"}>
-              Netflix: {info.frequency.netflix}
+              Netflix~ {info.frequency.netflix}
             </Badge>
             <Badge className="text-nowrap" variant={"outline"}>
-              Wikipedia: {info.frequency.wikiChar}
+              Wikipedia~ {info.frequency.wikiChar}
             </Badge>
             <Badge className="text-nowrap" variant={"outline"}>
-              Google: {info.frequency.google}
+              Google~ {info.frequency.google}
             </Badge>
           </>
         )

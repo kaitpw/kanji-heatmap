@@ -92,7 +92,7 @@ const KanjiListWithSearch = () => {
   }
 
   if (result.data.length === 0) {
-    return <div className="p-20">No filters match your search</div>;
+    return <div className="p-20">No kanji match your search</div>;
   }
   return <KanjiList kanjiKeys={result.data} />;
 };
