@@ -4,8 +4,8 @@
 
 ### Information that can be computed on the fly
 
-1. `ultimate_average_rank` = `(goog + kuf + mdc + bunka + jisho + kd + wkfr) / 7`
-2. `ultimate_average_weighted` = `( 2 * goog + 2 * kuf + 2 * bunka + mdc + jisho + kd + wkfr ) / 10`
+1. `ultimate_average_rank` = `(goog + kuf + mcd + bunka + jisho + kd + wkfr) / 7`
+2. `ultimate_average_weighted` = `( 2 * goog + 2 * kuf + 2 * bunka + mcd + jisho + kd + wkfr ) / 10`
 3. `ultimate_rank_weighted5` = `(2 * goog + 3 * kuf + 2 *  mcd + 2 * bunka + jisho ) / 10`
 4. Frequency star IE: `5⭐`.
 

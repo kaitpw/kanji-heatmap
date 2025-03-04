@@ -28,10 +28,10 @@ export type KanjiInfoFrequency = {
   novels5100: number; //rank_novels_5100,
   dramaSubs: number; //rank_drama_subtitles,
   kuf: number; //rank_kuf,
-  mdc: number; //rank_mcd,
+  mcd: number; //rank_mcd,
   bunka: number; //rank_bunka,
   wkfr: number; //rank_wkfr,
-  jishou: number; //rank_jisho,
+  jisho: number; //rank_jisho,
 };
 
 export type KanjiExtendedInfo = {

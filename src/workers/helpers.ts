@@ -122,10 +122,10 @@ export const transformToExtendedKanjiInfo = (
       novels5100: freq[10], //rank_novels_5100
       dramaSubs: freq[11], //rank_drama_subtitles
       kuf: freq[12], //rank_kuf
-      mdc: freq[13], //rank_mcd
+      mcd: freq[13], //rank_mcd
       bunka: freq[14], //rank_bunka
       wkfr: freq[15], //rank_wkfr
-      jishou: freq[16], //rank_jisho
+      jisho: freq[16], //rank_jisho
     },
     mainVocab,
   };
