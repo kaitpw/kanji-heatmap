@@ -25,6 +25,7 @@ export const K_RANK_MCD = "rank_mcd";
 export const K_RANK_BUNKA = "rank_bunka";
 export const K_RANK_JISHO = "rank_jisho";
 export const K_RANK_KD = "rank_kd";
+export const K_RANK_WKFR = "rank_wkfr";
 export const K_RANK_AVG = "rank_avg";
 export const K_RANK_WEIGHTED = "rank_weighted";
 export const K_RANK_WEIGHTED5 = "rank_weighted5";
@@ -55,6 +56,7 @@ export const FREQ_RANK_OPTIONS = [
   K_RANK_BUNKA,
   K_RANK_JISHO,
   K_RANK_KD,
+  K_RANK_WKFR,
   K_RANK_AVG,
   K_RANK_WEIGHTED,
   K_RANK_WEIGHTED5,
@@ -89,6 +91,7 @@ export const FREQ_RANK_SOURCES_INFO: Record<
   [K_RANK_BUNKA]: { description: "", links: [] },
   [K_RANK_JISHO]: { description: "", links: [] },
   [K_RANK_KD]: { description: "", links: [] },
+  [K_RANK_WKFR]: { description: "", links: [] },
   [K_RANK_AVG]: { description: "", links: [] },
   [K_RANK_WEIGHTED]: { description: "", links: [] },
   [K_RANK_WEIGHTED5]: { description: "", links: [] },
@@ -119,6 +122,7 @@ export const OPTION_LABELS: Record<string, string> = {
   [K_RANK_BUNKA]: "Freq Rank - BUNKA",
   [K_RANK_JISHO]: "Freq Rank - JISHO",
   [K_RANK_KD]: "Freq Rank - KD",
+  [K_RANK_WKFR]: "Freq Rank - WKFR",
   [K_RANK_AVG]: "Freq Rank - AVG",
   [K_RANK_WEIGHTED]: "Freq Rank - Weighted",
   [K_RANK_WEIGHTED5]: "Freq Rank - Weighted5",
