@@ -2,22 +2,30 @@ import { ReactNode } from "react";
 import { Badge } from "@/components/ui/badge";
 import { ArrowDownWideNarrow } from "lucide-react";
 import { UppercaseHeading } from "./common";
+import { OPTION_LABELS } from "@/lib/frequency-rank";
 
 export const SortAdditionalInfo = ({
   val1,
   val2,
 }: {
-  val1: string;
+  val1?: string;
   val2?: string;
 }) => {
+  const v1 = val1 && val1 !== "None" ? OPTION_LABELS?.[val1] : null;
+  const v2 = val2 && v1 && val2 !== "None" ? OPTION_LABELS[val2] : null;
+
   return (
     <>
-      <div className="mx-2">*** Order By</div>
-      <Badge>{val1} </Badge>
-      {val2 && (
+      {v1 && v2 && (
+        <>
+          <div className="mx-2">*** Order By</div> <Badge>{v1}</Badge>
+        </>
+      )}
+
+      {v2 && (
         <>
           <div className="mx-2">Then By</div>
-          <Badge>{val2} </Badge>
+          <Badge>{v2} </Badge>
         </>
       )}
     </>

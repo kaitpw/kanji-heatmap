@@ -75,7 +75,7 @@ export const FilterSectionLayout = ({
   jlptField: ReactNode;
   strokeCountField: ReactNode;
   freqRankSourceField: ReactNode;
-  freqRankRangeField: ReactNode;
+  freqRankRangeField?: ReactNode;
 }) => {
   return (
     <section className="text-start w-full">
