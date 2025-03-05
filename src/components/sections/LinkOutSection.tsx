@@ -27,10 +27,9 @@ const linkOutItems: {
   },
 ];
 
-const MenuItems = () => {
+export const LinksOutItems = () => {
   return (
-    <div className="flex space-x-1">
-      <ModeToggle />
+    <>
       {linkOutItems.map((item) => {
         return (
           <LinkOutIcon
@@ -42,6 +41,14 @@ const MenuItems = () => {
           />
         );
       })}
+    </>
+  );
+};
+const MenuItems = () => {
+  return (
+    <div className="flex space-x-1">
+      <ModeToggle />
+      <LinksOutItems />
     </div>
   );
 };

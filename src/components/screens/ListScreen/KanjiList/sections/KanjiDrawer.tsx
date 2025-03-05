@@ -19,6 +19,8 @@ import { KanjiGeneralSection } from "./AccordionContent/KanjiGeneralSection";
 import { KanjiCacheItem } from "@/lib/kanji-info-types";
 
 import { KanjiFrequencyRanks } from "./AccordionContent/KanjiFrequencyRankSection";
+import { LinksOutItems } from "@/components/sections/LinkOutSection";
+import ChangeFontButton from "@/components/common/ChangeFontButton";
 
 const KanjiAnimationSection = lazy(
   () => import("./AccordionContent/KanjiAnimation")
@@ -38,6 +40,13 @@ const KanjiAllInfo = ({ kanji }: { kanji: string }) => {
   const data = info.data as KanjiCacheItem;
   return (
     <div className="py-2 mx-2">
+      <div className="flex space-x-1 items-center py-2  border-b-2 border-dotted">
+        <div className="border-2 border-dashed rounded-lg">
+          <ChangeFontButton />
+        </div>
+        <LinksOutItems />
+      </div>
+
       <SimpleAccordion trigger={"General"}>
         <KanjiGeneralSection kanji={kanji} />
       </SimpleAccordion>
