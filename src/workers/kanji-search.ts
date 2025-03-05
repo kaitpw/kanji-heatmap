@@ -1,12 +1,11 @@
 import { JLPTRank, JLTPTtypes, SearchSettings } from "@/lib/constants";
 import {
-  FrequencyType,
+  getFrequency,
   K_JLPT,
   K_JOUYOU_KEY,
   K_MEANING_KEY,
   K_RANK_AOZORA_CHAR,
   K_RANK_AOZORA_DOC,
-  K_RANK_AVG,
   K_RANK_BUNKA,
   K_RANK_DRAMA_SUBTITLES,
   K_RANK_GOOGLE,
@@ -19,8 +18,6 @@ import {
   K_RANK_ONLINE_NEWS_CHAR,
   K_RANK_ONLINE_NEWS_DOC,
   K_RANK_TWITTER,
-  K_RANK_WEIGHTED,
-  K_RANK_WEIGHTED5,
   K_RANK_WIKIPEDIA_CHAR,
   K_RANK_WIKIPEDIA_DOC,
   K_RANK_WKFR,
@@ -29,11 +26,7 @@ import {
   K_WK_LVL,
   SortKey,
 } from "@/lib/frequency-rank";
-import {
-  KanjiExtendedInfo,
-  KanjiInfoFrequency,
-  KanjiMainInfo,
-} from "@/lib/kanji-worker-constants";
+import { KanjiExtendedInfo, KanjiMainInfo } from "@/lib/kanji-worker-constants";
 
 type DataPool = {
   main: Record<string, KanjiMainInfo>;
@@ -73,37 +66,6 @@ const freqSort = (a: number | undefined, b: number | undefined) => {
   const numA = a ?? Number.MAX_VALUE;
   const numB = b ?? Number.MAX_VALUE;
   return numA - numB;
-};
-
-const freqMap: Record<FrequencyType, keyof KanjiInfoFrequency | undefined> = {
-  [K_RANK_NETFLIX]: "netflix",
-  [K_RANK_DRAMA_SUBTITLES]: "dramaSubs",
-  [K_RANK_NOVELS_5100]: "novels5100",
-  [K_RANK_TWITTER]: "twitter",
-  [K_RANK_WIKIPEDIA_DOC]: "wikiDoc",
-  [K_RANK_WIKIPEDIA_CHAR]: "wikiChar",
-  [K_RANK_ONLINE_NEWS_DOC]: "onlineNewsDoc",
-  [K_RANK_ONLINE_NEWS_CHAR]: "onlineNewsChar",
-  [K_RANK_AOZORA_DOC]: "aozoraDoc",
-  [K_RANK_AOZORA_CHAR]: "aozoraChar",
-  [K_RANK_GOOGLE]: "google",
-  [K_RANK_KUF]: "kuf",
-  [K_RANK_MCD]: "mcd",
-  [K_RANK_BUNKA]: "bunka",
-  [K_RANK_JISHO]: "jisho",
-  [K_RANK_KD]: "kd",
-  [K_RANK_WKFR]: "wkfr",
-  [K_RANK_AVG]: undefined,
-  [K_RANK_WEIGHTED]: undefined,
-  [K_RANK_WEIGHTED5]: undefined,
-  None: undefined,
-};
-
-const getFrequency = (freq: FrequencyType, info: KanjiExtendedInfo) => {
-  if (info.frequency == null || freqMap[freq] == null) {
-    return undefined;
-  }
-  return info.frequency[freqMap[freq]];
 };
 
 export const searchKanji = (settings: SearchSettings, kanjiPool: DataPool) => {

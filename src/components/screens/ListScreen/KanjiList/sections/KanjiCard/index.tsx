@@ -101,6 +101,35 @@ export const WordCard = ({
   );
 };
 
+export const SmallKanjiCard = ({ kanji }: { kanji: string }) => {
+  const data = useKanjiInfo(kanji, "hover-card");
+  const ready = useIsKanjiWorkerReady();
+
+  if (data.error) {
+    return (
+      <div>
+        Something went wrong in <code>Kanji Card</code>
+      </div>
+    );
+  }
+
+  if (data.status === "loading" || !ready) {
+    return (
+      <div>
+        Something went wrong in <code>Loading</code>
+      </div>
+    );
+  }
+
+  if (data.data == null) {
+    return <div> No data available</div>;
+  }
+
+  const info = data.data as HoverItemReturnData;
+
+  return <MainCardContent kanji={kanji} keyword={info.keyword} />;
+};
+
 export const KanjiCard = ({ kanji }: { kanji: string }) => {
   const data = useKanjiInfo(kanji, "hover-card");
   const ready = useIsKanjiWorkerReady();

@@ -1,3 +1,8 @@
+import {
+  KanjiExtendedInfo,
+  KanjiInfoFrequency,
+} from "./kanji-worker-constants";
+
 export const K_JLPT = "jlpt";
 export const K_JOUYOU_KEY = "jouyou_grade";
 export const K_ONYOMI = "onyomi";
@@ -26,9 +31,6 @@ export const K_RANK_BUNKA = "rank_bunka";
 export const K_RANK_JISHO = "rank_jisho";
 export const K_RANK_KD = "rank_kd";
 export const K_RANK_WKFR = "rank_wkfr";
-export const K_RANK_AVG = "rank_avg";
-export const K_RANK_WEIGHTED = "rank_weighted";
-export const K_RANK_WEIGHTED5 = "rank_weighted5";
 
 export const GROUP_OPTIONS = [
   K_JLPT,
@@ -57,11 +59,39 @@ export const FREQ_RANK_OPTIONS = [
   K_RANK_JISHO,
   K_RANK_KD,
   K_RANK_WKFR,
-  K_RANK_AVG,
-  K_RANK_WEIGHTED,
-  K_RANK_WEIGHTED5,
   "None",
 ] as const;
+
+export const freqMap: Record<
+  FrequencyType,
+  keyof KanjiInfoFrequency | undefined
+> = {
+  [K_RANK_NETFLIX]: "netflix",
+  [K_RANK_DRAMA_SUBTITLES]: "dramaSubs",
+  [K_RANK_NOVELS_5100]: "novels5100",
+  [K_RANK_TWITTER]: "twitter",
+  [K_RANK_WIKIPEDIA_DOC]: "wikiDoc",
+  [K_RANK_WIKIPEDIA_CHAR]: "wikiChar",
+  [K_RANK_ONLINE_NEWS_DOC]: "onlineNewsDoc",
+  [K_RANK_ONLINE_NEWS_CHAR]: "onlineNewsChar",
+  [K_RANK_AOZORA_DOC]: "aozoraDoc",
+  [K_RANK_AOZORA_CHAR]: "aozoraChar",
+  [K_RANK_GOOGLE]: "google",
+  [K_RANK_KUF]: "kuf",
+  [K_RANK_MCD]: "mcd",
+  [K_RANK_BUNKA]: "bunka",
+  [K_RANK_JISHO]: "jisho",
+  [K_RANK_KD]: "kd",
+  [K_RANK_WKFR]: "wkfr",
+  None: undefined,
+};
+
+export const getFrequency = (freq: FrequencyType, info: KanjiExtendedInfo) => {
+  if (info.frequency == null || freqMap[freq] == null) {
+    return undefined;
+  }
+  return info.frequency[freqMap[freq]];
+};
 
 export const FREQ_RANK_SOURCES_INFO: Record<
   string,
@@ -92,9 +122,6 @@ export const FREQ_RANK_SOURCES_INFO: Record<
   [K_RANK_JISHO]: { description: "", links: [] },
   [K_RANK_KD]: { description: "", links: [] },
   [K_RANK_WKFR]: { description: "", links: [] },
-  [K_RANK_AVG]: { description: "", links: [] },
-  [K_RANK_WEIGHTED]: { description: "", links: [] },
-  [K_RANK_WEIGHTED5]: { description: "", links: [] },
 };
 
 export const OPTION_LABELS: Record<string, string> = {
@@ -123,9 +150,6 @@ export const OPTION_LABELS: Record<string, string> = {
   [K_RANK_JISHO]: "Freq Rank - JISHO",
   [K_RANK_KD]: "Freq Rank - KD",
   [K_RANK_WKFR]: "Freq Rank - WKFR",
-  [K_RANK_AVG]: "Freq Rank - AVG",
-  [K_RANK_WEIGHTED]: "Freq Rank - Weighted",
-  [K_RANK_WEIGHTED5]: "Freq Rank - Weighted5",
   None: "None",
 };
 

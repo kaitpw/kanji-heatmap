@@ -7,7 +7,7 @@ const storageKey = "card-settings";
 
 export const defaultValue: CardSettings = {
   cardType: "compact",
-  borderColorAttached: false,
+  borderColorAttached: true,
   backgroundColorSettingDataSource: "None",
 };
 

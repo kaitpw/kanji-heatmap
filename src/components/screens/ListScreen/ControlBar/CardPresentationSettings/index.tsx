@@ -20,6 +20,7 @@ import {
   useCardSettings,
   useCardSettingsDispatch,
 } from "@/providers/card-settings-provider";
+import { FrequencyType } from "@/lib/frequency-rank";
 
 export const CardPresentationSettingsContent = () => {
   const cardState = useCardSettings();
@@ -72,7 +73,10 @@ export const CardPresentationSettingsContent = () => {
             <FrequencyRankDataSource
               value={cardState.backgroundColorSettingDataSource}
               setValue={(v) => {
-                dispatch("backgroundColorSettingDataSource", v);
+                dispatch(
+                  "backgroundColorSettingDataSource",
+                  v as FrequencyType
+                );
               }}
             />
           </>

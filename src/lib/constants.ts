@@ -73,24 +73,40 @@ export const freqCategoryCn: Record<number, string> = {
   5: "bg-opacity-100",
 };
 
+export const freqCategoryOpacity: Record<number, number> = {
+  0: 0.1,
+  1: 0.25,
+  2: 0.45,
+  3: 0.65,
+  4: 0.85,
+  5: 1,
+};
+
+export const getFreqCategory = (freqRank?: number) => {
+  return freqRank == null || freqRank > 2250
+    ? 0
+    : 1600 < freqRank && freqRank <= 2250
+      ? 1
+      : 1000 < freqRank && freqRank <= 1600
+        ? 2
+        : 600 < freqRank && freqRank <= 1000
+          ? 3
+          : 300 < freqRank && freqRank <= 600
+            ? 4
+            : 5;
+};
+
 export const KANJI_COUNT = 2427;
 export const MAX_STROKE_COUNT = 30;
 
-// TODO: Better typing
-export const SEARCH_TYPE_OPTIONS = [
+export const SEARCH_TYPE_OPTIONS: {
+  value: "keyword" | "onyomi" | "kunyomi";
+  label: string;
+}[] = [
   { value: "keyword", label: "Keyword" },
   { value: "onyomi", label: "オニョミ" },
   { value: "kunyomi", label: "くにょみ" },
 ];
-
-export const TILE_SIZE = {
-  sm: {
-    width: 50,
-    height: 55,
-  },
-};
-
-export const HEADER_HEIGHT = 100;
 
 export type TextSearch = {
   type: string;
@@ -120,5 +136,5 @@ export type SearchSettings = {
 export type CardSettings = {
   cardType: "compact" | "expanded";
   borderColorAttached: boolean;
-  backgroundColorSettingDataSource: string;
+  backgroundColorSettingDataSource: FrequencyType;
 };

@@ -8,8 +8,15 @@ import { HEADER_HEIGHT, TILE_SIZE } from "./constants";
 import { KanjiDrawer } from "./sections/KanjiDrawer";
 import { useKanjiSearchResult } from "@/providers/kanji-worker-provider";
 import LoadingKanjis from "./LoadingKanjis";
+import { useCardSettings } from "@/providers/card-settings-provider";
 
-const KanjiListRaw = ({ kanjiKeys = [] }: { kanjiKeys?: string[] }) => {
+const KanjiListRaw = ({
+  kanjiKeys = [],
+  size,
+}: {
+  kanjiKeys?: string[];
+  size: "compact" | "expanded";
+}) => {
   const [hoveredKanji, setHoveredKanji] = useState<string | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -22,8 +29,10 @@ const KanjiListRaw = ({ kanjiKeys = [] }: { kanjiKeys?: string[] }) => {
 
   const [windowWidth, windowHeight] = useWindowSize();
 
+  const tileSize = size === "compact" ? TILE_SIZE.sm : TILE_SIZE.lg;
+
   const openedKanji = searchParams.get("openedKanji");
-  const cols = Math.floor(windowWidth / TILE_SIZE.sm.width);
+  const cols = Math.floor(windowWidth / tileSize.width);
   const rows = Math.ceil(kanjiKeys.length / cols);
   const listHeight = windowHeight - HEADER_HEIGHT;
 
@@ -34,7 +43,7 @@ const KanjiListRaw = ({ kanjiKeys = [] }: { kanjiKeys?: string[] }) => {
         width="100%"
         height={listHeight}
         itemCount={rows}
-        itemSize={TILE_SIZE.sm.height}
+        itemSize={tileSize.height}
         renderItem={({ index: rowIndex, style }) => {
           const items = rowIndex < rows - 1 ? cols : kanjiKeys.length % cols;
 
@@ -77,6 +86,7 @@ const KanjiList = React.memo(KanjiListRaw);
 
 const KanjiListWithSearch = () => {
   const result = useKanjiSearchResult();
+  const cardSettings = useCardSettings();
   //   const ready = useIsKanjiWorkerReady();
 
   if (result.error != null) {
@@ -94,7 +104,7 @@ const KanjiListWithSearch = () => {
   if (result.data.length === 0) {
     return <div className="p-20">No kanji match your search</div>;
   }
-  return <KanjiList kanjiKeys={result.data} />;
+  return <KanjiList kanjiKeys={result.data} size={cardSettings.cardType} />;
 };
 
 export default KanjiListWithSearch;

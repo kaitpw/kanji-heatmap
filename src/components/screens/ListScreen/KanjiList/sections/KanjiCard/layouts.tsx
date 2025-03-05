@@ -10,7 +10,7 @@ export const MainCardContent = ({
 }) => {
   return (
     <>
-      <div className="mr-4 px-4 rounded-3xl">
+      <div className="mr-4 pl-2 rounded-3xl">
         <span className="text-[120px] kanji-font">{kanji}</span>
         <div className="text-md uppercase -mt-4">{keyword}</div>
       </div>

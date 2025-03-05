@@ -1,5 +1,9 @@
 import { KanjiInfoFrequency } from "@/lib/kanji-worker-constants";
-import { KANJI_COUNT } from "@/lib/constants";
+import {
+  freqCategoryOpacity,
+  getFreqCategory,
+  KANJI_COUNT,
+} from "@/lib/constants";
 import { Progress } from "@/components/ui/progress";
 import { InfoIcon } from "lucide-react";
 import { GenericPopover } from "@/components/common/GenericPopover";
@@ -48,6 +52,8 @@ export const KanjiFrequencyRanks = ({
             const progress =
               (Math.max(KANJI_COUNT - rank, 0) * 100) / KANJI_COUNT;
 
+            const freqRankCategory = getFreqCategory(rank);
+
             return (
               <TableRow key={item} className="my-1 text-left p-0">
                 <TableCell className="p-0">
@@ -66,8 +72,15 @@ export const KanjiFrequencyRanks = ({
                   />
                 </TableCell>
 
-                <TableCell className="w-full py-2">
-                  <Progress className="h-2" value={progress} />
+                <TableCell className={`w-full py-2`}>
+                  <Progress
+                    className={`h-1 `}
+                    value={progress}
+                    primitiveCn={`!bg-[#fb02a8]`}
+                    primitiveStyle={{
+                      opacity: freqCategoryOpacity[freqRankCategory],
+                    }}
+                  />
                 </TableCell>
               </TableRow>
             );

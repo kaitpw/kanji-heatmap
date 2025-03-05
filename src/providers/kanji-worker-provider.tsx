@@ -256,7 +256,11 @@ export function KanjiWorkerProvider({ children }: { children: ReactNode }) {
 }
 
 export const useKanjiWorkerRequest = () => {
-  const fn = useContextWithCatch(ActionContext, "KanjiWorker", "WorkerRequest");
+  const fn = useContextWithCatch(
+    ActionContext,
+    "KanjiWorker",
+    "WorkerWorkerRequest"
+  );
   return fn;
 };
 
