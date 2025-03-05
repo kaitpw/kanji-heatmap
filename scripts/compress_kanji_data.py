@@ -304,7 +304,10 @@ def get_wanikani_lvl(kanji_info):
 
 
 def get_semantic_phonetic(kanji_info):
-    return kanji_info.get("semanticPhonetic", {}).get('moeUsagi', None)
+    phonetic = kanji_info.get("semanticPhonetic", {}).get('moeUsagi', None)
+    if phonetic:
+        print("->", phonetic, kanji_info.get("kanji"))
+    return phonetic
 
 DEFAULT_ARRAY_VAL = []
 # -------------------
