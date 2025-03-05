@@ -3,8 +3,7 @@ import { useKanjiInfo } from "@/providers/kanji-worker-provider";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@radix-ui/react-select";
-import { useState } from "react";
-import * as wanakana from "wanakana";
+import { RomajiBadge } from "@/components/common/RomajiBadge";
 
 const externalLinks: { name: string; url: (x: string) => string }[] = [
   {
@@ -48,24 +47,6 @@ const externalLinks: { name: string; url: (x: string) => string }[] = [
 
 const hasData = (data?: number) => data != null && data !== -1;
 
-const RomajiBadge = ({ kana }: { kana: string }) => {
-  const [isKana, setIsKana] = useState(true);
-
-  const content = isKana ? kana : wanakana.toRomaji(kana);
-  const cn = isKana ? "kanji-font" : "";
-  return (
-    <Badge
-      variant={"outline"}
-      className={`m-1 cursor-pointer text-lg ${cn}`}
-      onClick={(e) => {
-        setIsKana((prev) => !prev);
-        e.preventDefault();
-      }}
-    >
-      {content}
-    </Badge>
-  );
-};
 export const KanjiGeneralSection = ({ kanji }: { kanji: string }) => {
   const info = useKanjiInfo(kanji, "general");
 

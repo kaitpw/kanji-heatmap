@@ -139,6 +139,18 @@ export function KanjiWorkerProvider({ children }: { children: ReactNode }) {
 
         if (type === "hover-card") {
           const vocab = kanjiInfo.extended.mainVocab;
+          const phonetic =
+            kanjiInfo.extended.phonetic == null
+              ? undefined
+              : {
+                  phonetic: kanjiInfo.extended.phonetic,
+                  sound:
+                    phoneticCacheRef?.current?.[kanjiInfo.extended.phonetic],
+                  keyword:
+                    kanjiCacheRef?.current?.[kanjiInfo.extended.phonetic]?.main
+                      .keyword ??
+                    partKeywordCacheRef?.current?.[kanjiInfo.extended.phonetic],
+                };
 
           const getPartsList = (word: string) => {
             const parts = word.split("");
@@ -176,11 +188,12 @@ export function KanjiWorkerProvider({ children }: { children: ReactNode }) {
                 keyword:
                   kanjiCacheRef?.current?.[part]?.main.keyword ??
                   partKeywordCacheRef?.current?.[part],
-                phonetic: phoneticCacheRef?.current?.[kanji],
+                phonetic: phoneticCacheRef?.current?.[part],
               };
             }),
             frequency: kanjiInfo.extended.frequency,
             vocabInfo: kanjiInfo?.extended?.vocabInfo,
+            phonetic,
           };
           return result;
         }
@@ -324,7 +337,7 @@ export const useKanjiSearch = (searchSettings: SearchSettings) => {
 
 export const useKanjiInfo = (
   kanji: string,
-  requestType: KanjiInfoRequestType
+  requestType: KanjiInfoRequestType | "none"
 ) => {
   const [state, setState] = useState<{
     status: Status;
@@ -345,6 +358,11 @@ export const useKanjiInfo = (
 
       return;
     }
+
+    if (requestType === "none") {
+      return;
+    }
+
     setState((prev) => {
       return { status: "loading", data: prev.data };
     });
@@ -357,7 +375,6 @@ export const useKanjiInfo = (
         });
       })
       .catch((error) => {
-        console.log("error", error);
         setState({ status: "error", error });
       });
 

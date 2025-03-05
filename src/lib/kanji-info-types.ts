@@ -46,6 +46,7 @@ export type HoverItemReturnData = {
   jlpt: JLTPTtypes;
   parts: { part: string; keyword: string; phonetic?: string }[];
   frequency?: KanjiInfoFrequency;
+  phonetic?: { phonetic: string; sound: string; keyword: string };
   mainVocab: {
     first: {
       word: string;

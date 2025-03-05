@@ -38,13 +38,17 @@ const KanjiItemButton = forwardRef<HTMLButtonElement, TriggerProps>(
   (props, ref) => {
     const { kanji, ...rest } = props;
     const getInfo = useGetKanjiInfoFn();
-    const kanjiInfo = getInfo?.(kanji);
-    const kanjiFreq = useKanjiInfo(kanji, "frequency-ranks");
 
     const cardSettings = useCardSettings();
     const dontIncludeFreq =
       cardSettings.backgroundColorSettingDataSource == null ||
       cardSettings.backgroundColorSettingDataSource == "None";
+
+    const kanjiInfo = getInfo?.(kanji);
+    const kanjiFreq = useKanjiInfo(
+      kanji,
+      dontIncludeFreq ? "none" : "frequency-ranks"
+    );
 
     const dontIncludeJLPT = cardSettings.borderColorAttached === false;
 
@@ -162,12 +166,12 @@ const HoverMeRaw = ({
             onBlur={handleClose}
           />
         </HoverCardTrigger>
-        <HoverCardContent className="p-1 w-96 relative">
+        <HoverCardContent className="p-1 w-[392px] relative">
           <HoverCardArrow />
           <div className="hidden [@media(min-height:800px)]:[@media(min-width:400px)]:block w-96">
             <KanjiCard kanji={trigger} />
           </div>
-          <div className="block [@media(min-height:800px)]:[@media(min-width:400px)]:hidden">
+          <div className="flex items-center justify-center [@media(min-height:800px)]:[@media(min-width:400px)]:hidden">
             <SmallKanjiCard kanji={trigger} />
           </div>
         </HoverCardContent>

@@ -43,6 +43,7 @@ export type KanjiExtendedInfo = {
   meanings: string[];
   allOn: string[];
   allKun: string[];
+  phonetic?: string;
   frequency?: KanjiInfoFrequency;
   mainVocab?: {
     first?: { word: string; spacedKana: string; meaning: string };
@@ -75,6 +76,7 @@ export type ExtendedKanjiInfoItemType = [
     string[], // meanings
     string[], // on readings
     string[], // kun readings
+    string, // semantic phonetic if any
   ],
   [
     number, //rank_netflix,

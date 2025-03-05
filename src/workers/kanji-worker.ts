@@ -27,8 +27,6 @@ const KANJI_SEGMENTED_VOCAB_CACHE: Record<string, SegmentedVocabInfo> = {};
 
 let KANJI_PHONETIC_MAP_CACHE: Record<string, string> = {};
 let KANJI_PART_KEYWORD_MAP_CACHE: Record<string, string> = {};
-// FUTURE: KANJI_SECONDARY_VOCAB_CACHE
-// FUTURE: KANJI_NOTES_CACHE
 
 // ********************
 // DERIVED CACHE

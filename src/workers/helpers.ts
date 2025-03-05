@@ -108,6 +108,7 @@ export const transformToExtendedKanjiInfo = (
     meanings: second[5],
     allOn: second[6],
     allKun: second[7],
+    phonetic: (second[8] ?? "").length > 0 ? second[8] : undefined,
     frequency: {
       netflix: freq[0], //rank_netflix
       twitter: freq[1], //rank_twitter

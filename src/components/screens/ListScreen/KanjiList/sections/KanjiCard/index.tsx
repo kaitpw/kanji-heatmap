@@ -127,7 +127,34 @@ export const SmallKanjiCard = ({ kanji }: { kanji: string }) => {
 
   const info = data.data as HoverItemReturnData;
 
-  return <MainCardContent kanji={kanji} keyword={info.keyword} />;
+  return (
+    <>
+      <div className="flex flex-wrap items-center justify-center m-2">
+        <Badge>{info.keyword.toUpperCase()}</Badge>
+        {info.frequency && (
+          <>
+            {info.jlpt !== "none" && (
+              <Badge className="text-nowrap m-1" variant={"outline"}>
+                JLPT {info.jlpt.toUpperCase()}
+              </Badge>
+            )}
+            <Badge className="text-nowrap m-1" variant={"outline"}>
+              Netflix~ {info.frequency.netflix}
+            </Badge>
+            <Badge className="text-nowrap m-1" variant={"outline"}>
+              Wikipedia~ {info.frequency.wikiChar}
+            </Badge>
+            <Badge className="text-nowrap m-1" variant={"outline"}>
+              Google~ {info.frequency.google}
+            </Badge>
+            <Badge className="text-nowrap m-1" variant={"outline"}>
+              Jisho~ {info.frequency.jisho}
+            </Badge>
+          </>
+        )}
+      </div>
+    </>
+  );
 };
 
 export const KanjiCard = ({ kanji }: { kanji: string }) => {
@@ -143,11 +170,7 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
   }
 
   if (data.status === "loading" || !ready) {
-    return (
-      <div>
-        Something went wrong in <code>Loading</code>
-      </div>
-    );
+    return <div>Loading Kanji Card</div>;
   }
 
   if (data.data == null) {
@@ -193,9 +216,20 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
                   key={item.part}
                   kanji={item.part}
                   keyword={item.keyword}
+                  phonetic={item.phonetic}
                 />
               );
             })}
+            {info.phonetic &&
+              info.parts
+                .map((part) => part.part)
+                .includes(info.phonetic.phonetic) === false && (
+                <KanjiSingleComponent
+                  kanji={info.phonetic.phonetic}
+                  keyword={info.phonetic.keyword}
+                  phonetic={info.phonetic.sound}
+                />
+              )}
           </>
         )
       }
@@ -216,6 +250,9 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
             </Badge>
             <Badge className="text-nowrap" variant={"outline"}>
               Google~ {info.frequency.google}
+            </Badge>
+            <Badge className="text-nowrap m-1" variant={"outline"}>
+              Jisho~ {info.frequency.jisho}
             </Badge>
           </>
         )
