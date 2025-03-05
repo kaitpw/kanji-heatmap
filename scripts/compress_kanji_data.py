@@ -478,8 +478,8 @@ dump_json(f"{OUT_DIR}/readings.json", kanji_readings)
 # { [word]: [string, { [kanji]: [reading] }]
 # ......................
 vocab_readings = {}
-kanji_reading_map = get_data_from_file(f"{IN_DIR}/chatgpt/kanji_reading_map.json")
-segmented_vocab = get_data_from_file(f"{IN_DIR}/chatgpt/segmented_vocab.json")
+kanji_reading_map = get_data_from_file(f"{IN_DIR}/chatgpt/kanji_reading_mapv2.json")
+segmented_vocab = get_data_from_file(f"{IN_DIR}/chatgpt/segmented_vocabv2.json")
 
 new_map = {}
 all_vocab_keys = segmented_vocab.keys()
@@ -490,7 +490,7 @@ for word in all_vocab_keys:
     
     new_map[word] = [
         spaced_kana, 
-        kanji_reading_map[word]
+        kanji_reading_map.get(word, {})
     ]
 
 dump_json(f"{OUT_DIR}/vocab_segmentation.json", new_map)
