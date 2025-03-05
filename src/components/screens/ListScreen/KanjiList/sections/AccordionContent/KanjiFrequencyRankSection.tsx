@@ -15,14 +15,14 @@ const frequencyRankLabels: Record<keyof KanjiInfoFrequency, string> = {
   aozoraChar: "Aozora Char Count",
   aozoraDoc: "Aozora Document Count",
   onlineNewsChar: "Online News Character Count",
-  onlineNews: "Online News Document Count",
+  onlineNewsDoc: "Online News Document Count",
   novels5100: "5100 Novels",
   dramaSubs: "Drama Subtitle Count",
   kuf: "KUF",
-  mdc: "MDC",
+  mcd: "MCD",
   bunka: "Bunka",
   wkfr: "WKFR",
-  jishou: "Jishou",
+  jisho: "Jisho",
 };
 
 export const KanjiFrequencyRanks = ({
