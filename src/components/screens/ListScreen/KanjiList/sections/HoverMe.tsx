@@ -57,9 +57,10 @@ const KanjiItemButton = forwardRef<HTMLButtonElement, TriggerProps>(
       (dontIncludeFreq == false && kanjiFreq.data == null)
     ) {
       return (
-        <button ref={ref} className={`${cn} animate-pulse border-lime-300`}>
-          {kanji}
-        </button>
+        <button
+          ref={ref}
+          className={`${cn} animate-pulse h-full !bg-lime-500 !border-0`}
+        />
       );
     }
 

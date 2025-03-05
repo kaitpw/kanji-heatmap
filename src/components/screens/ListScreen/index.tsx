@@ -1,13 +1,19 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useLayoutEffect } from "react";
 import { SortAndFilterSection } from "./ControlBar";
 import LoadingKanjis from "./KanjiList/LoadingKanjis";
 
-import { SearchSettingsProvider } from "@/providers/search-settings-provider";
+import {
+  SearchSettingsProvider,
+  useSearchSettingsDispatch,
+} from "@/providers/search-settings-provider";
 import { CardSettingsProvider } from "@/providers/card-settings-provider";
 import CardPresentationSettings, {
   CardPresentationSettingsContent,
 } from "./ControlBar/CardPresentationSettings";
-import { KanjiWorkerProvider } from "@/providers/kanji-worker-provider";
+import {
+  KanjiWorkerProvider,
+  useIsKanjiWorkerReady,
+} from "@/providers/kanji-worker-provider";
 
 const KanjiList = lazy(() => import("./KanjiList"));
 
@@ -30,12 +36,30 @@ const ListScreenContent = () => {
     </>
   );
 };
+
+const ListScreenIntercept = () => {
+  const ready = useIsKanjiWorkerReady();
+  const dispatch = useSearchSettingsDispatch();
+
+  useLayoutEffect(() => {
+    dispatch("textSearch", { type: "keyword", text: "" });
+  }, [dispatch]);
+
+  if (!ready) {
+    return (
+      <div className="py-40 flex items-center justify-center">
+        {"❤️"} Loading {"❤️ "}
+      </div>
+    );
+  }
+  return <ListScreenContent />;
+};
 const ListScreen = () => {
   return (
     <SearchSettingsProvider>
       <KanjiWorkerProvider>
         <CardSettingsProvider>
-          <ListScreenContent />
+          <ListScreenIntercept />
         </CardSettingsProvider>
       </KanjiWorkerProvider>
     </SearchSettingsProvider>

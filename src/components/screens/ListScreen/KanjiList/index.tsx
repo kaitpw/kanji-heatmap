@@ -87,12 +87,11 @@ const KanjiList = React.memo(KanjiListRaw);
 const KanjiListWithSearch = () => {
   const result = useKanjiSearchResult();
   const cardSettings = useCardSettings();
-  //   const ready = useIsKanjiWorkerReady();
 
   if (result.error != null) {
     return (
       <div className="p-20">
-        Something went wrong in <code>{"<KanjiListWithSearch />"}</code>
+        Something went wrong. Try refreshing the page or comeback later.
       </div>
     );
   }
