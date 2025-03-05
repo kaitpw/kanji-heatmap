@@ -1,39 +1,37 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Raphael from "raphael";
-(window as any).Raphael = Raphael;
 
 import "dmak";
 import { useEffect, useId, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Play } from "lucide-react";
 
+const SVG_SIZE = 300;
+const CONTAINER_CN = `flex w-full justify-center m-4 h-[${SVG_SIZE}px]`;
 const KanjiDMAK = ({ kanji }: { kanji: string }) => {
   const dmakInstanceRef = useRef<any>(null);
   const id = useId();
   const kanjiId = `${id}-${kanji}-draw`;
-  const isMounted = useRef(false);
 
   useEffect(() => {
-    if (dmakInstanceRef.current || isMounted.current) {
+    (window as any).Raphael = Raphael;
+
+    if (dmakInstanceRef.current) {
       return;
     }
 
     dmakInstanceRef.current = new (window as any).Dmak(kanji, {
       element: kanjiId,
       // uri: "/kanji/",
-      uri: "http://kanjivg.tagaini.net/kanjivg/kanji/",
-      height: 400,
-      width: 400,
+      uri: "https://kanjivg.tagaini.net/kanjivg/kanji/",
+      height: SVG_SIZE,
+      width: SVG_SIZE,
       step: 0.01,
       stroke: { attr: { stroke: "random" } },
     });
-    isMounted.current = true;
 
     return () => {
-      if (dmakInstanceRef.current) {
-        (dmakInstanceRef.current as any)?.stop?.();
-        dmakInstanceRef.current = null;
-      }
+      (window as any).Raphael = null;
     };
   }, [kanji, kanjiId]);
 
@@ -55,7 +53,7 @@ const KanjiAnimation = ({ kanji }: { kanji: string }) => {
         Play <Play />
       </Button>
 
-      <div className="flex w-full justify-center p-4 h-[400px]">
+      <div className={CONTAINER_CN} style={{ height: SVG_SIZE }}>
         <KanjiDMAK kanji={kanji} key={key} />
       </div>
     </div>
