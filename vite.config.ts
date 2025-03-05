@@ -4,7 +4,7 @@ import react from "@vitejs/plugin-react-swc";
 import { VitePWA } from "vite-plugin-pwa";
 
 const pwaConfig = {
-  registerType: "prompt" as const,
+  registerType: "autoUpdate" as const,
   includeAssets: [
     "favicon.io",
     "img/icon512_maskable",
@@ -46,7 +46,7 @@ const pwaConfig = {
     runtimeCaching: [
       {
         urlPattern: /\.json$/i, // Cache JSON requests
-        handler: "CacheFirst" as const,
+        handler: "StaleWhileRevalidate" as const,
         options: {
           cacheName: "json-cache",
           expiration: {
