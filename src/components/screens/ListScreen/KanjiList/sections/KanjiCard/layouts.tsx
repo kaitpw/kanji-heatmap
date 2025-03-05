@@ -45,9 +45,11 @@ export const KanjiInfoLayout = ({
   second: ReactNode;
 }) => {
   return (
-    <div className="w-full flex flex-col overflow-y-scroll md:flex-row md:space-x-1">
-      <div className="md:sticky top-[0px] left-[0px]">{first}</div>
-      <div className="grow"> {second}</div>
+    <div className="w-full flex flex-col overflow-y-scroll md:flex-row md:space-x-1 ">
+      <div className="pl-2 md:sticky md:top-[0px] md:left-[0px] md:min-w-96 md:max-w-96 md:w-96">
+        {first}
+      </div>
+      <div className="grow">{second}</div>
     </div>
   );
 };
@@ -66,7 +68,7 @@ export const KanjiCardLayout = ({
   frequencyBadges?: ReactNode;
 }) => {
   return (
-    <article className="mx-2 w-96 rounded-lg border-2 border-dotted ">
+    <article className="w-full rounded-lg border-2 border-dotted">
       <div className="flex">
         <div className=" border-r-2 border-dotted">{mainCard}</div>
         <div className="px-2 w-full pb-4 pt-4">
@@ -83,7 +85,7 @@ export const KanjiCardLayout = ({
         </>
       )}
       {frequencyBadges && (
-        <div className="flex space-x-1 justify-center flex-wrap space-y-1 border-t-2 border-dotted mt-1 mb-3 pt-4">
+        <div className="flex space-x-1 justify-center flex-wrap space-y-1 border-t-2 border-dotted mt-1 mb-3 pt-4 px-2">
           <div />
           {frequencyBadges}
         </div>

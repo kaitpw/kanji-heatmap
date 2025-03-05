@@ -56,7 +56,7 @@ const RomajiBadge = ({ kana }: { kana: string }) => {
   return (
     <Badge
       variant={"outline"}
-      className={`mx-1 cursor-pointer ${cn}`}
+      className={`m-1 cursor-pointer text-lg ${cn}`}
       onClick={(e) => {
         setIsKana((prev) => !prev);
         e.preventDefault();
@@ -106,7 +106,7 @@ export const KanjiGeneralSection = ({ kanji }: { kanji: string }) => {
             <TableCell>
               {data.meanings.map((meaning) => {
                 return (
-                  <Badge key={meaning} variant={"outline"} className="mx-1">
+                  <Badge key={meaning} variant={"outline"} className="m-1">
                     {meaning}
                   </Badge>
                 );
