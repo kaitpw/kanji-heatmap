@@ -303,6 +303,9 @@ def get_wanikani_lvl(kanji_info):
     return kanji_info.get('waniKani', {}).get('level', None)
 
 
+def get_semantic_phonetic(kanji_info):
+    return kanji_info.get("semanticPhonetic", {}).get('moeUsagi', None)
+
 DEFAULT_ARRAY_VAL = []
 # -------------------
 # FUNCTIONS TO GET FREQUENCY RANK INFORMATION
@@ -478,8 +481,8 @@ dump_json(f"{OUT_DIR}/readings.json", kanji_readings)
 # { [word]: [string, { [kanji]: [reading] }]
 # ......................
 vocab_readings = {}
-kanji_reading_map = get_data_from_file(f"{IN_DIR}/chatgpt/kanji_reading_mapv2.json")
-segmented_vocab = get_data_from_file(f"{IN_DIR}/chatgpt/segmented_vocabv2.json")
+kanji_reading_map = get_data_from_file(f"{IN_DIR}/chatgpt/kanji_reading_map.json")
+segmented_vocab = get_data_from_file(f"{IN_DIR}/chatgpt/segmented_vocab.json")
 
 new_map = {}
 all_vocab_keys = segmented_vocab.keys()
@@ -541,6 +544,7 @@ for kanji in kanji_list:
         (get_all_meanings(kanji_info) or [])[:],
         get_all_on_readings(kanji_info) or [],
         get_all_kun_readings(kanji_info) or [],
+        get_semantic_phonetic(kanji_info) or ""
     ]
 
     freq_info = get_ranks(kanji_info)
