@@ -27,6 +27,7 @@ import {
   SortKey,
 } from "@/lib/frequency-rank";
 import { KanjiExtendedInfo, KanjiMainInfo } from "@/lib/kanji-worker-constants";
+import fuzzysearch from "fuzzysearch";
 
 type DataPool = {
   main: Record<string, KanjiMainInfo>;
@@ -82,6 +83,14 @@ export const searchKanji = (settings: SearchSettings, kanjiPool: DataPool) => {
   const secondarySort = settings.sortSettings.secondary;
 
   const kanjiList = allKanji
+    .filter((kanji) => {
+      const textSearch = settings.textSearch;
+      const info = kanjiPool.main[kanji];
+      if (textSearch.type === "keyword") {
+        return fuzzysearch(textSearch.text, info.keyword);
+      }
+      return true;
+    })
     .filter((kanji) => {
       const info = kanjiPool.main[kanji];
       if ([0, 6].includes(jlptFilters.size)) {
