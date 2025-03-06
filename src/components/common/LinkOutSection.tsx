@@ -1,5 +1,5 @@
 import { BugIcon, EllipsisIcon } from "lucide-react";
-import LinkOutIcon from "../common/LinkOutIcon";
+import LinkOutIcon from "./LinkOutIcon";
 import { KoFiIcon } from "../icons";
 import { ModeToggle } from "../ui/mode-toggle";
 import {

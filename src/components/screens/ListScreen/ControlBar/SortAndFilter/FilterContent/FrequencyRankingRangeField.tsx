@@ -1,7 +1,7 @@
 import { useId } from "react";
 import { DualRangeSlider } from "@/components/ui/dual-range-slider";
 import { Label } from "@/components/ui/label";
-import { KANJI_COUNT } from "@/lib/constants";
+import { MAX_FREQ_RANK } from "@/lib/constants";
 
 export const FrequencyRankingRangeField = ({
   values,
@@ -25,8 +25,8 @@ export const FrequencyRankingRangeField = ({
         className="text-xs pt-2"
         value={values}
         onValueChange={setValues}
-        min={0}
-        max={KANJI_COUNT}
+        min={1}
+        max={MAX_FREQ_RANK}
         step={50}
       />
     </div>

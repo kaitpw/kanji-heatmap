@@ -3,7 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import BasicSelect from "@/components/common/BasicSelect";
 import * as wanakana from "wanakana";
 import { cn } from "@/lib/utils";
-import { SEARCH_TYPE_OPTIONS } from "@/lib/constants";
+import { SEARCH_TYPE_OPTIONS, SearchType } from "@/lib/settings";
+import { useKanjiSearchResult } from "@/kanji-worker/kanji-worker-provider";
 
 const INPUT_DEBOUNCE_TIME = 1000;
 
@@ -17,10 +18,13 @@ const SELECT_CLASS =
   "absolute right-1 top-1 w-26 h-7 bg-gray-100 dark:bg-gray-900";
 
 export const ItemCountBadge = () => {
-  const itemCount = 0;
+  const result = useKanjiSearchResult();
+  if (result.data == null) {
+    return <></>;
+  }
   return (
     <div className="px-2 rounded-lg bg-opacity-75 bg-white dark:bg-black border absolute top-[39px] text-xs font-extrabold">
-      {itemCount} items match your search filters
+      {result.data?.length} items match your search filters
     </div>
   );
 };
@@ -33,9 +37,8 @@ export const SearchInput = ({
   // FIX ME: Put proper types here
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const inputRef = useRef<any>();
-  const [value, setValue] = useState("keyword");
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const timeoutRef = useRef<any>(null);
+  const [value, setValue] = useState<SearchType>("keyword");
+  const timeoutRef = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
     const currentValue = inputRef?.current?.value ?? "";
@@ -92,8 +95,8 @@ export const SearchInput = ({
     value === "keyword"
       ? "Keyword Search"
       : value === "onyomi"
-        ? "オニョミ 検索"
-        : "くにょみ 検索";
+        ? "オンヨミ 検索"
+        : "くんよみ 検索";
 
   const fontCN = value !== "keyword" ? "kanji-font" : "";
   const itemCNFunc = (v: string) => (v !== "keyword" ? "kanji-font" : "");
@@ -116,7 +119,7 @@ export const SearchInput = ({
       <Search className={cn(SEARCH_ICON_CLASS)} />
       <BasicSelect
         value={value}
-        onChange={(newValue) => setValue(newValue)}
+        onChange={(newValue) => setValue(newValue as SearchType)}
         triggerCN={cn(SELECT_CLASS, fontCN)}
         selectItemCNFunc={itemCNFunc}
         options={SEARCH_TYPE_OPTIONS}

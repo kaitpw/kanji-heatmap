@@ -1,4 +1,3 @@
-import { JLPTRank, JLTPTtypes, SearchSettings } from "@/lib/constants";
 import {
   getFrequency,
   K_JLPT,
@@ -26,7 +25,9 @@ import {
   K_WK_LVL,
   SortKey,
 } from "@/lib/frequency-rank";
+import { JLPTRank, JLTPTtypes } from "@/lib/jlpt";
 import { KanjiExtendedInfo, KanjiMainInfo } from "@/lib/kanji-worker-constants";
+import { SearchSettings } from "@/lib/settings";
 import fuzzysearch from "fuzzysearch";
 import * as wanakana from "wanakana";
 
@@ -70,20 +71,17 @@ const freqSort = (a: number | undefined, b: number | undefined) => {
   return numA - numB;
 };
 
-export const searchKanji = (settings: SearchSettings, kanjiPool: DataPool) => {
-  const allKanji = Object.keys(kanjiPool.main);
-
-  // Filters
+export const filterKanji = (
+  allKanji: string[],
+  settings: SearchSettings,
+  kanjiPool: DataPool
+) => {
   const jlptFilters = new Set(settings.filterSettings.jlpt);
   const minStrokes = settings.filterSettings.strokeRange.min;
   const maxStrokes = settings.filterSettings.strokeRange.max;
   const freqFilter = settings.filterSettings.freq;
 
-  // Sorting
-  const primarySort = settings.sortSettings.primary;
-  const secondarySort = settings.sortSettings.secondary;
-
-  const kanjiList = allKanji
+  return allKanji
     .filter((kanji) => {
       const textSearch = settings.textSearch;
       if (textSearch.type === "keyword") {
@@ -118,8 +116,16 @@ export const searchKanji = (settings: SearchSettings, kanjiPool: DataPool) => {
       return jlptFilters.has(info.jlpt);
     })
     .filter((kanji) => {
+      // return true;
       const exInfo = kanjiPool.extended[kanji];
-      return maxStrokes >= exInfo.strokes && exInfo.strokes >= minStrokes;
+      const withinRange =
+        maxStrokes >= exInfo.strokes && exInfo.strokes >= minStrokes;
+
+      // if (!withinRange) {
+      // console.log(kanji, kanjiPool.main[kanji], exInfo);
+      // }
+
+      return withinRange;
     })
     .filter((kanji) => {
       if (freqFilter.source === "None") {
@@ -130,61 +136,70 @@ export const searchKanji = (settings: SearchSettings, kanjiPool: DataPool) => {
       return (
         freq >= freqFilter.rankRange.min && freq <= freqFilter.rankRange.max
       );
-    })
-    .sort((a, b) => {
-      const infoA = kanjiPool.main[a];
-      const infoB = kanjiPool.main[b];
-      const exInfoA = kanjiPool.extended[a];
-      const exInfoB = kanjiPool.extended[b];
-
-      const sortBy = (sortKey: SortKey) => {
-        if (sortKey === K_JLPT) {
-          return jlptSort(infoA.jlpt, infoB.jlpt);
-        } else if (sortKey === K_JOUYOU_KEY) {
-          return simpleSort(exInfoA.jouyouGrade, exInfoB.jouyouGrade);
-        } else if (sortKey === K_STROKES) {
-          return numericSort(exInfoA.strokes, exInfoB.strokes);
-        } else if (sortKey === K_WK_LVL) {
-          return numericSort(exInfoA.wk, exInfoB.wk);
-        } else if (sortKey === K_RTK_INDEX) {
-          return numericSort(exInfoA.rtk, exInfoB.rtk);
-        } else if (sortKey === K_MEANING_KEY) {
-          return alphaSort(infoA.keyword, infoB.keyword);
-        } else if (
-          [
-            K_RANK_NETFLIX,
-            K_RANK_DRAMA_SUBTITLES,
-            K_RANK_NOVELS_5100,
-            K_RANK_TWITTER,
-            K_RANK_WIKIPEDIA_DOC,
-            K_RANK_WIKIPEDIA_CHAR,
-            K_RANK_ONLINE_NEWS_DOC,
-            K_RANK_ONLINE_NEWS_CHAR,
-            K_RANK_AOZORA_DOC,
-            K_RANK_AOZORA_CHAR,
-            K_RANK_GOOGLE,
-            K_RANK_KUF,
-            K_RANK_MCD,
-            K_RANK_BUNKA,
-            K_RANK_JISHO,
-            K_RANK_KD,
-            K_RANK_WKFR,
-          ].includes(sortKey)
-        ) {
-          return freqSort(
-            getFrequency(sortKey, exInfoA),
-            getFrequency(sortKey, exInfoB)
-          );
-        }
-        return 0;
-      };
-
-      const compareVal = sortBy(primarySort);
-      if (compareVal != 0) {
-        return compareVal;
-      }
-      return sortBy(secondarySort);
     });
+};
+
+export const searchKanji = (settings: SearchSettings, kanjiPool: DataPool) => {
+  const allKanji = Object.keys(kanjiPool.main);
+
+  // Sorting
+  const primarySort = settings.sortSettings.primary;
+  const secondarySort = settings.sortSettings.secondary;
+
+  const kanjiList = filterKanji(allKanji, settings, kanjiPool).sort((a, b) => {
+    const infoA = kanjiPool.main[a];
+    const infoB = kanjiPool.main[b];
+    const exInfoA = kanjiPool.extended[a];
+    const exInfoB = kanjiPool.extended[b];
+
+    const sortBy = (sortKey: SortKey) => {
+      if (sortKey === K_JLPT) {
+        return jlptSort(infoA.jlpt, infoB.jlpt);
+      } else if (sortKey === K_JOUYOU_KEY) {
+        return simpleSort(exInfoA.jouyouGrade, exInfoB.jouyouGrade);
+      } else if (sortKey === K_STROKES) {
+        return numericSort(exInfoA.strokes, exInfoB.strokes);
+      } else if (sortKey === K_WK_LVL) {
+        return numericSort(exInfoA.wk, exInfoB.wk);
+      } else if (sortKey === K_RTK_INDEX) {
+        return numericSort(exInfoA.rtk, exInfoB.rtk);
+      } else if (sortKey === K_MEANING_KEY) {
+        return alphaSort(infoA.keyword, infoB.keyword);
+      } else if (
+        [
+          K_RANK_NETFLIX,
+          K_RANK_DRAMA_SUBTITLES,
+          K_RANK_NOVELS_5100,
+          K_RANK_TWITTER,
+          K_RANK_WIKIPEDIA_DOC,
+          K_RANK_WIKIPEDIA_CHAR,
+          K_RANK_ONLINE_NEWS_DOC,
+          K_RANK_ONLINE_NEWS_CHAR,
+          K_RANK_AOZORA_DOC,
+          K_RANK_AOZORA_CHAR,
+          K_RANK_GOOGLE,
+          K_RANK_KUF,
+          K_RANK_MCD,
+          K_RANK_BUNKA,
+          K_RANK_JISHO,
+          K_RANK_KD,
+          K_RANK_WKFR,
+        ].includes(sortKey)
+      ) {
+        return freqSort(
+          getFrequency(sortKey, exInfoA),
+          getFrequency(sortKey, exInfoB)
+        );
+      }
+      return 0;
+    };
+
+    const compareVal = sortBy(primarySort);
+    if (compareVal != 0) {
+      return compareVal;
+    }
+    return sortBy(secondarySort);
+  });
 
   return kanjiList;
 };

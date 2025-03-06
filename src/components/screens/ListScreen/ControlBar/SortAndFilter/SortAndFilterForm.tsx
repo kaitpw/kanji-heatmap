@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useDeferredValue, useState } from "react";
 import { FilterSectionLayout } from "./FilterContent/FilterContentLayout";
 import { FrequencyRankDataSource } from "./FilterContent/FrequencyRankDataSource";
 import { JLPTSelector } from "./FilterContent/JLPTSelector";
@@ -11,34 +11,50 @@ import {
 } from "@/lib/frequency-rank";
 import { SortAdditionalInfo, SortOrderSectionLayout } from "./SortOrderLayout";
 import BasicSelect from "@/components/common/BasicSelect";
-
-import { Badge } from "@/components/ui/badge";
-import {
-  FilterSettings,
-  KANJI_COUNT,
-  SearchSettings,
-  SortSettings,
-} from "@/lib/constants";
+import { KANJI_COUNT } from "@/lib/constants";
 import { FrequencyRankingRangeField } from "./FilterContent/FrequencyRankingRangeField";
 import { StrokeCountField } from "./FilterContent/StrokeCountField";
+import { FilterSettings, SearchSettings, SortSettings } from "@/lib/settings";
+import { useKanjiSearchCount } from "@/kanji-worker/kanji-worker-provider";
+import { isEqualFilters, shouldShowAllKanji } from "./SortContent/helpers";
 
-const isEqualFilters = (a: FilterSettings, b: FilterSettings): boolean => {
-  if (a === null || b === null) return a === b;
-  if (a === undefined || b === undefined) return a === b;
+const ItemCountComputed = ({ settings }: { settings: SearchSettings }) => {
+  const data = useKanjiSearchCount(settings);
 
-  if (a.strokeRange.min !== b.strokeRange.min) return false;
-  if (a.strokeRange.max !== b.strokeRange.max) return false;
-
-  if (a.jlpt.length !== b.jlpt.length) return false;
-  for (let i = 0; i < a.jlpt.length; i++) {
-    if (a.jlpt[i] !== b.jlpt[i]) return false;
+  if (data.data == null || data.error) {
+    return <></>;
   }
 
-  if (a.freq.source !== b.freq.source) return false;
-  if (a.freq.rankRange.min !== b.freq.rankRange.min) return false;
-  if (a.freq.rankRange.max !== b.freq.rankRange.max) return false;
+  return (
+    <>
+      A total of <span className="font-extrabold mx-1">{data.data}</span> Kanji
+      characters match your applied filters.{" "}
+      {settings.textSearch.text.length > 0
+        ? `Search Text is "${settings.textSearch.text}"`
+        : ""}
+    </>
+  );
+};
+const ItemCount = ({ settings }: { settings: SearchSettings }) => {
+  const deferredSettings = useDeferredValue(settings);
 
-  return true;
+  const shouldShowAll = shouldShowAllKanji(deferredSettings);
+
+  if (shouldShowAll) {
+    return (
+      <div className="flex w-full justify-end items-center">
+        All available Kanji (
+        {<span className="font-extrabold mx-1">{KANJI_COUNT}</span>} characters)
+        match your applied filters.
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex w-full justify-end items-center">
+      <ItemCountComputed settings={deferredSettings} />
+    </div>
+  );
 };
 
 export const SortAndFilterSettingsForm = ({
@@ -54,8 +70,6 @@ export const SortAndFilterSettingsForm = ({
   const [filterValues, setFilterValues] = useState<FilterSettings>(
     initialValue.filterSettings
   );
-
-  const itemCount = 143;
 
   const noChangeInSortValues =
     sortValues.primary === initialValue.sortSettings.primary &&
@@ -118,7 +132,9 @@ export const SortAndFilterSettingsForm = ({
                   })
                 }
                 triggerCN={"h-8 w-full"}
-                options={SORT_ORDER_SELECT}
+                options={SORT_ORDER_SELECT.filter((item) => {
+                  return item.value !== sortValues.primary;
+                })}
                 label="Secondary"
                 isLabelSrOnly={false}
               />
@@ -171,7 +187,7 @@ export const SortAndFilterSettingsForm = ({
                       source: val as FrequencyType,
                       rankRange:
                         val === "None"
-                          ? { min: 0, max: KANJI_COUNT }
+                          ? { min: 1, max: KANJI_COUNT }
                           : prev.freq.rankRange,
                     },
                   };
@@ -192,7 +208,10 @@ export const SortAndFilterSettingsForm = ({
                       ...prev,
                       freq: {
                         ...prev.freq,
-                        rankRange: { min: val[0] ?? 0, max: val[1] ?? 2500 },
+                        rankRange: {
+                          min: val[0] ?? 0,
+                          max: val[1] ?? KANJI_COUNT,
+                        },
                       },
                     };
                   });
@@ -202,19 +221,9 @@ export const SortAndFilterSettingsForm = ({
           }
         />
         {!isDisabled && (
-          <div className="flex w-full justify-end items-center">
-            {initialValue.textSearch.text.length > 0 && (
-              <>
-                Considering your search text{" "}
-                <Badge className="m-1 px-3 py-1 text-sm" variant={"outline"}>
-                  {initialValue.textSearch.text}
-                </Badge>
-                ,
-              </>
-            )}{" "}
-            a total of<span className="font-extrabold mx-1">{itemCount}</span>{" "}
-            Kanji Characters match your filters{" "}
-          </div>
+          <ItemCount
+            settings={{ ...initialValue, filterSettings: filterValues }}
+          />
         )}
         {isDisabled && (
           <div className="flex w-full justify-end items-center">

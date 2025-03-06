@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import LinkOutSection from "./LinkOutSection";
-import ChangeFontButton from "../common/ChangeFontButton";
+import ChangeFontButton from "./ChangeFontButton";
 
 const HeaderLayout = ({
   title,

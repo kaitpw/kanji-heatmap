@@ -6,7 +6,6 @@ import {
   useRef,
   useState,
 } from "react";
-import { SearchSettings } from "@/lib/constants";
 import KANJI_WORKER_SINGLETON from "@/kanji-worker/kanji-worker-promise-wrapper";
 import { useContextWithCatch } from "../providers/helpers";
 import {
@@ -17,6 +16,7 @@ import {
 } from "@/lib/kanji-info-types";
 import { KanjiExtendedInfo, KanjiMainInfo } from "@/lib/kanji-worker-constants";
 import { useSearchSettings } from "../providers/search-settings-provider";
+import { SearchSettings } from "@/lib/settings";
 
 const requestWorker = KANJI_WORKER_SINGLETON.request;
 type KanjiRequestFn = (
@@ -320,6 +320,44 @@ export const useKanjiSearch = (searchSettings: SearchSettings) => {
     });
 
     requestWorker({ type: "search", payload: searchSettings })
+      .then((result: unknown) => {
+        setState({
+          status: "success",
+          error: null,
+          data: result as string[],
+        });
+      })
+      .catch((error) => {
+        setState({ status: "error", error });
+      });
+  }, [searchSettings]);
+
+  return state;
+};
+
+export const useKanjiSearchCount = (searchSettings: SearchSettings) => {
+  const [state, setState] = useState<{
+    status: Status;
+    data?: string[];
+    error?: string | null;
+  }>({ status: "idle" });
+
+  const lastRequestedSettings = useRef<null | SearchSettings>(null);
+
+  useEffect(() => {
+    const doubleRequest = lastRequestedSettings.current === searchSettings;
+
+    if (doubleRequest) {
+      return;
+    }
+
+    lastRequestedSettings.current = searchSettings;
+
+    setState((prev) => {
+      return { status: "loading", data: prev.data };
+    });
+
+    requestWorker({ type: "search-result-count", payload: searchSettings })
       .then((result: unknown) => {
         setState({
           status: "success",

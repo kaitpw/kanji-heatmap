@@ -4,16 +4,12 @@ import {
   useGetKanjiInfoFn,
   useKanjiInfo,
 } from "@/kanji-worker/kanji-worker-provider";
-import {
-  freqCategoryCn,
-  getFreqCategory,
-  ITEM_CARD_BG_CN,
-  JLPTListItems,
-} from "@/lib/constants";
+import { ITEM_CARD_BG_CN } from "@/lib/constants";
 import * as wanakana from "wanakana";
-import { freqMap } from "@/lib/frequency-rank";
+import { freqCategoryCn, freqMap, getFreqCategory } from "@/lib/frequency-rank";
 import { KanjiInfoFrequency } from "@/lib/kanji-worker-constants";
 import { useItemSettings } from "@/providers/item-settings-provider";
+import { JLPTListItems } from "@/lib/jlpt";
 
 interface TriggerProps {
   onClick?: () => void;

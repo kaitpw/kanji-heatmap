@@ -2,7 +2,7 @@ import { lazy, Suspense } from "react";
 import SimpleAccordion from "@/components/common/SimpleAccordion";
 import { useKanjiInfo } from "@/kanji-worker/kanji-worker-provider";
 import { KanjiCacheItem } from "@/lib/kanji-info-types";
-import { LinksOutItems } from "@/components/sections/LinkOutSection";
+import { LinksOutItems } from "@/components/common/LinkOutSection";
 import ChangeFontButton from "@/components/common/ChangeFontButton";
 import { General } from "./General";
 import { FrequencyInfo } from "./FrequencyInfo";

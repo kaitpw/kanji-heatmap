@@ -1,34 +1,14 @@
 import { KanjiInfoFrequency } from "@/lib/kanji-worker-constants";
-import {
-  freqCategoryOpacity,
-  getFreqCategory,
-  ITEM_CARD_BG_CN,
-  KANJI_COUNT,
-} from "@/lib/constants";
+import { ITEM_CARD_BG_CN, KANJI_COUNT } from "@/lib/constants";
 import { Progress } from "@/components/ui/progress";
 import { InfoIcon } from "lucide-react";
 import { GenericPopover } from "@/components/common/GenericPopover";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-
-const frequencyRankLabels: Record<keyof KanjiInfoFrequency, string> = {
-  netflix: "Netflix",
-  twitter: "Twitter",
-  google: "Google",
-  kd: "KD",
-  wikiChar: "Wikipedia Characters",
-  wikiDoc: "Wikipedia Documents",
-  aozoraChar: "Aozora Chars",
-  aozoraDoc: "Aozora Documents",
-  onlineNewsChar: "Online News Characters",
-  onlineNewsDoc: "Online News Documents",
-  novels5100: "5100 Novels",
-  dramaSubs: "Drama Subtitles",
-  kuf: "KUF",
-  mcd: "MCD",
-  bunka: "Bunka",
-  wkfr: "WKFR",
-  jisho: "Jisho",
-};
+import {
+  freqCategoryOpacity,
+  frequencyRankLabels,
+  getFreqCategory,
+} from "@/lib/frequency-rank";
 
 export const FrequencyInfo = ({
   freqRankInfo,
@@ -36,7 +16,7 @@ export const FrequencyInfo = ({
   freqRankInfo?: KanjiInfoFrequency;
 }) => {
   if (freqRankInfo == null) {
-    return <div> No frequency rank information available.</div>;
+    return <div className="p-4"> No frequency rank information available.</div>;
   }
 
   const keys = Object.keys(freqRankInfo).filter((item) => {

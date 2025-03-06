@@ -1,4 +1,4 @@
-import { JLPTOptions } from "@/lib/constants";
+import { JLPTOptions } from "@/lib/jlpt";
 
 export const JLPTListItem = ({
   label,

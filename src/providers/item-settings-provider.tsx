@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { useLocalStorage } from "../hooks/use-local-storage";
 import { createContextComponents, useContextWithCatch } from "./helpers";
-import { ItemSettings } from "@/lib/constants";
+import { ItemSettings } from "@/lib/settings";
 
 const storageKey = "item-settings";
 

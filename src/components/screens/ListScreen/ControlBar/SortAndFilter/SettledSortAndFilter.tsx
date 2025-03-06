@@ -3,7 +3,7 @@ import {
   useSearchSettingsDispatch,
 } from "@/providers/search-settings-provider";
 
-import { SortAndFilterSettingsDialog } from "./SortAndFilterDialog";
+import { SortAndFilterSettingsDialog } from "./SortContent/SortAndFilterDialog";
 
 export const SettledSortAndFilter = () => {
   const searchSettings = useSearchSettings();

@@ -18,8 +18,8 @@ import {
   transformToMainKanjiInfo,
   transformToSegmentedVocab,
 } from "./helpers";
-import { SearchSettings } from "@/lib/constants";
-import { searchKanji } from "./kanji-search";
+import { filterKanji, searchKanji } from "./kanji-search";
+import { SearchSettings } from "@/lib/settings";
 
 const KANJI_INFO_MAIN_CACHE: Record<string, KanjiMainInfo> = {};
 const KANJI_INFO_EXTENDED_CACHE: Record<string, KanjiExtendedInfo> = {};
@@ -192,20 +192,22 @@ self.onmessage = function (event: { data: OnMessageRequestType }) {
     return;
   }
 
+  const settings = payload as SearchSettings;
+  const kanjiPool = {
+    main: KANJI_INFO_MAIN_CACHE,
+    extended: KANJI_INFO_EXTENDED_CACHE,
+  };
+
   if (eventType === "search") {
-    const settings = payload as SearchSettings;
-    const kanjiPool = {
-      main: KANJI_INFO_MAIN_CACHE,
-      extended: KANJI_INFO_EXTENDED_CACHE,
-    };
     const kanjiList: string[] = searchKanji(settings, kanjiPool);
     sendResponse(kanjiList);
     return;
   }
 
   if (eventType === "search-result-count") {
-    // TODO:
-    sendResponse(Object.keys(KANJI_INFO_MAIN_CACHE).length);
+    const allKanji = Object.keys(kanjiPool.main);
+    const filterCount = filterKanji(allKanji, settings, kanjiPool).length;
+    sendResponse(filterCount);
     return;
   }
 

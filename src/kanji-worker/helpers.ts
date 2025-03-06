@@ -1,4 +1,4 @@
-import { JLTPTtypes } from "@/lib/constants";
+import { JLTPTtypes } from "@/lib/jlpt";
 import {
   ExtendedKanjiInfoItemType,
   ExtendedKanjiInfoResponseType,

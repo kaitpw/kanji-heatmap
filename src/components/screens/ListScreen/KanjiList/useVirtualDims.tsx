@@ -1,17 +1,5 @@
+import { HEADER_HEIGHT, TILE_SIZE } from "@/lib/constants";
 import { useWindowSize } from "@react-hook/window-size"; // Debounced values
-
-export const TILE_SIZE = {
-  sm: {
-    width: 50,
-    height: 55,
-  },
-  lg: {
-    width: 135,
-    height: 118,
-  },
-};
-
-export const HEADER_HEIGHT = 100;
 
 export const useVirtualListDims = (
   itemCount: number,

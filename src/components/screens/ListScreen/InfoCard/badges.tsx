@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { JLTPTtypes } from "@/lib/constants";
+import { JLTPTtypes } from "@/lib/jlpt";
 import { KanjiInfoFrequency } from "@/lib/kanji-worker-constants";
 
 export const FrequencyBadges = ({

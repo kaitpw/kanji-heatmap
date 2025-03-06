@@ -1,8 +1,5 @@
-import {
-  freqCategoryCn,
-  freqCategoryCount,
-  ITEM_CARD_BG_CN,
-} from "@/lib/constants";
+import { ITEM_CARD_BG_CN } from "@/lib/constants";
+import { freqCategoryCn, freqCategoryCount } from "@/lib/frequency-rank";
 import { ReactNode } from "react";
 
 export const FreqSquare = ({ srOnly, cn }: { srOnly: string; cn: string }) => {
