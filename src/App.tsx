@@ -11,7 +11,7 @@ import {
   VennDiagramScreen,
   CumUseScreen,
 } from "@/components/screens";
-import { NavigationListItem, NavLayout } from "@/components/layouts/nav";
+import { NavigationListItem, NavLayout } from "@/components/common/nav";
 import Header from "@/components/common/Header";
 import { ThemeProvider } from "@/providers/theme-provider";
 import React from "react";

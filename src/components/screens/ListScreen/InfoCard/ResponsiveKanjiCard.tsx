@@ -4,7 +4,6 @@ import { SmallKanjiCard } from "./SmallCard";
 export const ResponsiveKanjiCard = ({ kanji }: { kanji: string }) => {
   return (
     <>
-      {" "}
       <div className="hidden [@media(min-height:800px)]:[@media(min-width:400px)]:block w-96">
         <KanjiCard kanji={kanji} />
       </div>
