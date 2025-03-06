@@ -14,14 +14,14 @@ const frequencyRankLabels: Record<keyof KanjiInfoFrequency, string> = {
   twitter: "Twitter",
   google: "Google",
   kd: "KD",
-  wikiChar: "Wikipedia Character Count",
-  wikiDoc: "Wikipedia Document Count",
-  aozoraChar: "Aozora Char Count",
-  aozoraDoc: "Aozora Document Count",
-  onlineNewsChar: "Online News Character Count",
-  onlineNewsDoc: "Online News Document Count",
+  wikiChar: "Wikipedia Characters",
+  wikiDoc: "Wikipedia Documents",
+  aozoraChar: "Aozora Chars",
+  aozoraDoc: "Aozora Documents",
+  onlineNewsChar: "Online News Characters",
+  onlineNewsDoc: "Online News Documents",
   novels5100: "5100 Novels",
-  dramaSubs: "Drama Subtitle Count",
+  dramaSubs: "Drama Subtitles",
   kuf: "KUF",
   mcd: "MCD",
   bunka: "Bunka",
@@ -59,22 +59,20 @@ export const KanjiFrequencyRanks = ({
                 <TableCell className="p-0">
                   <GenericPopover
                     trigger={
-                      <button
-                        className="text-left text-xs  flex"
-                        style={{ width: "260px" }}
-                      >
-                        <span className="font-extrabold mr-1">{label}</span>{" "}
-                        <InfoIcon size={12} />
-                        <span className="mx-1">~ Rank {rank}</span>
+                      <button className="text-left text-xs flex justify-between !w-[200px]">
+                        <span className="font-extrabold flex items-center ">
+                          {label} <InfoIcon className="ml-1" size={12} />
+                        </span>{" "}
+                        <span className="mx-1 block"># {rank}</span>
                       </button>
                     }
                     content={<div className="p-4"> More information here</div>}
                   />
                 </TableCell>
 
-                <TableCell className={`w-full py-2`}>
+                <TableCell className={`w-full py-2 px-0`}>
                   <Progress
-                    className={`h-1 `}
+                    className={"h-1"}
                     value={progress}
                     primitiveCn={`!bg-[#fb02a8]`}
                     primitiveStyle={{

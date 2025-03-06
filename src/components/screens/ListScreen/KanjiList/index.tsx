@@ -75,6 +75,7 @@ const KanjiListRaw = ({
         isOpen={openedKanji !== null}
         onClose={() => {
           setSearchParams({});
+          setHoveredKanji(null);
         }}
         kanji={openedKanji ?? ""}
       />

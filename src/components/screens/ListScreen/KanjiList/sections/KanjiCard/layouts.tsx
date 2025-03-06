@@ -32,7 +32,7 @@ export const KanjiSingleComponent = ({
     <GenericPopover
       trigger={
         <button
-          className={`flex flex-col m-1 kanji-font text-4xl border-2 border-dotted rounded-3xl p-2 ${phonetic ? "bg-lime-100" : ""}`}
+          className={`flex flex-col m-1 kanji-font text-4xl border-2 border-dotted rounded-3xl p-2 ${phonetic ? "bg-lime-100 dark:bg-lime-800" : ""}`}
         >
           {kanji}
         </button>
@@ -55,7 +55,7 @@ export const KanjiInfoLayout = ({
   second: ReactNode;
 }) => {
   return (
-    <div className="w-full flex flex-col overflow-y-scroll md:flex-row md:space-x-1 ">
+    <div className="w-full flex flex-col overflow-y-scroll overflow-x-hidden md:flex-row md:space-x-1 ">
       <div className="pl-2 md:sticky md:top-[0px] md:left-[0px] md:min-w-96 md:max-w-96 md:w-96">
         {first}
       </div>

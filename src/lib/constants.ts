@@ -85,13 +85,13 @@ export const freqCategoryOpacity: Record<number, number> = {
 export const getFreqCategory = (freqRank?: number) => {
   return freqRank == null || freqRank > 2250
     ? 0
-    : 1600 < freqRank && freqRank <= 2250
+    : 1700 < freqRank && freqRank <= 2250
       ? 1
-      : 1000 < freqRank && freqRank <= 1600
+      : 1100 < freqRank && freqRank <= 1700
         ? 2
-        : 600 < freqRank && freqRank <= 1000
+        : 650 < freqRank && freqRank <= 1100
           ? 3
-          : 300 < freqRank && freqRank <= 600
+          : 300 < freqRank && freqRank <= 650
             ? 4
             : 5;
 };

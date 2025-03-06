@@ -71,13 +71,13 @@ export const KanjiGeneralSection = ({ kanji }: { kanji: string }) => {
     <>
       <div className="text-left mt-6">
         {hasData(data.jouyouGrade) && (
-          <Badge className="mx-1">Grade {data.jouyouGrade}</Badge>
+          <Badge className="m-1">Grade {data.jouyouGrade}</Badge>
         )}
         {hasData(data.strokes) && (
-          <Badge className="mx-1">Strokes {data.strokes}</Badge>
+          <Badge className="m-1">Strokes {data.strokes}</Badge>
         )}
-        {hasData(data.wk) && <Badge className="mx-1">Wanikani {data.wk}</Badge>}
-        {hasData(data.rtk) && <Badge className="mx-1">RTK {data.rtk}</Badge>}
+        {hasData(data.wk) && <Badge className="m-1">Wanikani {data.wk}</Badge>}
+        {hasData(data.rtk) && <Badge className="m-1">RTK {data.rtk}</Badge>}
       </div>
       <Separator className="border-b-2 border-dotted my-4" />
       <Table>

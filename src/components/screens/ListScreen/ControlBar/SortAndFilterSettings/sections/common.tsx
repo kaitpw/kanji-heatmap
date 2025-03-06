@@ -23,7 +23,7 @@ export function FrequencyRankDataSource({
         label="Frequency Data Source"
         isLabelSrOnly={true}
       />
-      {value !== "None" && sourceInfo.description && (
+      {value !== "None" && sourceInfo?.description && (
         <div className="text-sm mt-3">
           *{sourceInfo.description}.
           {sourceInfo.links && sourceInfo.links.length > 0 && (

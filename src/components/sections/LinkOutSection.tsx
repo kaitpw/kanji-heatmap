@@ -17,7 +17,7 @@ const linkOutItems: {
 }[] = [
   {
     href: "https://github.com/mithi/mithi/issues/new?title=Kanji%20Companion%20Bug",
-    text: "Report Something Wrong",
+    text: "Report bug on Github issues",
     icon: <BugIcon />,
   },
   {

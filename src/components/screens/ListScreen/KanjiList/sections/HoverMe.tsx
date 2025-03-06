@@ -15,10 +15,10 @@ import {
   getFreqCategory,
   JLPTListItems,
 } from "@/lib/constants";
-import { useCardSettings } from "@/providers/card-settings-provider";
 import * as wanakana from "wanakana";
 import { freqMap } from "@/lib/frequency-rank";
 import { KanjiInfoFrequency } from "@/lib/kanji-worker-constants";
+import { useCardSettings } from "@/providers/card-settings-provider";
 
 interface TriggerProps {
   onClick?: () => void;
@@ -32,7 +32,7 @@ interface TriggerProps {
 const HOVER_OPEN_DELAY = 350;
 const HOVER_CLOSE_DELAY = 200;
 const cn =
-  "h-95 w-full p-1.5 rounded-lg text-2xl mr-1 border-4 bg-opacity-100 bg-[#fb02a8] z-0 hover:border-[#2effff] transition-all transition-discrete duration-500";
+  "h-95 w-full p-1.5 rounded-lg text-2xl ml-1 border-4 bg-opacity-100 bg-[#fb02a8] z-0 hover:border-[#2effff] transition-all transition-discrete duration-500";
 
 const KanjiItemButton = forwardRef<HTMLButtonElement, TriggerProps>(
   (props, ref) => {
@@ -59,7 +59,7 @@ const KanjiItemButton = forwardRef<HTMLButtonElement, TriggerProps>(
       return (
         <button
           ref={ref}
-          className={`${cn} animate-pulse h-full !bg-lime-500 !border-0`}
+          className={`${cn} animate-pulse h-full !bg-lime-500 !border-3`}
         />
       );
     }
@@ -102,7 +102,7 @@ const KanjiItemButton = forwardRef<HTMLButtonElement, TriggerProps>(
         ref={ref}
         {...rest}
       >
-        <span className="kanji-font text-sm block text-ellipsis text-nowrap w-24 overflow-hidden">
+        <span className="!text-ellipsis !text-nowrap !w-24 !overflow-hidden !whitespace-nowrap block kanji-font text-sm">
           {wanakana.toKatakana(on)}
           <>
             {kun && kun.length > 0 ? (
@@ -116,7 +116,7 @@ const KanjiItemButton = forwardRef<HTMLButtonElement, TriggerProps>(
           </>
         </span>
         <span className="kanji-font text-5xl block -mt-1">{kanji}</span>
-        <span className="text-xs font-extrabold uppercase mt-1 block text-ellipsis text-nowrap w-24 overflow-hidden">
+        <span className="!text-ellipsis !text-nowrap  !w-24 !overflow-hidden !whitespace-nowrap block text-xs font-extrabold uppercase mt-1">
           {keyword}
         </span>
       </button>
@@ -167,7 +167,7 @@ const HoverMeRaw = ({
             onBlur={handleClose}
           />
         </HoverCardTrigger>
-        <HoverCardContent className="p-1 w-[392px] relative">
+        <HoverCardContent className="p-1 w-64 [@media(min-height:800px)]:[@media(min-width:400px)]:w-[392px] relative">
           <HoverCardArrow />
           <div className="hidden [@media(min-height:800px)]:[@media(min-width:400px)]:block w-96">
             <KanjiCard kanji={trigger} />
