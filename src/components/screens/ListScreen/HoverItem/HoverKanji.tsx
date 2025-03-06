@@ -54,7 +54,10 @@ const HoverMeRaw = ({
             onBlur={handleClose}
           />
         </HoverCardTrigger>
-        <HoverCardContent className="p-1 w-64 [@media(min-height:800px)]:[@media(min-width:400px)]:w-[392px] relative">
+        <HoverCardContent
+          className="p-1 w-52 [@media(min-height:800px)]:[@media(min-width:400px)]:w-[392px] relative"
+          collisionPadding={{ top: 100, left: 10, right: 10 }}
+        >
           <HoverCardArrow />
           <ResponsiveKanjiCard kanji={trigger} />
         </HoverCardContent>

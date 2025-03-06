@@ -1,5 +1,5 @@
 import { KanjiInfoFrequency } from "@/lib/kanji-worker-constants";
-import { ITEM_CARD_BG_CN, KANJI_COUNT } from "@/lib/constants";
+import { KANJI_COUNT } from "@/lib/constants";
 import { Progress } from "@/components/ui/progress";
 import { InfoIcon } from "lucide-react";
 import { GenericPopover } from "@/components/common/GenericPopover";
@@ -55,7 +55,7 @@ export const FrequencyInfo = ({
                   <Progress
                     className={"h-1"}
                     value={progress}
-                    primitiveCn={`!${ITEM_CARD_BG_CN}`}
+                    primitiveCn={"!bg-[#fb02a8]"}
                     primitiveStyle={{
                       opacity: freqCategoryOpacity[freqRankCategory],
                     }}

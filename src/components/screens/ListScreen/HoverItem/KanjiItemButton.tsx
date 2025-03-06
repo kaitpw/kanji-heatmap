@@ -96,7 +96,7 @@ const useItemBtnCn = (kanji: string) => {
   const textColor =
     freqRankCategory > 3 || dontIncludeFreq
       ? "text-white"
-      : "dark:text-white text-black";
+      : "dark:text-white text-gray-700";
   const { jlpt } = kanjiInfo;
 
   const border = dontIncludeJLPT

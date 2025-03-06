@@ -26,9 +26,17 @@ const ItemCountComputed = ({ settings }: { settings: SearchSettings }) => {
   }
 
   const textSuffix =
-    settings.textSearch.text.length > 0
-      ? `Your Search Text is "${settings.textSearch.text}."`
-      : "";
+    settings.textSearch.text.length > 0 ? (
+      <>
+        Your Search Text is{" "}
+        <span className="mx-1 font-extrabold">
+          "{settings.textSearch.text}"
+        </span>
+        .
+      </>
+    ) : (
+      ""
+    );
   if (data.data === 0) {
     return <>No Kanji characters match your applied filters. {textSuffix} </>;
   }
@@ -49,7 +57,7 @@ const ItemCount = ({ settings }: { settings: SearchSettings }) => {
     return (
       <div className="flex w-full justify-end items-center">
         All available Kanji (
-        {<span className="font-extrabold mx-1">{KANJI_COUNT}</span>} characters)
+        {<span className="font-extrabold mx-1">{KANJI_COUNT}</span>}) characters
         match your applied filters.
       </div>
     );
