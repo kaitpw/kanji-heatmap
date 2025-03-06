@@ -116,15 +116,9 @@ export const filterKanji = (
       return jlptFilters.has(info.jlpt);
     })
     .filter((kanji) => {
-      // return true;
       const exInfo = kanjiPool.extended[kanji];
       const withinRange =
         maxStrokes >= exInfo.strokes && exInfo.strokes >= minStrokes;
-
-      // if (!withinRange) {
-      // console.log(kanji, kanjiPool.main[kanji], exInfo);
-      // }
-
       return withinRange;
     })
     .filter((kanji) => {
@@ -133,9 +127,9 @@ export const filterKanji = (
       }
       const exInfo = kanjiPool.extended[kanji];
       const freq = getFrequency(freqFilter.source, exInfo) ?? Number.MAX_VALUE;
-      return (
-        freq >= freqFilter.rankRange.min && freq <= freqFilter.rankRange.max
-      );
+      const withinRange =
+        freq >= freqFilter.rankRange.min && freq <= freqFilter.rankRange.max;
+      return withinRange;
     });
 };
 

@@ -18,6 +18,18 @@ import { FilterSettings, SearchSettings, SortSettings } from "@/lib/settings";
 import { useKanjiSearchCount } from "@/kanji-worker/kanji-worker-provider";
 import { isEqualFilters, shouldShowAllKanji } from "./SortContent/helpers";
 
+const disclaimer =
+  "Given your selected data source, Kanji Characters with no available rank  are excluded.";
+
+const AllMatchMsg = () => {
+  return (
+    <div className="block w-full text-right text-xs">
+      All available Kanji (
+      {<span className="font-extrabold mx-1">{KANJI_COUNT}</span>}) characters
+      match your applied filters.
+    </div>
+  );
+};
 const ItemCountComputed = ({ settings }: { settings: SearchSettings }) => {
   const data = useKanjiSearchCount(settings);
 
@@ -30,41 +42,45 @@ const ItemCountComputed = ({ settings }: { settings: SearchSettings }) => {
       <>
         Your Search Text is{" "}
         <span className="mx-1 font-extrabold">
-          "{settings.textSearch.text}"
+          "{settings.textSearch.text}".
         </span>
-        .
       </>
     ) : (
       ""
     );
+
   if (data.data === 0) {
-    return <>No Kanji characters match your applied filters. {textSuffix} </>;
+    return (
+      <>
+        {textSuffix} No Kanji characters match your applied filters. <br />
+        {disclaimer}{" "}
+      </>
+    );
+  }
+
+  if (data.data >= KANJI_COUNT) {
+    return <AllMatchMsg />;
   }
 
   return (
     <>
-      A total of <span className="font-extrabold mx-1">{data.data}</span> Kanji
-      characters match your applied filters. {textSuffix}
+      {textSuffix} A total of{" "}
+      <span className="font-extrabold mx-1">{data.data}</span> match your
+      applied filters. <br />
+      {disclaimer}
     </>
   );
 };
 const ItemCount = ({ settings }: { settings: SearchSettings }) => {
   const deferredSettings = useDeferredValue(settings);
-
   const shouldShowAll = shouldShowAllKanji(deferredSettings);
 
   if (shouldShowAll) {
-    return (
-      <div className="flex w-full justify-end items-center">
-        All available Kanji (
-        {<span className="font-extrabold mx-1">{KANJI_COUNT}</span>}) characters
-        match your applied filters.
-      </div>
-    );
+    return <AllMatchMsg />;
   }
 
   return (
-    <div className="flex w-full justify-end items-center">
+    <div className="block w-full text-right text-xs">
       <ItemCountComputed settings={deferredSettings} />
     </div>
   );

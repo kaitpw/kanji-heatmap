@@ -1,4 +1,4 @@
-import { MAX_FREQ_RANK, MAX_STROKE_COUNT } from "@/lib/constants";
+import { MAX_STROKE_COUNT } from "@/lib/constants";
 import { JLPTOptions } from "@/lib/jlpt";
 import { FilterSettings, SearchSettings } from "@/lib/settings";
 
@@ -6,9 +6,7 @@ export const shouldShowAllKanji = (settings: SearchSettings) => {
   const { strokeRange, freq, jlpt } = settings.filterSettings;
   const fullRangeStrokes =
     strokeRange.min <= 1 && strokeRange.max >= MAX_STROKE_COUNT;
-  const fullRangeFreq =
-    freq.source === "None" ||
-    (freq.rankRange.min <= 1 && freq.rankRange.max >= MAX_FREQ_RANK);
+  const fullRangeFreq = freq.source === "None";
   const allJLPT = jlpt.length === 0 || jlpt.length === JLPTOptions.length;
   const noText = settings.textSearch.text === "";
   return fullRangeStrokes && fullRangeFreq && noText && allJLPT;
