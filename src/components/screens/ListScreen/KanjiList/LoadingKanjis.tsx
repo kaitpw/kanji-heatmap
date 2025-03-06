@@ -1,9 +1,12 @@
-import { useWindowHeight } from "@react-hook/window-size";
-import { HEADER_HEIGHT } from "./constants";
+import { useVirtualListDims } from "./useVirtualDims";
+import { useItemSettings } from "@/providers/item-settings-provider";
 
 const LoadingKanjis = () => {
-  const windowHeight = useWindowHeight();
-  const listHeight = windowHeight - HEADER_HEIGHT;
+  const itemSettings = useItemSettings();
+  const { itemSize, width, listHeight } = useVirtualListDims(
+    200,
+    itemSettings.cardType
+  );
 
   return (
     <div
@@ -16,7 +19,8 @@ const LoadingKanjis = () => {
         return (
           <div
             key={i}
-            className={`h-[55px] w-[45px] animate-pulse rounded-lg border-4 mr-1 mb-1 border-gray-200 bg-gray-100 dark:border-gray-700 dark:bg-gray-800 `}
+            style={{ height: itemSize, width }}
+            className={`animate-pulse rounded-lg ml-1 mb-1 bg-cyan-400 border-8 border-pink-600`}
           />
         );
       })}

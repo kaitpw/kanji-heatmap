@@ -1,4 +1,4 @@
-import ListScreen from "./ListScreen";
+import { ListScreen } from "./ListScreen";
 import CumUseScreen from "./CumUseScreen";
 import VennDiagramScreen from "./VennDiagramScreen";
 

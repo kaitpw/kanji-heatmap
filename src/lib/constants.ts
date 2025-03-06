@@ -61,6 +61,7 @@ export const JLPTOptions = allJLPTKeys.map((k) => {
 });
 
 export const ITEM_CARD_BG_CN = "bg-[#fb02a8]";
+
 export const freqCategoryCount = 6;
 // TODO: Generate this as a function of freqCategoryCount
 // generating these tw classes on the fly actually doesn't work idk why
@@ -133,7 +134,7 @@ export type SearchSettings = {
   sortSettings: SortSettings;
 };
 
-export type CardSettings = {
+export type ItemSettings = {
   cardType: "compact" | "expanded";
   borderColorAttached: boolean;
   backgroundColorSettingDataSource: FrequencyType;
