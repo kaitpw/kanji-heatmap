@@ -46,7 +46,7 @@ def get_data_from_file(file_path):
 # JSON file paths
 # -------------------
 
-IN_DIR = "./original_data"
+IN_DIR = "./scripts/original_data"
 OUT_DIR = "./scripts/generated"
 
 ORIGINAL_COMPONENTS_FILE_PATH = f"{IN_DIR}/missing_components.json"
@@ -93,8 +93,6 @@ def get_all_generic(all_, all_source_keys):
         return main.strip().lower()
     
     def dig_others(source_key):
-        # temporary hack, remove onces fixed
-        ## TODO: Tell mikong, found a bug at rtk5100 (SHOULD be array not an array)
         if source_key == 'rtk5100':
             other = all_.get(source_key, {}).get('others', None)
             if other is not None:
@@ -189,7 +187,7 @@ def get_main_on_reading(kanji_info):
     def dig(source_key):
         return (all_.get(source_key, {}) or {}).get('main', None)
 
-    return dig('davidluzgouveiaJlpt') or dig('waniKani')
+    return dig('davidluzgouveiaJlpt') or dig('waniKani') or dig('kanjiApi')
 
 def get_all_on_readings(kanji_info):
     all_source_keys = [
@@ -204,12 +202,13 @@ def get_main_kun_reading(kanji_info):
     def dig(source_key):
         return (all_.get(source_key, {}) or {}).get('main', None)
 
-    return dig('davidluzgouveiaJlpt') or dig('waniKani')
+    return dig('davidluzgouveiaJlpt') or dig('waniKani')or dig('kanjiApi')
 
 def get_all_kun_readings(kanji_info):
     all_source_keys = [
         'davidluzgouveiaJlpt',
-        'waniKani'
+        'waniKani',
+        'kanjiApi'
     ]
     all_ = kanji_info.get('readings', {}).get('kunyomi', {})
     return get_all_generic(all_, all_source_keys)
@@ -224,7 +223,7 @@ def get_jlpt(kanji_info):
     c = dig('davidluzgouveiaJlpt')
     r = a or b or c
 
-    kanji = kanji_info["kanji"]
+    # kanji = kanji_info["kanji"]
     #running_count_diff_GLOBAL_COUNT_UNSTABLE(a, b, c, r, f"{kanji} jl:")
     # 416 Kanji do not match
 
@@ -239,7 +238,8 @@ def get_jouyou(kanji_info):
     # see: https://github.com/mithi/kanji-data/issues/5
     a = dig('kanjiSchool')
     b = dig('davidluzgouveiaJlpt')
-    r = a or b
+    c = dig('kanjiApi')
+    r = a or b or c
 
     #For the inconsistent Jouyou Grade between kanjiSchool and davidluzgouveiaJlpt 
     # (found 56 discrepancies), kanjiSchool is more accurate when verified against
@@ -255,6 +255,9 @@ def get_jouyou(kanji_info):
     
     if a == 0 and b == 8:
         return 9
+    
+    if r == 8:
+        return 9 
 
     # kanji = kanji_info["kanji"]
     # running_count_diff_GLOBAL_COUNT_UNSTABLE(a, b, b, r, f"{kanji} jy:")
@@ -270,8 +273,8 @@ def get_strokes(kanji_info):
 
     a = dig('kanjiSchool')
     b = dig('davidluzgouveiaJlpt')
-    # c = dig('topoKanji')
-    # r = a or b or c
+    c = dig('kanjiApi')
+    # d = dig('topoKanji')
     r = a or b
 
     # There are 48 discrepancies in stroke count between topoKanji vs kanjiSchool 
