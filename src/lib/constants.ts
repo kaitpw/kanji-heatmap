@@ -100,8 +100,10 @@ export const getFreqCategory = (freqRank?: number) => {
 export const KANJI_COUNT = 2427;
 export const MAX_STROKE_COUNT = 30;
 
+export type SearchType = "keyword" | "onyomi" | "kunyomi";
+
 export const SEARCH_TYPE_OPTIONS: {
-  value: "keyword" | "onyomi" | "kunyomi";
+  value: SearchType;
   label: string;
 }[] = [
   { value: "keyword", label: "Keyword" },
@@ -110,7 +112,7 @@ export const SEARCH_TYPE_OPTIONS: {
 ];
 
 export type TextSearch = {
-  type: string;
+  type: SearchType;
   text: string;
 };
 

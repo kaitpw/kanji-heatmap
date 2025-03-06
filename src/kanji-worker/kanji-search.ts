@@ -27,6 +27,8 @@ import {
   SortKey,
 } from "@/lib/frequency-rank";
 import { KanjiExtendedInfo, KanjiMainInfo } from "@/lib/kanji-worker-constants";
+import fuzzysearch from "fuzzysearch";
+import * as wanakana from "wanakana";
 
 type DataPool = {
   main: Record<string, KanjiMainInfo>;
@@ -82,6 +84,32 @@ export const searchKanji = (settings: SearchSettings, kanjiPool: DataPool) => {
   const secondarySort = settings.sortSettings.secondary;
 
   const kanjiList = allKanji
+    .filter((kanji) => {
+      const textSearch = settings.textSearch;
+      if (textSearch.type === "keyword") {
+        const info = kanjiPool.main[kanji];
+        return fuzzysearch(textSearch.text, info.keyword);
+      }
+      if (textSearch.text === "") {
+        return true;
+      }
+      const exInfo = kanjiPool.extended[kanji];
+      if (textSearch.type === "kunyomi") {
+        return exInfo.allKun
+          .map((item) => {
+            return wanakana.toHiragana(item.replace(/[-.]/g, ""));
+          })
+          .includes(textSearch.text);
+      }
+      if (textSearch.type === "onyomi") {
+        return exInfo.allOn
+          .map((item) => {
+            return wanakana.toKatakana(item);
+          })
+          .includes(textSearch.text);
+      }
+      return true;
+    })
     .filter((kanji) => {
       const info = kanjiPool.main[kanji];
       if ([0, 6].includes(jlptFilters.size)) {
