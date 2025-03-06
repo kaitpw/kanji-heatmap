@@ -1,31 +1,47 @@
+import { randomCn, randomCn2 } from "@/lib/jlpt";
 import { useVirtualListDims } from "./useVirtualDims";
 import { useItemSettings } from "@/providers/item-settings-provider";
+import React from "react";
 
-const LoadingKanjis = () => {
+const LoadingKanjisRaw = () => {
   const itemSettings = useItemSettings();
-  const { itemSize, width, listHeight } = useVirtualListDims(
-    200,
+  // TODO: Generate count depending on window size
+  const isCompact = itemSettings.cardType === "compact";
+  const dummy = 125;
+  const { itemSize, width, listHeight, cols, itemNums } = useVirtualListDims(
+    dummy,
     itemSettings.cardType
   );
 
+  const count = itemNums + cols * 2;
+
+  const itemStyle = isCompact
+    ? { height: itemSize - 3, width: width - 4 }
+    : { height: itemSize - 4, width: width - 5 };
+
+  const containerStyle = isCompact
+    ? { height: listHeight }
+    : { height: listHeight };
   return (
     <div
       role="status"
-      className="w-full flex flex-wrap justify-center mx-0 px-[12px]"
-      style={{ maxHeight: listHeight }}
+      style={containerStyle}
+      className="flex flex-wrap items-start justify-start"
     >
       <div className="sr-only">loading</div>
-      {new Array(200).fill(null).map((_, i) => {
+      {new Array(count).fill(null).map((_, i) => {
         return (
           <div
             key={i}
-            style={{ height: itemSize, width }}
-            className={`animate-pulse rounded-lg ml-1 mb-1 bg-cyan-400 border-8 border-pink-600`}
+            style={itemStyle}
+            className={`animate-pulse m-1 transition-all transition-discrete ${isCompact ? randomCn2() : randomCn()}`}
           />
         );
       })}
     </div>
   );
 };
+
+const LoadingKanjis = React.memo(LoadingKanjisRaw);
 
 export default LoadingKanjis;

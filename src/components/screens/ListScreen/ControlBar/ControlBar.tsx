@@ -2,8 +2,9 @@ import ItemPresentationSettingsPopover from "./ItemPresentation/ItemPresentation
 import { ItemPresentationSettingsContent } from "./ItemPresentation/ItemPresentationContent";
 import { SettledSearchInput } from "./SearchInput/SettledSearchInput";
 import { SettledSortAndFilter } from "./SortAndFilter/SettledSortAndFilter";
+import React from "react";
 
-export const ControlBar = () => {
+export const ControlBarRaw = () => {
   return (
     <>
       <SettledSearchInput />
@@ -14,3 +15,5 @@ export const ControlBar = () => {
     </>
   );
 };
+
+export const ControlBar = React.memo(ControlBarRaw);

@@ -11,6 +11,7 @@ export const useVirtualListDims = (
   const cols = Math.floor(windowWidth / tileSize.width);
   const rows = Math.ceil(itemCount / cols);
   const listHeight = windowHeight - HEADER_HEIGHT;
+  const itemNums = cols * Math.ceil(windowHeight / tileSize.height);
 
   return {
     cols,
@@ -18,5 +19,6 @@ export const useVirtualListDims = (
     listHeight,
     itemSize: tileSize.height,
     width: tileSize.width,
+    itemNums,
   };
 };
