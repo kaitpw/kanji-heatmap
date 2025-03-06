@@ -1,0 +1,42 @@
+import { Button } from "@/components/ui/button";
+
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Flower } from "lucide-react";
+import { useState, ReactNode } from "react";
+
+const ItemPresentationSettingsPopover = ({
+  children,
+}: {
+  children: ReactNode;
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <Popover
+      open={isOpen}
+      onOpenChange={(newState) => {
+        setIsOpen(newState);
+      }}
+    >
+      <PopoverTrigger
+        onMouseEnter={() => {
+          setIsOpen(true);
+        }}
+        asChild
+      >
+        <Button variant="outline" size="icon" className="h-9 w-9">
+          <Flower />
+          <span className="sr-only">Card Presentation Settings</span>
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="mx-4 -translate-y-1 max-h-[80svh] overflow-y-auto overflow-x-hidden">
+        {children}
+      </PopoverContent>
+    </Popover>
+  );
+};
+
+export default ItemPresentationSettingsPopover;

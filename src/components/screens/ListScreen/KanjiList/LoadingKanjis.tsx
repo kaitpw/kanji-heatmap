@@ -1,27 +1,47 @@
-import { useWindowHeight } from "@react-hook/window-size";
-import { HEADER_HEIGHT } from "./constants";
+import { randomCn, randomCn2 } from "@/lib/jlpt";
+import { useVirtualListDims } from "./useVirtualDims";
+import { useItemSettings } from "@/providers/item-settings-provider";
+import React from "react";
 
-const LoadingKanjis = () => {
-  const windowHeight = useWindowHeight();
-  const listHeight = windowHeight - HEADER_HEIGHT;
+const LoadingKanjisRaw = () => {
+  const itemSettings = useItemSettings();
+  // TODO: Generate count depending on window size
+  const isCompact = itemSettings.cardType === "compact";
+  const dummy = 125;
+  const { itemSize, width, listHeight, cols, itemNums } = useVirtualListDims(
+    dummy,
+    itemSettings.cardType
+  );
 
+  const count = itemNums + cols * 2;
+
+  const itemStyle = isCompact
+    ? { height: itemSize - 3, width: width - 4 }
+    : { height: itemSize - 4, width: width - 5 };
+
+  const containerStyle = isCompact
+    ? { height: listHeight }
+    : { height: listHeight };
   return (
     <div
       role="status"
-      className="w-full flex flex-wrap justify-center mx-0 px-[12px]"
-      style={{ maxHeight: listHeight }}
+      style={containerStyle}
+      className="flex flex-wrap items-start justify-start"
     >
       <div className="sr-only">loading</div>
-      {new Array(200).fill(null).map((_, i) => {
+      {new Array(count).fill(null).map((_, i) => {
         return (
           <div
             key={i}
-            className={`h-[55px] w-[45px] animate-pulse rounded-lg border-4 mr-1 mb-1 border-gray-200 bg-gray-100 dark:border-gray-700 dark:bg-gray-800 `}
+            style={itemStyle}
+            className={`animate-pulse m-1 transition-all transition-discrete ${isCompact ? randomCn2() : randomCn()}`}
           />
         );
       })}
     </div>
   );
 };
+
+const LoadingKanjis = React.memo(LoadingKanjisRaw);
 
 export default LoadingKanjis;

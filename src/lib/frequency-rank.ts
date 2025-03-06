@@ -170,3 +170,59 @@ export const SORT_ORDER_SELECT: { value: string; label: string }[] = [
 ].map((optionValue) => {
   return { value: optionValue, label: OPTION_LABELS[optionValue] ?? "-" };
 });
+
+export const freqCategoryCount = 6;
+
+// TODO: Generate this as a function of freqCategoryCount
+// generating these tw classes on the fly actually doesn't work idk why
+export const freqCategoryCn: Record<number, string> = {
+  0: "bg-opacity-0",
+  1: "bg-opacity-20",
+  2: "bg-opacity-40",
+  3: "bg-opacity-60",
+  4: "bg-opacity-80",
+  5: "bg-opacity-100",
+};
+
+export const freqCategoryOpacity: Record<number, number> = {
+  0: 0.1,
+  1: 0.25,
+  2: 0.45,
+  3: 0.65,
+  4: 0.85,
+  5: 1,
+};
+
+export const getFreqCategory = (freqRank?: number) => {
+  return freqRank == null || freqRank > 2250
+    ? 0
+    : 1700 < freqRank && freqRank <= 2250
+      ? 1
+      : 1100 < freqRank && freqRank <= 1700
+        ? 2
+        : 650 < freqRank && freqRank <= 1100
+          ? 3
+          : 300 < freqRank && freqRank <= 650
+            ? 4
+            : 5;
+};
+
+export const frequencyRankLabels: Record<keyof KanjiInfoFrequency, string> = {
+  netflix: "Netflix",
+  twitter: "Twitter",
+  google: "Google",
+  kd: "KD",
+  wikiChar: "Wikipedia Characters",
+  wikiDoc: "Wikipedia Documents",
+  aozoraChar: "Aozora Chars",
+  aozoraDoc: "Aozora Documents",
+  onlineNewsChar: "Online News Characters",
+  onlineNewsDoc: "Online News Documents",
+  novels5100: "5100 Novels",
+  dramaSubs: "Drama Subtitles",
+  kuf: "KUF",
+  mcd: "MCD",
+  bunka: "Bunka",
+  wkfr: "WKFR",
+  jisho: "Jisho",
+};

@@ -1,4 +1,4 @@
-import { JLTPTtypes } from "./constants";
+import { JLTPTtypes } from "./jlpt";
 import {
   KanjiExtendedInfo,
   KanjiInfoFrequency,
@@ -11,9 +11,6 @@ export type KanjiInfoRequestType =
   | "general"
   | "frequency-ranks"
   | "main-plus-extended";
-//  | "notes"
-//  | "related-kanji"
-//  | "all-vocab";
 
 type VocabExtendedInfo = {
   vocabInfo?: {
@@ -31,12 +28,6 @@ type VocabExtendedInfo = {
 export type KanjiCacheItem = {
   main: KanjiMainInfo;
   extended?: KanjiExtendedInfo & VocabExtendedInfo;
-  //  notes?: string;
-  //  otherVocab?: { word: string; spacedKana: string; meaning: string }[];
-  //  relatedKanji?: {
-  //    similar: string[];
-  //    partOf: string[];
-  //  };
 };
 
 export type HoverItemReturnData = {

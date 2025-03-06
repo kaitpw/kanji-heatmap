@@ -1,5 +1,5 @@
-import ListScreen from "./ListScreen";
+import { ListScreen } from "./ListScreen";
 import CumUseScreen from "./CumUseScreen";
-import VennDiagramScreen from "./VennDiagramScreen";
+import AboutScreen from "./AboutScreen";
 
-export { CumUseScreen, ListScreen, VennDiagramScreen };
+export { CumUseScreen, ListScreen, AboutScreen };

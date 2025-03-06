@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 import { useLocalStorage } from "../hooks/use-local-storage";
 import { K_JLPT, K_STROKES } from "@/lib/frequency-rank";
-import { createContextComponents, useContextWithCatch } from "./common";
-import { SearchSettings } from "@/lib/constants";
+import { createContextComponents, useContextWithCatch } from "./helpers";
+import { SearchSettings } from "@/lib/settings";
 
 const storageKey = "search-settings";
 

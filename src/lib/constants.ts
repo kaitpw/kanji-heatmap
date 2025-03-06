@@ -1,142 +1,17 @@
-import { FrequencyType, SortKey } from "./frequency-rank";
-
-export type JLTPTtypes = "n1" | "n2" | "n3" | "n4" | "n5" | "none";
-export const JLPTRank: Record<JLTPTtypes, number> = {
-  n5: 0,
-  n4: 1,
-  n3: 2,
-  n2: 3,
-  n1: 4,
-  none: 5,
-};
-
-export const JLPTListItems: Record<
-  JLTPTtypes,
-  { cn: string; color: string; label: string; cnBorder: string }
-> = {
-  n1: {
-    cn: "bg-lime-400",
-    cnBorder: "border-lime-400",
-    color: "lime",
-    label: "N1",
-  },
-  n2: {
-    cn: "bg-pink-400",
-    cnBorder: "border-pink-400",
-    color: "pink",
-    label: "N2",
-  },
-  n3: {
-    cn: "bg-blue-400",
-    cnBorder: "border-blue-400",
-    color: "blue",
-    label: "N3",
-  },
-  n4: {
-    cn: "bg-yellow-400",
-    cnBorder: "border-yellow-400",
-    color: "yellow",
-    label: "N4",
-  },
-  n5: {
-    cn: "bg-red-400",
-    cnBorder: "border-red-400",
-    color: "orange",
-    label: "N5",
-  },
-  none: {
-    cn: "bg-gray-400",
-    cnBorder: "border-gray-400",
-    color: "gray",
-    label: "Not in JLPT",
-  },
-};
-
-export const allJLPTKeys = Object.keys(JLPTListItems) as JLTPTtypes[];
-export const JLPTOptions = allJLPTKeys.map((k) => {
-  return {
-    ...JLPTListItems[k],
-    value: k,
-  };
-});
-
 export const ITEM_CARD_BG_CN = "bg-[#fb02a8]";
-export const freqCategoryCount = 6;
-// TODO: Generate this as a function of freqCategoryCount
-// generating these tw classes on the fly actually doesn't work idk why
-export const freqCategoryCn: Record<number, string> = {
-  0: "bg-opacity-0",
-  1: "bg-opacity-20",
-  2: "bg-opacity-40",
-  3: "bg-opacity-60",
-  4: "bg-opacity-80",
-  5: "bg-opacity-100",
+
+export const KANJI_COUNT = 2426; // Exclude NOMA / Repeater kanji
+export const MAX_STROKE_COUNT = 35;
+export const MAX_FREQ_RANK = 10000;
+export const TILE_SIZE = {
+  sm: {
+    width: 50,
+    height: 55,
+  },
+  lg: {
+    width: 135,
+    height: 118,
+  },
 };
 
-export const freqCategoryOpacity: Record<number, number> = {
-  0: 0.1,
-  1: 0.25,
-  2: 0.45,
-  3: 0.65,
-  4: 0.85,
-  5: 1,
-};
-
-export const getFreqCategory = (freqRank?: number) => {
-  return freqRank == null || freqRank > 2250
-    ? 0
-    : 1700 < freqRank && freqRank <= 2250
-      ? 1
-      : 1100 < freqRank && freqRank <= 1700
-        ? 2
-        : 650 < freqRank && freqRank <= 1100
-          ? 3
-          : 300 < freqRank && freqRank <= 650
-            ? 4
-            : 5;
-};
-
-export const KANJI_COUNT = 2427;
-export const MAX_STROKE_COUNT = 30;
-
-export type SearchType = "keyword" | "onyomi" | "kunyomi";
-
-export const SEARCH_TYPE_OPTIONS: {
-  value: SearchType;
-  label: string;
-}[] = [
-  { value: "keyword", label: "Keyword" },
-  { value: "onyomi", label: "オニョミ" },
-  { value: "kunyomi", label: "くにょみ" },
-];
-
-export type TextSearch = {
-  type: SearchType;
-  text: string;
-};
-
-export type FilterSettings = {
-  strokeRange: { min: number; max: number };
-  jlpt: JLTPTtypes[];
-  freq: {
-    source: FrequencyType;
-    rankRange: { min: number; max: number };
-  };
-};
-
-export type SortSettings = {
-  primary: SortKey;
-  secondary: SortKey;
-};
-
-export type SearchSettings = {
-  textSearch: TextSearch;
-  filterSettings: FilterSettings;
-  sortSettings: SortSettings;
-};
-
-export type CardSettings = {
-  cardType: "compact" | "expanded";
-  borderColorAttached: boolean;
-  backgroundColorSettingDataSource: FrequencyType;
-};
+export const HEADER_HEIGHT = 100;

@@ -6,13 +6,9 @@ import {
   Switch,
   useLocation,
 } from "wouter";
-import {
-  ListScreen,
-  VennDiagramScreen,
-  CumUseScreen,
-} from "@/components/screens";
-import { NavigationListItem, NavLayout } from "@/components/layouts/nav";
-import Header from "@/components/sections/Header";
+import { ListScreen, AboutScreen, CumUseScreen } from "@/components/screens";
+import { NavigationListItem, NavLayout } from "@/components/common/nav";
+import Header from "@/components/common/Header";
 import { ThemeProvider } from "@/providers/theme-provider";
 import React from "react";
 const navItems: {
@@ -32,15 +28,15 @@ const navItems: {
     description: "Quickly sort, filter and search Kanjis",
   },
   {
-    href: "/frequency-venn-diagram",
-    title: "Frequency Venn Diagram",
-    component: VennDiagramScreen,
-    description: "Learn overlap of various kanji frequency rankings data",
+    href: "/about",
+    title: "About",
+    component: AboutScreen,
+    description: "Frequency Asked Questions and More",
   },
   {
     href: "/cumulative-use-graph",
     title: "Frequency Cumulative Use Graph",
-    description: "Learn cumulative use data based on various corpus",
+    description: "Inspect cumulative use data based on various datasets",
     component: CumUseScreen,
   },
 ];
