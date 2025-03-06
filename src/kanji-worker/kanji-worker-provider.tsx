@@ -338,7 +338,7 @@ export const useKanjiSearch = (searchSettings: SearchSettings) => {
 export const useKanjiSearchCount = (searchSettings: SearchSettings) => {
   const [state, setState] = useState<{
     status: Status;
-    data?: string[];
+    data?: number;
     error?: string | null;
   }>({ status: "idle" });
 
@@ -362,7 +362,7 @@ export const useKanjiSearchCount = (searchSettings: SearchSettings) => {
         setState({
           status: "success",
           error: null,
-          data: result as string[],
+          data: result as number,
         });
       })
       .catch((error) => {
