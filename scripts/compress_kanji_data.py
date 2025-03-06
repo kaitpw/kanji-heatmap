@@ -275,7 +275,7 @@ def get_strokes(kanji_info):
     b = dig('davidluzgouveiaJlpt')
     c = dig('kanjiApi')
     # d = dig('topoKanji')
-    r = a or b
+    r = a or b or c
 
     # There are 48 discrepancies in stroke count between topoKanji vs kanjiSchool 
     # or davidluzgouveiaJlpt (latter two have the same count). 

@@ -208,7 +208,7 @@ def map_kanji_to_reading(word, spaced_reading):
     return mapping
 
 # --- Load the segmented_vocab.json file ---
-with open("./scripts/segmented_vocab.json", "r", encoding="utf-8") as f:
+with open("./scripts/generated_segmented_vocab.json", "r", encoding="utf-8") as f:
     segmented_vocab = json.load(f)
 
 kanji_to_reading = {}
@@ -231,10 +231,10 @@ for word, spaced_reading in segmented_vocab.items():
         continue
 
 # Write the resulting mapping to a new JSON file.
-with open("./scripts/kanji_reading_map.json", "w", encoding="utf-8") as f:
+with open("./scripts/generated/kanji_reading_map.json", "w", encoding="utf-8") as f:
     json.dump(kanji_to_reading, f, ensure_ascii=False, indent=2)
 
-print("Generated kanji_to_reading.json")
+print("Generated kanji_reading_map.json.json")
 print("Total words with kanji (and expected segmentation):", total_words_with_kanji)
 print("Successfully parsed:", parsed_count)
 print("Unable to parse:", not_parsed_count)
