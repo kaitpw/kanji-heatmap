@@ -5,6 +5,7 @@ import {
   useSearchSettingsDispatch,
 } from "@/providers/search-settings-provider";
 import { useEffect } from "react";
+import { SearchType } from "@/lib/constants";
 
 export const SortAndFilterSection = () => {
   const searchSettings = useSearchSettings();
@@ -26,7 +27,7 @@ export const SortAndFilterSection = () => {
     <>
       <SearchInput
         onSettle={(text, searchType) => {
-          dispatch("textSearch", { text, type: searchType });
+          dispatch("textSearch", { text, type: searchType as SearchType });
         }}
       />
       <SortAndFilterSettingsDialog
