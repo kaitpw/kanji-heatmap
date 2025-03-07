@@ -41,6 +41,15 @@ export const GROUP_OPTIONS = [
 
 export const NONGROUP_OPTIONS = [K_RTK_INDEX, K_MEANING_KEY] as const;
 
+const nonFreqOptionLabels: Record<SortGroup | SortNonGroup, string> = {
+  [K_JLPT]: "JLPT",
+  [K_JOUYOU_KEY]: "Jouyou Grade",
+  [K_STROKES]: "Stroke Count",
+  [K_WK_LVL]: "Wanikani Level",
+  [K_RTK_INDEX]: "RTK Index",
+  [K_MEANING_KEY]: "Keyword",
+};
+
 export const FREQ_RANK_OPTIONS = [
   K_RANK_NETFLIX,
   K_RANK_DRAMA_SUBTITLES,
@@ -61,6 +70,11 @@ export const FREQ_RANK_OPTIONS = [
   K_RANK_WKFR,
   "None",
 ] as const;
+
+type SortGroup = (typeof GROUP_OPTIONS)[number];
+type SortNonGroup = (typeof NONGROUP_OPTIONS)[number];
+export type FrequencyType = (typeof FREQ_RANK_OPTIONS)[number];
+export type SortKey = SortGroup | SortNonGroup | FrequencyType;
 
 export const freqMap: Record<
   FrequencyType,
@@ -86,15 +100,28 @@ export const freqMap: Record<
   None: undefined,
 };
 
-export const getFrequency = (freq: FrequencyType, info: KanjiExtendedInfo) => {
-  if (info.frequency == null || freqMap[freq] == null) {
-    return undefined;
-  }
-  return info.frequency[freqMap[freq]];
+export const frequencyRankLabels: Record<keyof KanjiInfoFrequency, string> = {
+  netflix: "Netflix",
+  twitter: "Twitter",
+  google: "Google",
+  kd: "KD",
+  wikiChar: "Wikipedia Characters",
+  wikiDoc: "Wikipedia Documents",
+  aozoraChar: "Aozora Chars",
+  aozoraDoc: "Aozora Documents",
+  onlineNewsChar: "Online News Characters",
+  onlineNewsDoc: "Online News Documents",
+  novels5100: "5100 Novels",
+  dramaSubs: "Drama Subtitles",
+  kuf: "KUF",
+  mcd: "MCD",
+  bunka: "Bunka",
+  wkfr: "WKFR",
+  jisho: "Jisho",
 };
 
 export const FREQ_RANK_SOURCES_INFO: Record<
-  string,
+  FrequencyType,
   { description: string; links: string[] }
 > = {
   [K_RANK_NETFLIX]: {
@@ -122,53 +149,54 @@ export const FREQ_RANK_SOURCES_INFO: Record<
   [K_RANK_JISHO]: { description: "", links: [] },
   [K_RANK_KD]: { description: "", links: [] },
   [K_RANK_WKFR]: { description: "", links: [] },
+  None: { description: "", links: [] },
 };
 
-export const OPTION_LABELS: Record<string, string> = {
-  [K_JLPT]: "JLPT",
-  [K_JOUYOU_KEY]: "Jouyou Grade",
-  [K_KUNYOMI]: "Main Kunyomi Reading",
-  [K_ONYOMI]: "Main Onyomi Reading",
-  [K_STROKES]: "Strokes",
-  [K_WK_LVL]: "Wanikani Level",
-  [K_RTK_INDEX]: "RTK Index",
-  [K_MEANING_KEY]: "Keyword",
-  [K_RANK_NETFLIX]: "Freq Rank - Netflix",
-  [K_RANK_DRAMA_SUBTITLES]: "Freq Rank - Drama Subtitles Corpus ",
-  [K_RANK_NOVELS_5100]: "Freq Rank - 5100 Novels Corpus",
-  [K_RANK_TWITTER]: "Freq Rank - Twitter Corpus",
-  [K_RANK_WIKIPEDIA_DOC]: "Freq Rank - Wikipedia Doc Count",
-  [K_RANK_WIKIPEDIA_CHAR]: "Freq Rank - Wikipedia Char Count",
-  [K_RANK_ONLINE_NEWS_DOC]: "Freq Rank - Online News Doc Count",
-  [K_RANK_ONLINE_NEWS_CHAR]: "Freq Rank - Online News Char Count",
-  [K_RANK_AOZORA_DOC]: "Freq Rank - Aozora Doc Count",
-  [K_RANK_AOZORA_CHAR]: "Freq Rank - Aozora Char Count",
-  [K_RANK_GOOGLE]: "Freq Rank - Google ",
-  [K_RANK_KUF]: "Freq Rank - KUF",
-  [K_RANK_MCD]: "Freq Rank - MCD ",
-  [K_RANK_BUNKA]: "Freq Rank - BUNKA",
-  [K_RANK_JISHO]: "Freq Rank - JISHO",
-  [K_RANK_KD]: "Freq Rank - KD",
-  [K_RANK_WKFR]: "Freq Rank - WKFR",
-  None: "None",
+export const getFrequency = (freq: FrequencyType, info: KanjiExtendedInfo) => {
+  if (info.frequency == null || freqMap[freq] == null) {
+    return undefined;
+  }
+  return info.frequency[freqMap[freq]];
 };
+
+type OptionLabelType = Record<SortKey, string>;
+
+export const OPTION_LABELS: OptionLabelType = Object.keys(freqMap).reduce(
+  (acc: OptionLabelType, option: string) => {
+    const name = freqMap[option as FrequencyType];
+
+    if (name != null) {
+      const label = frequencyRankLabels[name];
+      acc[option as FrequencyType] = label;
+      return acc;
+    }
+
+    const label = nonFreqOptionLabels[option as SortGroup | SortNonGroup];
+
+    if (label == null) {
+      acc[option as SortGroup | SortNonGroup] = label;
+      return acc;
+    }
+
+    return acc;
+  },
+  {} as OptionLabelType
+);
 
 export const FREQUENCY_RANK_FILTER_OPTIONS: { value: string; label: string }[] =
   FREQ_RANK_OPTIONS.map((optionValue) => {
-    return { value: optionValue, label: OPTION_LABELS[optionValue] ?? "-" };
+    return { value: optionValue, label: OPTION_LABELS[optionValue] ?? "None" };
   });
 
-type SortGroup = (typeof GROUP_OPTIONS)[number];
-type SortNonGroup = (typeof NONGROUP_OPTIONS)[number];
-export type FrequencyType = (typeof FREQ_RANK_OPTIONS)[number];
-export type SortKey = SortGroup | SortNonGroup | FrequencyType;
-
-export const SORT_ORDER_SELECT: { value: string; label: string }[] = [
+export const SORT_ORDER_SELECT: { value: SortKey; label: string }[] = [
   ...GROUP_OPTIONS,
   ...NONGROUP_OPTIONS,
   ...FREQ_RANK_OPTIONS,
 ].map((optionValue) => {
-  return { value: optionValue, label: OPTION_LABELS[optionValue] ?? "-" };
+  return {
+    value: optionValue,
+    label: OPTION_LABELS[optionValue as FrequencyType] ?? "None",
+  };
 });
 
 export const freqCategoryCount = 6;
@@ -205,24 +233,4 @@ export const getFreqCategory = (freqRank?: number) => {
           : 300 < freqRank && freqRank <= 650
             ? 4
             : 5;
-};
-
-export const frequencyRankLabels: Record<keyof KanjiInfoFrequency, string> = {
-  netflix: "Netflix",
-  twitter: "Twitter",
-  google: "Google",
-  kd: "KD",
-  wikiChar: "Wikipedia Characters",
-  wikiDoc: "Wikipedia Documents",
-  aozoraChar: "Aozora Chars",
-  aozoraDoc: "Aozora Documents",
-  onlineNewsChar: "Online News Characters",
-  onlineNewsDoc: "Online News Documents",
-  novels5100: "5100 Novels",
-  dramaSubs: "Drama Subtitles",
-  kuf: "KUF",
-  mcd: "MCD",
-  bunka: "Bunka",
-  wkfr: "WKFR",
-  jisho: "Jisho",
 };

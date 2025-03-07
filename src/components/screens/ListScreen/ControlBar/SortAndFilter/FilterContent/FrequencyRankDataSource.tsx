@@ -3,21 +3,22 @@ import BasicSelect from "@/components/common/BasicSelect";
 import {
   FREQUENCY_RANK_FILTER_OPTIONS,
   FREQ_RANK_SOURCES_INFO,
+  FrequencyType,
 } from "@/lib/frequency-rank";
 
 export function FrequencyRankDataSource({
   value,
   setValue,
 }: {
-  value: string;
-  setValue: (v: string) => void;
+  value: FrequencyType;
+  setValue: (v: FrequencyType) => void;
 }) {
   const sourceInfo = FREQ_RANK_SOURCES_INFO[value];
   return (
     <>
       <BasicSelect
         value={value}
-        onChange={(newValue) => setValue(newValue)}
+        onChange={(newValue) => setValue(newValue as FrequencyType)}
         triggerCN={"h-8 w-full"}
         options={FREQUENCY_RANK_FILTER_OPTIONS}
         label="Frequency Data Source"

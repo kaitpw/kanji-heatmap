@@ -1,15 +1,15 @@
 import { ReactNode } from "react";
 import { Badge } from "@/components/ui/badge";
 import { ArrowDownWideNarrow } from "lucide-react";
-import { OPTION_LABELS } from "@/lib/frequency-rank";
+import { OPTION_LABELS, SortKey } from "@/lib/frequency-rank";
 import { UppercaseHeading } from "./UpperCaseHeading";
 
 export const SortAdditionalInfo = ({
   val1,
   val2,
 }: {
-  val1?: string;
-  val2?: string;
+  val1?: SortKey;
+  val2?: SortKey;
 }) => {
   const v1 = val1 && val1 !== "None" ? OPTION_LABELS?.[val1] : null;
   const v2 = val2 && v1 && val2 !== "None" ? OPTION_LABELS[val2] : null;
