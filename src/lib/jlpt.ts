@@ -1,5 +1,3 @@
-import { selectRandom } from "./utils";
-
 export type JLTPTtypes = "n1" | "n2" | "n3" | "n4" | "n5" | "none";
 export const JLPTRank: Record<JLTPTtypes, number> = {
   n5: 0,
@@ -50,27 +48,6 @@ export const JLPTListItems: Record<
     color: "gray",
     label: "Not in JLPT",
   },
-};
-
-const jlpts: JLTPTtypes[] = ["n1", "n2", "n3", "n4", "n5"];
-const duration: string[] = ["duration-1000", "duration-700"];
-const delay: string[] = ["", "delay-500", "delay-1000"];
-export const randomCn = () => {
-  const a = selectRandom(jlpts);
-  const b = selectRandom(jlpts);
-  const c = selectRandom(duration);
-  const d = selectRandom(delay);
-  const cn = `${JLPTListItems[a].cn} ${JLPTListItems[b].cnBorder} ${c} ${d} !border-8 !rounded-sm`;
-  return cn;
-};
-
-export const randomCn2 = () => {
-  const a = selectRandom(jlpts);
-  const b = selectRandom(jlpts);
-  const c = selectRandom(duration);
-  const d = selectRandom(delay);
-  const cn = `${JLPTListItems[a].cn} ${JLPTListItems[b].cnBorder} ${c} ${d} !border-4 !rounded-lg !hover:border-cyan-500 !hover:bg-lime-500`;
-  return cn;
 };
 
 export const allJLPTKeys = Object.keys(JLPTListItems) as JLTPTtypes[];

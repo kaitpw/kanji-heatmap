@@ -1,11 +1,20 @@
-import { randomCn, randomCn2 } from "@/lib/jlpt";
+import {
+  randomCn,
+  randomCn2,
+  randomCnColorful,
+  randomCn2Colorful,
+} from "@/lib/random-cn";
 import { useVirtualListDims } from "./useVirtualDims";
 import { useItemSettings } from "@/providers/item-settings-provider";
 import React from "react";
 
 const ESTIMATE_ITEM_COUNT = 125;
 
-const LoadingKanjisRaw = () => {
+const LoadingKanjisRaw = ({
+  type = "gradient",
+}: {
+  type?: "colorful" | "gradient";
+}) => {
   const itemSettings = useItemSettings();
   // TODO: Generate count depending on window size
   const isCompact = itemSettings.cardType === "compact";
@@ -24,6 +33,7 @@ const LoadingKanjisRaw = () => {
   const containerStyle = isCompact
     ? { height: listHeight }
     : { height: listHeight };
+
   return (
     <div
       role="status"
@@ -32,11 +42,18 @@ const LoadingKanjisRaw = () => {
     >
       <div className="sr-only">loading</div>
       {new Array(count).fill(null).map((_, i) => {
+        const colorCn = isCompact
+          ? type === "colorful"
+            ? randomCn2Colorful()
+            : randomCn2()
+          : type === "colorful"
+            ? randomCnColorful()
+            : randomCn();
         return (
           <div
             key={i}
             style={itemStyle}
-            className={`animate-pulse m-1 transition-all transition-discrete ${isCompact ? randomCn2() : randomCn()}`}
+            className={`animate-pulse m-1 transition-all transition-discrete ${colorCn}`}
           />
         );
       })}

@@ -5,7 +5,7 @@ const KanjiList = lazy(() => import("./KanjiListWithSearch"));
 
 export const SuspendedKanjiList = () => {
   return (
-    <Suspense fallback={<LoadingKanjis />}>
+    <Suspense fallback={<LoadingKanjis type="colorful" />}>
       <KanjiList />
     </Suspense>
   );
