@@ -224,7 +224,7 @@ def get_jlpt(kanji_info):
     r = a or b or c
 
     # kanji = kanji_info["kanji"]
-    #running_count_diff_GLOBAL_COUNT_UNSTABLE(a, b, c, r, f"{kanji} jl:")
+    # running_count_diff_GLOBAL_COUNT_UNSTABLE(a, b, c, r, f"{kanji} jl:")
     # 416 Kanji do not match
 
     return r
@@ -308,8 +308,8 @@ def get_wanikani_lvl(kanji_info):
 
 def get_semantic_phonetic(kanji_info):
     phonetic = kanji_info.get("semanticPhonetic", {}).get('moeUsagi', None)
-    if phonetic:
-        print("->", phonetic, kanji_info.get("kanji"))
+    # if phonetic:
+    #     print("->", phonetic, kanji_info.get("kanji"))
     return phonetic
 
 DEFAULT_ARRAY_VAL = []
@@ -646,12 +646,12 @@ def get_reading_stats(get_readings):
         return acc
     
     
-    one_reading = list(filter(lambda x: len(get_all_kun_readings(kanji_data[x]) or []) == 1, kanji_list))
+    one_reading = list(filter(lambda x: len(get_readings(kanji_data[x]) or []) == 1, kanji_list))
     print("---> number of kanjis with one reading", len(one_reading))
     
     
-    all_on_readings = reduce(get_reading_set, kanji_list, set())
-    print("---> All possible readings", len(list(all_on_readings)))
+    all_readings = reduce(get_reading_set, kanji_list, set())
+    print("---> All possible readings", len(list(all_readings)))
     
     reading_counts = {}
     for kanji in kanji_list:
@@ -680,7 +680,7 @@ def get_reading_stats(get_readings):
     
     
     # Top X readings
-    top_x = 20
+    top_x = 50
     # mapping count of reading
     print(f"---- Top {top_x} Readings ---")
     print("{:<10} {:<15}".format('Reading','Count'))
