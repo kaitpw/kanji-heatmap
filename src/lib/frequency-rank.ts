@@ -139,35 +139,112 @@ export const frequencyRankLabels: Record<keyof KanjiInfoFrequency, string> = {
   jisho: "Jisho",
 };
 
+const kanji_freq_desc =
+  "This kanji usage frequency by Dmitry Shpika was built from sources that represent different " +
+  "styles (journalistic, academic, literary) from 3.7k news articles, 100k Wikipedia articles and 17k books. Doc count " +
+  "measures how many documents the kanji appears in, while char count measures how many times it appears in the source.";
+const kanji_freq_links = ["https://scriptin.github.io/kanji-frequency/"];
+const ultimate_kanji_desc =
+  "This kanji frequency list by Patrick Kandrac used data from 7 kanji databases such as " +
+  "Shibano's Google Kanji Data (133B kanji), Kanji Usage Frequency - KUF (850M kanji from Wikipedia, Aozora, e-news, " +
+  "Twitter), Matsushita's Character Database (MCD).";
+const ultimate_kanji_links = [
+  "https://www.reddit.com/r/LearnJapanese/comments/rji33t/ultimate_kanji_frequency_list/",
+  "https://www.researchgate.net/publication/357159664_2242_Kanji_Frequency_List_ver_11",
+  "https://docs.google.com/spreadsheets/d/1MBYfKPrlST3F51KIKbAlsGw1x4c_atuHfPwSSRN5sLs/edit?gid=496425456#gid=496425456",
+];
+
 export const FREQ_RANK_SOURCES_INFO: Record<
   FrequencyType,
   { description: string; links: string[] }
 > = {
   [K_RANK_NETFLIX]: {
     description:
-      "* Netflix Frequency is based on the list by OhTalkWho オタク (Dave Doebrick)",
+      "Netflix Frequency is based on the list by OhTalkWho オタク (Dave Doebrick)",
     links: [
       "https://www.youtube.com/watch?v=DwJWld8hW0M",
       "https://www.mediafire.com/folder/mvh6jhwj6xxo6/Frequency_Lists",
       "https://drive.google.com/file/d/1qHEfYHXjEp83i6PxxMlSxluFyQg2W8Up/view",
     ],
   },
-  [K_RANK_DRAMA_SUBTITLES]: { description: "", links: [] },
-  [K_RANK_NOVELS_5100]: { description: "", links: [] },
-  [K_RANK_TWITTER]: { description: "", links: [] },
-  [K_RANK_WIKIPEDIA_DOC]: { description: "", links: [] },
-  [K_RANK_WIKIPEDIA_CHAR]: { description: "", links: [] },
-  [K_RANK_ONLINE_NEWS_DOC]: { description: "", links: [] },
-  [K_RANK_ONLINE_NEWS_CHAR]: { description: "", links: [] },
-  [K_RANK_AOZORA_DOC]: { description: "", links: [] },
-  [K_RANK_AOZORA_CHAR]: { description: "", links: [] },
-  [K_RANK_GOOGLE]: { description: "", links: [] },
-  [K_RANK_KUF]: { description: "", links: [] },
-  [K_RANK_MCD]: { description: "", links: [] },
-  [K_RANK_BUNKA]: { description: "", links: [] },
-  [K_RANK_JISHO]: { description: "", links: [] },
-  [K_RANK_KD]: { description: "", links: [] },
-  [K_RANK_WKFR]: { description: "", links: [] },
+  [K_RANK_DRAMA_SUBTITLES]: {
+    description:
+      "This kanji frequency list by Chris Kempson is derived from 12,277 subtitles from Japanese drama, anime and films",
+    links: [
+      "https://github.com/chriskempson/japanese-subtitles-word-kanji-frequency-lists",
+      "https://github.com/Matchoo95/JP-Subtitles",
+    ],
+  },
+  [K_RANK_NOVELS_5100]: {
+    description:
+      "This kanji frequency list by Redditor Nukemarine is made from scanning 5100 novels.",
+    links: [
+      "https://drive.google.com/file/d/1zbClv0H5VgswEDAkVmF3ikiVnoi6yGsW/view",
+      "https://www.reddit.com/r/LearnJapanese/comments/fhx27j/comment/fkdyksq/",
+      "https://drive.google.com/file/d/1SWkufrYEY8Xyyjpt_g-s1Ygqt_XzkHGK/view",
+    ],
+  },
+  [K_RANK_TWITTER]: {
+    description:
+      "This kanji frequency list by Dmitry Shpika was derived from Twitter messages collected by a bot " +
+      "last June 2015. It processed a total of ~10M kanji.",
+    links: [
+      "https://github.com/scriptin/kanji-frequency/tree/master/data2015",
+      "https://github.com/scriptin/kanji-frequency/blob/master/data2015/data/twitter.json",
+    ],
+  },
+  [K_RANK_WIKIPEDIA_DOC]: {
+    description: kanji_freq_desc,
+    links: kanji_freq_links,
+  },
+  [K_RANK_WIKIPEDIA_CHAR]: {
+    description: kanji_freq_desc,
+    links: kanji_freq_links,
+  },
+  [K_RANK_ONLINE_NEWS_DOC]: {
+    description: kanji_freq_desc,
+    links: kanji_freq_links,
+  },
+  [K_RANK_ONLINE_NEWS_CHAR]: {
+    description: kanji_freq_desc,
+    links: kanji_freq_links,
+  },
+  [K_RANK_AOZORA_DOC]: {
+    description: kanji_freq_desc,
+    links: kanji_freq_links,
+  },
+  [K_RANK_AOZORA_CHAR]: {
+    description: kanji_freq_desc,
+    links: kanji_freq_links,
+  },
+  [K_RANK_GOOGLE]: {
+    description: ultimate_kanji_desc,
+    links: ultimate_kanji_links,
+  },
+  [K_RANK_KUF]: {
+    description: ultimate_kanji_desc,
+    links: ultimate_kanji_links,
+  },
+  [K_RANK_MCD]: {
+    description: ultimate_kanji_desc,
+    links: ultimate_kanji_links,
+  },
+  [K_RANK_BUNKA]: {
+    description: ultimate_kanji_desc,
+    links: ultimate_kanji_links,
+  },
+  [K_RANK_JISHO]: {
+    description: ultimate_kanji_desc,
+    links: ultimate_kanji_links,
+  },
+  [K_RANK_KD]: {
+    description: ultimate_kanji_desc,
+    links: ultimate_kanji_links,
+  },
+  [K_RANK_WKFR]: {
+    description: ultimate_kanji_desc,
+    links: ultimate_kanji_links,
+  },
   None: { description: "", links: [] },
 };
 
