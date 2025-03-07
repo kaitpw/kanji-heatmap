@@ -51,7 +51,7 @@ export const StrokeAnimation = ({ kanji }: { kanji: string }) => {
         }}
         variant={"outline"}
       >
-        Play <Play />
+        Write <Play />
       </Button>
 
       <div className={CONTAINER_CN} style={{ height: SVG_SIZE }}>

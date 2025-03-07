@@ -5,9 +5,8 @@ import { InfoIcon } from "lucide-react";
 import { GenericPopover } from "@/components/common/GenericPopover";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import {
-  freqCategoryOpacity,
   frequencyRankLabels,
-  getFreqCategory,
+  getFreqCnByRank,
   inverseFreqMap,
 } from "@/lib/frequency-rank";
 import { FreqRankTypeInfo } from "@/components/common/FreqRankTypeInfo";
@@ -21,31 +20,35 @@ export const FrequencyInfo = ({
     return <div className="p-4"> No frequency rank information available.</div>;
   }
 
-  const keys = Object.keys(freqRankInfo).filter((item) => {
-    const rank = freqRankInfo[item as keyof KanjiInfoFrequency];
-    return rank == null || rank == -1 ? false : true;
-  });
   return (
     <>
       <Table className="my-4">
         <TableBody>
-          {keys.map((item) => {
+          {Object.keys(freqRankInfo).map((item) => {
             const rank = freqRankInfo[item as keyof KanjiInfoFrequency];
             const label = frequencyRankLabels[item as keyof KanjiInfoFrequency];
             const progress =
-              (Math.max(KANJI_COUNT - rank, 0) * 100) / KANJI_COUNT;
-            const freqRankCategory = getFreqCategory(rank);
+              rank === -1
+                ? 0
+                : (Math.max(KANJI_COUNT - rank, 0) * 100) / KANJI_COUNT;
 
             return (
               <TableRow key={item} className="my-1 text-left p-0">
                 <TableCell className="p-0">
                   <GenericPopover
                     trigger={
-                      <button className="text-left text-xs flex justify-between !w-[200px]">
+                      <button className="text-left text-xs flex justify-between !w-[220px]">
                         <span className="font-extrabold flex items-center ">
                           {label} <InfoIcon className="ml-1" size={12} />
                         </span>{" "}
-                        <span className="mx-1 block"># {rank}</span>
+                        {rank !== -1 && (
+                          <span className="mx-1 block grow text-end">
+                            # {rank}
+                          </span>
+                        )}
+                        <span
+                          className={`h-3 w-3 block mx-1 ${getFreqCnByRank(rank)} `}
+                        />
                       </button>
                     }
                     content={
@@ -66,9 +69,6 @@ export const FrequencyInfo = ({
                     className={"h-1"}
                     value={progress}
                     primitiveCn={"!bg-[#fb02a8]"}
-                    primitiveStyle={{
-                      opacity: freqCategoryOpacity[freqRankCategory],
-                    }}
                   />
                 </TableCell>
               </TableRow>

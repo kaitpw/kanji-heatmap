@@ -39,5 +39,6 @@ function SpanBadge({ className, variant, ...props }: BadgeProps) {
   );
 }
 const badgeCn = cn(badgeVariants({ variant: "default" }));
+const badgeCnOutline = cn(badgeVariants({ variant: "outline" }));
 
-export { Badge, badgeVariants, badgeCn, SpanBadge };
+export { Badge, badgeVariants, badgeCn, badgeCnOutline, SpanBadge };

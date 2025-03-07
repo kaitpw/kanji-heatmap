@@ -14,19 +14,18 @@ export const FreqRankTypeInfo = ({
   defaultValue?: ReactNode;
 }) => {
   const sourceInfo = FREQ_RANK_SOURCES_INFO[value as FrequencyType];
-
   const hasValue = value !== "None" && sourceInfo?.description;
 
   if (!hasValue) {
     return <>{defaultValue}</>;
   }
   return (
-    <div className="text-sm mt-3">
+    <div className="text-sm mt-1">
       *{sourceInfo.description}.
       {sourceInfo.links && sourceInfo.links.length > 0 && (
         <>
-          {" "}
-          See related links: [
+          <br />
+          <span className="font-extrabold">See related links: </span>[
           {sourceInfo.links.map((link, index) => {
             return (
               <React.Fragment key={link}>

@@ -4,7 +4,8 @@ import {
   useKanjiInfo,
 } from "@/kanji-worker/kanji-worker-provider";
 import { HoverItemReturnData } from "@/lib/kanji-info-types";
-import { FrequencyBadges, JLPTBadge } from "./badges";
+import { FrequencyBadges } from "./FrequencyBadge";
+import { JLPTBadge } from "@/components/common/JLPTBadge";
 
 export const SmallKanjiCard = ({ kanji }: { kanji: string }) => {
   const data = useKanjiInfo(kanji, "hover-card");

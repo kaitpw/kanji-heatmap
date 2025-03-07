@@ -1,3 +1,4 @@
+import { ITEM_CARD_BG_CN, squareCn } from "./constants";
 import {
   KanjiExtendedInfo,
   KanjiInfoFrequency,
@@ -331,4 +332,11 @@ export const getFreqCategory = (freqRank?: number) => {
           : 300 < freqRank && freqRank <= 650
             ? 4
             : 5;
+};
+
+export const getFreqCnByRank = (rank: number) => {
+  const freqRankCategory = rank === -1 ? 0 : getFreqCategory(rank);
+
+  const bgColor = freqCategoryCn[freqRankCategory];
+  return `${ITEM_CARD_BG_CN} ${squareCn} ${bgColor}`;
 };
