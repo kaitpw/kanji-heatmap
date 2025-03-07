@@ -72,3 +72,6 @@ export const externalLinks: { name: string; url: (x: string) => string }[] = [
     url: (kanji: string) => `https://hanziyuan.net/#${kanji}`,
   },
 ];
+
+export const squareCn =
+  "rounded-sm border border-opacity-50 border-gray-500 dark:border-gray-600 dark:border-opacity-50";

@@ -5,8 +5,9 @@ import {
 import { HoverItemReturnData } from "@/lib/kanji-info-types";
 import { WordCard } from "./WordCard";
 import { SingleComponent } from "./SingleComponent";
-import { FrequencyBadges, JLPTBadge } from "./badges";
+import { FrequencyBadges } from "./FrequencyBadge";
 import { KanjiCardLayout } from "./CardLayout";
+import { JLPTBadge } from "@/components/common/JLPTBadge";
 
 const getHighlightIndex = (
   kanji: string,

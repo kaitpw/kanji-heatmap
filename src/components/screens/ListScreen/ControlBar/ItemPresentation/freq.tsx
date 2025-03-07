@@ -1,12 +1,10 @@
-import { ITEM_CARD_BG_CN } from "@/lib/constants";
+import { ITEM_CARD_BG_CN, squareCn } from "@/lib/constants";
 import { freqCategoryCn, freqCategoryCount } from "@/lib/frequency-rank";
 import { ReactNode } from "react";
 
 export const FreqSquare = ({ srOnly, cn }: { srOnly: string; cn: string }) => {
   return (
-    <div
-      className={`${cn} h-4 w-4 rounded-sm border border-opacity-50 border-gray-500 dark:border-gray-600 dark:border-opacity-50`}
-    >
+    <div className={`${cn} h-4 w-4 ${squareCn}`}>
       <span className="sr-only">{srOnly}</span>
     </div>
   );
