@@ -4,7 +4,6 @@ import BasicSelect from "@/components/common/BasicSelect";
 import * as wanakana from "wanakana";
 import { cn } from "@/lib/utils";
 import { SEARCH_TYPE_OPTIONS, SearchType } from "@/lib/settings";
-import { useKanjiSearchResult } from "@/kanji-worker/kanji-worker-provider";
 
 const INPUT_DEBOUNCE_TIME = 1000;
 
@@ -16,18 +15,6 @@ const SEARCH_ICON_CLASS =
 
 const SELECT_CLASS =
   "absolute right-1 top-1 w-26 h-7 bg-gray-100 dark:bg-gray-900";
-
-export const ItemCountBadge = () => {
-  const result = useKanjiSearchResult();
-  if (result.data == null) {
-    return <></>;
-  }
-  return (
-    <div className="px-2 rounded-lg bg-opacity-75 bg-white dark:bg-black border absolute top-[39px] text-xs font-extrabold">
-      {result.data?.length} items match your search filters
-    </div>
-  );
-};
 
 export const SearchInput = ({
   onSettle,
@@ -126,7 +113,6 @@ export const SearchInput = ({
         label="Search Type"
         isLabelSrOnly={true}
       />
-      <ItemCountBadge />
     </section>
   );
 };

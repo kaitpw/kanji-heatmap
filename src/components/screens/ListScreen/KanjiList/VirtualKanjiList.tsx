@@ -4,6 +4,7 @@ import { HoverKanji } from "../HoverItem";
 import VirtualList from "react-tiny-virtual-list";
 import { useVirtualListDims } from "./useVirtualDims";
 import { KanjiDrawer } from "../Drawer";
+import { URL_PARAMS } from "@/lib/constants";
 
 const KanjiListRaw = ({
   kanjiKeys = [],
@@ -17,11 +18,11 @@ const KanjiListRaw = ({
 
   const setOpenedKanji = useCallback(
     (kanji: string | null) => {
-      setSearchParams(kanji == null ? {} : { openedKanji: kanji });
+      setSearchParams(kanji == null ? {} : { [URL_PARAMS.openKanji]: kanji });
     },
     [setSearchParams]
   );
-  const openedKanji = searchParams.get("openedKanji");
+  const openedKanji = searchParams.get(URL_PARAMS.openKanji);
 
   const onDrawerClose = useCallback(() => {
     setSearchParams({});

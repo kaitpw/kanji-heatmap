@@ -15,3 +15,7 @@ export const TILE_SIZE = {
 };
 
 export const HEADER_HEIGHT = 100;
+
+export const URL_PARAMS = {
+  openKanji: "open-kanji",
+};

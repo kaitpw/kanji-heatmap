@@ -68,7 +68,7 @@ export function KanjiWorkerProvider({ children }: { children: ReactNode }) {
     requestWorker({ type: "kanji-main-map" }).then((r) => {
       const res = r as Record<string, KanjiMainInfo>;
       kanjiCacheRef.current = {};
-      Object.keys(res).map((item) => {
+      Object.keys(res ?? {}).map((item) => {
         const info = res[item];
         // I don't know why typescript cannot detect this
         if (kanjiCacheRef.current == null) {

@@ -3,13 +3,15 @@ import { useVirtualListDims } from "./useVirtualDims";
 import { useItemSettings } from "@/providers/item-settings-provider";
 import React from "react";
 
+const ESTIMATE_ITEM_COUNT = 125;
+
 const LoadingKanjisRaw = () => {
   const itemSettings = useItemSettings();
   // TODO: Generate count depending on window size
   const isCompact = itemSettings.cardType === "compact";
-  const dummy = 125;
+
   const { itemSize, width, listHeight, cols, itemNums } = useVirtualListDims(
-    dummy,
+    ESTIMATE_ITEM_COUNT,
     itemSettings.cardType
   );
 

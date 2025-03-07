@@ -28,7 +28,7 @@ export const ItemPresentationSettingsContent = () => {
       </h1>
       <Separator className="mb-2" />
       <section>
-        <H2>Card Type</H2>
+        <H2>Button Type</H2>
         <ItemTypeSwitch
           value={cardState.cardType !== "compact"}
           setValue={(v) => {

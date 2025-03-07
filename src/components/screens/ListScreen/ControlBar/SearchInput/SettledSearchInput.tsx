@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect } from "react";
 import { useSearchSettingsDispatch } from "@/providers/search-settings-provider";
 import { SearchInput } from "./SearchInput";
 import { SearchType } from "@/lib/settings";
+import { ItemCountBadge } from "./ItemCountBadge";
 
 export const SettledSearchInput = () => {
   const dispatch = useSearchSettingsDispatch();
@@ -25,10 +26,13 @@ export const SettledSearchInput = () => {
   }, [dispatch]);
 
   return (
-    <SearchInput
-      onSettle={(text, searchType) => {
-        dispatch("textSearch", { text, type: searchType as SearchType });
-      }}
-    />
+    <>
+      <SearchInput
+        onSettle={(text, searchType) => {
+          dispatch("textSearch", { text, type: searchType as SearchType });
+        }}
+      />
+      <ItemCountBadge />
+    </>
   );
 };

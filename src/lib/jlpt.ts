@@ -54,7 +54,7 @@ export const JLPTListItems: Record<
 
 const jlpts: JLTPTtypes[] = ["n1", "n2", "n3", "n4", "n5"];
 const duration: string[] = ["duration-1000", "duration-700"];
-const delay: string[] = ["delay-500", "delay-1000"];
+const delay: string[] = ["", "delay-500", "delay-1000"];
 export const randomCn = () => {
   const a = selectRandom(jlpts);
   const b = selectRandom(jlpts);
