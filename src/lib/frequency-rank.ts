@@ -100,6 +100,25 @@ export const freqMap: Record<
   None: undefined,
 };
 
+type FreqMapInverse = Record<keyof KanjiInfoFrequency, FrequencyType>;
+export const inverseFreqMap = Object.keys(freqMap).reduce((acc, item) => {
+  const infoFreq = item as FrequencyType;
+
+  if (item == null) {
+    return acc;
+  }
+
+  const type = freqMap[infoFreq];
+
+  if (type == null) {
+    return acc;
+  }
+
+  acc[type] = infoFreq;
+
+  return acc;
+}, {} as FreqMapInverse);
+
 export const frequencyRankLabels: Record<keyof KanjiInfoFrequency, string> = {
   netflix: "Netflix",
   twitter: "Twitter",
@@ -107,7 +126,7 @@ export const frequencyRankLabels: Record<keyof KanjiInfoFrequency, string> = {
   kd: "KD",
   wikiChar: "Wikipedia Characters",
   wikiDoc: "Wikipedia Documents",
-  aozoraChar: "Aozora Chars",
+  aozoraChar: "Aozora Characters",
   aozoraDoc: "Aozora Documents",
   onlineNewsChar: "Online News Characters",
   onlineNewsDoc: "Online News Documents",
@@ -161,32 +180,34 @@ export const getFrequency = (freq: FrequencyType, info: KanjiExtendedInfo) => {
 
 type OptionLabelType = Record<SortKey, string>;
 
-export const OPTION_LABELS: OptionLabelType = Object.keys(freqMap).reduce(
-  (acc: OptionLabelType, option: string) => {
-    const name = freqMap[option as FrequencyType];
+export const OPTION_LABELS: OptionLabelType = Object.keys({
+  ...nonFreqOptionLabels,
+  ...freqMap,
+}).reduce((acc: OptionLabelType, option: string) => {
+  const name = freqMap[option as FrequencyType];
 
-    if (name != null) {
-      const label = frequencyRankLabels[name];
-      acc[option as FrequencyType] = label;
-      return acc;
-    }
-
-    const label = nonFreqOptionLabels[option as SortGroup | SortNonGroup];
-
-    if (label == null) {
-      acc[option as SortGroup | SortNonGroup] = label;
-      return acc;
-    }
-
+  if (name != null) {
+    const label = frequencyRankLabels[name];
+    acc[option as FrequencyType] = label;
     return acc;
-  },
-  {} as OptionLabelType
-);
+  }
 
-export const FREQUENCY_RANK_FILTER_OPTIONS: { value: string; label: string }[] =
-  FREQ_RANK_OPTIONS.map((optionValue) => {
-    return { value: optionValue, label: OPTION_LABELS[optionValue] ?? "None" };
-  });
+  const label = nonFreqOptionLabels[option as SortGroup | SortNonGroup];
+
+  if (label != null) {
+    acc[option as SortGroup | SortNonGroup] = label;
+    return acc;
+  }
+
+  return acc;
+}, {} as OptionLabelType);
+
+export const FREQUENCY_RANK_FILTER_OPTIONS: {
+  value: FrequencyType;
+  label: string;
+}[] = FREQ_RANK_OPTIONS.map((optionValue) => {
+  return { value: optionValue, label: OPTION_LABELS[optionValue] ?? "None" };
+});
 
 export const SORT_ORDER_SELECT: { value: SortKey; label: string }[] = [
   ...GROUP_OPTIONS,
@@ -195,7 +216,7 @@ export const SORT_ORDER_SELECT: { value: SortKey; label: string }[] = [
 ].map((optionValue) => {
   return {
     value: optionValue,
-    label: OPTION_LABELS[optionValue as FrequencyType] ?? "None",
+    label: OPTION_LABELS[optionValue as SortKey] ?? "None",
   };
 });
 

@@ -8,7 +8,9 @@ import {
   freqCategoryOpacity,
   frequencyRankLabels,
   getFreqCategory,
+  inverseFreqMap,
 } from "@/lib/frequency-rank";
+import { FreqRankTypeInfo } from "@/components/common/FreqRankTypeInfo";
 
 export const FrequencyInfo = ({
   freqRankInfo,
@@ -32,7 +34,6 @@ export const FrequencyInfo = ({
             const label = frequencyRankLabels[item as keyof KanjiInfoFrequency];
             const progress =
               (Math.max(KANJI_COUNT - rank, 0) * 100) / KANJI_COUNT;
-
             const freqRankCategory = getFreqCategory(rank);
 
             return (
@@ -47,7 +48,16 @@ export const FrequencyInfo = ({
                         <span className="mx-1 block"># {rank}</span>
                       </button>
                     }
-                    content={<div className="p-4"> More information here</div>}
+                    content={
+                      <div className="p-2 w-72">
+                        <FreqRankTypeInfo
+                          value={
+                            inverseFreqMap[item as keyof KanjiInfoFrequency]
+                          }
+                          defaultValue={"No Information available."}
+                        />
+                      </div>
+                    }
                   />
                 </TableCell>
 

@@ -4,46 +4,8 @@ import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@radix-ui/react-select";
 import { RomajiBadge } from "@/components/common/RomajiBadge";
-
-const externalLinks: { name: string; url: (x: string) => string }[] = [
-  {
-    name: "Wanikani",
-    url: (kanji: string) => `https://www.wanikani.com/kanji/${kanji}`,
-  },
-  {
-    name: "Kanshudo",
-    url: (kanji: string) => `https://www.kanshudo.com/kanji/${kanji}`,
-  },
-  {
-    name: "The Kanji Map",
-    url: (kanji: string) => `https://thekanjimap.com/${kanji}`,
-  },
-  {
-    name: "Kanji Alive",
-    url: (kanji: string) => `https://app.kanjialive.com/${kanji}`,
-  },
-  {
-    name: "Hochanh",
-    url: (kanji: string) => `https://hochanh.github.io/rtk/${kanji}/index.html`,
-  },
-  { name: "JPDB", url: (kanji: string) => `https://jpdb.io/kanji/${kanji}#a` },
-  {
-    name: "Jisho",
-    url: (kanji: string) => `https://jisho.org/search/${kanji}%20%23kanji`,
-  },
-  {
-    name: "Kai Kanji Api",
-    url: (kanji: string) => `https://kai.kanjiapi.dev/#!/${kanji}`,
-  },
-  {
-    name: "Jotoba",
-    url: (kanji: string) => `https://jotoba.de/search/1/${kanji}?l=en-US`,
-  },
-  {
-    name: "Kanji Garden",
-    url: (kanji: string) => `https://kanji.garden/kanji?kanji=${kanji}`,
-  },
-];
+import { ExternalTextLink } from "@/components/common/ExternalTextLink";
+import { externalLinks } from "@/lib/constants";
 
 const hasData = (data?: number) => data != null && data !== -1;
 
@@ -123,14 +85,7 @@ export const General = ({ kanji }: { kanji: string }) => {
           {externalLinks.map((item) => {
             return (
               <li key={item.name}>
-                <a
-                  className="underline hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md p-1 mx-1"
-                  href={item.url(kanji)}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {item.name}
-                </a>
+                <ExternalTextLink href={item.url(kanji)} text={item.name} />
               </li>
             );
           })}

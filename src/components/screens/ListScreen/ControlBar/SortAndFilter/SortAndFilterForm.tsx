@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useDeferredValue, useState } from "react";
 import { FilterSectionLayout } from "./FilterContent/FilterContentLayout";
-import { FrequencyRankDataSource } from "./FilterContent/FrequencyRankDataSource";
+import { FrequencyRankDataSource } from "../../../../common/FrequencyRankDataSource";
 import { JLPTSelector } from "./FilterContent/JLPTSelector";
 import {
   FrequencyType,
@@ -17,6 +17,7 @@ import { StrokeCountField } from "./FilterContent/StrokeCountField";
 import { FilterSettings, SearchSettings, SortSettings } from "@/lib/settings";
 import { useKanjiSearchCount } from "@/kanji-worker/kanji-worker-provider";
 import { isEqualFilters, shouldShowAllKanji } from "./SortContent/helpers";
+import { FreqRankTypeInfo } from "@/components/common/FreqRankTypeInfo";
 
 const disclaimer =
   "Given your selected data source, Kanji Characters with no available rank  are excluded.";
@@ -65,8 +66,8 @@ const ItemCountComputed = ({ settings }: { settings: SearchSettings }) => {
   return (
     <>
       {textSuffix} A total of{" "}
-      <span className="font-extrabold mx-1">{data.data}</span> match your
-      applied filters. <br />
+      <span className="font-extrabold mx-1">{data.data}</span> Kanji characters
+      match your applied filters. <br />
       {disclaimer}
     </>
   );
@@ -129,44 +130,50 @@ export const SortAndFilterSettingsForm = ({
       >
         <SortOrderSectionLayout
           primaryField={
-            <BasicSelect
-              value={sortValues.primary}
-              onChange={(newValue) => {
-                const isGroup = (GROUP_OPTIONS as readonly string[]).includes(
-                  newValue
-                );
+            <>
+              <BasicSelect
+                value={sortValues.primary}
+                onChange={(newValue) => {
+                  const isGroup = (GROUP_OPTIONS as readonly string[]).includes(
+                    newValue
+                  );
 
-                setSortValues((prev) => {
-                  return {
-                    ...prev,
-                    primary: newValue as SortKey,
-                    secondary: isGroup ? prev.secondary : "None",
-                  };
-                });
-              }}
-              triggerCN={"h-8 w-full"}
-              options={SORT_ORDER_SELECT}
-              label="Primary"
-              isLabelSrOnly={false}
-            />
+                  setSortValues((prev) => {
+                    return {
+                      ...prev,
+                      primary: newValue as SortKey,
+                      secondary: isGroup ? prev.secondary : "None",
+                    };
+                  });
+                }}
+                triggerCN={"h-8 w-full"}
+                options={SORT_ORDER_SELECT}
+                label="Primary"
+                isLabelSrOnly={false}
+              />
+              <FreqRankTypeInfo value={sortValues.primary} />
+            </>
           }
           secondaryField={
             sortValues.secondary &&
             isGroup && (
-              <BasicSelect
-                value={sortValues.secondary}
-                onChange={(newValue) =>
-                  setSortValues((prev) => {
-                    return { ...prev, secondary: newValue as SortKey };
-                  })
-                }
-                triggerCN={"h-8 w-full"}
-                options={SORT_ORDER_SELECT.filter((item) => {
-                  return item.value !== sortValues.primary;
-                })}
-                label="Secondary"
-                isLabelSrOnly={false}
-              />
+              <>
+                <BasicSelect
+                  value={sortValues.secondary}
+                  onChange={(newValue) =>
+                    setSortValues((prev) => {
+                      return { ...prev, secondary: newValue as SortKey };
+                    })
+                  }
+                  triggerCN={"h-8 w-full"}
+                  options={SORT_ORDER_SELECT.filter((item) => {
+                    return item.value !== sortValues.primary;
+                  })}
+                  label="Secondary"
+                  isLabelSrOnly={false}
+                />
+                <FreqRankTypeInfo value={sortValues.secondary} />
+              </>
             )
           }
           additionalInfo={
