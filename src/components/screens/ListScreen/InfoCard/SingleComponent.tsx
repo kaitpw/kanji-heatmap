@@ -8,8 +8,14 @@ export const SingleComponent = ({
 }: {
   kanji: string;
   keyword: string;
-  phonetic?: string;
+  phonetic?: string | string[];
 }) => {
+  const phonetics: string[] =
+    typeof phonetic === "string"
+      ? [phonetic]
+      : phonetic == null
+        ? []
+        : phonetic;
   return (
     <GenericPopover
       trigger={
@@ -22,7 +28,9 @@ export const SingleComponent = ({
       content={
         <div className="text-xs uppercase p-2 font-bold">
           <span className="block">{keyword}</span>{" "}
-          {phonetic && <RomajiBadge kana={phonetic} />}{" "}
+          {phonetics.map((phonetic) => (
+            <RomajiBadge key={phonetic} kana={phonetic} />
+          ))}
         </div>
       }
     />

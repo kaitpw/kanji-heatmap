@@ -55,18 +55,21 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
         </div>
       }
       firstWord={
-        <WordCard
-          word={info.mainVocab.first.word}
-          definition={info.mainVocab.first.meaning}
-          spacedKana={
-            info.vocabInfo?.first?.spacedKana ?? info.mainVocab.first.spacedKana
-          }
-          highlightIndex={getHighlightIndex(kanji, info?.vocabInfo?.first)}
-          wordKanjis={info.mainVocab.first.partsList}
-        />
+        info.mainVocab?.first && (
+          <WordCard
+            word={info.mainVocab.first.word}
+            definition={info.mainVocab.first.meaning}
+            spacedKana={
+              info.vocabInfo?.first?.spacedKana ??
+              info.mainVocab.first.spacedKana
+            }
+            highlightIndex={getHighlightIndex(kanji, info?.vocabInfo?.first)}
+            wordKanjis={info.mainVocab.first.partsList}
+          />
+        )
       }
       secondWord={
-        info.mainVocab.second && (
+        info.mainVocab?.second && (
           <WordCard
             word={info.mainVocab.second.word}
             definition={info.mainVocab.second.meaning}
@@ -88,7 +91,6 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
                   key={item.part}
                   kanji={item.part}
                   keyword={item.keyword}
-                  phonetic={item.phonetic}
                 />
               );
             })}

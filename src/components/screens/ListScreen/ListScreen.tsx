@@ -1,7 +1,6 @@
 import { useIsKanjiWorkerReady } from "@/kanji-worker/kanji-worker-provider";
 import { ControlBar } from "./ControlBar/";
 import { SuspendedKanjiList } from "./KanjiList";
-import { KanjiFunctionalityProvider } from "@/providers/kanji-functionality-provider";
 import LoadingKanjis from "./KanjiList/LoadingKanjis";
 import { ReactNode } from "react";
 
@@ -19,7 +18,8 @@ const Layout = ({ children }: { children: ReactNode }) => {
     </>
   );
 };
-const ListScreenWithLoading = () => {
+
+export const ListScreen = () => {
   const ready = useIsKanjiWorkerReady();
 
   if (!ready) {
@@ -36,13 +36,5 @@ const ListScreenWithLoading = () => {
     <Layout>
       <SuspendedKanjiList />
     </Layout>
-  );
-};
-
-export const ListScreen = () => {
-  return (
-    <KanjiFunctionalityProvider>
-      <ListScreenWithLoading />
-    </KanjiFunctionalityProvider>
   );
 };

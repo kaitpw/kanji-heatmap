@@ -11,6 +11,7 @@ import { NavigationListItem, NavLayout } from "@/components/common/nav";
 import Header from "@/components/common/Header";
 import { ThemeProvider } from "@/providers/theme-provider";
 import React from "react";
+import { KanjiFunctionalityProvider } from "./providers/kanji-functionality-provider";
 const navItems: {
   href: string;
   title: string;
@@ -70,19 +71,21 @@ const App = () => (
   <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
     <Header nav={<Nav />} />
     <main>
-      <Switch>
-        {navItems.map((item) => {
-          return (
-            <React.Fragment key={item.href}>
-              <Route path={item.href} component={item.component} />
-              <Route path={`${item.href}/*`}>
-                <Redirect to={item.href} replace />
-              </Route>
-            </React.Fragment>
-          );
-        })}
-        <Redirect to="/" replace />
-      </Switch>
+      <KanjiFunctionalityProvider>
+        <Switch>
+          {navItems.map((item) => {
+            return (
+              <React.Fragment key={item.href}>
+                <Route path={item.href} component={item.component} />
+                <Route path={`${item.href}/*`}>
+                  <Redirect to={item.href} replace />
+                </Route>
+              </React.Fragment>
+            );
+          })}
+          <Redirect to="/" replace />
+        </Switch>
+      </KanjiFunctionalityProvider>
     </main>
   </ThemeProvider>
 );
