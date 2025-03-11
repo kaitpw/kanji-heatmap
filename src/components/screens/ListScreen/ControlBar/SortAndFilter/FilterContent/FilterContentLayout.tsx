@@ -20,7 +20,7 @@ export const FilterSectionLayout = ({
         <div className="w-full md:w-1/2 pb-8">{strokeCountField}</div>
         <div className="w-full md:w-1/2">{jlptField}</div>
       </div>
-      <div className="py-2 mt-4 md:mt-0 uppercase text-xs">
+      <div className="py-2 mt-4 md:mt-0 uppercase text-xs font-extrabold">
         Frequency Ranking
       </div>
       <div className="flex w-full flex-col md:flex-row md:space-x-4">

@@ -22,7 +22,12 @@ const BasicSelect = ({
   onChange: (value: string) => void;
   triggerCN?: string;
   selectItemCNFunc?: (v: string) => string;
-  options: { label: ReactNode; value: string; disabled?: boolean }[];
+  options: {
+    label: ReactNode;
+    value: string;
+    disabled?: boolean;
+    description?: string;
+  }[];
   label: string;
   isLabelSrOnly?: boolean;
 }) => {
@@ -41,20 +46,27 @@ const BasicSelect = ({
         {label}
       </Label>
       <Select value={value} onValueChange={onChange}>
-        <SelectTrigger className={triggerCN} id={`select-${id}`}>
-          <SelectValue />
+        <SelectTrigger className={`w-full ${triggerCN}`} id={`select-${id}`}>
+          <SelectValue>
+            {options.find((option) => option.value === value)?.label}
+          </SelectValue>
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="w-96">
           <SelectGroup>
             {options.map((option) => {
               return (
                 <SelectItem
-                  className={selectItemCNFunc?.(option.value)}
+                  className={`block w-96 text-left ${selectItemCNFunc?.(option.value)}`}
                   key={option.value}
                   value={option.value}
                   disabled={option.disabled}
                 >
-                  {option.label}
+                  <span className="block font-extrabold w-full">
+                    {option.label}
+                  </span>
+                  {option.description && (
+                    <span className="block text-xs">{option.description}</span>
+                  )}
                 </SelectItem>
               );
             })}

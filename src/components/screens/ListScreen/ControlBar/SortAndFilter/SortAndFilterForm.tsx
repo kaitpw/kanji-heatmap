@@ -4,6 +4,7 @@ import { FilterSectionLayout } from "./FilterContent/FilterContentLayout";
 import { FrequencyRankDataSource } from "../../../../common/FrequencyRankDataSource";
 import { JLPTSelector } from "./FilterContent/JLPTSelector";
 import {
+  FREQ_RANK_SOURCES_INFO,
   FrequencyType,
   GROUP_OPTIONS,
   SORT_ORDER_SELECT,
@@ -20,7 +21,7 @@ import { isEqualFilters, shouldShowAllKanji } from "./SortContent/helpers";
 import { FreqRankTypeInfo } from "@/components/common/FreqRankTypeInfo";
 
 const disclaimer =
-  "Given your selected data source, Kanji Characters with no available rank  are excluded.";
+  "Given your selected frequency data source, Kanji Characters with no available rank  are excluded.";
 
 const AllMatchMsg = () => {
   return (
@@ -66,8 +67,9 @@ const ItemCountComputed = ({ settings }: { settings: SearchSettings }) => {
   return (
     <>
       {textSuffix} A total of{" "}
-      <span className="font-extrabold mx-1">{data.data}</span> Kanji characters
-      match your applied filters. <br />
+      <span className="font-extrabold mx-1">{data.data}</span> of
+      <span className="font-extrabold mx-1"> {KANJI_COUNT}</span>
+      Kanji characters match your applied filters. <br />
       {disclaimer}
     </>
   );
@@ -153,7 +155,17 @@ export const SortAndFilterSettingsForm = ({
                   });
                 }}
                 triggerCN={"h-8 w-full"}
-                options={SORT_ORDER_SELECT}
+                options={SORT_ORDER_SELECT.map((item) => {
+                  const freqDesc =
+                    FREQ_RANK_SOURCES_INFO[item.value as FrequencyType]
+                      ?.description;
+                  const label = freqDesc ? `${item.label} Rank` : item.label;
+                  return {
+                    ...item,
+                    label,
+                    description: freqDesc,
+                  };
+                })}
                 label="Primary"
                 isLabelSrOnly={false}
               />
@@ -174,6 +186,16 @@ export const SortAndFilterSettingsForm = ({
                   triggerCN={"h-8 w-full"}
                   options={SORT_ORDER_SELECT.filter((item) => {
                     return item.value !== sortValues.primary;
+                  }).map((item) => {
+                    const freqDesc =
+                      FREQ_RANK_SOURCES_INFO[item.value as FrequencyType]
+                        ?.description;
+                    const label = freqDesc ? `${item.label} Rank` : item.label;
+                    return {
+                      ...item,
+                      label,
+                      description: freqDesc,
+                    };
                   })}
                   label="Secondary"
                   isLabelSrOnly={false}

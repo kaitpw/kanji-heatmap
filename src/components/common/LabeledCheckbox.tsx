@@ -13,7 +13,7 @@ export const LabeledCheckbox = ({
   const checkboxId = useId();
   const myId = `checkbox-${checkboxId}`;
   return (
-    <div className="flex items-center space-x-2">
+    <div className="flex items-start space-x-2">
       <Checkbox
         id={myId}
         checked={value}
