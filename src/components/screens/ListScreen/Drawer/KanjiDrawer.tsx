@@ -21,7 +21,7 @@ export const Layout = ({
 }) => {
   return (
     <div className="w-full flex flex-col overflow-y-scroll overflow-x-hidden md:flex-row md:space-x-1 ">
-      <div className="pl-2 md:sticky md:top-[0px] md:left-[0px] md:min-w-96 md:max-w-96 md:w-96">
+      <div className="px-1 md:sticky md:top-[0px] md:left-[0px] md:min-w-96 md:max-w-96 md:w-96">
         {first}
       </div>
       <div className="grow">{second}</div>
@@ -40,8 +40,9 @@ export function KanjiDrawerRaw({
 }) {
   const ready = useIsKanjiWorkerReady();
 
+  // need autoFocus=true see also: https://github.com/emilkowalski/vaul/issues/517#issuecomment-2571619213
   return (
-    <Drawer open={isOpen} onClose={onClose}>
+    <Drawer open={isOpen} onClose={onClose} autoFocus={true}>
       <DrawerContent
         className="!select-text h-[95svh] !duration-150"
         aria-hidden="true"

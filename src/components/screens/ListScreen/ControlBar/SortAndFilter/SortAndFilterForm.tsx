@@ -11,7 +11,7 @@ import {
 } from "@/lib/frequency-rank";
 import { SortAdditionalInfo, SortOrderSectionLayout } from "./SortOrderLayout";
 import BasicSelect from "@/components/common/BasicSelect";
-import { KANJI_COUNT } from "@/lib/constants";
+import { KANJI_COUNT, MAX_FREQ_RANK, MAX_STROKE_COUNT } from "@/lib/constants";
 import { FrequencyRankingRangeField } from "./FilterContent/FrequencyRankingRangeField";
 import { StrokeCountField } from "./FilterContent/StrokeCountField";
 import { FilterSettings, SearchSettings, SortSettings } from "@/lib/settings";
@@ -139,10 +139,16 @@ export const SortAndFilterSettingsForm = ({
                   );
 
                   setSortValues((prev) => {
+                    const newSecondary =
+                      newValue === prev.secondary
+                        ? "None"
+                        : isGroup
+                          ? prev.secondary
+                          : "None";
                     return {
                       ...prev,
                       primary: newValue as SortKey,
-                      secondary: isGroup ? prev.secondary : "None",
+                      secondary: newSecondary,
                     };
                   });
                 }}
@@ -195,7 +201,10 @@ export const SortAndFilterSettingsForm = ({
                 setFilterValues((prev) => {
                   return {
                     ...prev,
-                    strokeRange: { min: val[0] ?? 0, max: val[1] ?? 2500 },
+                    strokeRange: {
+                      min: val[0] ?? 0,
+                      max: val[1] ?? MAX_STROKE_COUNT,
+                    },
                   };
                 });
               }}
@@ -223,7 +232,7 @@ export const SortAndFilterSettingsForm = ({
                       source: val as FrequencyType,
                       rankRange:
                         val === "None"
-                          ? { min: 1, max: KANJI_COUNT }
+                          ? { min: 1, max: MAX_FREQ_RANK }
                           : prev.freq.rankRange,
                     },
                   };
@@ -245,8 +254,8 @@ export const SortAndFilterSettingsForm = ({
                       freq: {
                         ...prev.freq,
                         rankRange: {
-                          min: val[0] ?? 0,
-                          max: val[1] ?? KANJI_COUNT,
+                          min: val[0] ?? 1,
+                          max: val[1] ?? MAX_FREQ_RANK,
                         },
                       },
                     };

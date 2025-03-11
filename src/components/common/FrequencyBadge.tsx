@@ -19,7 +19,7 @@ export const FrequencyBadge = ({
   return (
     <GenericPopover
       trigger={
-        <button className={`${badgeCnOutline} text-nowrap py-1`}>
+        <button className={`${badgeCnOutline} text-nowrap py-1 m-1`}>
           <span className={`block  h-3 w-3 ${getFreqCnByRank(rank)} mr-1`}>
             {" "}
           </span>

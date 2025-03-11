@@ -20,12 +20,12 @@ export const FreqRankTypeInfo = ({
     return <>{defaultValue}</>;
   }
   return (
-    <div className="text-sm mt-1">
-      *{sourceInfo.description}.
+    <div className="text-sm mt-1 text-left px-3">
+      *{sourceInfo.description}
       {sourceInfo.links && sourceInfo.links.length > 0 && (
         <>
           <br />
-          <span className="font-extrabold">See related links: </span>[
+          <span className="font-extrabold">Visit related link(s): </span>[
           {sourceInfo.links.map((link, index) => {
             return (
               <React.Fragment key={link}>

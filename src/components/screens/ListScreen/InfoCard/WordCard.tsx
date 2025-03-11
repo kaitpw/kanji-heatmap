@@ -3,7 +3,9 @@ import { HiraganaWord } from "./HiraganaWord";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@radix-ui/react-separator";
 import { KanjiLink } from "./KanjiLink";
+import { useState } from "react";
 
+const MAX_LEN = 200;
 export const WordCard = ({
   word,
   spacedKana,
@@ -17,6 +19,9 @@ export const WordCard = ({
   definition: string;
   wordKanjis: { kanji: string; keyword: string }[];
 }) => {
+  const [showMore, setShowMore] = useState(false);
+  const canSeeAll = definition.length <= MAX_LEN;
+
   return (
     <>
       <HiraganaWord rawKana={spacedKana} highlightIndex={highlightIndex} />
@@ -30,9 +35,7 @@ export const WordCard = ({
           </Button>
         }
         content={
-          <div className="w-48">
-            <div className="text-xs p-3">{definition}</div>
-            <Separator />
+          <div className="w-56">
             <div className="flex p-1 flex-wrap justify-center">
               {wordKanjis.map((item, index) => {
                 return (
@@ -43,6 +46,25 @@ export const WordCard = ({
                   />
                 );
               })}
+            </div>
+            <Separator className="border-dotted border" />
+            <div className="text-xs py-2 px-3 text-start">
+              {canSeeAll || showMore ? (
+                <>{definition}</>
+              ) : (
+                <>{definition.slice(0, MAX_LEN)}... </>
+              )}
+              <br />
+              {!canSeeAll && (
+                <button
+                  className="underline font-bold mx-2 my-1"
+                  onClick={() => {
+                    setShowMore((prev) => !prev);
+                  }}
+                >
+                  {showMore ? <>See less</> : <>See more</>}
+                </button>
+              )}
             </div>
           </div>
         }

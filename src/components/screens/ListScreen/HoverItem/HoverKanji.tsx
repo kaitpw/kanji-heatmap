@@ -7,9 +7,10 @@ import {
 import React, { useCallback } from "react";
 import { ResponsiveKanjiCard } from "../InfoCard";
 import { KanjiItemButton } from "./KanjiItemButton";
+import { useIsTouchDevice } from "@/hooks/use-is-touch-device";
 
-const HOVER_OPEN_DELAY = 500;
-const HOVER_CLOSE_DELAY = 500;
+const HOVER_OPEN_DELAY = 400;
+const HOVER_CLOSE_DELAY = 200;
 
 const HoverMeRaw = ({
   trigger,
@@ -24,13 +25,15 @@ const HoverMeRaw = ({
 }) => {
   const openTimeoutRef = React.useRef<NodeJS.Timeout>();
   const closeTimeoutRef = React.useRef<NodeJS.Timeout>();
+  const isTouchDevice = useIsTouchDevice();
 
   const handleOpen = useCallback(() => {
+    if (isTouchDevice) return;
     clearTimeout(closeTimeoutRef.current);
     openTimeoutRef.current = setTimeout(() => {
       setOpen(trigger);
     }, HOVER_OPEN_DELAY);
-  }, [setOpen, trigger]);
+  }, [isTouchDevice, setOpen, trigger]);
 
   const handleClose = useCallback(() => {
     clearTimeout(openTimeoutRef.current);
@@ -55,8 +58,8 @@ const HoverMeRaw = ({
           />
         </HoverCardTrigger>
         <HoverCardContent
-          className="p-1 w-52 [@media(min-height:800px)]:[@media(min-width:400px)]:w-[392px] relative"
-          collisionPadding={{ top: 100, left: 10, right: 10 }}
+          className="p-1 relative w-full"
+          collisionPadding={{ top: 10, left: 10, right: 10 }}
         >
           <HoverCardArrow />
           <ResponsiveKanjiCard kanji={trigger} />

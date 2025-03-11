@@ -28,10 +28,10 @@ export const SortAndFilterSettingsDialog = ({
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <Dialog open={isOpen} onOpenChange={(state) => setIsOpen(state)}>
-      <DialogTrigger asChild>
-        <HoverCard openDelay={0} closeDelay={0}>
-          <HoverCardTrigger asChild>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <HoverCard openDelay={0} closeDelay={0}>
+        <HoverCardTrigger asChild>
+          <DialogTrigger asChild>
             <Button
               variant="outline"
               size="icon"
@@ -44,14 +44,14 @@ export const SortAndFilterSettingsDialog = ({
               <span className="sr-only">Sort and Filter Settings</span>
               <ChangedIndicator />
             </Button>
-          </HoverCardTrigger>
-          <HoverCardContent className="p-2 w-24 text-xs z-50 rounded-md border bg-popover text-popover-foreground shadow-md outline-none">
-            Sort and Filter Settings
-          </HoverCardContent>
-        </HoverCard>
-      </DialogTrigger>
+          </DialogTrigger>
+        </HoverCardTrigger>
+        <HoverCardContent className="p-2 w-24 text-xs z-50 rounded-md border bg-popover text-popover-foreground shadow-md outline-none">
+          Sort and Filter Settings
+        </HoverCardContent>
+      </HoverCard>
       <DialogContent
-        className={"overflow-y-scroll overflow-x-hidden max-h-screen z-50"}
+        className={"overflow-y-scroll overflow-x-hidden max-h-lvh z-50"}
       >
         <DialogHeader>
           <DialogTitle>Sorting and Filtering Settings</DialogTitle>

@@ -39,7 +39,7 @@ export const SearchInput = ({
       try {
         wanakana.unbind(inputRef.current);
       } catch {
-        console.warn("cannot unbind romaji");
+        return;
       }
       return;
     }
