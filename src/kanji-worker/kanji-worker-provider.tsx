@@ -30,13 +30,20 @@ const ActionContext = createContext<KanjiRequestFn | null>(null);
 const IsReadyContext = createContext<boolean>(false);
 const GetBasicKanjiInfoContext = createContext<GetBasicKanjiInfo | null>(null);
 
-export function KanjiWorkerProvider({ children }: { children: ReactNode }) {
+export function KanjiWorkerProvider({
+  children,
+  fallback = <div className="py-20"> Worker failed to load</div>,
+}: {
+  children: ReactNode;
+  fallback?: ReactNode;
+}) {
   const [isReady, setIsReady] = useState(false);
   const hasMounted = useRef(false);
 
   const kanjiCacheRef = useRef<KanjiCacheType | null>(null);
   const partKeywordCacheRef = useRef<KanjiPartKeywordCacheType | null>(null);
   const phoneticCacheRef = useRef<KanjiPhoneticCacheType | null>(null);
+  const [workerError, setWorkerError] = useState(false);
 
   // populate kanji worker cache
   useEffect(() => {
@@ -86,29 +93,43 @@ export function KanjiWorkerProvider({ children }: { children: ReactNode }) {
 
     requestWorker({
       type: "part-keyword-map",
-    }).then((r) => {
-      partKeywordCacheRef.current = r as KanjiPartKeywordCacheType;
-      partReady = true;
-      checkIfDone();
-    });
+    })
+      .then((r) => {
+        partKeywordCacheRef.current = r as KanjiPartKeywordCacheType;
+        partReady = true;
+        checkIfDone();
+      })
+      .catch(() => {
+        setWorkerError(true);
+      });
 
-    requestWorker({ type: "phonetic-map" }).then((r) => {
-      phoneticCacheRef.current = r as KanjiPhoneticCacheType;
-      phoneticReady = true;
-      checkIfDone();
-    });
-
+    requestWorker({ type: "phonetic-map" })
+      .then((r) => {
+        phoneticCacheRef.current = r as KanjiPhoneticCacheType;
+        phoneticReady = true;
+        checkIfDone();
+      })
+      .catch(() => {
+        setWorkerError(true);
+      });
     requestWorker({
       type: "initialize-extended-kanji-map",
-    }).then(() => {
-      extendedReady = true;
-      checkIfDone();
-    });
-
-    requestWorker({ type: "initalize-segmented-vocab-map" }).then(() => {
-      segmentedVocabReady = true;
-      checkIfDone();
-    });
+    })
+      .then(() => {
+        extendedReady = true;
+        checkIfDone();
+      })
+      .catch(() => {
+        setWorkerError(true);
+      });
+    requestWorker({ type: "initalize-segmented-vocab-map" })
+      .then(() => {
+        segmentedVocabReady = true;
+        checkIfDone();
+      })
+      .catch(() => {
+        setWorkerError(true);
+      });
   }, []);
 
   // function that can accept kanji info requests
@@ -255,6 +276,10 @@ export function KanjiWorkerProvider({ children }: { children: ReactNode }) {
   const getKanjiBasicInfo: GetBasicKanjiInfo = useCallback((kanji) => {
     return kanjiCacheRef.current?.[kanji]?.main ?? null;
   }, []);
+
+  if (workerError) {
+    return fallback;
+  }
 
   return (
     <ActionContext.Provider value={kanjiInfoRequest}>

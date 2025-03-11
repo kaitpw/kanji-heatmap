@@ -37,7 +37,7 @@ const KanjiListRaw = ({
   return (
     <>
       <VirtualList
-        style={{ overflowX: "hidden" }}
+        style={{ overflowX: "hidden", paddingBottom: "25px" }}
         width="100%"
         height={listHeight}
         itemCount={rows}

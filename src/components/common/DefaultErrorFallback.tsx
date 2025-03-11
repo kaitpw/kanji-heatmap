@@ -19,7 +19,7 @@ export const DefaultErrorFallback = ({
   message?: string;
 }) => {
   return (
-    <div className="h-full w-full flex flex-col items-center justify-center text-xs p-4 m-2 bg-gray-100 dark:bg-gray-900 bg-opacity-40 rounded-3xl">
+    <div className="h-full w-95 flex flex-col items-center justify-center text-xs p-4 m-2 bg-gray-100 dark:bg-gray-900 bg-opacity-20 rounded-3xl">
       <span className="text-xl my-1 kanji-font">{"すみません"}</span>
 
       <div className="flex space-x-2 justify-center items-center">

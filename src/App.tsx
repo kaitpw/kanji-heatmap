@@ -14,6 +14,10 @@ import React from "react";
 import { KanjiFunctionalityProvider } from "./providers/kanji-functionality-provider";
 import ErrorBoundary from "./components/common/ErrorBoundary";
 import { DefaultErrorFallback } from "./components/common/DefaultErrorFallback";
+
+const LazyBottomBanner = React.lazy(
+  () => import("./components/common/BottomBanner")
+);
 const navItems: {
   href: string;
   title: string;
@@ -107,6 +111,7 @@ const App = () => (
         </KanjiFunctionalityProvider>
       </main>
     </ThemeProvider>
+    <LazyBottomBanner />
   </ErrorBoundary>
 );
 
