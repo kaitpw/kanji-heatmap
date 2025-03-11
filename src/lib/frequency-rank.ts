@@ -124,7 +124,7 @@ export const frequencyRankLabels: Record<keyof KanjiInfoFrequency, string> = {
   netflix: "Netflix",
   twitter: "Twitter",
   google: "Google",
-  kd: "KD",
+  kd: "Kanji Database",
   wikiChar: "Wikipedia Characters",
   wikiDoc: "Wikipedia Documents",
   aozoraChar: "Aozora Characters",
@@ -133,25 +133,23 @@ export const frequencyRankLabels: Record<keyof KanjiInfoFrequency, string> = {
   onlineNewsDoc: "Online News Documents",
   novels5100: "5100 Novels",
   dramaSubs: "Drama Subtitles",
-  kuf: "KUF",
-  mcd: "MCD",
-  bunka: "Bunka",
-  wkfr: "WKFR",
-  jisho: "Jisho",
+  kuf: "Kanji Usage Frequency",
+  mcd: "Matsushita's Character Database",
+  bunka: "Japan's Agency for Cultural Affairs",
+  wkfr: "Wikipedia Kanji Frequency Report",
+  jisho: "Jisho.org",
 };
 
-const kanji_freq_desc =
-  "This kanji usage frequency by Dmitry Shpika was built from sources that represent different " +
-  "styles (journalistic, academic, literary) from 3.7k news articles, 100k Wikipedia articles and 17k books. Doc count " +
-  "measures how many documents the kanji appears in, while char count measures how many times it appears in the source.";
-const kanji_freq_links = ["https://scriptin.github.io/kanji-frequency/"];
-const ultimate_kanji_desc =
-  "This kanji frequency list by Patrick Kandrac used data from 7 kanji databases such as " +
-  "Shibano's Google Kanji Data (133B kanji), Kanji Usage Frequency - KUF (850M kanji from Wikipedia, Aozora, e-news, " +
-  "Twitter), Matsushita's Character Database (MCD).";
+const scriptin_attribute_desc = " Compiled by Dmitry Shpika.";
+const doc_count_desc =
+  "Document count measures how many documents the kanji appears in.";
+const char_count_desc =
+  "Character count measures how many times the character is used.";
+const ultimate_attribute_desc = "Compiled by Patrick Kandrac.";
 const ultimate_kanji_links = [
   "https://www.reddit.com/r/LearnJapanese/comments/rji33t/ultimate_kanji_frequency_list/",
   "https://www.researchgate.net/publication/357159664_2242_Kanji_Frequency_List_ver_11",
+  "https://docs.google.com/spreadsheets/d/1MBYfKPrlST3F51KIKbAlsGw1x4c_atuHfPwSSRN5sLs/edit?gid=479449032#gid=479449032",
   "https://docs.google.com/spreadsheets/d/1MBYfKPrlST3F51KIKbAlsGw1x4c_atuHfPwSSRN5sLs/edit?gid=496425456#gid=496425456",
 ];
 
@@ -161,7 +159,8 @@ export const FREQ_RANK_SOURCES_INFO: Record<
 > = {
   [K_RANK_NETFLIX]: {
     description:
-      "Netflix Frequency is based on the list by OhTalkWho オタク (Dave Doebrick)",
+      "Derived from Japanese Netflix subtitles containing about 53M total kanji occurrences. " +
+      "Compiled by OhTalkWho オタク (Dave Doebrick) and published in 2019.",
     links: [
       "https://www.youtube.com/watch?v=DwJWld8hW0M",
       "https://www.mediafire.com/folder/mvh6jhwj6xxo6/Frequency_Lists",
@@ -170,7 +169,8 @@ export const FREQ_RANK_SOURCES_INFO: Record<
   },
   [K_RANK_DRAMA_SUBTITLES]: {
     description:
-      "This kanji frequency list by Chris Kempson is derived from 12,277 subtitles from Japanese drama, anime and films",
+      "Derived from 12,277 subtitles from Japanese drama, anime and films containing about 20.5M total kanji occurrences. " +
+      "Compiled by Chris Kempson and published in 2019.",
     links: [
       "https://github.com/chriskempson/japanese-subtitles-word-kanji-frequency-lists",
       "https://github.com/Matchoo95/JP-Subtitles",
@@ -178,7 +178,8 @@ export const FREQ_RANK_SOURCES_INFO: Record<
   },
   [K_RANK_NOVELS_5100]: {
     description:
-      "This kanji frequency list by Redditor Nukemarine is made from scanning 5100 novels.",
+      "Derived from scanning 5100 novels containing about 180M total kanji occurrences. Compiled by Redditor Nukemarine " +
+      "and published in 2019.",
     links: [
       "https://drive.google.com/file/d/1zbClv0H5VgswEDAkVmF3ikiVnoi6yGsW/view",
       "https://www.reddit.com/r/LearnJapanese/comments/fhx27j/comment/fkdyksq/",
@@ -187,63 +188,105 @@ export const FREQ_RANK_SOURCES_INFO: Record<
   },
   [K_RANK_TWITTER]: {
     description:
-      "This kanji frequency list by Dmitry Shpika was derived from Twitter messages collected by a bot " +
-      "last June 2015. It processed a total of ~10M kanji.",
+      "Derived from Twitter messages collected last June 2015 containing about 10M total kanji occurrences. " +
+      "Compiled by Dmitry Shpika.",
     links: [
       "https://github.com/scriptin/kanji-frequency/tree/master/data2015",
       "https://github.com/scriptin/kanji-frequency/blob/master/data2015/data/twitter.json",
     ],
   },
   [K_RANK_WIKIPEDIA_DOC]: {
-    description: kanji_freq_desc,
-    links: kanji_freq_links,
+    description:
+      "Derived from 100,000 Wikipedia articles sampled in 2023 and contained 59M total kanji occurrences. " +
+      doc_count_desc +
+      scriptin_attribute_desc,
+    links: ["https://scriptin.github.io/kanji-frequency/wikipedia/"],
   },
   [K_RANK_WIKIPEDIA_CHAR]: {
-    description: kanji_freq_desc,
-    links: kanji_freq_links,
+    description:
+      "Derived from 100,000 Wikipedia articles sampled in 2023 and contained 59M total kanji occurrences. " +
+      char_count_desc +
+      scriptin_attribute_desc,
+    links: ["https://scriptin.github.io/kanji-frequency/wikipedia/"],
   },
   [K_RANK_ONLINE_NEWS_DOC]: {
-    description: kanji_freq_desc,
-    links: kanji_freq_links,
+    description:
+      "Derived from over 3,700 articles from Japanese Wikinews that were published from 2005 to 2023 and " +
+      "contained 1.1M total kanji occurrences. " +
+      doc_count_desc +
+      scriptin_attribute_desc,
+    links: ["https://scriptin.github.io/kanji-frequency/news/"],
   },
   [K_RANK_ONLINE_NEWS_CHAR]: {
-    description: kanji_freq_desc,
-    links: kanji_freq_links,
+    description:
+      "Derived from over 3,700 articles from Japanese Wikinews that were published from 2005 to 2023 and " +
+      "contained 1.1M total kanji occurrences. " +
+      char_count_desc +
+      scriptin_attribute_desc,
+    links: ["https://scriptin.github.io/kanji-frequency/news/"],
   },
   [K_RANK_AOZORA_DOC]: {
-    description: kanji_freq_desc,
-    links: kanji_freq_links,
+    description:
+      "Derived from over 17,000 books from Aozora Bunko, the vast majority of which are more than 70 " +
+      "years old, and contained 67.8M total kanji occurrences. " +
+      doc_count_desc +
+      scriptin_attribute_desc,
+    links: ["https://scriptin.github.io/kanji-frequency/aozora/"],
   },
   [K_RANK_AOZORA_CHAR]: {
-    description: kanji_freq_desc,
-    links: kanji_freq_links,
+    description:
+      "Derived from over 17,000 books from Aozora Bunko, the vast majority of which are more than 70 " +
+      "years old, and contained 67.8M total kanji occurrences. " +
+      char_count_desc +
+      scriptin_attribute_desc,
+    links: ["https://scriptin.github.io/kanji-frequency/aozora/"],
   },
   [K_RANK_GOOGLE]: {
-    description: ultimate_kanji_desc,
+    description:
+      "Kouji Shibano's Google Kanji Data from 2009 that processed 133B kanji occurrences. " +
+      ultimate_attribute_desc,
     links: ultimate_kanji_links,
   },
   [K_RANK_KUF]: {
-    description: ultimate_kanji_desc,
+    description:
+      "Kanji Usage Frequency (KUF) from 2016 that processed 850M kanji occurrences from Wikipedia, Aozora, " +
+      "e-news, Twitter. " +
+      ultimate_attribute_desc,
     links: ultimate_kanji_links,
   },
   [K_RANK_MCD]: {
-    description: ultimate_kanji_desc,
+    description:
+      "Matsushita's Character Database (MCD) from 2014 that processed 33M words from sources The Balanced " +
+      "Corpus of Contemporary Written Japanese (BCCWJ) and Yahoo知恵袋 aka Japanese Yahoo Answer. " +
+      ultimate_attribute_desc,
     links: ultimate_kanji_links,
   },
   [K_RANK_BUNKA]: {
-    description: ultimate_kanji_desc,
+    description:
+      "Published by the Japanese Agency for Cultural Affairs (文化庁) on 2010 that processed 1.45M kanji from " +
+      "various sources including books, magazines, textbooks, newspapers such as Asahi and Yomiuri, websites, etc. " +
+      ultimate_attribute_desc,
     links: ultimate_kanji_links,
   },
   [K_RANK_JISHO]: {
-    description: ultimate_kanji_desc,
+    description:
+      "Jisho.org uses Alexandre Girardi's word frequency list published in 1998 that used 300,000 words found " +
+      "in 4 years of the Mainichi Newpaper. " +
+      ultimate_attribute_desc,
     links: ultimate_kanji_links,
   },
   [K_RANK_KD]: {
-    description: ultimate_kanji_desc,
+    description:
+      "The Kanji Database (KD) or kanjidatabase.com frequency list for the 2,136 Jouyou kanji analyzed " +
+      "about 300M kanji occurrences published in the Mainichi Newspaper from 2000 to 2010. " +
+      ultimate_attribute_desc,
     links: ultimate_kanji_links,
   },
   [K_RANK_WKFR]: {
-    description: ultimate_kanji_desc,
+    description:
+      "Alex Yatskov's Wikipedia Kanji Frequency Report (WKFR) published in 2010 analyzed more than 500M " +
+      "kanji occurrences. " +
+      ultimate_attribute_desc,
     links: ultimate_kanji_links,
   },
   None: { description: "", links: [] },
