@@ -188,7 +188,6 @@ export function KanjiWorkerProvider({ children }: { children: ReactNode }) {
                 keyword:
                   kanjiCacheRef?.current?.[part]?.main.keyword ??
                   partKeywordCacheRef?.current?.[part],
-                phonetic: phoneticCacheRef?.current?.[part],
               };
             }),
             frequency: kanjiInfo.extended.frequency,

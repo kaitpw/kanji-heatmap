@@ -17,7 +17,7 @@ export const NavLayout = ({
   children: React.ReactNode;
 }) => {
   return (
-    <NavigationMenu>
+    <NavigationMenu className="relative z-50">
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger className="py-0 font-bold px-3 h-7 bg-black dark:bg-white text-white dark:text-black data-[state=open]:bg-black data-[state=open]:text-white focus:bg-black focus:text-white hover:bg-black hover:text-white">

@@ -3,6 +3,7 @@ import { useLocalStorage } from "../hooks/use-local-storage";
 import { K_JLPT, K_STROKES } from "@/lib/frequency-rank";
 import { createContextComponents, useContextWithCatch } from "./helpers";
 import { SearchSettings } from "@/lib/settings";
+import { MAX_FREQ_RANK } from "@/lib/constants";
 
 const storageKey = "search-settings";
 
@@ -13,10 +14,10 @@ export const defaultValue: SearchSettings = {
   },
   filterSettings: {
     strokeRange: { min: 0, max: 50 },
-    jlpt: ["n1", "n2", "n3", "n4", "n5"] as const,
+    jlpt: ["n1", "n2", "n3", "n4", "n5", "none"] as const,
     freq: {
       source: "None",
-      rankRange: { min: 0, max: 1000 },
+      rankRange: { min: 0, max: MAX_FREQ_RANK },
     },
   },
   sortSettings: {

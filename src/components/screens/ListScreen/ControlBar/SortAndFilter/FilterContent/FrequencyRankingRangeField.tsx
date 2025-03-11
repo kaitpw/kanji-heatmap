@@ -3,6 +3,8 @@ import { DualRangeSlider } from "@/components/ui/dual-range-slider";
 import { Label } from "@/components/ui/label";
 import { MAX_FREQ_RANK } from "@/lib/constants";
 
+const FREQ_RANK_STEP = 50;
+
 export const FrequencyRankingRangeField = ({
   values,
   setValues,
@@ -24,10 +26,16 @@ export const FrequencyRankingRangeField = ({
         labelPosition="bottom"
         className="text-xs pt-2"
         value={values}
-        onValueChange={setValues}
-        min={1}
+        onValueChange={(vals) => {
+          // we don't want the start to be 0, but want steps to be 50, 100, 150 and not 51, 101, 150
+          // that's why we can't set min=1, and we'll rely on this logic instead
+          const min = vals[0] ? (vals[0] === 0 ? 1 : vals[0]) : 1;
+          const max = vals[1] ? (vals[1] === 0 ? 1 : vals[1]) : MAX_FREQ_RANK;
+          setValues([min, max]);
+        }}
+        min={0}
         max={MAX_FREQ_RANK}
-        step={50}
+        step={FREQ_RANK_STEP}
       />
     </div>
   );
