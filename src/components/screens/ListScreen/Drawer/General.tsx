@@ -6,28 +6,32 @@ import { Separator } from "@radix-ui/react-select";
 import { RomajiBadge } from "@/components/common/RomajiBadge";
 import { ExternalTextLink } from "@/components/common/ExternalTextLink";
 import { externalLinks } from "@/lib/constants";
+import { BasicLoading } from "@/components/common/BasicLoading";
+import { DefaultErrorFallback } from "@/components/common/DefaultErrorFallback";
 
+type GeneralKanjiItem = {
+  allOn: string[];
+  allKun: string[];
+  meanings: string[];
+  jouyouGrade: number;
+  wk: number;
+  rtk: number;
+  strokes: number;
+};
 const hasData = (data?: number) => data != null && data !== -1;
 
 export const General = ({ kanji }: { kanji: string }) => {
   const info = useKanjiInfo(kanji, "general");
 
   if (info.error) {
-    return <div>Something went wrong</div>;
+    return <DefaultErrorFallback message="Failed to load data." />;
   }
 
   if (info.data == null) {
-    return;
+    return <BasicLoading />;
   }
-  const data = info.data as {
-    allOn: string[];
-    allKun: string[];
-    meanings: string[];
-    jouyouGrade: number;
-    wk: number;
-    rtk: number;
-    strokes: number;
-  };
+
+  const data = info.data as GeneralKanjiItem;
 
   return (
     <>

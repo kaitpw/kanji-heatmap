@@ -21,6 +21,7 @@ export const ItemPresentationSettingsContent = () => {
   const [shouldAttachMeaning, setShouldAttachMeaning] = useState(
     cardState.backgroundColorSettingDataSource !== "None"
   );
+
   return (
     <article className="text-left">
       <h1 className="text-lg font-bold flex space-x-2 items-center">

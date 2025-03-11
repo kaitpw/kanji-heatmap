@@ -6,6 +6,8 @@ import { LinksOutItems } from "@/components/common/LinkOutSection";
 import ChangeFontButton from "@/components/common/ChangeFontButton";
 import { General } from "./General";
 import { FrequencyInfo } from "./FrequencyInfo";
+import { DefaultErrorFallback } from "@/components/common/DefaultErrorFallback";
+import { BasicLoading } from "@/components/common/BasicLoading";
 
 const StrokeAnimation = lazy(() => import("./StrokeAnimation"));
 
@@ -13,11 +15,11 @@ export const KanjiDetails = ({ kanji }: { kanji: string }) => {
   const info = useKanjiInfo(kanji, "main-plus-extended");
 
   if (info.error) {
-    return <div> Something went wrong</div>;
+    return <DefaultErrorFallback message="The data failed to load." />;
   }
 
   if (info.data == null) {
-    return <div>Loading</div>;
+    return <BasicLoading />;
   }
 
   const data = info.data as KanjiCacheItem;
@@ -33,7 +35,7 @@ export const KanjiDetails = ({ kanji }: { kanji: string }) => {
         <General kanji={kanji} />
       </SimpleAccordion>
       <SimpleAccordion trigger={"Stroke Order Animation"}>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<BasicLoading />}>
           <StrokeAnimation kanji={kanji} />
         </Suspense>
       </SimpleAccordion>

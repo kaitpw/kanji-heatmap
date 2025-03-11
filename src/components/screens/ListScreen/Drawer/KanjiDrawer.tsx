@@ -11,6 +11,7 @@ import { X } from "lucide-react";
 import { KanjiCard } from "../InfoCard/KanjiCard";
 import { useIsKanjiWorkerReady } from "@/kanji-worker/kanji-worker-provider";
 import { KanjiDetails } from "./Details";
+import ErrorBoundary from "@/components/common/ErrorBoundary";
 
 export const Layout = ({
   first,
@@ -22,9 +23,15 @@ export const Layout = ({
   return (
     <div className="w-full flex flex-col overflow-y-scroll overflow-x-hidden md:flex-row md:space-x-1 ">
       <div className="px-1 md:sticky md:top-[0px] md:left-[0px] md:min-w-96 md:max-w-96 md:w-96">
-        {first}
+        <ErrorBoundary details="Kanji Card in KanjiDrawer Layout">
+          {first}
+        </ErrorBoundary>
       </div>
-      <div className="grow">{second}</div>
+      <div className="grow">
+        <ErrorBoundary details="Kanji Details in KanjiDrawer Layout">
+          {second}
+        </ErrorBoundary>
+      </div>
     </div>
   );
 };

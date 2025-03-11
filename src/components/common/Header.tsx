@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
-import LinkOutSection from "./LinkOutSection";
+import LinkOutSection, { LinksOutItems } from "./LinkOutSection";
 import ChangeFontButton from "./ChangeFontButton";
+import ErrorBoundary from "./ErrorBoundary";
 
 const HeaderLayout = ({
   title,
@@ -31,8 +32,16 @@ const Header = ({ nav }: { nav: ReactNode }) => {
       side={<LinkOutSection />}
       main={
         <>
-          {nav}
-          <ChangeFontButton />
+          <ErrorBoundary
+            fallback={
+              <div className="flex space-x-1 my-1 mx-1">
+                <LinksOutItems />
+              </div>
+            }
+          >
+            {nav}
+            <ChangeFontButton />
+          </ErrorBoundary>
         </>
       }
     />

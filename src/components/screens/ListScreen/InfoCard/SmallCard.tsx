@@ -4,42 +4,34 @@ import {
   useKanjiInfo,
 } from "@/kanji-worker/kanji-worker-provider";
 import { HoverItemReturnData } from "@/lib/kanji-info-types";
-import { FrequencyBadges } from "./FrequencyBadge";
+import { FrequencyBadges } from "./FrequencyBadges";
 import { JLPTBadge } from "@/components/common/JLPTBadge";
+import { BasicLoading } from "@/components/common/BasicLoading";
+import { DefaultErrorFallback } from "@/components/common/DefaultErrorFallback";
 
 export const SmallKanjiCard = ({ kanji }: { kanji: string }) => {
   const data = useKanjiInfo(kanji, "hover-card");
   const ready = useIsKanjiWorkerReady();
 
   if (data.error) {
-    return (
-      <div>
-        Something went wrong in <code>Kanji Card</code>
-      </div>
-    );
+    return <DefaultErrorFallback message="Failed to load data." />;
   }
 
-  if (data.status === "loading" || !ready) {
+  if (data.status === "loading" || !ready || data.data == null) {
     return (
-      <div>
-        Something went wrong in <code>Loading</code>
+      <div className="w-full">
+        <BasicLoading />
       </div>
     );
-  }
-
-  if (data.data == null) {
-    return <div> No data available</div>;
   }
 
   const info = data.data as HoverItemReturnData;
 
   return (
-    <>
-      <div className="flex flex-wrap items-center justify-center m-2">
-        <Badge className="text-nowrap m-1">{info.keyword.toUpperCase()}</Badge>
-        <JLPTBadge jlpt={info.jlpt} />
-        <FrequencyBadges frequency={info.frequency} />
-      </div>
-    </>
+    <div className="flex flex-wrap items-center justify-center m-2">
+      <Badge className="text-nowrap m-1">{info.keyword.toUpperCase()}</Badge>
+      <JLPTBadge jlpt={info.jlpt} />
+      <FrequencyBadges frequency={info.frequency} />
+    </div>
   );
 };

@@ -2,17 +2,14 @@ import { useKanjiSearchResult } from "@/kanji-worker/kanji-worker-provider";
 import LoadingKanjis from "./LoadingKanjis";
 import { useItemSettings } from "@/providers/item-settings-provider";
 import { VirtualKanjiList } from "./VirtualKanjiList";
+import { DefaultErrorFallback } from "@/components/common/DefaultErrorFallback";
 
 const KanjiListWithSearch = () => {
   const result = useKanjiSearchResult();
   const itemSettings = useItemSettings();
 
   if (result.error != null) {
-    return (
-      <div className="p-20">
-        Something went wrong. Try refreshing the page or comeback later.
-      </div>
-    );
+    return <DefaultErrorFallback message="Failed to load data." />;
   }
 
   if (result.data == null) {

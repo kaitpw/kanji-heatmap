@@ -17,6 +17,7 @@ import { useState } from "react";
 import { SortAndFilterSettingsForm } from "../SortAndFilterForm";
 import { SearchSettings } from "@/lib/settings";
 import { ChangedIndicator } from "./ChangeIndicator";
+import ErrorBoundary from "@/components/common/ErrorBoundary";
 
 export const SortAndFilterSettingsDialog = ({
   initialValue,
@@ -59,13 +60,15 @@ export const SortAndFilterSettingsDialog = ({
             Manage your Sorting and Filtering Settings
           </DialogDescription>
         </DialogHeader>
-        <SortAndFilterSettingsForm
-          initialValue={initialValue}
-          onSettle={(val) => {
-            onSettle(val);
-            setIsOpen(false);
-          }}
-        />
+        <ErrorBoundary>
+          <SortAndFilterSettingsForm
+            initialValue={initialValue}
+            onSettle={(val) => {
+              onSettle(val);
+              setIsOpen(false);
+            }}
+          />
+        </ErrorBoundary>
       </DialogContent>
     </Dialog>
   );

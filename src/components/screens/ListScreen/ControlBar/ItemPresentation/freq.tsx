@@ -1,5 +1,9 @@
 import { ITEM_CARD_BG_CN, squareCn } from "@/lib/constants";
-import { freqCategoryCn, freqCategoryCount } from "@/lib/frequency-rank";
+import {
+  FreqCategory,
+  freqCategoryCn,
+  freqCategoryCount,
+} from "@/lib/frequency-rank";
 import { ReactNode } from "react";
 
 export const FreqSquare = ({ srOnly, cn }: { srOnly: string; cn: string }) => {
@@ -15,7 +19,7 @@ export const BackgroundColorGradient = () => {
     <div className="flex my-3 space-x-1 items-center">
       <div className="text-xs">Less</div>
       {Array.from(Array(freqCategoryCount).keys()).map((item) => {
-        const cn = `${freqCategoryCn[item]} ${ITEM_CARD_BG_CN}`;
+        const cn = `${freqCategoryCn[item as FreqCategory]} ${ITEM_CARD_BG_CN}`;
         return <FreqSquare key={item} srOnly={item.toString()} cn={cn} />;
       })}
       <div className="text-xs">More</div>

@@ -12,6 +12,8 @@ import Header from "@/components/common/Header";
 import { ThemeProvider } from "@/providers/theme-provider";
 import React from "react";
 import { KanjiFunctionalityProvider } from "./providers/kanji-functionality-provider";
+import ErrorBoundary from "./components/common/ErrorBoundary";
+import { DefaultErrorFallback } from "./components/common/DefaultErrorFallback";
 const navItems: {
   href: string;
   title: string;
@@ -68,26 +70,44 @@ export const Nav = () => {
 };
 
 const App = () => (
-  <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-    <Header nav={<Nav />} />
-    <main>
-      <KanjiFunctionalityProvider>
-        <Switch>
-          {navItems.map((item) => {
-            return (
-              <React.Fragment key={item.href}>
-                <Route path={item.href} component={item.component} />
-                <Route path={`${item.href}/*`}>
-                  <Redirect to={item.href} replace />
-                </Route>
-              </React.Fragment>
-            );
-          })}
-          <Redirect to="/" replace />
-        </Switch>
-      </KanjiFunctionalityProvider>
-    </main>
-  </ThemeProvider>
+  <ErrorBoundary
+    details="App"
+    fallback={
+      <div className="w-full pr-4">
+        <DefaultErrorFallback />{" "}
+      </div>
+    }
+  >
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <Header nav={<Nav />} />
+      <main>
+        <KanjiFunctionalityProvider>
+          <ErrorBoundary
+            details="App"
+            fallback={
+              <div className="w-full pr-4 mt-14">
+                <DefaultErrorFallback />
+              </div>
+            }
+          >
+            <Switch>
+              {navItems.map((item) => {
+                return (
+                  <React.Fragment key={item.href}>
+                    <Route path={item.href} component={item.component} />
+                    <Route path={`${item.href}/*`}>
+                      <Redirect to={item.href} replace />
+                    </Route>
+                  </React.Fragment>
+                );
+              })}
+              <Redirect to="/" replace />
+            </Switch>
+          </ErrorBoundary>
+        </KanjiFunctionalityProvider>
+      </main>
+    </ThemeProvider>
+  </ErrorBoundary>
 );
 
 export default App;

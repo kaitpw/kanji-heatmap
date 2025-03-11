@@ -24,7 +24,7 @@ const LoadingKanjisRaw = ({
     itemSettings.cardType
   );
 
-  const count = itemNums + cols * 2;
+  const count = itemNums + cols;
 
   const itemStyle = isCompact
     ? { height: itemSize - 3, width: width - 4 }

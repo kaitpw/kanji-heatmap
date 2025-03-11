@@ -58,6 +58,16 @@ export const FrequencyBadges = ({
               />
             }
           />
+          <FrequencyBadge
+            rank={frequency.twitter}
+            text="Twitter"
+            content={
+              <FreqRankTypeInfo
+                value={inverseFreqMap["twitter"]}
+                defaultValue={defaultValue}
+              />
+            }
+          />
         </>
       )}
     </>

@@ -76,3 +76,8 @@ export const externalLinks: { name: string; url: (x: string) => string }[] = [
 
 export const squareCn =
   "rounded-sm border border-opacity-50 border-gray-500 dark:border-gray-600 dark:border-opacity-50";
+
+export const outLinks = {
+  githubIssue: "https://github.com/mithi/mithi/issues/3",
+  koFi: "https://ko-fi.com/minimithi",
+};

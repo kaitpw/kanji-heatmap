@@ -32,6 +32,7 @@ const AllMatchMsg = () => {
     </div>
   );
 };
+
 const ItemCountComputed = ({ settings }: { settings: SearchSettings }) => {
   const data = useKanjiSearchCount(settings);
 

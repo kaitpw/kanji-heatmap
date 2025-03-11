@@ -9,23 +9,39 @@ import {
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
 import { ReactNode } from "react";
+import { outLinks } from "@/lib/constants";
 
+const bugItem = {
+  href: outLinks.githubIssue,
+  text: "Report bug on Github issues",
+  icon: <BugIcon />,
+};
 const linkOutItems: {
   href: string;
   text: string;
   icon: ReactNode;
 }[] = [
+  bugItem,
   {
-    href: "https://github.com/mithi/mithi/issues/new?title=Kanji%20Companion%20Bug",
-    text: "Report bug on Github issues",
-    icon: <BugIcon />,
-  },
-  {
-    href: "https://ko-fi.com/minimithi",
+    href: outLinks.koFi,
     text: "Buy me a Ko-Fi",
     icon: <KoFiIcon />,
   },
 ];
+
+export const ReportBugIconBtn = ({ cnOverride }: { cnOverride?: string }) => {
+  const item = bugItem;
+  return (
+    <LinkOutIcon
+      key={item.href}
+      href={item.href}
+      hoverText={item.text}
+      srOnlyText={item.text}
+      icon={item.icon}
+      cnOverride={cnOverride}
+    />
+  );
+};
 
 export const LinksOutItems = () => {
   return (

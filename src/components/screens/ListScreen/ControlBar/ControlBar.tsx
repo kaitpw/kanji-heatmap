@@ -3,15 +3,46 @@ import { ItemPresentationSettingsContent } from "./ItemPresentation/ItemPresenta
 import { SettledSearchInput } from "./SearchInput/SettledSearchInput";
 import { SettledSortAndFilter } from "./SortAndFilter/SettledSortAndFilter";
 import React from "react";
+import ErrorBoundary from "@/components/common/ErrorBoundary";
+import { ReportBugIconBtn } from "@/components/common/LinkOutSection";
 
 export const ControlBarRaw = () => {
   return (
     <>
-      <SettledSearchInput />
-      <SettledSortAndFilter />
-      <ItemPresentationSettingsPopover>
-        <ItemPresentationSettingsContent />
-      </ItemPresentationSettingsPopover>
+      <ErrorBoundary
+        details="SettledSearchInput in ControlBar"
+        fallback={
+          <div className="h-full flex items-center">
+            <ReportBugIconBtn cnOverride="h-9" />
+          </div>
+        }
+      >
+        <SettledSearchInput />
+      </ErrorBoundary>
+      <ErrorBoundary
+        details="SettledSortAndFilter in ControlBar"
+        fallback={
+          <div className="h-full flex items-center">
+            <ReportBugIconBtn cnOverride="h-9" />
+          </div>
+        }
+      >
+        <SettledSortAndFilter />
+      </ErrorBoundary>
+      <ErrorBoundary
+        details="ItemPresentationSettings in ControlBar"
+        fallback={
+          <div className="h-full flex items-center">
+            <ReportBugIconBtn cnOverride="h-9" />
+          </div>
+        }
+      >
+        <ItemPresentationSettingsPopover>
+          <ErrorBoundary details="ItemPresentationSettingsContent in ControlBar">
+            <ItemPresentationSettingsContent />
+          </ErrorBoundary>
+        </ItemPresentationSettingsPopover>
+      </ErrorBoundary>
     </>
   );
 };

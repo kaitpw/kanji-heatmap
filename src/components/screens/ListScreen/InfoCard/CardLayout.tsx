@@ -25,13 +25,13 @@ export const KanjiCardLayout = ({
       </div>
       {components && (
         <>
-          <div className="flex justify-center flex-wrap mr-4 p-2 border-t-2 border-dotted pt-3 w-full">
+          <div className="flex justify-center flex-wrap mr-4  border-t-2 border-dotted pt-1 w-full">
             {components}
           </div>
         </>
       )}
       {badges && (
-        <div className="flex space-x-1 justify-center flex-wrap space-y-1 border-t-2 border-dotted mt-1 mb-3 pt-4 px-2">
+        <div className="flex space-x-1 justify-center flex-wrap space-y-1 border-t-2 border-dotted mt-1 mb-2 pt-1 px-2">
           <div />
           {badges}
         </div>

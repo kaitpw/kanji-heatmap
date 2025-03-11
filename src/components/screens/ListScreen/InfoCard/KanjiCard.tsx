@@ -5,9 +5,11 @@ import {
 import { HoverItemReturnData } from "@/lib/kanji-info-types";
 import { WordCard } from "./WordCard";
 import { SingleComponent } from "./SingleComponent";
-import { FrequencyBadges } from "./FrequencyBadge";
+import { FrequencyBadges } from "./FrequencyBadges";
 import { KanjiCardLayout } from "./CardLayout";
 import { JLPTBadge } from "@/components/common/JLPTBadge";
+import { DefaultErrorFallback } from "@/components/common/DefaultErrorFallback";
+import { BasicLoading } from "@/components/common/BasicLoading";
 
 const getHighlightIndex = (
   kanji: string,
@@ -33,15 +35,11 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
   const ready = useIsKanjiWorkerReady();
 
   if (data.error) {
-    return (
-      <div>
-        Something went wrong in <code>Kanji Card</code>
-      </div>
-    );
+    return <DefaultErrorFallback message="Failed to load data." />;
   }
 
   if (!ready || data.status === "loading" || data.data == null) {
-    return <div>Loading Kanji Card...</div>;
+    return <BasicLoading />;
   }
 
   const info = data.data as HoverItemReturnData;

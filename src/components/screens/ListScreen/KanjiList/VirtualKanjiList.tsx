@@ -49,7 +49,7 @@ const KanjiListRaw = ({
             <div
               key={rowIndex}
               style={style}
-              className={"flex items-center justify-center w-full"}
+              className={"flex items-center justify-center w-full pr-1"}
             >
               {new Array(items).fill(null).map((_, colIndex: number) => {
                 const index = cols * rowIndex + colIndex;
