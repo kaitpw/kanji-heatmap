@@ -9,9 +9,14 @@ import { Button } from "@/components/ui/button";
 import React, { ReactNode } from "react";
 import { X } from "lucide-react";
 import { KanjiCard } from "../InfoCard/KanjiCard";
-import { useIsKanjiWorkerReady } from "@/kanji-worker/kanji-worker-provider";
+import {
+  useGetKanjiInfoFn,
+  useIsKanjiWorkerReady,
+} from "@/kanji-worker/kanji-worker-provider";
 import { KanjiDetails } from "./Details";
 import ErrorBoundary from "@/components/common/ErrorBoundary";
+import { BasicLoading } from "@/components/common/BasicLoading";
+import { DefaultErrorFallback } from "@/components/common/DefaultErrorFallback";
 
 export const Layout = ({
   first,
@@ -46,8 +51,26 @@ export function KanjiDrawerRaw({
   kanji: string;
 }) {
   const ready = useIsKanjiWorkerReady();
+  const getFn = useGetKanjiInfoFn();
+  const info = getFn?.(kanji);
+
+  console.log("info", info);
 
   // need autoFocus=true see also: https://github.com/emilkowalski/vaul/issues/517#issuecomment-2571619213
+
+  const content = !ready ? (
+    <BasicLoading />
+  ) : info != null ? (
+    <Layout
+      first={<KanjiCard kanji={kanji} />}
+      second={<KanjiDetails kanji={kanji} />}
+    />
+  ) : (
+    <DefaultErrorFallback
+      message={`The kanji "${kanji}" does not exist in our database.`}
+      showDefaultCta={false}
+    />
+  );
   return (
     <Drawer open={isOpen} onClose={onClose} autoFocus={true}>
       <DrawerContent
@@ -60,16 +83,7 @@ export function KanjiDrawerRaw({
         <DrawerDescription className="sr-only">
           Includes Sample Usage, Semantic Phonetic Compositions etc.
         </DrawerDescription>
-        <Layout
-          first={
-            !ready ? (
-              <p className="p-20"> Initializing...</p>
-            ) : (
-              <KanjiCard kanji={kanji} />
-            )
-          }
-          second={<KanjiDetails kanji={kanji} />}
-        />
+        {content}
         <DrawerClose asChild className="absolute -top-1 right-0">
           <Button variant="ghost" size="icon" className="m-2">
             <X />

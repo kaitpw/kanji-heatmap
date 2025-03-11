@@ -48,22 +48,23 @@ export const FrequencyBadges = ({
               />
             }
           />
-          <FrequencyBadge
-            rank={frequency.jisho}
-            text="Jisho"
-            content={
-              <FreqRankTypeInfo
-                value={inverseFreqMap["jisho"]}
-                defaultValue={defaultValue}
-              />
-            }
-          />
+
           <FrequencyBadge
             rank={frequency.twitter}
             text="Twitter"
             content={
               <FreqRankTypeInfo
                 value={inverseFreqMap["twitter"]}
+                defaultValue={defaultValue}
+              />
+            }
+          />
+          <FrequencyBadge
+            rank={frequency.jisho}
+            text="Jisho"
+            content={
+              <FreqRankTypeInfo
+                value={inverseFreqMap["jisho"]}
                 defaultValue={defaultValue}
               />
             }

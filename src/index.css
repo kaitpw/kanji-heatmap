@@ -182,3 +182,8 @@ button:focus-visible {
   background: linear-gradient(to right, #25272c 4%, #34373e 25%, #282a2f 36%);
   background-size: 1000px 100%;
 }
+
+code {
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+}

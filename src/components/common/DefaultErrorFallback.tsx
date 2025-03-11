@@ -6,7 +6,7 @@ const APOLOGIZING_SYMBOL = [
   "(シ_ _)シ",
   "m(_ _)m",
   "m(._.)m",
-  //  "<(_ _)>",
+  "<(_ _)>",
   "(_ _*)",
   "m(｡≧ _ ≦｡)m",
   //  "(´；ω；｀)",
@@ -15,11 +15,13 @@ const APOLOGIZING_SYMBOL = [
 ];
 export const DefaultErrorFallback = ({
   message = "This is unexpected.",
+  showDefaultCta = true,
 }: {
   message?: string;
+  showDefaultCta?: boolean;
 }) => {
   return (
-    <div className="h-full w-95 flex flex-col items-center justify-center text-xs p-4 m-2 bg-gray-100 dark:bg-gray-900 bg-opacity-20 rounded-3xl">
+    <div className="h-full w-95 flex flex-col items-center justify-center text-xs p-4 m-2 bg-gray-100 dark:bg-slate-900 bg-opacity-40 rounded-3xl">
       <span className="text-xl my-1 kanji-font">{"すみません"}</span>
 
       <div className="flex space-x-2 justify-center items-center">
@@ -32,14 +34,16 @@ export const DefaultErrorFallback = ({
         )}
       </div>
       <div className="my-1 font-bold">{message}</div>
-      <div className="mx-2 ">
-        {" "}
-        Try refreshing the page or
-        <ExternalTextLink
-          href={outLinks.githubIssue}
-          text="report the issue on Github."
-        />
-      </div>
+
+      {showDefaultCta && (
+        <div className="mx-2 ">
+          Try refreshing the page or
+          <ExternalTextLink
+            href={outLinks.githubIssue}
+            text="report the issue on Github."
+          />
+        </div>
+      )}
     </div>
   );
 };

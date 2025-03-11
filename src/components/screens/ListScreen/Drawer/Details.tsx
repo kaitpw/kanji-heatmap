@@ -15,7 +15,7 @@ export const KanjiDetails = ({ kanji }: { kanji: string }) => {
   const info = useKanjiInfo(kanji, "main-plus-extended");
 
   if (info.error) {
-    return <DefaultErrorFallback message="The data failed to load." />;
+    return <DefaultErrorFallback message="Failed to load data." />;
   }
 
   if (info.data == null) {

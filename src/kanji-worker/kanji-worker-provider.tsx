@@ -141,7 +141,7 @@ export function KanjiWorkerProvider({
 
       const kanjiInfo = kanjiCacheRef.current[kanji];
       if (kanjiInfo == null) {
-        throw Error(`${kanji}:No information about this Kanji `);
+        throw Error("No information about this Kanji");
       }
 
       if (type === "item-card") {
@@ -404,7 +404,7 @@ export const useKanjiInfo = (
   const [state, setState] = useState<{
     status: Status;
     data?: unknown;
-    error?: string | null;
+    error?: { message: string } | null;
   }>({
     status: "idle",
     data: null,
@@ -415,7 +415,9 @@ export const useKanjiInfo = (
     if (requestFn == null) {
       setState({
         status: "error",
-        error: "requestFn does not exist. Please check KanjiWorkerProvider",
+        error: {
+          message: "requestFn does not exist. Please check KanjiWorkerProvider",
+        },
       });
 
       return;
