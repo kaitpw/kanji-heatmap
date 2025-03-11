@@ -37,17 +37,18 @@ export const FrequencyInfo = ({
                 <TableCell className="p-0">
                   <GenericPopover
                     trigger={
-                      <button className="text-left text-xs flex justify-between !w-[220px]">
-                        <span className="font-extrabold flex items-center ">
-                          {label} <InfoIcon className="ml-1" size={12} />
+                      <button className="text-left text-xs flex justify-between items-center w-[225px] lg:w-[280px] py-1">
+                        <span className="font-extrabold">
+                          {label}{" "}
+                          <InfoIcon className="inline-block" size={12} />
                         </span>{" "}
                         {rank !== -1 && (
-                          <span className="mx-1 block grow text-end">
-                            # {rank}
+                          <span className="inline-block -mb-0_5 grow text-end w-12">
+                            #{rank}
                           </span>
                         )}
                         <span
-                          className={`h-3 w-3 block mx-1 ${getFreqCnByRank(rank)} `}
+                          className={`h-3 w-3 inline-block mx-1 ${getFreqCnByRank(rank)} `}
                         />
                       </button>
                     }
