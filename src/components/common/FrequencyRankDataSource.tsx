@@ -30,7 +30,7 @@ export function FrequencyRankDataSource({
             };
           })}
           label="Frequency Data Source"
-          isLabelSrOnly={true}
+          isLabelSrOnly={false}
         />
         <FreqRankTypeInfo value={value} />
       </>

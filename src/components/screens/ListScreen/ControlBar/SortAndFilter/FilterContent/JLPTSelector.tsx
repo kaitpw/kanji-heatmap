@@ -27,7 +27,7 @@ export function JLPTSelector({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onValueChange = setSelectedJLPT as any;
   return (
-    <div className="max-w-xl">
+    <div>
       <Label className="text-xs font-thin" htmlFor={fieldId}>
         JLPT
       </Label>
@@ -36,7 +36,7 @@ export function JLPTSelector({
         options={JLPTOptionsWithIcon}
         onValueChange={onValueChange}
         defaultValue={selectedJLPT}
-        placeholder="All JLPT levels are selected by default"
+        placeholder="All levels selected"
         variant="inverted"
         maxCount={JLPTOptionsWithIcon.length}
       />

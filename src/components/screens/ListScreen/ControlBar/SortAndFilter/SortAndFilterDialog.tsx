@@ -52,10 +52,14 @@ export const SortAndFilterSettingsDialog = ({
         </HoverCardContent>
       </HoverCard>
       <DialogContent
-        className={"overflow-y-scroll overflow-x-hidden max-h-svh z-50"}
+        className={
+          "overflow-y-auto max-h-svh z-50 flex flex-col px-4 pt-8 pb-4"
+        }
       >
         <DialogHeader>
-          <DialogTitle>Sorting and Filtering Settings</DialogTitle>
+          <DialogTitle className="text-left pb-4 m-0">
+            Sorting and Filtering Settings
+          </DialogTitle>
           <DialogDescription className="sr-only">
             Manage your Sorting and Filtering Settings
           </DialogDescription>

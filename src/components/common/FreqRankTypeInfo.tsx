@@ -17,11 +17,10 @@ export const FreqRankTypeInfo = ({
     return <>{defaultValue}</>;
   }
   return (
-    <div className="text-sm mt-1 text-left px-3">
+    <div className="text-xs mt-1 text-left px-3">
       *{sourceInfo.description}
       {sourceInfo.links && sourceInfo.links.length > 0 && (
-        <>
-          <br />
+        <div className="my-1">
           <span className="font-extrabold">Visit related link(s): </span>[
           {sourceInfo.links.map((link, index) => {
             return (
@@ -32,7 +31,7 @@ export const FreqRankTypeInfo = ({
             );
           })}
           ]
-        </>
+        </div>
       )}
     </div>
   );

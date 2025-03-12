@@ -63,7 +63,6 @@ export const ItemPresentationSettingsContent = () => {
         {shouldAttachMeaning && (
           <>
             <BackgroundColorGradient />
-            <p className="text-xs mt-3">Frequency Data Source*</p>
             <FrequencyRankDataSource
               value={cardState.backgroundColorSettingDataSource}
               setValue={(v) => {

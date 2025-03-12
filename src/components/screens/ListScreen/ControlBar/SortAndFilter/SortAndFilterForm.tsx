@@ -47,171 +47,169 @@ export const SortAndFilterSettingsForm = ({
   );
 
   return (
-    <section className="flex flex-col items-start justify-start w-full">
-      <form
-        className="w-full flex flex-col space-y-4"
-        onSubmit={(e) => {
-          e.preventDefault();
-          onSettle({
-            ...initialValue,
-            filterSettings: filterValues,
-            sortSettings: sortValues,
-          });
-        }}
-      >
-        <SortOrderSectionLayout
-          primaryField={
+    <form
+      className="flex flex-col space-y-4"
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSettle({
+          ...initialValue,
+          filterSettings: filterValues,
+          sortSettings: sortValues,
+        });
+      }}
+    >
+      <SortOrderSectionLayout
+        primaryField={
+          <>
+            <BasicSelect
+              value={sortValues.primary}
+              onChange={(newValue) => {
+                const isGroup = (GROUP_OPTIONS as readonly string[]).includes(
+                  newValue
+                );
+
+                setSortValues((prev) => {
+                  const newSecondary =
+                    newValue === prev.secondary
+                      ? "none"
+                      : isGroup
+                        ? prev.secondary
+                        : "none";
+                  return {
+                    ...prev,
+                    primary: newValue as SortKey,
+                    secondary: newSecondary,
+                  };
+                });
+              }}
+              triggerCN={"h-8 w-full"}
+              options={SORT_ORDER_SELECT}
+              label="Primary"
+              isLabelSrOnly={false}
+            />
+            <FreqRankTypeInfo value={sortValues.primary} />
+          </>
+        }
+        secondaryField={
+          sortValues.secondary &&
+          isGroup && (
             <>
               <BasicSelect
-                value={sortValues.primary}
-                onChange={(newValue) => {
-                  const isGroup = (GROUP_OPTIONS as readonly string[]).includes(
-                    newValue
-                  );
-
+                value={sortValues.secondary}
+                onChange={(newValue) =>
                   setSortValues((prev) => {
-                    const newSecondary =
-                      newValue === prev.secondary
-                        ? "none"
-                        : isGroup
-                          ? prev.secondary
-                          : "none";
-                    return {
-                      ...prev,
-                      primary: newValue as SortKey,
-                      secondary: newSecondary,
-                    };
-                  });
-                }}
+                    return { ...prev, secondary: newValue as SortKey };
+                  })
+                }
                 triggerCN={"h-8 w-full"}
-                options={SORT_ORDER_SELECT}
-                label="Primary"
+                options={SORT_ORDER_SELECT.filter((item) => {
+                  return item.value !== sortValues.primary;
+                })}
+                label="Secondary"
                 isLabelSrOnly={false}
               />
-              <FreqRankTypeInfo value={sortValues.primary} />
+              <FreqRankTypeInfo value={sortValues.secondary} />
             </>
-          }
-          secondaryField={
-            sortValues.secondary &&
-            isGroup && (
-              <>
-                <BasicSelect
-                  value={sortValues.secondary}
-                  onChange={(newValue) =>
-                    setSortValues((prev) => {
-                      return { ...prev, secondary: newValue as SortKey };
-                    })
-                  }
-                  triggerCN={"h-8 w-full"}
-                  options={SORT_ORDER_SELECT.filter((item) => {
-                    return item.value !== sortValues.primary;
-                  })}
-                  label="Secondary"
-                  isLabelSrOnly={false}
-                />
-                <FreqRankTypeInfo value={sortValues.secondary} />
-              </>
-            )
-          }
-          additionalInfo={
-            <SortAdditionalInfo
-              val1={sortValues.primary}
-              val2={sortValues.secondary}
-            />
-          }
-        />
+          )
+        }
+        additionalInfo={
+          <SortAdditionalInfo
+            val1={sortValues.primary}
+            val2={sortValues.secondary}
+          />
+        }
+      />
 
-        <FilterSectionLayout
-          strokeCountField={
-            <StrokeCountField
+      <FilterSectionLayout
+        strokeCountField={
+          <StrokeCountField
+            values={[
+              filterValues.strokeRange.min,
+              filterValues.strokeRange.max,
+            ]}
+            setValues={(val) => {
+              setFilterValues((prev) => {
+                return {
+                  ...prev,
+                  strokeRange: {
+                    min: val[0] ?? 0,
+                    max: val[1] ?? MAX_STROKE_COUNT,
+                  },
+                };
+              });
+            }}
+          />
+        }
+        jlptField={
+          <JLPTSelector
+            selectedJLPT={filterValues.jlpt}
+            setSelectedJLPT={(val) => {
+              setFilterValues((prev) => {
+                return { ...prev, jlpt: val };
+              });
+            }}
+          />
+        }
+        freqRankSourceField={
+          <FrequencyRankDataSource
+            value={filterValues.freq.source}
+            setValue={(val) => {
+              setFilterValues((prev) => {
+                return {
+                  ...prev,
+                  freq: {
+                    ...prev.freq,
+                    source: val as FrequencyType,
+                    rankRange:
+                      val === "none"
+                        ? { min: 1, max: MAX_FREQ_RANK }
+                        : prev.freq.rankRange,
+                  },
+                };
+              });
+            }}
+          />
+        }
+        freqRankRangeField={
+          filterValues.freq.source !== "none" && (
+            <FrequencyRankingRangeField
               values={[
-                filterValues.strokeRange.min,
-                filterValues.strokeRange.max,
+                filterValues.freq.rankRange.min,
+                filterValues.freq.rankRange.max,
               ]}
               setValues={(val) => {
                 setFilterValues((prev) => {
                   return {
                     ...prev,
-                    strokeRange: {
-                      min: val[0] ?? 0,
-                      max: val[1] ?? MAX_STROKE_COUNT,
-                    },
-                  };
-                });
-              }}
-            />
-          }
-          jlptField={
-            <JLPTSelector
-              selectedJLPT={filterValues.jlpt}
-              setSelectedJLPT={(val) => {
-                setFilterValues((prev) => {
-                  return { ...prev, jlpt: val };
-                });
-              }}
-            />
-          }
-          freqRankSourceField={
-            <FrequencyRankDataSource
-              value={filterValues.freq.source}
-              setValue={(val) => {
-                setFilterValues((prev) => {
-                  return {
-                    ...prev,
                     freq: {
                       ...prev.freq,
-                      source: val as FrequencyType,
-                      rankRange:
-                        val === "none"
-                          ? { min: 1, max: MAX_FREQ_RANK }
-                          : prev.freq.rankRange,
+                      rankRange: {
+                        min: val[0] ?? 1,
+                        max: val[1] ?? MAX_FREQ_RANK,
+                      },
                     },
                   };
                 });
               }}
             />
-          }
-          freqRankRangeField={
-            filterValues.freq.source !== "none" && (
-              <FrequencyRankingRangeField
-                values={[
-                  filterValues.freq.rankRange.min,
-                  filterValues.freq.rankRange.max,
-                ]}
-                setValues={(val) => {
-                  setFilterValues((prev) => {
-                    return {
-                      ...prev,
-                      freq: {
-                        ...prev.freq,
-                        rankRange: {
-                          min: val[0] ?? 1,
-                          max: val[1] ?? MAX_FREQ_RANK,
-                        },
-                      },
-                    };
-                  });
-                }}
-              />
-            )
-          }
+          )
+        }
+      />
+      {!isDisabled && (
+        <ItemCount
+          settings={{ ...initialValue, filterSettings: filterValues }}
         />
-        {!isDisabled && (
-          <ItemCount
-            settings={{ ...initialValue, filterSettings: filterValues }}
-          />
-        )}
-        {isDisabled && (
-          <div className="flex w-full justify-end items-center text-sm">
-            There are no changes to apply yet.
-          </div>
-        )}
-        <div className="flex justify-end space-x-1 border-t pt-3">
-          <Button disabled={isDisabled} type="submit">
-            Apply
-          </Button>
+      )}
+      {isDisabled && (
+        <div className="flex w-full justify-end items-center text-xs">
+          There are no changes to apply yet.
         </div>
-      </form>
-    </section>
+      )}
+      <div className="flex justify-end border-t pt-3 px-0">
+        <Button disabled={isDisabled} type="submit">
+          Apply
+        </Button>
+      </div>
+    </form>
   );
 };

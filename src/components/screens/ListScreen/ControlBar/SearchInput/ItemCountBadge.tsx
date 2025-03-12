@@ -2,7 +2,7 @@ import { useKanjiSearchResult } from "@/kanji-worker/kanji-worker-provider";
 
 export const ItemCountBadge = () => {
   const result = useKanjiSearchResult();
-  if (result.data == null || result.data.length == null) {
+  if (result.data?.length == null || result.data.length === 0) {
     return <></>;
   }
   return (

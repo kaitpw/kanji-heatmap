@@ -46,20 +46,17 @@ const BasicSelect = ({
         {label}
       </Label>
       <Select value={value} onValueChange={onChange}>
-        <SelectTrigger
-          className={`w-full px-2 ${triggerCN}`}
-          id={`select-${id}`}
-        >
+        <SelectTrigger className={`w-full ${triggerCN}`} id={`select-${id}`}>
           <SelectValue>
             {options.find((option) => option.value === value)?.label}
           </SelectValue>
         </SelectTrigger>
-        <SelectContent className="w-96">
+        <SelectContent className="max-w-72 max-h-64 sm:max-h-96 sm:max-w-96 ">
           <SelectGroup>
             {options.map((option) => {
               return (
                 <SelectItem
-                  className={`block w-96 text-left ${selectItemCNFunc?.(option.value)}`}
+                  className={`block max-w-72 sm:max-w-96 text-left ${selectItemCNFunc?.(option.value)}`}
                   key={option.value}
                   value={option.value}
                   disabled={option.disabled}

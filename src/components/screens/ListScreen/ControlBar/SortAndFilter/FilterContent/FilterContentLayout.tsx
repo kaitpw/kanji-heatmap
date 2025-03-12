@@ -14,7 +14,7 @@ export const FilterSectionLayout = ({
   freqRankRangeField?: ReactNode;
 }) => {
   return (
-    <section className="text-start w-full">
+    <section className="text-start">
       <UppercaseHeading title="Filters" icon={<FilterX size={15} />} />
       <div className="flex w-full flex-col md:flex-row md:space-x-4">
         <div className="w-full md:w-1/2 pb-8">{strokeCountField}</div>
@@ -26,7 +26,6 @@ export const FilterSectionLayout = ({
       <div className="flex w-full flex-col md:flex-row md:space-x-4">
         <div className="w-full md:w-1/2">
           <div className="text-left w-full pb-4 md:pb-0">
-            <div className="text-xs">Data Source</div>
             {freqRankSourceField}
           </div>
         </div>
