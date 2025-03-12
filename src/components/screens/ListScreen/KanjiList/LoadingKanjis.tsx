@@ -5,7 +5,7 @@ import {
   randomCn2Colorful,
 } from "@/lib/random-cn";
 import { useVirtualListDims } from "./useVirtualDims";
-import { useItemSettings } from "@/providers/item-settings-provider";
+import { useDeferredItemSettings } from "@/providers/item-settings-provider";
 import React from "react";
 
 const ESTIMATE_ITEM_COUNT = 125;
@@ -15,7 +15,7 @@ const LoadingKanjisRaw = ({
 }: {
   type?: "colorful" | "gradient";
 }) => {
-  const itemSettings = useItemSettings();
+  const itemSettings = useDeferredItemSettings();
   // TODO: Generate count depending on window size
   const isCompact = itemSettings.cardType === "compact";
 

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useDeferredValue } from "react";
 import { useLocalStorage } from "../hooks/use-local-storage";
 import { createContextComponents, useContextWithCatch } from "./helpers";
 import { ItemSettings } from "@/lib/settings";
@@ -35,6 +35,11 @@ export function useItemSettings() {
   return context;
 }
 
+export function useDeferredItemSettings() {
+  const context = useItemSettings();
+  const value = useDeferredValue(context);
+  return value;
+}
 export function useItemSettingsDispatch() {
   const context = useContextWithCatch(
     DispatchContext,

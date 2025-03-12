@@ -12,7 +12,7 @@ import { FrequencyRankDataSource } from "@/components/common/FrequencyRankDataSo
 import { FrequencyType } from "@/lib/sort-freq-types";
 
 export const H2 = ({ children }: { children: ReactNode }) => (
-  <h2 className="font-bold border-b-2 border-dotted mt-6 mb-2">{children}</h2>
+  <h2 className="font-bold border-b-2 border-dotted mt-4 mb-2">{children}</h2>
 );
 
 export const ItemPresentationSettingsContent = () => {
@@ -24,57 +24,48 @@ export const ItemPresentationSettingsContent = () => {
 
   return (
     <article className="text-left">
-      <h1 className="text-lg font-bold flex space-x-2 items-center">
+      <h1 className="text-lg font-bold flex space-x-2 items-center mb-0 pb-0">
         Item Presentation Settings
       </h1>
-      <Separator className="mb-2" />
-      <section>
-        <H2>Button Type</H2>
-        <ItemTypeSwitch
-          value={cardState.cardType !== "compact"}
-          setValue={(v) => {
-            dispatch("cardType", v === false ? "compact" : "expanded");
-          }}
-        />
-      </section>
-      <section>
-        <H2>Border Color Meaning</H2>
-        <LabeledCheckbox
-          label="Attach Border Color Meaning (JLPT)"
-          value={cardState.borderColorAttached}
-          onChange={(v) => {
-            dispatch("borderColorAttached", v);
-          }}
-        />
-        {cardState.borderColorAttached && <JLPTBordersMeanings />}
-      </section>
-      <section>
-        <H2>Background Color Meaning</H2>
-        <LabeledCheckbox
-          label="Attach Background Color Meaning"
-          value={shouldAttachMeaning}
-          onChange={(v) => {
-            if (v === false) {
-              dispatch("backgroundColorSettingDataSource", "none");
-            }
-            setShouldAttachMeaning(v);
-          }}
-        />
-        {shouldAttachMeaning && (
-          <>
-            <BackgroundColorGradient />
-            <FrequencyRankDataSource
-              value={cardState.backgroundColorSettingDataSource}
-              setValue={(v) => {
-                dispatch(
-                  "backgroundColorSettingDataSource",
-                  v as FrequencyType
-                );
-              }}
-            />
-          </>
-        )}
-      </section>
+      <Separator className="p-0 m-0" />
+      <H2>Design</H2>
+      <ItemTypeSwitch
+        value={cardState.cardType !== "compact"}
+        setValue={(v) => {
+          dispatch("cardType", v === false ? "compact" : "expanded");
+        }}
+      />
+      <H2>Border Color Meaning</H2>
+      <LabeledCheckbox
+        label="Attach Border Color Meaning (JLPT)"
+        value={cardState.borderColorAttached}
+        onChange={(v) => {
+          dispatch("borderColorAttached", v);
+        }}
+      />
+      {cardState.borderColorAttached && <JLPTBordersMeanings />}
+      <H2>Background Color Meaning</H2>
+      <LabeledCheckbox
+        label="Attach Background Color Meaning"
+        value={shouldAttachMeaning}
+        onChange={(v) => {
+          if (v === false) {
+            dispatch("backgroundColorSettingDataSource", "none");
+          }
+          setShouldAttachMeaning(v);
+        }}
+      />
+      {shouldAttachMeaning && (
+        <>
+          <BackgroundColorGradient />
+          <FrequencyRankDataSource
+            value={cardState.backgroundColorSettingDataSource}
+            setValue={(v) => {
+              dispatch("backgroundColorSettingDataSource", v as FrequencyType);
+            }}
+          />
+        </>
+      )}
     </article>
   );
 };
