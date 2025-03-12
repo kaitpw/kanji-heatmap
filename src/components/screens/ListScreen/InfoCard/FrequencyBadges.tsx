@@ -1,6 +1,6 @@
 import { FreqRankTypeInfo } from "@/components/common/FreqRankTypeInfo";
 import { FrequencyBadge } from "@/components/common/FrequencyBadge";
-import { inverseFreqMap } from "@/lib/frequency-rank";
+import { inverseFreqMap } from "@/lib/ranks-sorts-filters";
 import { KanjiInfoFrequency } from "@/lib/kanji-worker-constants";
 
 export const FrequencyBadges = ({

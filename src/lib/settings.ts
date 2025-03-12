@@ -1,7 +1,8 @@
-import { FrequencyType, SortKey } from "./frequency-rank";
+import { FrequencyType, SortKey } from "./ranks-sorts-filters";
 import { JLTPTtypes } from "./jlpt";
 
-export type SearchType = "keyword" | "onyomi" | "kunyomi";
+export const SEARCH_TYPE_ARR = ["keyword", "onyomi", "kunyomi"] as const;
+export type SearchType = (typeof SEARCH_TYPE_ARR)[number];
 
 export const SEARCH_TYPE_OPTIONS: {
   value: SearchType;

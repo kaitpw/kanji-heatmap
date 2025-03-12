@@ -1,43 +1,86 @@
-import { ReactNode } from "react";
-import { useLocalStorage } from "../hooks/use-local-storage";
-import { K_JLPT, K_STROKES } from "@/lib/frequency-rank";
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+import { ReactNode, useCallback, useLayoutEffect, useMemo } from "react";
+
 import { createContextComponents, useContextWithCatch } from "./helpers";
-import { SearchSettings } from "@/lib/settings";
-import { MAX_FREQ_RANK } from "@/lib/constants";
-
-const storageKey = "search-settings";
-
-export const defaultValue: SearchSettings = {
-  textSearch: {
-    type: "keyword",
-    text: "",
-  },
-  filterSettings: {
-    strokeRange: { min: 0, max: 50 },
-    jlpt: ["n1", "n2", "n3", "n4", "n5", "none"] as const,
-    freq: {
-      source: "None",
-      rankRange: { min: 0, max: MAX_FREQ_RANK },
-    },
-  },
-  sortSettings: {
-    primary: K_STROKES,
-    secondary: K_JLPT,
-  },
-};
+import {
+  FilterSettings,
+  SearchSettings,
+  SortSettings,
+  TextSearch,
+} from "@/lib/settings";
+import { MAX_FREQ_RANK, MAX_STROKE_COUNT } from "@/lib/constants";
+import { useSearchParams } from "wouter";
+import { toSearchParams, toSearchSettings } from "@/lib/url-params-helpers";
 
 const { StateContext, DispatchContext } =
-  createContextComponents<SearchSettings>(defaultValue);
+  createContextComponents<SearchSettings>({
+    textSearch: {
+      type: "keyword",
+      text: "",
+    },
+    filterSettings: {
+      strokeRange: { min: 1, max: MAX_STROKE_COUNT },
+      jlpt: ["n1", "n2", "n3", "n4", "n5", "none"] as const,
+      freq: {
+        source: "rank-netflix" as const,
+        rankRange: { min: 1, max: MAX_FREQ_RANK },
+      },
+    },
+    sortSettings: {
+      primary: "none",
+      secondary: "none",
+    },
+  });
 
 export function SearchSettingsProvider({ children }: { children: ReactNode }) {
-  const [storageData, setItem] = useLocalStorage<SearchSettings>(
-    storageKey,
-    defaultValue
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const updateItem = useCallback(
+    (
+      key: keyof SearchSettings,
+      value: TextSearch | FilterSettings | SortSettings
+    ) => {
+      setSearchParams((prev) => {
+        return toSearchParams(prev, key, value);
+      });
+    },
+    [setSearchParams]
   );
+
+  useLayoutEffect(() => {
+    setSearchParams(
+      (prev) => {
+        const searchSettings = toSearchSettings(prev);
+
+        const partial1 = toSearchParams(
+          prev,
+          "textSearch",
+          searchSettings.textSearch
+        );
+        const partial2 = toSearchParams(
+          partial1,
+          "filterSettings",
+          searchSettings.filterSettings
+        );
+        const final = toSearchParams(
+          partial2,
+          "sortSettings",
+          searchSettings.sortSettings
+        );
+
+        return final;
+      },
+      { replace: true }
+    );
+  }, [setSearchParams]);
+
+  const storageData: SearchSettings = useMemo(() => {
+    return toSearchSettings(searchParams);
+  }, [searchParams]);
 
   return (
     <StateContext.Provider value={storageData}>
-      <DispatchContext.Provider value={setItem}>
+      <DispatchContext.Provider value={updateItem}>
         {children}
       </DispatchContext.Provider>
     </StateContext.Provider>

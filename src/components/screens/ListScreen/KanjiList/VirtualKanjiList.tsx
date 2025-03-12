@@ -18,7 +18,15 @@ const KanjiListRaw = ({
 
   const setOpenedKanji = useCallback(
     (kanji: string | null) => {
-      setSearchParams(kanji == null ? {} : { [URL_PARAMS.openKanji]: kanji });
+      setSearchParams((prev) => {
+        if (kanji == null) {
+          prev.delete(URL_PARAMS.openKanji);
+          return prev;
+        }
+
+        prev.set(URL_PARAMS.openKanji, kanji);
+        return prev;
+      });
     },
     [setSearchParams]
   );

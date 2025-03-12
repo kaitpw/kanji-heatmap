@@ -14,9 +14,9 @@ import {
 } from "@/components/ui/hover-card";
 import { Settings2 } from "lucide-react";
 import { useState } from "react";
-import { SortAndFilterSettingsForm } from "../SortAndFilterForm";
+import { SortAndFilterSettingsForm } from "./SortAndFilterForm";
 import { SearchSettings } from "@/lib/settings";
-import { ChangedIndicator } from "./ChangeIndicator";
+import { ChangedIndicator } from "./SortContent/ChangeIndicator";
 import ErrorBoundary from "@/components/common/ErrorBoundary";
 
 export const SortAndFilterSettingsDialog = ({
@@ -52,7 +52,7 @@ export const SortAndFilterSettingsDialog = ({
         </HoverCardContent>
       </HoverCard>
       <DialogContent
-        className={"overflow-y-scroll overflow-x-hidden max-h-lvh z-50"}
+        className={"overflow-y-scroll overflow-x-hidden max-h-svh z-50"}
       >
         <DialogHeader>
           <DialogTitle>Sorting and Filtering Settings</DialogTitle>

@@ -6,7 +6,7 @@ export const shouldShowAllKanji = (settings: SearchSettings) => {
   const { strokeRange, freq, jlpt } = settings.filterSettings;
   const fullRangeStrokes =
     strokeRange.min <= 1 && strokeRange.max >= MAX_STROKE_COUNT;
-  const fullRangeFreq = freq.source === "None";
+  const fullRangeFreq = freq.source === "none";
   const allJLPT = jlpt.length === 0 || jlpt.length === JLPTOptions.length;
   const noText = settings.textSearch.text === "";
   return fullRangeStrokes && fullRangeFreq && noText && allJLPT;

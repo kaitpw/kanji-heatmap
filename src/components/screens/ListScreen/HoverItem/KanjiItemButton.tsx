@@ -6,7 +6,11 @@ import {
 } from "@/kanji-worker/kanji-worker-provider";
 import { ITEM_CARD_BG_CN } from "@/lib/constants";
 import * as wanakana from "wanakana";
-import { freqCategoryCn, freqMap, getFreqCategory } from "@/lib/frequency-rank";
+import {
+  freqCategoryCn,
+  freqMap,
+  getFreqCategory,
+} from "@/lib/ranks-sorts-filters";
 import { KanjiInfoFrequency } from "@/lib/kanji-worker-constants";
 import { useItemSettings } from "@/providers/item-settings-provider";
 import { JLPTListItems } from "@/lib/jlpt";
@@ -72,7 +76,7 @@ const useItemBtnCn = (kanji: string) => {
   const kanjiInfo = getInfo?.(kanji);
   const dontIncludeFreq =
     itemSettings.backgroundColorSettingDataSource == null ||
-    itemSettings.backgroundColorSettingDataSource == "None";
+    itemSettings.backgroundColorSettingDataSource == "none";
 
   const kanjiFreq = useKanjiInfo(
     kanji,

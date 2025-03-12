@@ -1,6 +1,6 @@
 import { GenericPopover } from "@/components/common/GenericPopover";
 import { badgeCnOutline } from "@/components/ui/badge";
-import { getFreqCnByRank } from "@/lib/frequency-rank";
+import { getFreqCnByRank } from "@/lib/ranks-sorts-filters";
 import { ReactNode } from "react";
 
 export const FrequencyBadge = ({

@@ -8,7 +8,7 @@ import {
   frequencyRankLabels,
   getFreqCnByRank,
   inverseFreqMap,
-} from "@/lib/frequency-rank";
+} from "@/lib/ranks-sorts-filters";
 import { FreqRankTypeInfo } from "@/components/common/FreqRankTypeInfo";
 
 export const FrequencyInfo = ({

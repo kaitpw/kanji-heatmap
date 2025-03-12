@@ -3,7 +3,7 @@ import {
   FREQ_RANK_SOURCES_INFO,
   FrequencyType,
   SortKey,
-} from "@/lib/frequency-rank";
+} from "@/lib/ranks-sorts-filters";
 import { ExternalTextLink } from "./ExternalTextLink";
 
 export const FreqRankTypeInfo = ({
@@ -14,7 +14,7 @@ export const FreqRankTypeInfo = ({
   defaultValue?: ReactNode;
 }) => {
   const sourceInfo = FREQ_RANK_SOURCES_INFO[value as FrequencyType];
-  const hasValue = value !== "None" && sourceInfo?.description;
+  const hasValue = value !== "none" && sourceInfo?.description;
 
   if (!hasValue) {
     return <>{defaultValue}</>;

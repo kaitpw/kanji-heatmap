@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useDeferredValue, useState } from "react";
+import { useState } from "react";
 import { FilterSectionLayout } from "./FilterContent/FilterContentLayout";
 import { FrequencyRankDataSource } from "../../../../common/FrequencyRankDataSource";
 import { JLPTSelector } from "./FilterContent/JLPTSelector";
@@ -9,86 +9,31 @@ import {
   GROUP_OPTIONS,
   SORT_ORDER_SELECT,
   SortKey,
-} from "@/lib/frequency-rank";
-import { SortAdditionalInfo, SortOrderSectionLayout } from "./SortOrderLayout";
+} from "@/lib/ranks-sorts-filters";
+import {
+  SortAdditionalInfo,
+  SortOrderSectionLayout,
+} from "./SortContent/SortOrderLayout";
 import BasicSelect from "@/components/common/BasicSelect";
-import { KANJI_COUNT, MAX_FREQ_RANK, MAX_STROKE_COUNT } from "@/lib/constants";
+import { MAX_FREQ_RANK, MAX_STROKE_COUNT } from "@/lib/constants";
 import { FrequencyRankingRangeField } from "./FilterContent/FrequencyRankingRangeField";
 import { StrokeCountField } from "./FilterContent/StrokeCountField";
 import { FilterSettings, SearchSettings, SortSettings } from "@/lib/settings";
-import { useKanjiSearchCount } from "@/kanji-worker/kanji-worker-provider";
-import { isEqualFilters, shouldShowAllKanji } from "./SortContent/helpers";
+import { isEqualFilters } from "./helpers";
 import { FreqRankTypeInfo } from "@/components/common/FreqRankTypeInfo";
+import { ItemCount } from "./ItemCount";
 
-const disclaimer =
-  "Given your selected frequency data source, Kanji Characters with no available rank  are excluded.";
-
-const AllMatchMsg = () => {
-  return (
-    <div className="block w-full text-right text-xs">
-      All available Kanji (
-      {<span className="font-extrabold mx-1">{KANJI_COUNT}</span>}) characters
-      match your applied filters.
-    </div>
-  );
-};
-
-const ItemCountComputed = ({ settings }: { settings: SearchSettings }) => {
-  const data = useKanjiSearchCount(settings);
-
-  if (data.data == null || data.error) {
-    return <></>;
-  }
-
-  const textSuffix =
-    settings.textSearch.text.length > 0 ? (
-      <>
-        Your Search Text is{" "}
-        <span className="mx-1 font-extrabold">
-          "{settings.textSearch.text}".
-        </span>
-      </>
-    ) : (
-      ""
-    );
-
-  if (data.data === 0) {
-    return (
-      <>
-        {textSuffix} No Kanji characters match your applied filters. <br />
-        {disclaimer}{" "}
-      </>
-    );
-  }
-
-  if (data.data >= KANJI_COUNT) {
-    return <AllMatchMsg />;
-  }
-
-  return (
-    <>
-      {textSuffix} A total of{" "}
-      <span className="font-extrabold mx-1">{data.data}</span> of
-      <span className="font-extrabold mx-1"> {KANJI_COUNT}</span>
-      Kanji characters match your applied filters. <br />
-      {disclaimer}
-    </>
-  );
-};
-const ItemCount = ({ settings }: { settings: SearchSettings }) => {
-  const deferredSettings = useDeferredValue(settings);
-  const shouldShowAll = shouldShowAllKanji(deferredSettings);
-
-  if (shouldShowAll) {
-    return <AllMatchMsg />;
-  }
-
-  return (
-    <div className="block w-full text-right text-xs">
-      <ItemCountComputed settings={deferredSettings} />
-    </div>
-  );
-};
+const SORT_OPTIONS = SORT_ORDER_SELECT.map((item) => {
+  const freqDesc =
+    FREQ_RANK_SOURCES_INFO[item.value as FrequencyType]?.description;
+  const label =
+    freqDesc && item.value !== "none" ? `${item.label} Rank` : item.label;
+  return {
+    ...item,
+    label,
+    description: item.value !== "none" ? freqDesc : undefined,
+  };
+});
 
 export const SortAndFilterSettingsForm = ({
   initialValue,
@@ -144,10 +89,10 @@ export const SortAndFilterSettingsForm = ({
                   setSortValues((prev) => {
                     const newSecondary =
                       newValue === prev.secondary
-                        ? "None"
+                        ? "none"
                         : isGroup
                           ? prev.secondary
-                          : "None";
+                          : "none";
                     return {
                       ...prev,
                       primary: newValue as SortKey,
@@ -156,17 +101,7 @@ export const SortAndFilterSettingsForm = ({
                   });
                 }}
                 triggerCN={"h-8 w-full"}
-                options={SORT_ORDER_SELECT.map((item) => {
-                  const freqDesc =
-                    FREQ_RANK_SOURCES_INFO[item.value as FrequencyType]
-                      ?.description;
-                  const label = freqDesc ? `${item.label} Rank` : item.label;
-                  return {
-                    ...item,
-                    label,
-                    description: freqDesc,
-                  };
-                })}
+                options={SORT_OPTIONS}
                 label="Primary"
                 isLabelSrOnly={false}
               />
@@ -185,18 +120,8 @@ export const SortAndFilterSettingsForm = ({
                     })
                   }
                   triggerCN={"h-8 w-full"}
-                  options={SORT_ORDER_SELECT.filter((item) => {
+                  options={SORT_OPTIONS.filter((item) => {
                     return item.value !== sortValues.primary;
-                  }).map((item) => {
-                    const freqDesc =
-                      FREQ_RANK_SOURCES_INFO[item.value as FrequencyType]
-                        ?.description;
-                    const label = freqDesc ? `${item.label} Rank` : item.label;
-                    return {
-                      ...item,
-                      label,
-                      description: freqDesc,
-                    };
                   })}
                   label="Secondary"
                   isLabelSrOnly={false}
@@ -254,7 +179,7 @@ export const SortAndFilterSettingsForm = ({
                       ...prev.freq,
                       source: val as FrequencyType,
                       rankRange:
-                        val === "None"
+                        val === "none"
                           ? { min: 1, max: MAX_FREQ_RANK }
                           : prev.freq.rankRange,
                     },
@@ -264,7 +189,7 @@ export const SortAndFilterSettingsForm = ({
             />
           }
           freqRankRangeField={
-            filterValues.freq.source !== "None" && (
+            filterValues.freq.source !== "none" && (
               <FrequencyRankingRangeField
                 values={[
                   filterValues.freq.rankRange.min,
@@ -294,7 +219,7 @@ export const SortAndFilterSettingsForm = ({
           />
         )}
         {isDisabled && (
-          <div className="flex w-full justify-end items-center">
+          <div className="flex w-full justify-end items-center text-sm">
             There are no changes to apply yet.
           </div>
         )}

@@ -8,7 +8,7 @@ const storageKey = "item-settings";
 export const defaultValue: ItemSettings = {
   cardType: "compact",
   borderColorAttached: true,
-  backgroundColorSettingDataSource: "None",
+  backgroundColorSettingDataSource: "none",
 };
 
 const { StateContext, DispatchContext } =

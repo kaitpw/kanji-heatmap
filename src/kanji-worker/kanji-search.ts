@@ -24,7 +24,7 @@ import {
   K_STROKES,
   K_WK_LVL,
   SortKey,
-} from "@/lib/frequency-rank";
+} from "@/lib/ranks-sorts-filters";
 import { JLPTRank, JLTPTtypes } from "@/lib/jlpt";
 import { KanjiExtendedInfo, KanjiMainInfo } from "@/lib/kanji-worker-constants";
 import { SearchSettings } from "@/lib/settings";
@@ -122,7 +122,7 @@ export const filterKanji = (
       return withinRange;
     })
     .filter((kanji) => {
-      if (freqFilter.source === "None") {
+      if (freqFilter.source === "none") {
         return true;
       }
       const exInfo = kanjiPool.extended[kanji];

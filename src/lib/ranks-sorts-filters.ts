@@ -5,33 +5,33 @@ import {
 } from "./kanji-worker-constants";
 
 export const K_JLPT = "jlpt";
-export const K_JOUYOU_KEY = "jouyou_grade";
+export const K_JOUYOU_KEY = "jouyou-grade";
 export const K_ONYOMI = "onyomi";
 export const K_KUNYOMI = "kunyomi";
 export const K_STROKES = "strokes";
-export const K_WK_LVL = "wanikani_level";
+export const K_WK_LVL = "wanikani-level";
 
-export const K_RTK_INDEX = "rtk_index";
-export const K_MEANING_KEY = "meaning_key";
+export const K_RTK_INDEX = "rtk-index";
+export const K_MEANING_KEY = "meaning-key";
 
-export const K_RANK_NETFLIX = "freq-rank-netflix";
-export const K_RANK_DRAMA_SUBTITLES = "freq-rank-drama-subtitles";
-export const K_RANK_NOVELS_5100 = "freq-rank-novels-5100";
-export const K_RANK_TWITTER = "freq-rank-twitter";
-export const K_RANK_WIKIPEDIA_DOC = "freq-rank-wikipedia-doc";
-export const K_RANK_WIKIPEDIA_CHAR = "freq-rank-wikipedia-char";
-export const K_RANK_ONLINE_NEWS_DOC = "freq-rank-online-news-doc";
-export const K_RANK_ONLINE_NEWS_CHAR = "freq-rank-online-news-char";
-export const K_RANK_AOZORA_DOC = "freq-rank-aozora-doc";
-export const K_RANK_AOZORA_CHAR = "freq-rank-aozora-char";
+export const K_RANK_NETFLIX = "rank-netflix";
+export const K_RANK_DRAMA_SUBTITLES = "rank-drama-subtitles";
+export const K_RANK_NOVELS_5100 = "rank-novels-5100";
+export const K_RANK_TWITTER = "rank-twitter";
+export const K_RANK_WIKIPEDIA_DOC = "rank-wikipedia-doc";
+export const K_RANK_WIKIPEDIA_CHAR = "rank-wikipedia-char";
+export const K_RANK_ONLINE_NEWS_DOC = "rank-online-news-doc";
+export const K_RANK_ONLINE_NEWS_CHAR = "rank-online-news-char";
+export const K_RANK_AOZORA_DOC = "rank-aozora-doc";
+export const K_RANK_AOZORA_CHAR = "rank-aozora-char";
 
-export const K_RANK_GOOGLE = "rank_google";
-export const K_RANK_KUF = "rank_kuf";
-export const K_RANK_MCD = "rank_mcd";
-export const K_RANK_BUNKA = "rank_bunka";
-export const K_RANK_JISHO = "rank_jisho";
-export const K_RANK_KD = "rank_kd";
-export const K_RANK_WKFR = "rank_wkfr";
+export const K_RANK_GOOGLE = "rank-google";
+export const K_RANK_KUF = "rank-kuf";
+export const K_RANK_MCD = "rank-mcd";
+export const K_RANK_BUNKA = "rank-bunka";
+export const K_RANK_JISHO = "rank-jisho";
+export const K_RANK_KD = "rank-kd";
+export const K_RANK_WKFR = "rank-wkfr";
 
 export const GROUP_OPTIONS = [
   K_JLPT,
@@ -51,6 +51,8 @@ const nonFreqOptionLabels: Record<SortGroup | SortNonGroup, string> = {
   [K_MEANING_KEY]: "Keyword",
 };
 
+const K_RANK_NONE = "none" as const;
+
 export const FREQ_RANK_OPTIONS = [
   K_RANK_NETFLIX,
   K_RANK_DRAMA_SUBTITLES,
@@ -69,7 +71,7 @@ export const FREQ_RANK_OPTIONS = [
   K_RANK_JISHO,
   K_RANK_KD,
   K_RANK_WKFR,
-  "None",
+  K_RANK_NONE,
 ] as const;
 
 type SortGroup = (typeof GROUP_OPTIONS)[number];
@@ -98,7 +100,7 @@ export const freqMap: Record<
   [K_RANK_JISHO]: "jisho",
   [K_RANK_KD]: "kd",
   [K_RANK_WKFR]: "wkfr",
-  None: undefined,
+  [K_RANK_NONE]: undefined,
 };
 
 type FreqMapInverse = Record<keyof KanjiInfoFrequency, FrequencyType>;
@@ -289,7 +291,10 @@ export const FREQ_RANK_SOURCES_INFO: Record<
       ultimate_attribute_desc,
     links: ultimate_kanji_links,
   },
-  None: { description: "", links: [] },
+  [K_RANK_NONE]: {
+    description: "Do not select any frequency data source.",
+    links: [],
+  },
 };
 
 export const getFrequency = (freq: FrequencyType, info: KanjiExtendedInfo) => {
@@ -330,16 +335,19 @@ export const FREQUENCY_RANK_FILTER_OPTIONS: {
   return { value: optionValue, label: OPTION_LABELS[optionValue] ?? "None" };
 });
 
-export const SORT_ORDER_SELECT: { value: SortKey; label: string }[] = [
+export const ALL_SORT_OPTIONS: SortKey[] = [
   ...GROUP_OPTIONS,
   ...NONGROUP_OPTIONS,
   ...FREQ_RANK_OPTIONS,
-].map((optionValue) => {
-  return {
-    value: optionValue,
-    label: OPTION_LABELS[optionValue as SortKey] ?? "None",
-  };
-});
+];
+
+export const SORT_ORDER_SELECT: { value: SortKey; label: string }[] =
+  ALL_SORT_OPTIONS.map((optionValue) => {
+    return {
+      value: optionValue,
+      label: OPTION_LABELS[optionValue as SortKey] ?? "None",
+    };
+  });
 
 export const freqCategoryCount = 6;
 export type FreqCategory = 0 | 1 | 2 | 3 | 4 | 5;

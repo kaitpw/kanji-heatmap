@@ -1,6 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import { ReactNode, useState } from "react";
-import { FrequencyType } from "@/lib/frequency-rank";
+import { FrequencyType } from "@/lib/ranks-sorts-filters";
 import { JLPTBordersMeanings } from "./jlpt";
 import { BackgroundColorGradient } from "./freq";
 import {
@@ -19,7 +19,7 @@ export const ItemPresentationSettingsContent = () => {
   const cardState = useItemSettings();
   const dispatch = useItemSettingsDispatch();
   const [shouldAttachMeaning, setShouldAttachMeaning] = useState(
-    cardState.backgroundColorSettingDataSource !== "None"
+    cardState.backgroundColorSettingDataSource !== "none"
   );
 
   return (
@@ -55,7 +55,7 @@ export const ItemPresentationSettingsContent = () => {
           value={shouldAttachMeaning}
           onChange={(v) => {
             if (v === false) {
-              dispatch("backgroundColorSettingDataSource", "None");
+              dispatch("backgroundColorSettingDataSource", "none");
             }
             setShouldAttachMeaning(v);
           }}

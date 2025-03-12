@@ -26,7 +26,7 @@ export const NavLayout = ({
             </span>
           </NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="flex flex-col justify-start items-start max-h-[75vh] text-start overflow-y-auto overflow-x-hidden">
+            <ul className="flex flex-col justify-start items-start max-h-[75svh] text-start overflow-y-auto overflow-x-hidden">
               {children}
             </ul>
           </NavigationMenuContent>

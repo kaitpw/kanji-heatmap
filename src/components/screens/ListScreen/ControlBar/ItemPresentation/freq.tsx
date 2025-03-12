@@ -3,7 +3,7 @@ import {
   FreqCategory,
   freqCategoryCn,
   freqCategoryCount,
-} from "@/lib/frequency-rank";
+} from "@/lib/ranks-sorts-filters";
 import { ReactNode } from "react";
 
 export const FreqSquare = ({ srOnly, cn }: { srOnly: string; cn: string }) => {

@@ -54,10 +54,6 @@ export function KanjiDrawerRaw({
   const getFn = useGetKanjiInfoFn();
   const info = getFn?.(kanji);
 
-  console.log("info", info);
-
-  // need autoFocus=true see also: https://github.com/emilkowalski/vaul/issues/517#issuecomment-2571619213
-
   const content = !ready ? (
     <BasicLoading />
   ) : info != null ? (
@@ -71,6 +67,8 @@ export function KanjiDrawerRaw({
       showDefaultCta={false}
     />
   );
+
+  // need autoFocus=true see also: https://github.com/emilkowalski/vaul/issues/517#issuecomment-2571619213
   return (
     <Drawer open={isOpen} onClose={onClose} autoFocus={true}>
       <DrawerContent
