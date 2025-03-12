@@ -57,7 +57,7 @@ export const SORT_ORDER_SELECT = ALL_SORT_OPTIONS.map((item) => {
   const freqDesc = FREQ_RANK_SOURCES_INFO[item as FrequencyType]?.description;
 
   const raw = SORT_OPTION_LABELS[item as SortKey];
-  const label = freqDesc && item !== "none" ? `${raw} Rank` : raw;
+  const label = item === "none" ? "None" : freqDesc ? `${raw} Rank` : raw;
   return {
     value: item,
     label,
