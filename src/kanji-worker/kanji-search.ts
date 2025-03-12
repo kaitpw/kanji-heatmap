@@ -24,7 +24,7 @@ import {
   K_WK_LVL,
   SortKey,
 } from "@/lib/sort-freq-types";
-import { JLPTRank, JLTPTtypes } from "@/lib/jlpt";
+import { JLPTOptionsCount, JLPTRank, JLTPTtypes } from "@/lib/jlpt";
 import { KanjiExtendedInfo, KanjiMainInfo } from "@/lib/kanji-worker-types";
 import { SearchSettings } from "@/lib/settings";
 import fuzzysearch from "fuzzysearch";
@@ -81,36 +81,40 @@ export const filterKanji = (
   const maxStrokes = settings.filterSettings.strokeRange.max;
   const freqFilter = settings.filterSettings.freq;
 
+  const textSearch = settings.textSearch;
+  const text = textSearch.text.trim();
+
   return allKanji
     .filter((kanji) => {
-      const textSearch = settings.textSearch;
-      if (textSearch.type === "keyword") {
-        const info = kanjiPool.main[kanji];
-        return fuzzysearch(textSearch.text, info.keyword);
-      }
-      if (textSearch.text === "") {
+      if (text === "") {
         return true;
       }
+
+      if (textSearch.type === "keyword") {
+        const info = kanjiPool.main[kanji];
+        return fuzzysearch(text, info.keyword);
+      }
+
       const exInfo = kanjiPool.extended[kanji];
       if (textSearch.type === "kunyomi") {
         return exInfo.allKun
           .map((item) => {
             return wanakana.toHiragana(item.replace(/[-.]/g, ""));
           })
-          .includes(textSearch.text);
+          .includes(text);
       }
       if (textSearch.type === "onyomi") {
         return exInfo.allOn
           .map((item) => {
             return wanakana.toKatakana(item);
           })
-          .includes(textSearch.text);
+          .includes(text);
       }
       return true;
     })
     .filter((kanji) => {
       const info = kanjiPool.main[kanji];
-      if ([0, 6].includes(jlptFilters.size)) {
+      if ([0, JLPTOptionsCount].includes(jlptFilters.size)) {
         return true;
       }
       return jlptFilters.has(info.jlpt);

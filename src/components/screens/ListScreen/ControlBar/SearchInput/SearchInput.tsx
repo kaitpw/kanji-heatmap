@@ -1,5 +1,5 @@
 import { Search } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import BasicSelect from "@/components/common/BasicSelect";
 import * as wanakana from "wanakana";
 import { cn } from "@/lib/utils";
@@ -21,62 +21,34 @@ export const SearchInput = ({
 }: {
   onSettle: (searchText: string, searchType: string) => void;
 }) => {
-  // FIX ME: Put proper types here
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const inputRef = useRef<any>();
+  const inputRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState<SearchType>("keyword");
   const timeoutRef = useRef<NodeJS.Timeout>();
 
-  useEffect(() => {
-    const currentValue = inputRef?.current?.value ?? "";
-
-    if (inputRef.current?.value == null) {
+  const handleChange = (searchType: SearchType, text: string) => {
+    if (inputRef.current == null) {
       return;
     }
+    const formattedText =
+      searchType === "kunyomi"
+        ? wanakana.toHiragana(text)
+        : searchType === "onyomi"
+          ? wanakana.toKatakana(text)
+          : wanakana.toRomaji(text);
+    inputRef.current.value = formattedText;
 
-    if (value === "keyword") {
-      inputRef.current.value = wanakana.toRomaji(currentValue);
-      try {
-        wanakana.unbind(inputRef.current);
-      } catch {
-        return;
-      }
-      return;
-    }
+    wanakana.bind(inputRef.current, {
+      IMEMode:
+        searchType === "kunyomi"
+          ? "toHiragana"
+          : searchType === "onyomi"
+            ? "toKatakana"
+            : undefined,
+    });
 
-    if (value === "onyomi") {
-      const newValue = wanakana.toKatakana(currentValue);
-      try {
-        wanakana.unbind(inputRef.current);
-      } catch {
-        console.warn("cannot unbind to onyomi");
-      }
-      inputRef.current.value = newValue;
-      wanakana.bind(inputRef.current, { IMEMode: "toKatakana" });
-      return;
-    }
-
-    if (value === "kunyomi") {
-      const newValue = wanakana.toHiragana(currentValue);
-      try {
-        wanakana.unbind(inputRef.current);
-      } catch {
-        console.warn("cannot unbind to kunyomi");
-      }
-      inputRef.current.value = newValue;
-      wanakana.bind(inputRef.current, { IMEMode: "toHiragana" });
-      return;
-    }
-
-    // 👇👇👇 Question: do we beed to do this below for cleanup or no longer needed ??? 👇👇👇👇
-    // const currentInput = inputRef.current;
-    //    return () => {
-    //      if (currentInput != null) {
-    //        console.log("unbind on clean up");
-    //        wanakana.unbind(currentInput);
-    //      }
-    //    };
-  }, [value]);
+    onSettle(inputRef.current?.value ?? "", searchType);
+    setValue(searchType);
+  };
 
   const placeHolder =
     value === "keyword"
@@ -97,7 +69,7 @@ export const SearchInput = ({
           // TODO: Read https://www.developerway.com/posts/debouncing-in-react
           clearTimeout(timeoutRef.current);
           timeoutRef.current = setTimeout(() => {
-            onSettle(e.target.value, value);
+            handleChange(value, e.target.value);
           }, INPUT_DEBOUNCE_TIME);
         }}
         placeholder={placeHolder}
@@ -106,7 +78,10 @@ export const SearchInput = ({
       <Search className={cn(SEARCH_ICON_CLASS)} />
       <BasicSelect
         value={value}
-        onChange={(newValue) => setValue(newValue as SearchType)}
+        onChange={(newValue) => {
+          const searchType = newValue as SearchType;
+          handleChange(searchType, inputRef.current?.value ?? "");
+        }}
         triggerCN={cn(SELECT_CLASS, fontCN)}
         selectItemCNFunc={itemCNFunc}
         options={SEARCH_TYPE_OPTIONS}
