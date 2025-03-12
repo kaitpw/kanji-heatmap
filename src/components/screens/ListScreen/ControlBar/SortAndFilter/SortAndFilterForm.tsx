@@ -3,13 +3,7 @@ import { useState } from "react";
 import { FilterSectionLayout } from "./FilterContent/FilterContentLayout";
 import { FrequencyRankDataSource } from "../../../../common/FrequencyRankDataSource";
 import { JLPTSelector } from "./FilterContent/JLPTSelector";
-import {
-  FREQ_RANK_SOURCES_INFO,
-  FrequencyType,
-  GROUP_OPTIONS,
-  SORT_ORDER_SELECT,
-  SortKey,
-} from "@/lib/ranks-sorts-filters";
+import { SORT_ORDER_SELECT } from "@/lib/sort-freq-select-options";
 import {
   SortAdditionalInfo,
   SortOrderSectionLayout,
@@ -22,18 +16,7 @@ import { FilterSettings, SearchSettings, SortSettings } from "@/lib/settings";
 import { isEqualFilters } from "./helpers";
 import { FreqRankTypeInfo } from "@/components/common/FreqRankTypeInfo";
 import { ItemCount } from "./ItemCount";
-
-const SORT_OPTIONS = SORT_ORDER_SELECT.map((item) => {
-  const freqDesc =
-    FREQ_RANK_SOURCES_INFO[item.value as FrequencyType]?.description;
-  const label =
-    freqDesc && item.value !== "none" ? `${item.label} Rank` : item.label;
-  return {
-    ...item,
-    label,
-    description: item.value !== "none" ? freqDesc : undefined,
-  };
-});
+import { FrequencyType, GROUP_OPTIONS, SortKey } from "@/lib/sort-freq-types";
 
 export const SortAndFilterSettingsForm = ({
   initialValue,
@@ -101,7 +84,7 @@ export const SortAndFilterSettingsForm = ({
                   });
                 }}
                 triggerCN={"h-8 w-full"}
-                options={SORT_OPTIONS}
+                options={SORT_ORDER_SELECT}
                 label="Primary"
                 isLabelSrOnly={false}
               />
@@ -120,7 +103,7 @@ export const SortAndFilterSettingsForm = ({
                     })
                   }
                   triggerCN={"h-8 w-full"}
-                  options={SORT_OPTIONS.filter((item) => {
+                  options={SORT_ORDER_SELECT.filter((item) => {
                     return item.value !== sortValues.primary;
                   })}
                   label="Secondary"

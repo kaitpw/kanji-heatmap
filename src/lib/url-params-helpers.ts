@@ -1,10 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import {
-  ALL_SORT_OPTIONS,
-  FREQ_RANK_OPTIONS,
-  FrequencyType,
-  SortKey,
-} from "@/lib/ranks-sorts-filters";
+import { ALL_SORT_OPTIONS } from "@/lib/sort-freq-select-options";
 import {
   FilterSettings,
   SEARCH_TYPE_ARR,
@@ -15,6 +10,7 @@ import {
 } from "@/lib/settings";
 import { MAX_FREQ_RANK, MAX_STROKE_COUNT, URL_PARAMS } from "@/lib/constants";
 import { JLPT_TYPE_ARR, JLPTOptionsCount, JLTPTtypes } from "@/lib/jlpt";
+import { FREQ_RANK_OPTIONS, FrequencyType, SortKey } from "./sort-freq-types";
 
 const clamp = (num: number, min: number, max: number) => {
   return Math.min(max, Math.max(num, min));

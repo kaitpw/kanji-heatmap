@@ -1,5 +1,4 @@
 import {
-  getFrequency,
   K_JLPT,
   K_JOUYOU_KEY,
   K_MEANING_KEY,
@@ -24,12 +23,13 @@ import {
   K_STROKES,
   K_WK_LVL,
   SortKey,
-} from "@/lib/ranks-sorts-filters";
+} from "@/lib/sort-freq-types";
 import { JLPTRank, JLTPTtypes } from "@/lib/jlpt";
-import { KanjiExtendedInfo, KanjiMainInfo } from "@/lib/kanji-worker-constants";
+import { KanjiExtendedInfo, KanjiMainInfo } from "@/lib/kanji-worker-types";
 import { SearchSettings } from "@/lib/settings";
 import fuzzysearch from "fuzzysearch";
 import * as wanakana from "wanakana";
+import { getFrequency } from "@/lib/freq-rank-map";
 
 type DataPool = {
   main: Record<string, KanjiMainInfo>;

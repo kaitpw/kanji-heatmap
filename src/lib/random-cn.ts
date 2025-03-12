@@ -1,4 +1,4 @@
-import { freqCategoryCn } from "./ranks-sorts-filters";
+import { freqCategoryCn } from "./freq-category";
 import { JLPTListItems, JLTPTtypes } from "./jlpt";
 import { selectRandom } from "./utils";
 

@@ -1,15 +1,14 @@
-import { KanjiInfoFrequency } from "@/lib/kanji-worker-constants";
+import { KanjiInfoFrequency } from "@/lib/kanji-worker-types";
 import { KANJI_COUNT } from "@/lib/constants";
 import { Progress } from "@/components/ui/progress";
 import { InfoIcon } from "lucide-react";
 import { GenericPopover } from "@/components/common/GenericPopover";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import {
-  frequencyRankLabels,
-  getFreqCnByRank,
-  inverseFreqMap,
-} from "@/lib/ranks-sorts-filters";
+
 import { FreqRankTypeInfo } from "@/components/common/FreqRankTypeInfo";
+import { getFreqCnByRank } from "@/lib/freq-category";
+import { frequencyRankLabels } from "@/lib/label-maps";
+import { inverseFreqMap } from "@/lib/freq-rank-map";
 
 export const FrequencyInfo = ({
   freqRankInfo,

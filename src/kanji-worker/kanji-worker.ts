@@ -7,7 +7,7 @@ import {
   PostMessageResponseType,
   SegmentedVocabInfo,
   SegmentedVocabResponseType,
-} from "@/lib/kanji-worker-constants";
+} from "@/lib/kanji-worker-types";
 import {
   fetchExtendedKanjiInfo,
   fetchMainManjiInfo,

@@ -3,7 +3,7 @@ import {
   KanjiExtendedInfo,
   KanjiInfoFrequency,
   KanjiMainInfo,
-} from "./kanji-worker-constants";
+} from "./kanji-worker-types";
 
 export type KanjiInfoRequestType =
   | "item-card"

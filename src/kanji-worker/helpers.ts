@@ -7,7 +7,7 @@ import {
   MainKanjiInfoResponseType,
   SegmentedVocabInfo,
   SegmentedVocabResponseType,
-} from "@/lib/kanji-worker-constants";
+} from "@/lib/kanji-worker-types";
 
 export const kanjiMainInfoCache: Record<string, KanjiMainInfo> = {};
 export const kanjiOtherInfoCache: Record<string, KanjiExtendedInfo> = {};

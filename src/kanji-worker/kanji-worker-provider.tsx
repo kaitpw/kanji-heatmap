@@ -14,7 +14,7 @@ import {
   KanjiPartKeywordCacheType,
   KanjiPhoneticCacheType,
 } from "@/lib/kanji-info-types";
-import { KanjiExtendedInfo, KanjiMainInfo } from "@/lib/kanji-worker-constants";
+import { KanjiExtendedInfo, KanjiMainInfo } from "@/lib/kanji-worker-types";
 import { useSearchSettings } from "../providers/search-settings-provider";
 import { SearchSettings } from "@/lib/settings";
 

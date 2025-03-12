@@ -1,6 +1,5 @@
 import { Separator } from "@/components/ui/separator";
 import { ReactNode, useState } from "react";
-import { FrequencyType } from "@/lib/ranks-sorts-filters";
 import { JLPTBordersMeanings } from "./jlpt";
 import { BackgroundColorGradient } from "./freq";
 import {
@@ -10,6 +9,7 @@ import {
 import { ItemTypeSwitch } from "./ItemTypeSwitch";
 import { LabeledCheckbox } from "@/components/common/LabeledCheckbox";
 import { FrequencyRankDataSource } from "@/components/common/FrequencyRankDataSource";
+import { FrequencyType } from "@/lib/sort-freq-types";
 
 export const H2 = ({ children }: { children: ReactNode }) => (
   <h2 className="font-bold border-b-2 border-dotted mt-6 mb-2">{children}</h2>
