@@ -3,10 +3,6 @@ import { SearchType } from "@/lib/settings";
 
 export type TranslateType = "romaji" | "hiragana" | "katakana" | "kana";
 
-export const isHiraganaFn = (kana: string) => {
-  return wanakana.isHiragana(kana.replace(/\s+/g, ""));
-};
-
 export function translateValue(val: string, type: TranslateType) {
   // Need IMEMode option to handle single kana characters like ん and い
   if (type === "hiragana") {
