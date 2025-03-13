@@ -104,11 +104,12 @@ export const filterKanji = (
 
       const exInfo = kanjiPool.extended[kanji];
       if (textSearch.type === "kunyomi") {
-        return exInfo.allKun
+        const hit = exInfo.allKun
           .map((item) => {
-            return wanakana.toHiragana(item.replace(/[-.]/g, ""));
+            return wanakana.toHiragana(item.replace(/[-.。ー]/g, ""));
           })
           .includes(textToSearch);
+        return hit;
       }
       if (textSearch.type === "onyomi") {
         return exInfo.allOn.includes(textToSearch);
