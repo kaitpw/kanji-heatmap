@@ -479,7 +479,7 @@ word_details = {}
 for kanji, words in kanji_vocab.items():
     kanji_words[kanji] = list(words.keys())
     for word, details in words.items():
-        word_details[word] = details
+        word_details[word] = [details.get('meaning', ''), details.get('parts', [])]
 
 dump_json(f"{OUT_DIR}/word_details.json", word_details)
 
