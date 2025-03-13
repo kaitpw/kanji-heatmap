@@ -4,23 +4,13 @@ import { badgeCn, SpanBadge } from "@/components/ui/badge";
 import * as wanakana from "wanakana";
 
 const useHiraganaWordButton = (rawKana: string) => {
-  const [kana, setKana] = useState(() => {
-    const firstDef = rawKana.split(",")[0];
-    return wanakana.toHiragana(firstDef);
-  });
+  const [showRomaji, setShowRomaji] = useState(false);
+  const fontCss = !showRomaji ? "kanji-font" : "romaji-font";
+  const kana = showRomaji
+    ? wanakana.toRomaji(rawKana.split(",")[0])
+    : rawKana.split(",")[0];
 
-  const isHiragana = wanakana.isHiragana(kana.replace(/\s+/g, ""));
-  const fontCss = isHiragana ? "kanji-font" : "romaji-font";
-
-  const onToggle = () => {
-    const newKana = wanakana.isHiragana(kana.replace(/\s+/g, ""))
-      ? wanakana.toRomaji(kana)
-      : wanakana.toHiragana(kana);
-
-    setKana(newKana);
-  };
-
-  return { kana, fontCss, onToggle };
+  return { kana, fontCss, onToggle: () => setShowRomaji((prev) => !prev) };
 };
 
 export const HiraganaWord = ({

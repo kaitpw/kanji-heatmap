@@ -11,7 +11,8 @@ import { DefaultErrorFallback } from "@/components/common/DefaultErrorFallback";
 import { BasicLoading } from "@/components/common/BasicLoading";
 import { WordCard } from "./WordCard";
 
-const MISSING_KEYWORD = "💔 Missing Keyword 🪲";
+const MISSING_KEYWORD = "💔🪲";
+
 const transformKanjiWordDetails = (
   kanji: string,
   wordDetails?: KanjiWordDetails
