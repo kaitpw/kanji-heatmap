@@ -27,8 +27,10 @@ def compress_json(path_in, path_out):
                 ensure_ascii=False
             )
 
-INDENT = None # 2 # None # 4
-SEPARATORS = (',', ':') #None
+INDENT = None
+#INDENT = 4
+SEPARATORS = (',', ':')
+#SEPARATORS = None
 
 def dump_json(file_name, data, indent=INDENT, separators=SEPARATORS):
     with open(file_name, mode="w", encoding="utf-8") as write_file:
@@ -413,96 +415,74 @@ def get_ranks(kanji_info):
 # *******************
 
 kanji_data = get_data_from_file(f"{IN_DIR}/kanji.json") 
-kanji_vocab = get_data_from_file(f"{IN_DIR}/kanji_to_vocabulary.json") 
-
 kanji_list = [kanji for kanji in kanji_data.keys()]
 
 # .......................
 # Transform schema from { [kanji]: [word]: { furigina, meaning} } to { [kanji]: [word, furigana, meaning][] }
 # .......................
 
-#    "一": {
-#        "一": {
-#            "furigana": "イチ",
-#            "meaning": "one"
-#        },
-#        "一つ": {
-#            "furigana": "ひとつ",
-#            "meaning": "one; for one thing; only; (not) even; just (e.g. \"just try it\"); some kind of, one type of"
-#        }
-#    }
 
-vocab_reformatted = {}
-for kanji in kanji_list:
-    vocab = kanji_vocab.get(kanji, None)
-    if vocab is None:
-        continue
+'''
+########
+Input
+#########
+{
+    "為": {
+        "行為": {
+            "meaning": "act, deed, conduct",
+            "parts": [
+                ["行", "こう"],
+                ["為","い"]
+            ]
+        },
+        "為る": {
+            "meaning": "to do, to carry out, to perform; to cause to become",
+            "parts": [
+                ["為", "す"],
+                ["る"]
+            ]
+        }
+    }
+}
 
-    def convert_to_array(key, value):
-        word = key
-        kana = value.get("furigana", "")
-        meaning = value.get("meaning", "")
-        return [word, kana, meaning]
-    
-    items = [convert_to_array(item[0], item[1]) for item in vocab.items()]
-    vocab_reformatted[kanji] = items
+########
+kanji_words
+#########
+{ "為": ["行為", "為る"] }
 
-# .......................
-# Transform schema from { [kanji]: [word]: { furigina, meaning} } to { word: [furigana] } }
-# .......................
 
-vocab_v2 = {}
-for kanji in kanji_list:
-    vocab = kanji_vocab.get(kanji, None)
-    if vocab is None:
-        continue
-    def convert_to_dict(key, value):
-        word = key
-        kana = value.get("furigana", "").split(",")[0]
-        meaning = value.get("meaning", "")
-        return { 'word': word, 'kana': kana, 'meaning': meaning }
-    
-    for key, value in vocab.items():
-        word = key
-        kana = value.get("furigana", "").split(",")[0]  
-        vocab_v2[word] = kana 
+########
+word_details
+#########
+{        
+    "行為": {
+        "meaning": "act, deed, conduct",
+        "parts": [
+            ["行", "こう"],
+            ["為","い"]
+        ]
+    },
+    "為る": {
+        "meaning": "to do, to carry out, to perform; to cause to become",
+        "parts": [
+            ["為", "す"],
+            ["る"]
+        ]
+    }
+}
 
-dump_json(f"{OUT_DIR}/vocab.json", vocab_v2)
+'''
+kanji_vocab = get_data_from_file(f"{IN_DIR}/kanji_to_vocabulary.json") 
+kanji_words = {}
+word_details = {}
 
-# .......................
-#  { [kanji]: { on: [], kun: [] } } }
-# .......................
-kanji_readings = {}
+for kanji, words in kanji_vocab.items():
+    kanji_words[kanji] = list(words.keys())
+    for word, details in words.items():
+        word_details[word] = details
 
-for kanji in kanji_list:
-    kanji_info = kanji_data[kanji]
+dump_json(f"{OUT_DIR}/word_details.json", word_details)
 
-    on = get_all_on_readings(kanji_info) or [],
-    kun = get_all_kun_readings(kanji_info) or [],
-    kanji_readings[kanji] = { "on": on, "kun": kun }
-
-dump_json(f"{OUT_DIR}/readings.json", kanji_readings)
-
-# ......................
-# { [word]: [string, { [kanji]: [reading] }]
-# ......................
-vocab_readings = {}
-kanji_reading_map = get_data_from_file(f"{IN_DIR}/chatgpt/kanji_reading_map.json")
-segmented_vocab = get_data_from_file(f"{IN_DIR}/chatgpt/segmented_vocab.json")
-
-new_map = {}
-all_vocab_keys = segmented_vocab.keys()
-for word in all_vocab_keys:
-    spaced_kana = segmented_vocab[word]
-    if spaced_kana.split(" ") == 1:
-        continue;
-    
-    new_map[word] = [
-        spaced_kana, 
-        kanji_reading_map.get(word, {})
-    ]
-
-dump_json(f"{OUT_DIR}/vocab_segmentation.json", new_map)
 
 # .......................
 # We just put the kanji as part of the value of the dictionary
@@ -558,7 +538,7 @@ for kanji in kanji_list:
     kanji_other_reformatted[kanji] = [
         secondary_info,
         freq_info,
-        vocab_reformatted.get(kanji, [])
+        kanji_words.get(kanji, [])
     ]
 
 
@@ -696,10 +676,3 @@ print("..........")
 print("KUNYOMI")
 print("..........")
 get_reading_stats(get_all_kun_readings)
-
-# -----------------
-# Questions to Answer
-# -----------------
-# TODO: How much KB will be saved if we remove main_on and main_kun since they're redundant information? 
-
-
