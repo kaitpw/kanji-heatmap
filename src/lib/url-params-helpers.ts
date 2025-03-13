@@ -130,7 +130,7 @@ export const toSearchParams = (
       return prev;
     }
 
-    prev.delete(URL_PARAMS.textSearch.type, newVal.type);
+    prev.delete(URL_PARAMS.textSearch.type);
     return prev;
   }
 

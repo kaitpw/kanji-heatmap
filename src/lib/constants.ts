@@ -35,7 +35,7 @@ export const URL_PARAMS = {
     primary: "sort-primary",
     secondary: "sort-secondary",
   },
-};
+} as const;
 
 export const externalLinks: { name: string; url: (x: string) => string }[] = [
   {

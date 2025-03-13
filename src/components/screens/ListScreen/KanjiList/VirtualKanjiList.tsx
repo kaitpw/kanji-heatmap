@@ -33,7 +33,10 @@ const KanjiListRaw = ({
   const openedKanji = searchParams.get(URL_PARAMS.openKanji);
 
   const onDrawerClose = useCallback(() => {
-    setSearchParams({});
+    setSearchParams((prev) => {
+      prev.delete(URL_PARAMS.openKanji);
+      return prev;
+    });
     setHoveredKanji(null);
   }, [setSearchParams]);
 
