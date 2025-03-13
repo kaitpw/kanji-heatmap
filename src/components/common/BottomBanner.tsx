@@ -1,4 +1,4 @@
-import { useNetworkState } from "@uidotdev/usehooks";
+import { useNetworkState } from "@/hooks/use-network-state";
 import { ExternalTextLink } from "./ExternalTextLink";
 import { outLinks } from "@/lib/constants";
 import { ReactNode } from "react";
@@ -14,17 +14,19 @@ export const BottomBanner = () => {
   const network = useNetworkState();
 
   if (!network.online) {
-    <Layout>
-      Some features might be unavailable in offline mode. Don't worry, you can
-      still use the site. Reconnect to enjoy all features. ٩(๑❛ᴗ❛๑)۶
-    </Layout>;
+    return (
+      <Layout>
+        ٩(๑❛ᴗ❛๑)۶ A few features may be unavailable in offline mode. Don't
+        worry, you can still use the site. Reconnect to enjoy all features.
+      </Layout>
+    );
   }
 
   if (network.saveData === true) {
     return (
       <Layout>
         (╭ರ_•́) It seems that you're in data-saving mode, don't worry, you can
-        still use the site, but some features might take longer to load.
+        still use the site, but a few features may take longer to load.
       </Layout>
     );
   }
@@ -33,8 +35,9 @@ export const BottomBanner = () => {
     return (
       <Layout>
         {"(๑ > ᴗ < ๑) "}
-        It seems your internet connection is a bit slow right now, don't worry,
-        you can still use the site, but some features might take longer to load.
+        It seems your internet connection is a bit slow right now (
+        {network.effectiveType}), don't worry, you can still use the site, but a
+        few features may take longer to load.
       </Layout>
     );
   }

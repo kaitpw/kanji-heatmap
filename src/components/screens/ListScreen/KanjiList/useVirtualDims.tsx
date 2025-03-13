@@ -1,5 +1,5 @@
+import { useWindowSize } from "@/hooks/use-window-size";
 import { HEADER_HEIGHT, TILE_SIZE } from "@/lib/constants";
-import { useWindowSize } from "@react-hook/window-size"; // Debounced values
 
 export const useVirtualListDims = (
   itemCount: number,
