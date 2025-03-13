@@ -1,21 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { badgeCn, SpanBadge } from "@/components/ui/badge";
-import * as wanakana from "wanakana";
+import { isHiraganaFn, translateValue } from "@/lib/translate-search";
 
 const useHiraganaWordButton = (rawKana: string) => {
   const [kana, setKana] = useState(() => {
     const firstDef = rawKana.split(",")[0];
-    return wanakana.toHiragana(firstDef);
+    return translateValue(firstDef, "hiragana");
   });
 
-  const isHiragana = wanakana.isHiragana(kana.replace(/\s+/g, ""));
-  const fontCss = isHiragana ? "kanji-font" : "romaji-font";
+  const fontCss = isHiraganaFn(kana) ? "kanji-font" : "romaji-font";
 
   const onToggle = () => {
-    const newKana = wanakana.isHiragana(kana.replace(/\s+/g, ""))
-      ? wanakana.toRomaji(kana)
-      : wanakana.toHiragana(kana);
+    const newKana = isHiraganaFn(kana)
+      ? translateValue(kana, "romaji")
+      : translateValue(kana, "hiragana");
 
     setKana(newKana);
   };

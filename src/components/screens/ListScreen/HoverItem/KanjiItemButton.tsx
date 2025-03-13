@@ -1,11 +1,10 @@
+import * as wanakana from "wanakana";
 import { forwardRef } from "react";
-
 import {
   useGetKanjiInfoFn,
   useKanjiInfo,
 } from "@/kanji-worker/kanji-worker-provider";
 import { ITEM_CARD_BG_CN } from "@/lib/constants";
-import * as wanakana from "wanakana";
 import { KanjiInfoFrequency } from "@/lib/kanji-worker-types";
 import { useDeferredItemSettings } from "@/providers/item-settings-provider";
 import { JLPTListItems } from "@/lib/jlpt";

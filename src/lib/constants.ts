@@ -20,7 +20,7 @@ export const HEADER_HEIGHT = 100;
 export const URL_PARAMS = {
   openKanji: "open-kanji",
   textSearch: {
-    type: "search-text-type",
+    type: "search-type",
     text: "search-text",
   },
   filterSettings: {

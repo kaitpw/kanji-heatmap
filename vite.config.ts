@@ -48,7 +48,7 @@ const pwaConfig = {
         urlPattern: /\.json$/i, // Cache JSON requests
         handler: "StaleWhileRevalidate" as const,
         options: {
-          cacheName: "json-cache",
+          cacheName: "kanji-companion-json-cache",
           expiration: {
             maxEntries: 50,
             maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days

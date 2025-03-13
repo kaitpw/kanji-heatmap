@@ -70,10 +70,10 @@ export function KanjiDrawerRaw({
 
   // need autoFocus=true see also: https://github.com/emilkowalski/vaul/issues/517#issuecomment-2571619213
   return (
-    <Drawer open={isOpen} onClose={onClose} autoFocus={true}>
+    <Drawer open={isOpen} onClose={onClose}>
       <DrawerContent
         className="!select-text h-[95svh] !duration-150"
-        aria-hidden="true"
+        autoFocus={true}
       >
         <DrawerTitle className="sr-only">
           Information for Kanji {kanji}

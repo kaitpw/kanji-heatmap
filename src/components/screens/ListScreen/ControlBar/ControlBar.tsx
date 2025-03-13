@@ -5,6 +5,7 @@ import { SettledSortAndFilter } from "./SortAndFilter/SettledSortAndFilter";
 import React from "react";
 import ErrorBoundary from "@/components/common/ErrorBoundary";
 import { ReportBugIconBtn } from "@/components/common/LinkOutSection";
+import { ItemCountBadge } from "./SearchInput/ItemCountBadge";
 
 export const ControlBarRaw = () => {
   return (
@@ -28,6 +29,7 @@ export const ControlBarRaw = () => {
         }
       >
         <SettledSortAndFilter />
+        <ItemCountBadge />
       </ErrorBoundary>
       <ErrorBoundary
         details="ItemPresentationSettings in ControlBar"
