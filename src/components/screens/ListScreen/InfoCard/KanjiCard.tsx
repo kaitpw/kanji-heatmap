@@ -2,32 +2,42 @@ import {
   useIsKanjiWorkerReady,
   useKanjiInfo,
 } from "@/kanji-worker/kanji-worker-provider";
-import { HoverItemReturnData } from "@/lib/kanji-info-types";
-import { WordCard } from "./WordCard";
+import { HoverItemReturnData, KanjiWordDetails } from "@/lib/kanji-info-types";
 import { SingleComponent } from "./SingleComponent";
 import { FrequencyBadges } from "./FrequencyBadges";
 import { KanjiCardLayout } from "./CardLayout";
 import { JLPTBadge } from "@/components/common/JLPTBadge";
 import { DefaultErrorFallback } from "@/components/common/DefaultErrorFallback";
 import { BasicLoading } from "@/components/common/BasicLoading";
+import { WordCard } from "./WordCard";
 
-const getHighlightIndex = (
+const transformKanjiWordDetails = (
   kanji: string,
-  info?: {
-    spacedKana: string;
-    kanjis: Record<string, string>;
-  } | null
+  wordDetails?: KanjiWordDetails
 ) => {
-  const kanjiPronouncation = info?.kanjis?.[kanji];
-  if (kanjiPronouncation == null) {
-    // temporary for now
-    return 1;
+  if (wordDetails == null) {
+    return null;
   }
 
-  const kanaArray = info?.spacedKana.split(" ") ?? [];
-  const index = kanaArray.findIndex((item) => item === kanjiPronouncation);
+  const spacedKana = wordDetails.wordPartDetails
+    .map((item) => {
+      return item[1] ?? "";
+    })
+    .join(" ");
 
-  return index;
+  const highlightIndex =
+    wordDetails.wordPartDetails.findIndex((item) => {
+      return item[0] === kanji;
+    }) ?? -1;
+
+  const result = {
+    word: wordDetails.word,
+    wordKanjis: wordDetails.partsList,
+    definition: wordDetails.meaning,
+    spacedKana,
+    highlightIndex,
+  };
+  return result;
 };
 
 export const KanjiCard = ({ kanji }: { kanji: string }) => {
@@ -44,6 +54,9 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
 
   const info = data.data as HoverItemReturnData;
 
+  const word1Props = transformKanjiWordDetails(kanji, info.mainVocab?.first);
+  const word2Props = transformKanjiWordDetails(kanji, info.mainVocab?.second);
+
   return (
     <KanjiCardLayout
       main={
@@ -52,34 +65,8 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
           <div className="text-md uppercase -mt-4">{info.keyword}</div>
         </div>
       }
-      firstWord={
-        info.mainVocab?.first && (
-          <WordCard
-            word={info.mainVocab.first.word}
-            definition={info.mainVocab.first.meaning}
-            spacedKana={
-              info.vocabInfo?.first?.spacedKana ??
-              info.mainVocab.first.spacedKana
-            }
-            highlightIndex={getHighlightIndex(kanji, info?.vocabInfo?.first)}
-            wordKanjis={info.mainVocab.first.partsList}
-          />
-        )
-      }
-      secondWord={
-        info.mainVocab?.second && (
-          <WordCard
-            word={info.mainVocab.second.word}
-            definition={info.mainVocab.second.meaning}
-            spacedKana={
-              info?.vocabInfo?.second?.spacedKana ??
-              info.mainVocab.second.spacedKana
-            }
-            highlightIndex={getHighlightIndex(kanji, info?.vocabInfo?.second)}
-            wordKanjis={info.mainVocab.second.partsList}
-          />
-        )
-      }
+      firstWord={word1Props && <WordCard {...word1Props} />}
+      secondWord={word2Props && <WordCard {...word2Props} />}
       components={
         info.parts.length > 1 && (
           <>

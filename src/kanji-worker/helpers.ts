@@ -17,7 +17,7 @@ const MAIN_KANJI_INFO_FILE_PATH = "/json/kanji_main_reformatted.json";
 const EXTENDED_KANJI_INFO_FILE_PATH = "/json/kanji_other_reformatted.json";
 const PHONETIC_FILE = "/json/generated_reformatted_phonetic.json";
 const PART_KEYWORD_FILE = "/json/generated_reformatted_part_keyword_info.json";
-const SEGMENTED_VOCAB_FILE = "/json/vocab_segmentation.json";
+const SEGMENTED_VOCAB_FILE = "/json/word_details.json";
 
 const createFetch = <T>(path: string) => {
   return () =>
@@ -44,10 +44,10 @@ export const fetchSegmentedVocab =
   createFetch<SegmentedVocabResponseType>(SEGMENTED_VOCAB_FILE);
 
 export const transformToSegmentedVocab = (
-  raw: [string, Record<string, string>]
+  raw: [string, string[][]]
 ): SegmentedVocabInfo => {
-  const [spacedKana, kanjiReads] = raw;
-  return { spacedKana, kanjis: kanjiReads };
+  const [meaning, parts] = raw;
+  return { meaning, parts };
 };
 
 export const transformToMainKanjiInfo = (
@@ -79,26 +79,7 @@ export const transformToMainKanjiInfo = (
 export const transformToExtendedKanjiInfo = (
   item: ExtendedKanjiInfoItemType
 ) => {
-  const [second, freq, vocab] = item;
-  const v1 = vocab[0];
-  const v2 = vocab[1];
-  const mainVocab = {
-    first: v1
-      ? {
-          word: v1[0],
-          spacedKana: v1[1],
-          meaning: v1[2],
-        }
-      : undefined,
-
-    second: v2
-      ? {
-          word: v2[0],
-          spacedKana: v2[1],
-          meaning: v2[2],
-        }
-      : undefined,
-  };
+  const [second, freq, mainVocab] = item;
 
   return {
     parts: second[0],

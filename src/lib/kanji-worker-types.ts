@@ -45,20 +45,19 @@ export type KanjiExtendedInfo = {
   allKun: string[];
   phonetic?: string;
   frequency?: KanjiInfoFrequency;
-  mainVocab?: {
-    first?: { word: string; spacedKana: string; meaning: string };
-    second?: { word: string; spacedKana: string; meaning: string };
-  };
+  mainVocab?: string[];
 };
 
+export type WordMeaning = string;
+export type WordPartDetail = string[];
 export type SegmentedVocabResponseType = Record<
   string,
-  [string, Record<string, string>]
+  [WordMeaning, WordPartDetail[]]
 >;
 
 export type SegmentedVocabInfo = {
-  spacedKana: string;
-  kanjis: Record<string, string>;
+  meaning: WordMeaning;
+  parts: WordPartDetail[];
 };
 
 export type MainKanjiInfoResponseType = Record<
@@ -97,7 +96,7 @@ export type ExtendedKanjiInfoItemType = [
     number, //rank_wkfr,
     number, //rank_jisho,
   ],
-  [string, string, string][],
+  string[], // sample vocabulary
 ];
 
 export type ExtendedKanjiInfoResponseType = Record<

@@ -9,10 +9,12 @@ import {
 import KANJI_WORKER_SINGLETON from "@/kanji-worker/kanji-worker-promise-wrapper";
 import { useContextWithCatch } from "../providers/helpers";
 import {
+  HoverItemReturnData,
   KanjiCacheType,
   KanjiInfoRequestType,
   KanjiPartKeywordCacheType,
   KanjiPhoneticCacheType,
+  VocabExtendedInfo,
 } from "@/lib/kanji-info-types";
 import { KanjiExtendedInfo, KanjiMainInfo } from "@/lib/kanji-worker-types";
 import { useSearchSettings } from "../providers/search-settings-provider";
@@ -159,7 +161,6 @@ export function KanjiWorkerProvider({
         }
 
         if (type === "hover-card") {
-          const vocab = kanjiInfo.extended.mainVocab;
           const phonetic =
             kanjiInfo.extended.phonetic == null
               ? undefined
@@ -190,6 +191,9 @@ export function KanjiWorkerProvider({
               return { kanji: part, keyword: partCache[part] };
             });
           };
+
+          const vocab = kanjiInfo.extended.vocabInfo;
+
           const result = {
             ...kanjiInfo.main,
             mainVocab: {
@@ -214,7 +218,7 @@ export function KanjiWorkerProvider({
             frequency: kanjiInfo.extended.frequency,
             vocabInfo: kanjiInfo?.extended?.vocabInfo,
             phonetic,
-          };
+          } as HoverItemReturnData;
           return result;
         }
 
@@ -244,18 +248,7 @@ export function KanjiWorkerProvider({
           type: "kanji-extended",
           payload: kanji,
         }).then((r) => {
-          const res = r as KanjiExtendedInfo & {
-            vocabInfo: {
-              first?: {
-                spacedKana: string;
-                kanjis: Record<string, string>;
-              };
-              second?: {
-                spacedKana: string;
-                kanjis: Record<string, string>;
-              };
-            };
-          };
+          const res = r as KanjiExtendedInfo & VocabExtendedInfo;
 
           // NOTE: I don't know why typescript cant detect this
           if (kanjiCacheRef?.current?.[kanji] == null) {

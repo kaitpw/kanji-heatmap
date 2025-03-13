@@ -72,6 +72,18 @@ const loadSegmentedVocabInfo = (map: SegmentedVocabResponseType) => {
   segmentedVocabComplete = true;
 };
 
+const retrieveVocabInfo = (word?: string) => {
+  if (word == null || KANJI_SEGMENTED_VOCAB_CACHE[word] == null) {
+    return null;
+  }
+
+  return {
+    word,
+    meaning: KANJI_SEGMENTED_VOCAB_CACHE[word]?.meaning,
+    wordPartDetails: KANJI_SEGMENTED_VOCAB_CACHE[word]?.parts,
+  };
+};
+
 self.onmessage = function (event: { data: OnMessageRequestType }) {
   const eventType = event.data.data.type;
   const payload = event.data.data.payload;
@@ -213,22 +225,17 @@ self.onmessage = function (event: { data: OnMessageRequestType }) {
 
   if (eventType === "kanji-extended") {
     const extendedInfo = KANJI_INFO_EXTENDED_CACHE[payload as string];
-    const vocabWord1 = extendedInfo.mainVocab?.first?.word;
-    const vocabWord2 = extendedInfo.mainVocab?.second?.word;
+
+    if (extendedInfo == null) {
+      sendError({ message: "No Kanji Info On Extended Cache" });
+      return;
+    }
 
     sendResponse({
       ...extendedInfo,
       vocabInfo: {
-        first:
-          vocabWord1 &&
-          KANJI_SEGMENTED_VOCAB_CACHE[vocabWord1].spacedKana !== vocabWord1
-            ? KANJI_SEGMENTED_VOCAB_CACHE[vocabWord1]
-            : null,
-        second:
-          vocabWord2 &&
-          KANJI_SEGMENTED_VOCAB_CACHE[vocabWord2].spacedKana !== vocabWord2
-            ? KANJI_SEGMENTED_VOCAB_CACHE[vocabWord2]
-            : null,
+        first: retrieveVocabInfo(extendedInfo.mainVocab?.[0]),
+        second: retrieveVocabInfo(extendedInfo.mainVocab?.[1]),
       },
     });
     return;
