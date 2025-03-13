@@ -1,9 +1,13 @@
 import { Search } from "lucide-react";
 import { useRef, useState } from "react";
 import BasicSelect from "@/components/common/BasicSelect";
-import * as wanakana from "wanakana";
 import { cn } from "@/lib/utils";
 import { SEARCH_TYPE_OPTIONS, SearchType } from "@/lib/settings";
+import {
+  placeholderMap,
+  translateMap,
+  translateValue,
+} from "@/lib/translate-search";
 
 const INPUT_DEBOUNCE_TIME = 1000;
 
@@ -17,73 +21,62 @@ const SELECT_CLASS =
   "absolute right-1 top-1 w-26 h-7 bg-gray-100 dark:bg-gray-900";
 
 export const SearchInput = ({
+  initialSearchType = "keyword",
+  initialText = "",
   onSettle,
 }: {
+  initialSearchType: SearchType;
+  initialText: string;
   onSettle: (searchText: string, searchType: string) => void;
 }) => {
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [value, setValue] = useState<SearchType>("keyword");
   const timeoutRef = useRef<NodeJS.Timeout>();
+  const [searchType, setSearchType] = useState(initialSearchType);
+  const [parsedValue, setValue] = useState(
+    translateValue(initialText, translateMap[searchType])
+  );
 
-  const handleChange = (searchType: SearchType, text: string) => {
-    if (inputRef.current == null) {
-      return;
-    }
-    const formattedText =
-      searchType === "kunyomi"
-        ? wanakana.toHiragana(text)
-        : searchType === "onyomi"
-          ? wanakana.toKatakana(text)
-          : wanakana.toRomaji(text);
-    inputRef.current.value = formattedText;
-
-    wanakana.bind(inputRef.current, {
-      IMEMode:
-        searchType === "kunyomi"
-          ? "toHiragana"
-          : searchType === "onyomi"
-            ? "toKatakana"
-            : undefined,
-    });
-
-    onSettle(inputRef.current?.value ?? "", searchType);
-    setValue(searchType);
-  };
-
-  const placeHolder =
-    value === "keyword"
-      ? "Keyword Search"
-      : value === "onyomi"
-        ? "オンヨミ 検索"
-        : "くんよみ 検索";
-
-  const fontCN = value !== "keyword" ? "kanji-font" : "";
-  const itemCNFunc = (v: string) => (v !== "keyword" ? "kanji-font" : "");
+  const fontCN = searchType !== "keyword" ? "kanji-font" : "";
 
   return (
     <section className="w-full relative">
       <input
         className={cn(INPUT_CLASS, fontCN)}
+        value={parsedValue}
         onChange={(e) => {
+          const updatedValue = translateValue(
+            e.target.value,
+            translateMap[searchType]
+          );
+
+          setValue(updatedValue);
           // NOTE: this is based on https://react.dev/learn/referencing-values-with-refs
           // TODO: Read https://www.developerway.com/posts/debouncing-in-react
           clearTimeout(timeoutRef.current);
           timeoutRef.current = setTimeout(() => {
-            handleChange(value, e.target.value);
+            onSettle(e.target.value.trim() ?? "", searchType);
           }, INPUT_DEBOUNCE_TIME);
         }}
-        placeholder={placeHolder}
-        ref={inputRef}
+        placeholder={placeholderMap[searchType]}
       />
+
       <Search className={cn(SEARCH_ICON_CLASS)} />
       <BasicSelect
-        value={value}
-        onChange={(newValue) => {
-          const searchType = newValue as SearchType;
-          handleChange(searchType, inputRef.current?.value ?? "");
+        value={searchType}
+        onChange={(val) => {
+          const newType = val as SearchType;
+          setSearchType(newType);
+          const newParsedValue = translateValue(
+            parsedValue,
+            translateMap[newType]
+          );
+          setValue(newParsedValue);
+          onSettle(newParsedValue.trim(), newType);
         }}
-        triggerCN={cn(SELECT_CLASS, fontCN)}
-        selectItemCNFunc={itemCNFunc}
+        triggerCN={cn(
+          SELECT_CLASS,
+          searchType !== "keyword" ? "kanji-font" : ""
+        )}
+        selectItemCNFunc={(v: string) => (v !== "keyword" ? "kanji-font" : "")}
         options={SEARCH_TYPE_OPTIONS}
         label="Search Type"
         isLabelSrOnly={true}

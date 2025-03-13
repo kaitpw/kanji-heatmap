@@ -82,17 +82,24 @@ export const filterKanji = (
   const freqFilter = settings.filterSettings.freq;
 
   const textSearch = settings.textSearch;
-  const text = textSearch.text.trim();
+
+  const trimmedSearchText = textSearch.text.trim();
+  const textToSearch =
+    textSearch.type === "onyomi"
+      ? wanakana.toKatakana(trimmedSearchText)
+      : textSearch.type === "kunyomi"
+        ? wanakana.toHiragana(trimmedSearchText)
+        : wanakana.toRomaji(trimmedSearchText);
 
   return allKanji
     .filter((kanji) => {
-      if (text === "") {
+      if (textToSearch === "") {
         return true;
       }
 
       if (textSearch.type === "keyword") {
         const info = kanjiPool.main[kanji];
-        return fuzzysearch(text, info.keyword);
+        return fuzzysearch(textToSearch, info.keyword);
       }
 
       const exInfo = kanjiPool.extended[kanji];
@@ -101,14 +108,10 @@ export const filterKanji = (
           .map((item) => {
             return wanakana.toHiragana(item.replace(/[-.]/g, ""));
           })
-          .includes(text);
+          .includes(textToSearch);
       }
       if (textSearch.type === "onyomi") {
-        return exInfo.allOn
-          .map((item) => {
-            return wanakana.toKatakana(item);
-          })
-          .includes(text);
+        return exInfo.allOn.includes(textToSearch);
       }
       return true;
     })
@@ -140,7 +143,6 @@ export const filterKanji = (
 export const searchKanji = (settings: SearchSettings, kanjiPool: DataPool) => {
   const allKanji = Object.keys(kanjiPool.main);
 
-  // Sorting
   const primarySort = settings.sortSettings.primary;
   const secondarySort = settings.sortSettings.secondary;
 

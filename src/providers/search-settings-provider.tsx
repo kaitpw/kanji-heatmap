@@ -8,7 +8,7 @@ import {
   SortSettings,
   TextSearch,
 } from "@/lib/settings";
-import { MAX_FREQ_RANK, MAX_STROKE_COUNT } from "@/lib/constants";
+import { MAX_FREQ_RANK, MAX_STROKE_COUNT, URL_PARAMS } from "@/lib/constants";
 import { useSearchParams } from "wouter";
 import { toSearchParams, toSearchSettings } from "@/lib/url-params-helpers";
 
@@ -41,6 +41,16 @@ export function SearchSettingsProvider({ children }: { children: ReactNode }) {
       value: TextSearch | FilterSettings | SortSettings
     ) => {
       setSearchParams((prev) => {
+        // if only text search type is changed, but no search text
+        // then no transformation should be done in the URL
+        if (key === "textSearch") {
+          const newVal = value as TextSearch;
+          const oldSearchText = prev.get(URL_PARAMS.textSearch.text) ?? "";
+          if (newVal.text === "" && oldSearchText === "") {
+            return prev;
+          }
+        }
+
         return toSearchParams(prev, key, value);
       });
     },
@@ -51,7 +61,6 @@ export function SearchSettingsProvider({ children }: { children: ReactNode }) {
     setSearchParams(
       (prev) => {
         const searchSettings = toSearchSettings(prev);
-
         const partial1 = toSearchParams(
           prev,
           "textSearch",

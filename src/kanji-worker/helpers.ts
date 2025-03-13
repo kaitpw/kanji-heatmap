@@ -8,6 +8,7 @@ import {
   SegmentedVocabInfo,
   SegmentedVocabResponseType,
 } from "@/lib/kanji-worker-types";
+import * as wanakana from "wanakana";
 
 export const kanjiMainInfoCache: Record<string, KanjiMainInfo> = {};
 export const kanjiOtherInfoCache: Record<string, KanjiExtendedInfo> = {};
@@ -106,8 +107,8 @@ export const transformToExtendedKanjiInfo = (
     wk: second[3],
     jouyouGrade: second[4],
     meanings: second[5],
-    allOn: second[6],
-    allKun: second[7],
+    allOn: (second[6] ?? []).map((val) => wanakana.toKatakana(val)),
+    allKun: (second[7] ?? []).map((val) => wanakana.toHiragana(val)),
     phonetic: (second[8] ?? "").length > 0 ? second[8] : undefined,
     frequency: {
       netflix: freq[0], //rank_netflix

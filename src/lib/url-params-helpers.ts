@@ -11,6 +11,7 @@ import {
 import { MAX_FREQ_RANK, MAX_STROKE_COUNT, URL_PARAMS } from "@/lib/constants";
 import { JLPT_TYPE_ARR, JLPTOptionsCount, JLTPTtypes } from "@/lib/jlpt";
 import { FREQ_RANK_OPTIONS, FrequencyType, SortKey } from "./sort-freq-types";
+import { translateMap, translateValue } from "./translate-search";
 
 const clamp = (num: number, min: number, max: number) => {
   return Math.min(max, Math.max(num, min));
@@ -57,10 +58,17 @@ const toFrequencySrc = (srcStr?: string | null) => {
 export const toSearchSettings = (sp: URLSearchParams): SearchSettings => {
   const p = URL_PARAMS;
 
+  const searchType = toSearchType(sp.get(p.textSearch.type));
+
+  const text = translateValue(
+    (sp.get(p.textSearch.text) ?? "").trim(),
+    translateMap[searchType]
+  );
+
   return {
     textSearch: {
-      type: toSearchType(sp.get(p.textSearch.type)),
-      text: sp.get(p.textSearch.text) ?? "",
+      type: searchType,
+      text,
     },
     filterSettings: {
       strokeRange: {
@@ -106,15 +114,23 @@ export const toSearchParams = (
 ) => {
   if (key === "textSearch") {
     const newVal = value as TextSearch;
+    const trimmedText = newVal.text.trim();
 
-    if (newVal.text === "" && newVal.type === "keyword") {
+    if (trimmedText === "") {
       prev.delete(URL_PARAMS.textSearch.type);
       prev.delete(URL_PARAMS.textSearch.text);
       return prev;
     }
 
-    prev.set(URL_PARAMS.textSearch.type, newVal.type);
-    prev.set(URL_PARAMS.textSearch.text, newVal.text);
+    const text = translateValue(trimmedText, translateMap[newVal.type]);
+    prev.set(URL_PARAMS.textSearch.text, text);
+
+    if (newVal.type !== "keyword") {
+      prev.set(URL_PARAMS.textSearch.type, newVal.type);
+      return prev;
+    }
+
+    prev.delete(URL_PARAMS.textSearch.type, newVal.type);
     return prev;
   }
 
