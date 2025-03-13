@@ -17,7 +17,7 @@ export const BottomBanner = () => {
     return (
       <Layout>
         ٩(๑❛ᴗ❛๑)۶ A few features may be unavailable in offline mode. Don't
-        worry, you can still use the site. Reconnect to enjoy all features.
+        worry, you can still use the site. Reconnect to enjoy all features.💖
       </Layout>
     );
   }
@@ -26,7 +26,7 @@ export const BottomBanner = () => {
     return (
       <Layout>
         (╭ರ_•́) It seems that you're in data-saving mode, don't worry, you can
-        still use the site, but a few features may take longer to load.
+        still use the site, but some features may take longer to load.
       </Layout>
     );
   }
@@ -34,10 +34,8 @@ export const BottomBanner = () => {
   if (["slow-2g", "2g", "3g"].includes(network.effectiveType ?? "")) {
     return (
       <Layout>
-        {"(๑ > ᴗ < ๑) "}
-        It seems your internet connection is a bit slow right now (
-        {network.effectiveType}), don't worry, you can still use the site, but a
-        few features may take longer to load.
+        {`(๑ > ᴗ < ๑) Your internet connection seems a bit slow (${network.effectiveType}), don't worry, you can still use the site, but some features may take
+        longer to load.`}
       </Layout>
     );
   }

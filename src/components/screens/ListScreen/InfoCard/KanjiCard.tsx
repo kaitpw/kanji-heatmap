@@ -23,7 +23,7 @@ const transformKanjiWordDetails = (
 
   const spacedKana = wordDetails.wordPartDetails
     .map((item) => {
-      return item[1] ?? "";
+      return item[1] ?? item[0];
     })
     .join(" ");
 
