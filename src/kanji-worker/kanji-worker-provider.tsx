@@ -161,34 +161,45 @@ export function KanjiWorkerProvider({
         }
 
         if (type === "hover-card") {
-          const phonetic =
-            kanjiInfo.extended.phonetic == null
-              ? undefined
-              : {
-                  phonetic: kanjiInfo.extended.phonetic,
-                  sound:
-                    phoneticCacheRef?.current?.[kanjiInfo.extended.phonetic],
-                  keyword:
-                    kanjiCacheRef?.current?.[kanjiInfo.extended.phonetic]?.main
-                      .keyword ??
-                    partKeywordCacheRef?.current?.[kanjiInfo.extended.phonetic],
-                };
+          const getPhonetic = () => {
+            if (kanjiInfo?.extended?.phonetic == null) {
+              return undefined;
+            }
+            const kanjiKeyword =
+              kanjiCacheRef?.current?.[kanjiInfo.extended.phonetic]?.main
+                .keyword;
+            return {
+              phonetic: kanjiInfo.extended.phonetic,
+              sound: phoneticCacheRef?.current?.[kanjiInfo.extended.phonetic],
+              keyword:
+                kanjiKeyword ??
+                partKeywordCacheRef?.current?.[kanjiInfo.extended.phonetic],
+              isKanji: kanjiKeyword != null,
+            };
+          };
+          const phonetic = getPhonetic();
 
           const getPartsList = (word: string) => {
             const parts = word.split("");
             const partCache: Record<string, string> = {};
+            const isKanjiCache: Record<string, boolean> = {};
             parts.forEach((part) => {
+              const kanjiKeyword = kanjiCacheRef?.current?.[part]?.main.keyword;
               const keyword =
-                kanjiCacheRef?.current?.[part]?.main.keyword ??
-                partKeywordCacheRef?.current?.[part];
+                kanjiKeyword ?? partKeywordCacheRef?.current?.[part];
 
               if (keyword) {
                 partCache[part] = keyword;
+                isKanjiCache[part] = kanjiKeyword != null;
               }
             });
 
             return Object.keys(partCache).map((part) => {
-              return { kanji: part, keyword: partCache[part] };
+              return {
+                kanji: part,
+                keyword: partCache[part],
+                isKanji: isKanjiCache[part],
+              };
             });
           };
 
@@ -208,11 +219,11 @@ export function KanjiWorkerProvider({
                 : undefined,
             },
             parts: kanjiInfo.extended.parts.map((part) => {
+              const kanjiKeyword = kanjiCacheRef?.current?.[part]?.main.keyword;
               return {
                 part,
-                keyword:
-                  kanjiCacheRef?.current?.[part]?.main.keyword ??
-                  partKeywordCacheRef?.current?.[part],
+                keyword: kanjiKeyword ?? partKeywordCacheRef?.current?.[part],
+                isKanji: kanjiKeyword != null,
               };
             }),
             frequency: kanjiInfo.extended.frequency,

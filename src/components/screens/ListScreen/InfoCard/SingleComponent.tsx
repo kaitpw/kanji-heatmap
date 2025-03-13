@@ -1,14 +1,17 @@
 import { GenericPopover } from "@/components/common/GenericPopover";
 import { RomajiBadge } from "@/components/common/RomajiBadge";
+import { KanjiLink } from "./KanjiLink";
 
 export const SingleComponent = ({
   kanji,
   keyword,
   phonetic,
+  isKanji,
 }: {
   kanji: string;
   keyword: string;
   phonetic?: string | string[];
+  isKanji: boolean;
 }) => {
   const phonetics: string[] =
     typeof phonetic === "string"
@@ -27,7 +30,11 @@ export const SingleComponent = ({
       }
       content={
         <div className="text-xs uppercase p-2 font-bold">
-          <span className="block">{keyword}</span>{" "}
+          {isKanji ? (
+            <KanjiLink keyword={keyword} kanji={kanji} />
+          ) : (
+            <span className="block">{keyword}</span>
+          )}
           {phonetics.map((phonetic) => (
             <RomajiBadge key={phonetic} kana={phonetic} />
           ))}

@@ -48,9 +48,14 @@ export type HoverItemReturnData = {
   on: string;
   kun: string;
   jlpt: JLTPTtypes;
-  parts: { part: string; keyword: string }[];
+  parts: { part: string; keyword: string; isKanji: boolean }[];
   frequency?: KanjiInfoFrequency;
-  phonetic?: { phonetic: string; sound: string; keyword: string };
+  phonetic?: {
+    phonetic: string;
+    sound: string;
+    keyword: string;
+    isKanji: boolean;
+  };
   mainVocab?: {
     first: KanjiWordDetails;
     second?: KanjiWordDetails;

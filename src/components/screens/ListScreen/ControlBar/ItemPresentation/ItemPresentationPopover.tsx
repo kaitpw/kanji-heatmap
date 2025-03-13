@@ -32,7 +32,7 @@ const ItemPresentationSettingsPopover = ({
           <span className="sr-only">Card Presentation Settings</span>
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="mx-4 max-h-[82svh] overflow-y-auto overflow-x-hidden z-40">
+      <PopoverContent className="mx-4 max-h-[50svh] md:max-h-[82svh] overflow-y-auto overflow-x-hidden z-40">
         {children}
       </PopoverContent>
     </Popover>

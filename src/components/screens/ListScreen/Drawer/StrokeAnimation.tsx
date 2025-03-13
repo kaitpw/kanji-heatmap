@@ -53,8 +53,8 @@ export const StrokeAnimation = ({ kanji }: { kanji: string }) => {
       >
         Write <Play />
       </Button>
-
-      <div className={CONTAINER_CN} style={{ height: SVG_SIZE }}>
+      {/** key needed to redraw on change of kanji */}
+      <div className={CONTAINER_CN} style={{ height: SVG_SIZE }} key={kanji}>
         <KanjiDMAK kanji={kanji} key={key} />
       </div>
     </div>

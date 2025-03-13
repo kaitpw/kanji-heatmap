@@ -11,6 +11,7 @@ import { DefaultErrorFallback } from "@/components/common/DefaultErrorFallback";
 import { BasicLoading } from "@/components/common/BasicLoading";
 import { WordCard } from "./WordCard";
 
+const MISSING_KEYWORD = "💔 Missing Keyword 🪲";
 const transformKanjiWordDetails = (
   kanji: string,
   wordDetails?: KanjiWordDetails
@@ -75,7 +76,8 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
                 <SingleComponent
                   key={item.part}
                   kanji={item.part}
-                  keyword={item.keyword}
+                  keyword={item.keyword ?? MISSING_KEYWORD}
+                  isKanji={item.isKanji}
                 />
               );
             })}
@@ -85,8 +87,9 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
                 .includes(info.phonetic.phonetic) === false && (
                 <SingleComponent
                   kanji={info.phonetic.phonetic}
-                  keyword={info.phonetic.keyword}
+                  keyword={info.phonetic.keyword ?? MISSING_KEYWORD}
                   phonetic={info.phonetic.sound}
+                  isKanji={info.phonetic.isKanji}
                 />
               )}
           </>
