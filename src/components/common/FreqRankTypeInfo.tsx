@@ -5,7 +5,7 @@ import { FREQ_RANK_SOURCES_INFO } from "@/lib/freq-source-info";
 
 export const FreqRankTypeInfo = ({
   value,
-  defaultValue,
+  defaultValue = <div className="text-xs">🐛💔🪲 Description Unavailable.</div>,
 }: {
   value: SortKey;
   defaultValue?: ReactNode;
@@ -13,8 +13,8 @@ export const FreqRankTypeInfo = ({
   const sourceInfo = FREQ_RANK_SOURCES_INFO[value as FrequencyType];
   const hasValue = value !== "none" && sourceInfo?.description;
 
-  if (!hasValue) {
-    return <>{defaultValue}</>;
+  if (hasValue) {
+    return defaultValue;
   }
   return (
     <div className="text-xs mt-1 text-left px-3">

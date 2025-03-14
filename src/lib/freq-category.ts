@@ -1,4 +1,4 @@
-import { ITEM_CARD_BG_CN, squareCn } from "./constants";
+import { cnItemBg, cnSquare } from "./generic-cn";
 
 export const freqCategoryCount = 6;
 export type FreqCategory = 0 | 1 | 2 | 3 | 4 | 5;
@@ -50,5 +50,5 @@ export const getFreqCnByRank = (rank: number) => {
   const freqRankCategory = rank === -1 ? 0 : getFreqCategory(rank);
 
   const bgColor = freqCategoryCn[freqRankCategory];
-  return `${ITEM_CARD_BG_CN} ${squareCn} ${bgColor}`;
+  return `${cnItemBg} ${cnSquare} ${bgColor}`;
 };

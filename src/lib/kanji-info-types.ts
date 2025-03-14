@@ -6,7 +6,6 @@ import {
 } from "./kanji-worker-types";
 
 export type KanjiInfoRequestType =
-  | "item-card"
   | "hover-card"
   | "general"
   | "frequency-ranks"
@@ -41,6 +40,16 @@ export type KanjiWordDetails = {
     kanji: string;
     keyword: string;
   }[];
+};
+
+export type GeneralKanjiItem = {
+  allOn: string[];
+  allKun: string[];
+  meanings: string[];
+  jouyouGrade: number;
+  wk: number;
+  rtk: number;
+  strokes: number;
 };
 
 export type HoverItemReturnData = {

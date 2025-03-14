@@ -1,6 +1,7 @@
 import { selectRandom } from "@/lib/utils";
 import { ExternalTextLink } from "./ExternalTextLink";
 import { outLinks } from "@/lib/constants";
+import { cnTextLink } from "@/lib/generic-cn";
 
 const APOLOGIZING_SYMBOL = [
   "(シ_ _)シ",
@@ -37,7 +38,16 @@ export const DefaultErrorFallback = ({
 
       {showDefaultCta && (
         <div className="mx-2 ">
-          Try refreshing the page or
+          Try{" "}
+          <button
+            className={cnTextLink}
+            onClick={() => {
+              window?.location.reload();
+            }}
+          >
+            refreshing the page
+          </button>{" "}
+          or{" "}
           <ExternalTextLink
             href={outLinks.githubIssue}
             text="report the issue on Github."

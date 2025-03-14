@@ -1,3 +1,5 @@
+import { cnTextLink } from "@/lib/generic-cn";
+
 export const ExternalTextLink = ({
   href,
   text,
@@ -6,12 +8,7 @@ export const ExternalTextLink = ({
   text: string;
 }) => {
   return (
-    <a
-      className="underline hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md p-1 mx-1"
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-    >
+    <a className={cnTextLink} href={href} target="_blank" rel="noreferrer">
       {text}
     </a>
   );

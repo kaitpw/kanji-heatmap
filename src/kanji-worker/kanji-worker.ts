@@ -28,12 +28,6 @@ const KANJI_SEGMENTED_VOCAB_CACHE: Record<string, SegmentedVocabInfo> = {};
 let KANJI_PHONETIC_MAP_CACHE: Record<string, string> = {};
 let KANJI_PART_KEYWORD_MAP_CACHE: Record<string, string> = {};
 
-// ********************
-// DERIVED CACHE
-// *******************
-// TODO: SEARCH_CACHE: Record<searchKey, { result: [] }>
-// TODO: SEARCH_TIME_CACHE: { timestamp, searchKey }[]
-
 let mainComplete = false;
 let extendedInfoComplete = false;
 let phoneticComplete = false;

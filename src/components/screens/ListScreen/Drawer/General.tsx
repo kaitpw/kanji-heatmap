@@ -4,20 +4,11 @@ import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@radix-ui/react-select";
 import { RomajiBadge } from "@/components/common/RomajiBadge";
-import { ExternalTextLink } from "@/components/common/ExternalTextLink";
-import { externalLinks } from "@/lib/constants";
 import { BasicLoading } from "@/components/common/BasicLoading";
 import { DefaultErrorFallback } from "@/components/common/DefaultErrorFallback";
+import { ExternalKanjiLinks } from "@/components/common/ExternalKanjiLinks";
+import { GeneralKanjiItem } from "@/lib/kanji-info-types";
 
-type GeneralKanjiItem = {
-  allOn: string[];
-  allKun: string[];
-  meanings: string[];
-  jouyouGrade: number;
-  wk: number;
-  rtk: number;
-  strokes: number;
-};
 const hasData = (data?: number) => data != null && data !== -1;
 
 export const General = ({ kanji }: { kanji: string }) => {
@@ -85,15 +76,7 @@ export const General = ({ kanji }: { kanji: string }) => {
       <Separator className="border-b-2 border-dotted mb-4" />
       <div className="text-left">
         <h1 className="font-bold mb-1">External Links: </h1>
-        <ul className="flex flex-wrap">
-          {externalLinks.map((item) => {
-            return (
-              <li key={item.name}>
-                <ExternalTextLink href={item.url(kanji)} text={item.name} />
-              </li>
-            );
-          })}
-        </ul>
+        <ExternalKanjiLinks kanji={kanji} />
       </div>
     </>
   );

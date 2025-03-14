@@ -91,6 +91,14 @@ export const filterKanji = (
         ? wanakana.toHiragana(trimmedSearchText)
         : wanakana.toRomaji(trimmedSearchText);
 
+  // TODO: add logic early exit (return all)
+  // when we know there's no need to filter
+  // IE:
+  // - all strokes selected
+  // - no search text
+  // - freq filter source = none
+  // - all-jlpt selected
+  // Also add a LRU cache of recently computed results
   return allKanji
     .filter((kanji) => {
       if (textToSearch === "") {
@@ -152,7 +160,7 @@ export const searchKanji = (settings: SearchSettings, kanjiPool: DataPool) => {
     const infoB = kanjiPool.main[b];
     const exInfoA = kanjiPool.extended[a];
     const exInfoB = kanjiPool.extended[b];
-
+    // TODO: Also add a LRU cache of recently computed results
     const sortBy = (sortKey: SortKey) => {
       if (sortKey === K_JLPT) {
         return jlptSort(infoA.jlpt, infoB.jlpt);

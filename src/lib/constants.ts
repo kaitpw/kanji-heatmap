@@ -1,21 +1,6 @@
-export const ITEM_CARD_BG_CN = "bg-[#fb02a8]";
-
 export const KANJI_COUNT = 2426; // Exclude NOMA / Repeater kanji
 export const MAX_STROKE_COUNT = 30;
 export const MAX_FREQ_RANK = 8000;
-
-export const TILE_SIZE = {
-  sm: {
-    width: 50,
-    height: 55,
-  },
-  lg: {
-    width: 135,
-    height: 118,
-  },
-};
-
-export const HEADER_HEIGHT = 100;
 
 export const URL_PARAMS = {
   openKanji: "open-kanji",
@@ -39,16 +24,20 @@ export const URL_PARAMS = {
 
 export const externalLinks: { name: string; url: (x: string) => string }[] = [
   {
-    name: "Wanikani",
-    url: (kanji: string) => `https://www.wanikani.com/kanji/${kanji}`,
-  },
-  {
-    name: "Kanshudo",
-    url: (kanji: string) => `https://www.kanshudo.com/kanji/${kanji}`,
+    name: "Jotoba",
+    url: (kanji: string) => `https://jotoba.de/search/1/${kanji}?l=en-US`,
   },
   {
     name: "The Kanji Map",
     url: (kanji: string) => `https://thekanjimap.com/${kanji}`,
+  },
+  {
+    name: "Jisho",
+    url: (kanji: string) => `https://jisho.org/search/${kanji}%20%23kanji`,
+  },
+  {
+    name: "Kai Kanji Api",
+    url: (kanji: string) => `https://kai.kanjiapi.dev/#!/${kanji}`,
   },
   {
     name: "Kanji Alive",
@@ -60,16 +49,12 @@ export const externalLinks: { name: string; url: (x: string) => string }[] = [
   },
   { name: "JPDB", url: (kanji: string) => `https://jpdb.io/kanji/${kanji}#a` },
   {
-    name: "Jisho",
-    url: (kanji: string) => `https://jisho.org/search/${kanji}%20%23kanji`,
+    name: "Wanikani",
+    url: (kanji: string) => `https://www.wanikani.com/kanji/${kanji}`,
   },
   {
-    name: "Kai Kanji Api",
-    url: (kanji: string) => `https://kai.kanjiapi.dev/#!/${kanji}`,
-  },
-  {
-    name: "Jotoba",
-    url: (kanji: string) => `https://jotoba.de/search/1/${kanji}?l=en-US`,
+    name: "Kanshudo",
+    url: (kanji: string) => `https://www.kanshudo.com/kanji/${kanji}`,
   },
   {
     name: "Kanji Garden",
@@ -90,10 +75,32 @@ export const externalLinks: { name: string; url: (x: string) => string }[] = [
   },
 ];
 
-export const squareCn =
-  "rounded-sm border border-opacity-50 border-gray-500 dark:border-gray-600 dark:border-opacity-50";
-
 export const outLinks = {
   githubIssue: "https://github.com/mithi/mithi/issues/3",
   koFi: "https://ko-fi.com/minimithi",
 };
+
+export const vocabExternalLinks = [
+  {
+    name: "Immersion Kit",
+    url: (word: string) =>
+      `https://www.immersionkit.com/dictionary?keyword=${word}`,
+  },
+  {
+    name: "Tatoeba",
+    url: (word: string) =>
+      `https://tatoeba.org/en/sentences/search?from=jpn&query=${word}&to=eng`,
+  },
+  {
+    name: "Jisho.org",
+    url: (word: string) => `https://jisho.org/word/${word}`,
+  },
+  {
+    name: "Jotoba",
+    url: (word: string) => `https://jotoba.de/search/0/${word}?l=en-US`,
+  },
+  {
+    name: "JPDB.io",
+    url: (word: string) => `https://jpdb.io/search?q=${word}&lang=english#a`,
+  },
+];

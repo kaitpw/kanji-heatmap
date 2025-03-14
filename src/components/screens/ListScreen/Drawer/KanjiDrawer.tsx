@@ -64,7 +64,6 @@ export function KanjiDrawerRaw({
   ) : (
     <DefaultErrorFallback
       message={`The kanji "${kanji}" does not exist in our database.`}
-      showDefaultCta={false}
     />
   );
 

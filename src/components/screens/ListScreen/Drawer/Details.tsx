@@ -31,7 +31,7 @@ export const KanjiDetails = ({ kanji }: { kanji: string }) => {
         </div>
         <LinksOutItems />
       </div>
-      <SimpleAccordion trigger={"General"}>
+      <SimpleAccordion trigger={"General"} defaultOpen={true}>
         <General kanji={kanji} />
       </SimpleAccordion>
       <SimpleAccordion trigger={"Stroke Order Animation"}>

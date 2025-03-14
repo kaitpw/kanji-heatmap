@@ -57,7 +57,6 @@ export const FrequencyInfo = ({
                           value={
                             inverseFreqMap[item as keyof KanjiInfoFrequency]
                           }
-                          defaultValue={"No Information available."}
                         />
                       </div>
                     }
