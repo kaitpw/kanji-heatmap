@@ -113,7 +113,8 @@ def get_all_generic(all_, all_source_keys):
         others = dig_others(source_key)
 
         item_set.update(others)
-        item_set.discard('')
+    
+    item_set.discard('')
 
     item_list = list(item_set)
 
@@ -194,7 +195,8 @@ def get_main_on_reading(kanji_info):
 def get_all_on_readings(kanji_info):
     all_source_keys = [
         'davidluzgouveiaJlpt',
-        'waniKani'
+        'waniKani',
+        'kanjiApi'
     ]
     all_ = kanji_info.get('readings', {}).get('onyomi', {})
     return get_all_generic(all_, all_source_keys)
@@ -381,7 +383,7 @@ def get_ranks(kanji_info):
         rank_twitter,
         
         rank_google,
-        rank_kd,
+        rank_wkfr,
 
         rank_wikipedia_char,
         rank_wikipedia_doc,
@@ -398,7 +400,8 @@ def get_ranks(kanji_info):
         rank_kuf,
         rank_mcd,
         rank_bunka,
-        rank_wkfr,
+
+        rank_kd,
         rank_jisho,
     ]
 

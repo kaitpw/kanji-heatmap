@@ -88,14 +88,18 @@ export const transformToExtendedKanjiInfo = (
     wk: second[3],
     jouyouGrade: second[4],
     meanings: second[5],
-    allOn: (second[6] ?? []).map((val) => wanakana.toKatakana(val)),
-    allKun: (second[7] ?? []).map((val) => wanakana.toHiragana(val)),
+    allOn: Array.from(
+      new Set((second[6] ?? []).map((val) => wanakana.toKatakana(val)))
+    ),
+    allKun: Array.from(
+      new Set((second[7] ?? []).map((val) => wanakana.toHiragana(val)))
+    ),
     phonetic: (second[8] ?? "").length > 0 ? second[8] : undefined,
     frequency: {
       netflix: freq[0], //rank_netflix
       twitter: freq[1], //rank_twitter
       google: freq[2], //rank_google
-      kd: freq[3], //rank_kd
+      kd: freq[3], //rank_wkfr
       wikiChar: freq[4], //rank_wikipedia_char
       wikiDoc: freq[5], //rank_wikipedia_doc
       aozoraChar: freq[6], //rank_aozora_char
@@ -107,7 +111,7 @@ export const transformToExtendedKanjiInfo = (
       kuf: freq[12], //rank_kuf
       mcd: freq[13], //rank_mcd
       bunka: freq[14], //rank_bunka
-      wkfr: freq[15], //rank_wkfr
+      wkfr: freq[15], //rank_kd
       jisho: freq[16], //rank_jisho
     },
     mainVocab,

@@ -81,7 +81,7 @@ export type ExtendedKanjiInfoItemType = [
     number, //rank_netflix,
     number, //rank_twitter,
     number, //rank_google,
-    number, //rank_kd,
+    number, //rank_wkfr,
     number, //rank_wikipedia_char,
     number, //rank_wikipedia_doc,
     number, //rank_aozora_char,
@@ -93,7 +93,7 @@ export type ExtendedKanjiInfoItemType = [
     number, //rank_kuf,
     number, //rank_mcd,
     number, //rank_bunka,
-    number, //rank_wkfr,
+    number, //rank_kd,
     number, //rank_jisho,
   ],
   string[], // sample vocabulary
