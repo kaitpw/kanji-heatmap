@@ -9,7 +9,9 @@ import {
 import KANJI_WORKER_SINGLETON from "@/kanji-worker/kanji-worker-promise-wrapper";
 import { useContextWithCatch } from "../providers/helpers";
 import {
+  GeneralKanjiItem,
   HoverItemReturnData,
+  KanjiCacheItem,
   KanjiCacheType,
   KanjiInfoRequestType,
   KanjiPartKeywordCacheType,
@@ -31,6 +33,80 @@ type GetBasicKanjiInfo = (kanji: string) => KanjiMainInfo | null;
 const ActionContext = createContext<KanjiRequestFn | null>(null);
 const IsReadyContext = createContext<boolean>(false);
 const GetBasicKanjiInfoContext = createContext<GetBasicKanjiInfo | null>(null);
+
+export const extractKanjiHoverData = (
+  kanjiInfo: KanjiCacheItem,
+  kanjiInfoExtended: KanjiExtendedInfo & VocabExtendedInfo,
+  kanjiCache?: KanjiCacheType | null,
+  partKeywordCache?: KanjiPartKeywordCacheType | null,
+  phoneticCache?: KanjiPhoneticCacheType | null
+) => {
+  const getPhonetic = () => {
+    if (kanjiInfoExtended.phonetic == null) {
+      return undefined;
+    }
+    const kanjiKeyword = kanjiCache?.[kanjiInfoExtended.phonetic]?.main.keyword;
+    return {
+      phonetic: kanjiInfoExtended.phonetic,
+      sound: phoneticCache?.[kanjiInfoExtended.phonetic],
+      keyword: kanjiKeyword ?? partKeywordCache?.[kanjiInfoExtended.phonetic],
+      isKanji: kanjiKeyword != null,
+    };
+  };
+
+  const getPartsList = (word: string) => {
+    const parts = word.split("");
+    const partCache: Record<string, string> = {};
+    const isKanjiCache: Record<string, boolean> = {};
+    parts.forEach((part) => {
+      const kanjiKeyword = kanjiCache?.[part]?.main.keyword;
+      const keyword = kanjiKeyword ?? partKeywordCache?.[part];
+
+      if (keyword) {
+        partCache[part] = keyword;
+        isKanjiCache[part] = kanjiKeyword != null;
+      }
+    });
+
+    return Object.keys(partCache).map((part) => {
+      return {
+        kanji: part,
+        keyword: partCache[part],
+        isKanji: isKanjiCache[part],
+      };
+    });
+  };
+
+  const phonetic = getPhonetic();
+
+  const vocab = kanjiInfoExtended.vocabInfo;
+
+  const result = {
+    ...kanjiInfo.main,
+    mainVocab: {
+      first: vocab?.first
+        ? { ...vocab.first, partsList: getPartsList(vocab.first.word) }
+        : undefined,
+      second: vocab?.second
+        ? {
+            ...vocab.second,
+            partsList: getPartsList(vocab.second.word),
+          }
+        : undefined,
+    },
+    parts: kanjiInfoExtended.parts.map((part) => {
+      const kanjiKeyword = kanjiCache?.[part]?.main.keyword;
+      return {
+        part,
+        keyword: kanjiKeyword ?? partKeywordCache?.[part],
+        isKanji: kanjiKeyword != null,
+      };
+    }),
+    frequency: kanjiInfoExtended.frequency,
+    phonetic,
+  } as HoverItemReturnData;
+  return result;
+};
 
 export function KanjiWorkerProvider({
   children,
@@ -114,6 +190,7 @@ export function KanjiWorkerProvider({
       .catch(() => {
         setWorkerError(true);
       });
+
     requestWorker({
       type: "initialize-extended-kanji-map",
     })
@@ -124,6 +201,7 @@ export function KanjiWorkerProvider({
       .catch(() => {
         setWorkerError(true);
       });
+
     requestWorker({ type: "initalize-segmented-vocab-map" })
       .then(() => {
         segmentedVocabReady = true;
@@ -146,105 +224,29 @@ export function KanjiWorkerProvider({
         throw Error("No information about this Kanji");
       }
 
-      if (type === "item-card") {
-        return kanjiInfo.main;
-      }
-
       const getNecessaryValues = () => {
         if (kanjiInfo.extended == null) {
           throw Error(
             "Please fix logic. By the time you get here. kanjiInfo.extended should exist"
           );
         }
+
         if (type === "frequency-ranks") {
           return kanjiInfo.extended.frequency;
         }
 
         if (type === "hover-card") {
-          const getPhonetic = () => {
-            if (kanjiInfo?.extended?.phonetic == null) {
-              return undefined;
-            }
-            const kanjiKeyword =
-              kanjiCacheRef?.current?.[kanjiInfo.extended.phonetic]?.main
-                .keyword;
-            return {
-              phonetic: kanjiInfo.extended.phonetic,
-              sound: phoneticCacheRef?.current?.[kanjiInfo.extended.phonetic],
-              keyword:
-                kanjiKeyword ??
-                partKeywordCacheRef?.current?.[kanjiInfo.extended.phonetic],
-              isKanji: kanjiKeyword != null,
-            };
-          };
-          const phonetic = getPhonetic();
-
-          const getPartsList = (word: string) => {
-            const parts = word.split("");
-            const partCache: Record<string, string> = {};
-            const isKanjiCache: Record<string, boolean> = {};
-            parts.forEach((part) => {
-              const kanjiKeyword = kanjiCacheRef?.current?.[part]?.main.keyword;
-              const keyword =
-                kanjiKeyword ?? partKeywordCacheRef?.current?.[part];
-
-              if (keyword) {
-                partCache[part] = keyword;
-                isKanjiCache[part] = kanjiKeyword != null;
-              }
-            });
-
-            return Object.keys(partCache).map((part) => {
-              return {
-                kanji: part,
-                keyword: partCache[part],
-                isKanji: isKanjiCache[part],
-              };
-            });
-          };
-
-          const vocab = kanjiInfo.extended.vocabInfo;
-
-          const result = {
-            ...kanjiInfo.main,
-            mainVocab: {
-              first: vocab?.first
-                ? { ...vocab.first, partsList: getPartsList(vocab.first.word) }
-                : undefined,
-              second: vocab?.second
-                ? {
-                    ...vocab.second,
-                    partsList: getPartsList(vocab.second.word),
-                  }
-                : undefined,
-            },
-            parts: kanjiInfo.extended.parts.map((part) => {
-              const kanjiKeyword = kanjiCacheRef?.current?.[part]?.main.keyword;
-              return {
-                part,
-                keyword: kanjiKeyword ?? partKeywordCacheRef?.current?.[part],
-                isKanji: kanjiKeyword != null,
-              };
-            }),
-            frequency: kanjiInfo.extended.frequency,
-            vocabInfo: kanjiInfo?.extended?.vocabInfo,
-            phonetic,
-          } as HoverItemReturnData;
-          return result;
+          return extractKanjiHoverData(
+            kanjiInfo,
+            kanjiInfo.extended,
+            kanjiCacheRef.current,
+            partKeywordCacheRef.current,
+            phoneticCacheRef.current
+          );
         }
 
         if (type === "general") {
-          const { allOn, allKun, meanings, jouyouGrade, wk, rtk, strokes } =
-            kanjiInfo.extended;
-          return {
-            allOn,
-            allKun,
-            meanings,
-            jouyouGrade,
-            wk,
-            rtk,
-            strokes,
-          };
+          return kanjiInfo.extended as GeneralKanjiItem;
         }
 
         if (type === "main-plus-extended") {
@@ -261,7 +263,6 @@ export function KanjiWorkerProvider({
         }).then((r) => {
           const res = r as KanjiExtendedInfo & VocabExtendedInfo;
 
-          // NOTE: I don't know why typescript cant detect this
           if (kanjiCacheRef?.current?.[kanji] == null) {
             throw Error("No information about this Kanji");
           }
@@ -272,6 +273,7 @@ export function KanjiWorkerProvider({
 
         return result;
       }
+
       return getNecessaryValues();
     },
     []
@@ -300,7 +302,7 @@ export const useKanjiWorkerRequest = () => {
   const fn = useContextWithCatch(
     ActionContext,
     "KanjiWorker",
-    "WorkerWorkerRequest"
+    "KanjirWorkerRequest"
   );
   return fn;
 };
