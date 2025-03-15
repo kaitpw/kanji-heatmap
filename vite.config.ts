@@ -25,19 +25,14 @@ const pwaConfig = {
       {
         purpose: "maskable",
         sizes: "512x512",
-        src: "img/icon512_maskable.png",
-        type: "image/png",
+        src: "img/app-icon-512x512.png",
+        type: "image/png"
       },
       {
-        purpose: "any",
-        sizes: "512x512",
-        src: "img/icon512_rounded.png",
-        type: "image/png",
-      },
-      {
-        src: "favicon.ico",
-        sizes: "64x64 32x32 24x24 16x16",
-        type: "image/x-icon",
+        purpose: "maskable",
+        sizes: "192x192",
+        src: "img/app-icon-192x192.png",
+        type: "image/png"
       },
     ],
   },
