@@ -7,7 +7,10 @@ import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 
 import { FreqRankTypeInfo } from "@/components/common/FreqRankTypeInfo";
 import { getFreqCnByRank } from "@/lib/freq-category";
-import { frequencyRankLabels } from "@/lib/label-maps";
+import {
+  frequencyRankLabels,
+  frequencyRankNamesOrdered,
+} from "@/lib/label-maps";
 import { inverseFreqMap } from "@/lib/freq-rank-map";
 
 export const FrequencyInfo = ({
@@ -16,20 +19,23 @@ export const FrequencyInfo = ({
   freqRankInfo?: KanjiInfoFrequency;
 }) => {
   if (freqRankInfo == null) {
-    return <div className="p-4"> No frequency rank information available.</div>;
+    return <div className="p-4">No frequency rank information available.</div>;
   }
 
   return (
     <>
       <Table className="my-4">
         <TableBody>
-          {Object.keys(freqRankInfo).map((item) => {
+          {frequencyRankNamesOrdered.map((item) => {
             const rank = freqRankInfo[item as keyof KanjiInfoFrequency];
             const label = frequencyRankLabels[item as keyof KanjiInfoFrequency];
             const progress =
               rank === -1
                 ? 0
                 : (Math.max(KANJI_COUNT - rank, 0) * 100) / KANJI_COUNT;
+
+            const category = getFreqCnByRank(rank);
+            const freqkey = inverseFreqMap[item as keyof KanjiInfoFrequency];
 
             return (
               <TableRow key={item} className="my-1 text-left p-0">
@@ -47,17 +53,13 @@ export const FrequencyInfo = ({
                           </span>
                         )}
                         <span
-                          className={`h-3 w-3 inline-block mx-1 ${getFreqCnByRank(rank)} `}
+                          className={`h-3 w-3 inline-block mx-1 ${category}`}
                         />
                       </button>
                     }
                     content={
                       <div className="p-2 w-72">
-                        <FreqRankTypeInfo
-                          value={
-                            inverseFreqMap[item as keyof KanjiInfoFrequency]
-                          }
-                        />
+                        <FreqRankTypeInfo value={freqkey} />
                       </div>
                     }
                   />

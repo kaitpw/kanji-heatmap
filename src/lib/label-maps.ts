@@ -81,3 +81,23 @@ export const frequencyRankLabels: Record<keyof KanjiInfoFrequency, string> = {
   wkfr: "Wikipedia Kanji Frequency Report",
   jisho: "Jisho.org",
 };
+
+export const frequencyRankNamesOrdered: (keyof KanjiInfoFrequency)[] = [
+  "netflix",
+  "twitter",
+  "google",
+  "kd",
+  "wikiChar",
+  "wikiDoc",
+  "aozoraChar",
+  "aozoraDoc",
+  "onlineNewsChar",
+  "onlineNewsDoc",
+  "novels5100",
+  "dramaSubs",
+  "kuf",
+  "mcd",
+  "bunka",
+  "wkfr",
+  "jisho",
+] as const;

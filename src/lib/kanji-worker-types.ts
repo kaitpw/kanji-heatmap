@@ -18,7 +18,7 @@ export type KanjiInfoFrequency = {
   netflix: number; //rank_netflix,
   twitter: number; //rank_twitter,
   google: number; //rank_google,
-  kd: number; //rank_kd,
+  wkfr: number; //rank_wkfr,
   wikiChar: number; //rank_wikipedia_char,
   wikiDoc: number; //rank_wikipedia_doc,
   aozoraChar: number; //rank_aozora_char,
@@ -30,7 +30,7 @@ export type KanjiInfoFrequency = {
   kuf: number; //rank_kuf,
   mcd: number; //rank_mcd,
   bunka: number; //rank_bunka,
-  wkfr: number; //rank_wkfr,
+  kd: number; //rank_kd,
   jisho: number; //rank_jisho,
 };
 

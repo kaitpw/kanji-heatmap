@@ -13,7 +13,7 @@ export const FreqRankTypeInfo = ({
   const sourceInfo = FREQ_RANK_SOURCES_INFO[value as FrequencyType];
   const hasValue = value !== "none" && sourceInfo?.description;
 
-  if (hasValue) {
+  if (!hasValue) {
     return defaultValue;
   }
   return (
