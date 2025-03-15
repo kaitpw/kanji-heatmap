@@ -32,7 +32,7 @@ export function FrequencyRankDataSource({
           label="Frequency Data Source"
           isLabelSrOnly={false}
         />
-        <FreqRankTypeInfo value={value} />
+        <FreqRankTypeInfo value={value} defaultValue={null} />
       </>
     );
   }
@@ -50,7 +50,7 @@ export function FrequencyRankDataSource({
           };
         })}
       />
-      <FreqRankTypeInfo value={value} />
+      <FreqRankTypeInfo value={value} defaultValue={null} />
     </>
   );
 }

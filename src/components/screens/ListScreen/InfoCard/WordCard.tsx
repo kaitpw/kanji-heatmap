@@ -4,6 +4,34 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@radix-ui/react-separator";
 import { KanjiLink } from "./KanjiLink";
 import { useState } from "react";
+import { vocabExternalLinks } from "@/lib/constants";
+import { ExternalTextLink } from "@/components/common/ExternalTextLink";
+
+const SeeMoreDefinition = ({ definition }: { definition: string }) => {
+  const [showMore, setShowMore] = useState(false);
+  const canSeeAll = definition.length <= MAX_LEN;
+
+  return (
+    <div className="text-xs py-2 px-3 text-start">
+      {canSeeAll || showMore ? (
+        <>{definition}</>
+      ) : (
+        <>{definition.slice(0, MAX_LEN)}... </>
+      )}
+      <br />
+      {!canSeeAll && (
+        <button
+          className="underline font-bold mx-2 my-1"
+          onClick={() => {
+            setShowMore((prev) => !prev);
+          }}
+        >
+          {showMore ? <>See less</> : <>See more</>}
+        </button>
+      )}
+    </div>
+  );
+};
 
 const MAX_LEN = 200;
 export const WordCard = ({
@@ -19,9 +47,6 @@ export const WordCard = ({
   definition: string;
   wordKanjis: { kanji: string; keyword: string }[];
 }) => {
-  const [showMore, setShowMore] = useState(false);
-  const canSeeAll = definition.length <= MAX_LEN;
-
   return (
     <>
       <HiraganaWord rawKana={spacedKana} highlightIndex={highlightIndex} />
@@ -48,23 +73,18 @@ export const WordCard = ({
               })}
             </div>
             <Separator className="border-dotted border" />
-            <div className="text-xs py-2 px-3 text-start">
-              {canSeeAll || showMore ? (
-                <>{definition}</>
-              ) : (
-                <>{definition.slice(0, MAX_LEN)}... </>
-              )}
-              <br />
-              {!canSeeAll && (
-                <button
-                  className="underline font-bold mx-2 my-1"
-                  onClick={() => {
-                    setShowMore((prev) => !prev);
-                  }}
-                >
-                  {showMore ? <>See less</> : <>See more</>}
-                </button>
-              )}
+            <SeeMoreDefinition definition={definition} />
+            <Separator className="border-dotted border" />
+            <div className="text-xs p-2 flex flex-wrap justify-center">
+              {vocabExternalLinks.map((item) => {
+                return (
+                  <ExternalTextLink
+                    key={item.name}
+                    href={item.url(word)}
+                    text={item.name}
+                  />
+                );
+              })}
             </div>
           </div>
         }

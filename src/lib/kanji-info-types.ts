@@ -61,7 +61,7 @@ export type HoverItemReturnData = {
   frequency?: KanjiInfoFrequency;
   phonetic?: {
     phonetic: string;
-    sound: string;
+    sound: string[];
     keyword: string;
     isKanji: boolean;
   };
@@ -72,7 +72,7 @@ export type HoverItemReturnData = {
 };
 
 export type KanjiCacheType = Record<string, KanjiCacheItem>;
-export type KanjiPhoneticCacheType = Record<string, string>;
+export type KanjiPhoneticCacheType = Record<string, string[]>;
 export type KanjiPartKeywordCacheType = Record<string, string>;
 export type KanjiVocabCacheType = Record<
   string,

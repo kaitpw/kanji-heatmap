@@ -89,7 +89,7 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
                 <SingleComponent
                   kanji={info.phonetic.phonetic}
                   keyword={info.phonetic.keyword ?? MISSING_KEYWORD}
-                  phonetic={info.phonetic.sound}
+                  phonetics={info.phonetic.sound}
                   isKanji={info.phonetic.isKanji}
                 />
               )}

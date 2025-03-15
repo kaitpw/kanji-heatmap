@@ -86,7 +86,7 @@ export const frequencyRankNamesOrdered: (keyof KanjiInfoFrequency)[] = [
   "netflix",
   "twitter",
   "google",
-  "kd",
+  "wkfr",
   "wikiChar",
   "wikiDoc",
   "aozoraChar",
@@ -96,8 +96,8 @@ export const frequencyRankNamesOrdered: (keyof KanjiInfoFrequency)[] = [
   "novels5100",
   "dramaSubs",
   "kuf",
+  "kd",
   "mcd",
   "bunka",
-  "wkfr",
   "jisho",
 ] as const;

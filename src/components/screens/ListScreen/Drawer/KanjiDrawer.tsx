@@ -16,7 +16,7 @@ import {
 import { KanjiDetails } from "./Details";
 import ErrorBoundary from "@/components/common/ErrorBoundary";
 import { BasicLoading } from "@/components/common/BasicLoading";
-import { DefaultErrorFallback } from "@/components/common/DefaultErrorFallback";
+import { KanjiNotFound } from "@/components/common/DefaultErrorFallback";
 
 export const Layout = ({
   first,
@@ -62,9 +62,7 @@ export function KanjiDrawerRaw({
       second={<KanjiDetails kanji={kanji} />}
     />
   ) : (
-    <DefaultErrorFallback
-      message={`The kanji "${kanji}" does not exist in our database.`}
-    />
+    <KanjiNotFound kanji={kanji} />
   );
 
   // need autoFocus=true see also: https://github.com/emilkowalski/vaul/issues/517#issuecomment-2571619213

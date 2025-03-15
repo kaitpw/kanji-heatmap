@@ -5,31 +5,25 @@ import { KanjiLink } from "./KanjiLink";
 export const SingleComponent = ({
   kanji,
   keyword,
-  phonetic,
+  phonetics = [],
   isKanji,
 }: {
   kanji: string;
   keyword: string;
-  phonetic?: string | string[];
+  phonetics?: string[];
   isKanji: boolean;
 }) => {
-  const phonetics: string[] =
-    typeof phonetic === "string"
-      ? [phonetic]
-      : phonetic == null
-        ? []
-        : phonetic;
   return (
     <GenericPopover
       trigger={
         <button
-          className={`flex flex-col m-1 kanji-font text-2xl border-2 rounded-2xl p-1 ${phonetic ? " border-lime-400" : "border-dotted"}`}
+          className={`flex flex-col m-1 kanji-font text-2xl border-2 rounded-2xl p-1 ${phonetics.length > 0 ? " border-lime-400" : "border-dotted"}`}
         >
           {kanji}
         </button>
       }
       content={
-        <div className="text-xs  p-2 font-bold">
+        <div className="text-xs p-2 font-bold">
           {isKanji ? (
             <KanjiLink keyword={keyword} kanji={kanji} />
           ) : (

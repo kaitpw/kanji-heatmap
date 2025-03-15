@@ -26,7 +26,7 @@ export const KanjiDetails = ({ kanji }: { kanji: string }) => {
   return (
     <div className="py-2 mx-2">
       <div className="flex space-x-1 items-center py-2  border-b-2 border-dotted">
-        <div className="border-2 border-dashed rounded-lg">
+        <div className="border-2 rounded-lg">
           <ChangeFontButton />
         </div>
         <LinksOutItems />

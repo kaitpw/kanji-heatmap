@@ -42,11 +42,12 @@ export const BottomBanner = () => {
 
   return (
     <Layout>
-      (◍•ᴗ•◍)
-      <ExternalTextLink
-        href={outLinks.githubIssue}
-        text={"Drop by and say hello!"}
-      />
+      (◍•ᴗ•◍) Do drop by and say hello on
+      <ExternalTextLink href={outLinks.discord} text="Discord," />
+      <ExternalTextLink href={outLinks.githubIssue} text={"Github,"} />
+      or
+      <ExternalTextLink href={outLinks.discord} text={"Ko-Fi."} />
+      {"🫰"}
     </Layout>
   );
 };

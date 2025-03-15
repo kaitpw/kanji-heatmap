@@ -87,7 +87,7 @@ export const SortAndFilterSettingsForm = ({
               label="Primary"
               isLabelSrOnly={false}
             />
-            <FreqRankTypeInfo value={sortValues.primary} />
+            <FreqRankTypeInfo value={sortValues.primary} defaultValue={null} />
           </>
         }
         secondaryField={
@@ -108,7 +108,10 @@ export const SortAndFilterSettingsForm = ({
                 label="Secondary"
                 isLabelSrOnly={false}
               />
-              <FreqRankTypeInfo value={sortValues.secondary} />
+              <FreqRankTypeInfo
+                value={sortValues.secondary}
+                defaultValue={null}
+              />
             </>
           )
         }

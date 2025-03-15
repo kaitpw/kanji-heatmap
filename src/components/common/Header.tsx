@@ -2,13 +2,14 @@ import { ReactNode } from "react";
 import LinkOutSection, { LinksOutItems } from "./LinkOutSection";
 import ChangeFontButton from "./ChangeFontButton";
 import ErrorBoundary from "./ErrorBoundary";
+import { Link } from "wouter";
 
 const HeaderLayout = ({
   title,
   side,
   main,
 }: {
-  title: string;
+  title: ReactNode;
   side: ReactNode;
   main: ReactNode;
 }) => {
@@ -16,7 +17,7 @@ const HeaderLayout = ({
     <>
       <header className="flex w-full items-center justify-between border-dashed border-b-4 px-1 fixed top-0 right-0 left-0 z-50 bg-opacity-80 bg-white dark:bg-black backdrop-blur-sm">
         <section className="flex items-center space-x-1">
-          <h1 className="hidden sm:flex font-bold text-xl px-1">{title}</h1>
+          {title}
           <div className="flex space-x-1">{main}</div>
         </section>
         <section className="flex space-x-1 my-1">{side}</section>
@@ -28,7 +29,11 @@ const HeaderLayout = ({
 const Header = ({ nav }: { nav: ReactNode }) => {
   return (
     <HeaderLayout
-      title="Kanji Companion"
+      title={
+        <h1 className="hidden sm:flex font-bold text-xl px-1">
+          <Link to="/">Kanji Companion</Link>
+        </h1>
+      }
       side={<LinkOutSection />}
       main={
         <>

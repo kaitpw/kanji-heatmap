@@ -10,24 +10,30 @@ import {
 import { Button } from "../ui/button";
 import { ReactNode } from "react";
 import { outLinks } from "@/lib/constants";
+import DiscordIcon from "../icons/DiscordIcon";
 
 const bugItem = {
   href: outLinks.githubIssue,
   text: "Report bug on Github issues",
   icon: <BugIcon />,
 };
+
+const discordItem = {
+  href: outLinks.discord,
+  text: "Join our Discord server",
+  icon: <DiscordIcon />,
+};
+
+const kofiItem = {
+  href: outLinks.koFi,
+  text: "Donate on Ko-Fi",
+  icon: <KoFiIcon />,
+};
 const linkOutItems: {
   href: string;
   text: string;
   icon: ReactNode;
-}[] = [
-  bugItem,
-  {
-    href: outLinks.koFi,
-    text: "Buy me a Ko-Fi",
-    icon: <KoFiIcon />,
-  },
-];
+}[] = [bugItem, kofiItem, discordItem];
 
 export const ReportBugIconBtn = ({ cnOverride }: { cnOverride?: string }) => {
   const item = bugItem;
