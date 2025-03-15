@@ -102,7 +102,7 @@ export const extractKanjiHoverData = (
         isKanji: kanjiKeyword != null,
       };
     }),
-    frequency: kanjiInfoExtended.frequency,
+    frequency: kanjiInfo.main.frequency,
     phonetic,
   } as HoverItemReturnData;
   return result;
@@ -231,10 +231,6 @@ export function KanjiWorkerProvider({
           );
         }
 
-        if (type === "frequency-ranks") {
-          return kanjiInfo.extended.frequency;
-        }
-
         if (type === "hover-card") {
           return extractKanjiHoverData(
             kanjiInfo,
@@ -247,10 +243,6 @@ export function KanjiWorkerProvider({
 
         if (type === "general") {
           return kanjiInfo.extended as GeneralKanjiItem;
-        }
-
-        if (type === "main-plus-extended") {
-          return kanjiInfo;
         }
 
         throw Error(`${type} Not Implemented (${kanji})`);

@@ -61,6 +61,10 @@ export const FREQ_RANK_OPTIONS = [
   K_RANK_NONE,
 ] as const;
 
+export const FREQ_RANK_OPTIONS_NONE_REMOVED = FREQ_RANK_OPTIONS.filter(
+  (option) => option != K_RANK_NONE
+);
+
 export type SortGroup = (typeof GROUP_OPTIONS)[number];
 export type SortNonGroup = (typeof NONGROUP_OPTIONS)[number];
 export type FrequencyType = (typeof FREQ_RANK_OPTIONS)[number];

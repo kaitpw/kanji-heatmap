@@ -1,7 +1,6 @@
 import { lazy, Suspense } from "react";
 import SimpleAccordion from "@/components/common/SimpleAccordion";
-import { useKanjiInfo } from "@/kanji-worker/kanji-worker-provider";
-import { KanjiCacheItem } from "@/lib/kanji-info-types";
+import { useGetKanjiInfoFn } from "@/kanji-worker/kanji-worker-provider";
 import { LinksOutItems } from "@/components/common/LinkOutSection";
 import ChangeFontButton from "@/components/common/ChangeFontButton";
 import { General } from "./General";
@@ -12,17 +11,18 @@ import { BasicLoading } from "@/components/common/BasicLoading";
 const StrokeAnimation = lazy(() => import("./StrokeAnimation"));
 
 export const KanjiDetails = ({ kanji }: { kanji: string }) => {
-  const info = useKanjiInfo(kanji, "main-plus-extended");
+  const getInfo = useGetKanjiInfoFn();
 
-  if (info.error) {
-    return <DefaultErrorFallback message="Failed to load data." />;
-  }
-
-  if (info.data == null) {
+  if (getInfo == null) {
     return <BasicLoading />;
   }
 
-  const data = info.data as KanjiCacheItem;
+  const data = getInfo(kanji);
+
+  if (data == null) {
+    return <DefaultErrorFallback message="Failed to load data." />;
+  }
+
   return (
     <div className="py-2 mx-2">
       <div className="flex space-x-1 items-center py-2  border-b-2 border-dotted">
@@ -40,7 +40,7 @@ export const KanjiDetails = ({ kanji }: { kanji: string }) => {
         </Suspense>
       </SimpleAccordion>
       <SimpleAccordion trigger={"Frequency Ranks"}>
-        <FrequencyInfo freqRankInfo={data.extended?.frequency} />
+        <FrequencyInfo freqRankInfo={data.frequency} />
       </SimpleAccordion>
     </div>
   );
