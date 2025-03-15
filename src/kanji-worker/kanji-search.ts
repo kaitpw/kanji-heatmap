@@ -1,24 +1,8 @@
 import {
+  FREQ_RANK_OPTIONS_NONE_REMOVED,
   K_JLPT,
   K_JOUYOU_KEY,
   K_MEANING_KEY,
-  K_RANK_AOZORA_CHAR,
-  K_RANK_AOZORA_DOC,
-  K_RANK_BUNKA,
-  K_RANK_DRAMA_SUBTITLES,
-  K_RANK_GOOGLE,
-  K_RANK_JISHO,
-  K_RANK_KD,
-  K_RANK_KUF,
-  K_RANK_MCD,
-  K_RANK_NETFLIX,
-  K_RANK_NOVELS_5100,
-  K_RANK_ONLINE_NEWS_CHAR,
-  K_RANK_ONLINE_NEWS_DOC,
-  K_RANK_TWITTER,
-  K_RANK_WIKIPEDIA_CHAR,
-  K_RANK_WIKIPEDIA_DOC,
-  K_RANK_WKFR,
   K_RTK_INDEX,
   K_STROKES,
   K_WK_LVL,
@@ -141,8 +125,8 @@ export const filterKanji = (
       if (freqFilter.source === "none") {
         return true;
       }
-      const exInfo = kanjiPool.extended[kanji];
-      const freq = getFrequency(freqFilter.source, exInfo) ?? Number.MAX_VALUE;
+      const info = kanjiPool.main[kanji];
+      const freq = getFrequency(freqFilter.source, info) ?? Number.MAX_VALUE;
       const withinRange =
         freq >= freqFilter.rankRange.min && freq <= freqFilter.rankRange.max;
       return withinRange;
@@ -175,29 +159,11 @@ export const searchKanji = (settings: SearchSettings, kanjiPool: DataPool) => {
       } else if (sortKey === K_MEANING_KEY) {
         return alphaSort(infoA.keyword, infoB.keyword);
       } else if (
-        [
-          K_RANK_NETFLIX,
-          K_RANK_DRAMA_SUBTITLES,
-          K_RANK_NOVELS_5100,
-          K_RANK_TWITTER,
-          K_RANK_WIKIPEDIA_DOC,
-          K_RANK_WIKIPEDIA_CHAR,
-          K_RANK_ONLINE_NEWS_DOC,
-          K_RANK_ONLINE_NEWS_CHAR,
-          K_RANK_AOZORA_DOC,
-          K_RANK_AOZORA_CHAR,
-          K_RANK_GOOGLE,
-          K_RANK_KUF,
-          K_RANK_MCD,
-          K_RANK_BUNKA,
-          K_RANK_JISHO,
-          K_RANK_KD,
-          K_RANK_WKFR,
-        ].includes(sortKey)
+        (FREQ_RANK_OPTIONS_NONE_REMOVED as string[]).includes(sortKey)
       ) {
         return freqSort(
-          getFrequency(sortKey, exInfoA),
-          getFrequency(sortKey, exInfoB)
+          getFrequency(sortKey, infoA),
+          getFrequency(sortKey, infoB)
         );
       }
       return 0;

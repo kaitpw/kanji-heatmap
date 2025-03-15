@@ -6,8 +6,8 @@ import { useEffect, useId, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Play } from "lucide-react";
 
-const SVG_SIZE = 300;
-const CONTAINER_CN = `flex w-full justify-center m-4 h-[${SVG_SIZE}px]`;
+const SVG_SIZE = 280;
+const CONTAINER_CN = `flex w-full justify-center my-4 h-[${SVG_SIZE}px]`;
 
 const KanjiDMAK = ({ kanji }: { kanji: string }) => {
   const dmakInstanceRef = useRef<any>(null);

@@ -2,6 +2,7 @@ import { JLTPTtypes } from "@/lib/jlpt";
 import {
   ExtendedKanjiInfoItemType,
   ExtendedKanjiInfoResponseType,
+  FreqList,
   KanjiExtendedInfo,
   KanjiMainInfo,
   MainKanjiInfoResponseType,
@@ -51,9 +52,9 @@ export const transformToSegmentedVocab = (
 };
 
 export const transformToMainKanjiInfo = (
-  raw: [string, string, string, number]
+  raw: [string, string, string, number, FreqList]
 ) => {
-  const [keyword, on, kun, jlptRaw] = raw;
+  const [keyword, on, kun, jlptRaw, freq] = raw;
 
   const jlpt: JLTPTtypes =
     jlptRaw === 5
@@ -73,28 +74,6 @@ export const transformToMainKanjiInfo = (
     on,
     kun,
     jlpt,
-  };
-};
-
-export const transformToExtendedKanjiInfo = (
-  item: ExtendedKanjiInfoItemType
-) => {
-  const [second, freq, mainVocab] = item;
-
-  return {
-    parts: second[0],
-    strokes: second[1],
-    rtk: second[2],
-    wk: second[3],
-    jouyouGrade: second[4],
-    meanings: second[5],
-    allOn: Array.from(
-      new Set((second[6] ?? []).map((val) => wanakana.toKatakana(val)))
-    ),
-    allKun: Array.from(
-      new Set((second[7] ?? []).map((val) => wanakana.toHiragana(val)))
-    ),
-    phonetic: (second[8] ?? "").length > 0 ? second[8] : undefined,
     frequency: {
       netflix: freq[0], //rank_netflix
       twitter: freq[1], //rank_twitter
@@ -114,6 +93,38 @@ export const transformToExtendedKanjiInfo = (
       wkfr: freq[15], //rank_kd
       jisho: freq[16], //rank_jisho
     },
+  };
+};
+
+export const transformToExtendedKanjiInfo = (
+  item: ExtendedKanjiInfoItemType
+) => {
+  const [
+    parts,
+    strokes,
+    rtk,
+    wk,
+    jouyouGrade,
+    meanings,
+    allOn,
+    allKun,
+    phonetic,
+    mainVocab,
+  ] = item;
+  return {
+    parts,
+    strokes,
+    rtk,
+    wk,
+    jouyouGrade,
+    meanings,
+    allOn: Array.from(
+      new Set((allOn ?? []).map((val) => wanakana.toKatakana(val)))
+    ),
+    allKun: Array.from(
+      new Set((allKun ?? []).map((val) => wanakana.toHiragana(val)))
+    ),
+    phonetic: (phonetic ?? "").length > 0 ? phonetic : undefined,
     mainVocab,
   };
 };

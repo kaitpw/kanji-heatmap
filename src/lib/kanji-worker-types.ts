@@ -12,6 +12,7 @@ export type KanjiMainInfo = {
   jlpt: JLTPTtypes;
   on: string;
   kun: string;
+  frequency: KanjiInfoFrequency;
 };
 
 export type KanjiInfoFrequency = {
@@ -44,7 +45,6 @@ export type KanjiExtendedInfo = {
   allOn: string[];
   allKun: string[];
   phonetic?: string;
-  frequency?: KanjiInfoFrequency;
   mainVocab?: string[];
 };
 
@@ -60,45 +60,43 @@ export type SegmentedVocabInfo = {
   parts: WordPartDetail[];
 };
 
+export type FreqList = [
+  number, //rank_netflix,
+  number, //rank_twitter,
+  number, //rank_google,
+  number, //rank_wkfr,
+  number, //rank_wikipedia_char,
+  number, //rank_wikipedia_doc,
+  number, //rank_aozora_char,
+  number, //rank_aozora_doc,
+  number, //rank_online_news_char,
+  number, //rank_online_news_doc,
+  number, //rank_novels_5100,
+  number, //rank_drama_subtitles,
+  number, //rank_kuf,
+  number, //rank_mcd,
+  number, //rank_bunka,
+  number, //rank_kd,
+  number, //rank_jisho,
+];
+
 export type MainKanjiInfoResponseType = Record<
   string,
-  [string, string, string, number]
+  [string, string, string, number, FreqList]
 >;
 
 export type ExtendedKanjiInfoItemType = [
-  [
-    string[], // component parts
-    number, // strokes
-    number, // rtk index
-    number, // wk level
-    number, // jouyou grade
-    string[], // meanings
-    string[], // on readings
-    string[], // kun readings
-    string, // semantic phonetic if any
-  ],
-  [
-    number, //rank_netflix,
-    number, //rank_twitter,
-    number, //rank_google,
-    number, //rank_wkfr,
-    number, //rank_wikipedia_char,
-    number, //rank_wikipedia_doc,
-    number, //rank_aozora_char,
-    number, //rank_aozora_doc,
-    number, //rank_online_news_char,
-    number, //rank_online_news_doc,
-    number, //rank_novels_5100,
-    number, //rank_drama_subtitles,
-    number, //rank_kuf,
-    number, //rank_mcd,
-    number, //rank_bunka,
-    number, //rank_kd,
-    number, //rank_jisho,
-  ],
+  string[], // component parts
+  number, // strokes
+  number, // rtk index
+  number, // wk level
+  number, // jouyou grade
+  string[], // meanings
+  string[], // on readings
+  string[], // kun readings
+  string, // semantic phonetic if any
   string[], // sample vocabulary
 ];
-
 export type ExtendedKanjiInfoResponseType = Record<
   string,
   ExtendedKanjiInfoItemType

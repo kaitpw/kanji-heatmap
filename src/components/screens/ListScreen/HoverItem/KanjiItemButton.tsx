@@ -1,10 +1,6 @@
 import * as wanakana from "wanakana";
 import { forwardRef } from "react";
-import {
-  useGetKanjiInfoFn,
-  useKanjiInfo,
-} from "@/kanji-worker/kanji-worker-provider";
-import { KanjiInfoFrequency } from "@/lib/kanji-worker-types";
+import { useGetKanjiInfoFn } from "@/kanji-worker/kanji-worker-provider";
 import { useDeferredItemSettings } from "@/providers/item-settings-provider";
 import { JLPTListItems } from "@/lib/jlpt";
 import { freqCategoryCn, getFreqCategory } from "@/lib/freq-category";
@@ -74,21 +70,13 @@ const useItemBtnCn = (kanji: string) => {
     itemSettings.backgroundColorSettingDataSource == null ||
     itemSettings.backgroundColorSettingDataSource == "none";
 
-  const kanjiFreq = useKanjiInfo(
-    kanji,
-    dontIncludeFreq ? "none" : "frequency-ranks"
-  );
-
-  if (
-    kanjiInfo == null ||
-    (dontIncludeFreq == false && kanjiFreq.data == null)
-  ) {
+  if (kanjiInfo == null) {
     return { loadingCn };
   }
 
   const dontIncludeJLPT = itemSettings.borderColorAttached === false;
 
-  const freqData = kanjiFreq.data as Record<keyof KanjiInfoFrequency, number>;
+  const freqData = kanjiInfo.frequency;
   const freqType = freqMap[itemSettings.backgroundColorSettingDataSource];
   const freqRank = freqType ? freqData[freqType] : undefined;
   const freqRankCategory = getFreqCategory(freqRank);

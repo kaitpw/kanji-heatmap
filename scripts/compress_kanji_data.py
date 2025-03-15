@@ -63,7 +63,7 @@ compress_json(
     REFORMATTED_COMPONENTS_FILE_PATH
 )
 compress_json(
-    ORIGINAL_PHONETIC_FILE_PATH ,
+    ORIGINAL_PHONETIC_FILE_PATH,
     REFORMATTED_PHONETIC_FILE_PATH
 )
 
@@ -519,12 +519,13 @@ for kanji in kanji_list:
         get_keyword(kanji_info) or "",
         get_main_on_reading(kanji_info) or "",
         get_main_kun_reading(kanji_info) or "",
-        get_jlpt(kanji_info) or -1,    
+        get_jlpt(kanji_info) or -1,
+        get_ranks(kanji_info),
     ]
     
     kanji_main_reformatted[kanji] = main_info
 
-    secondary_info = [
+    kanji_other_reformatted[kanji] = [
         get_component_parts(kanji_info) or [],
         get_strokes(kanji_info) or -1,
         get_rtk_index(kanji_info) or -1,
@@ -533,17 +534,9 @@ for kanji in kanji_list:
         (get_all_meanings(kanji_info) or [])[:],
         get_all_on_readings(kanji_info) or [],
         get_all_kun_readings(kanji_info) or [],
-        get_semantic_phonetic(kanji_info) or ""
-    ]
-
-    freq_info = get_ranks(kanji_info)
-
-    kanji_other_reformatted[kanji] = [
-        secondary_info,
-        freq_info,
+        get_semantic_phonetic(kanji_info) or "",
         kanji_words.get(kanji, [])
     ]
-
 
 # -----------------
 # Dump Json

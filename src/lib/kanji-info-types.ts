@@ -5,11 +5,7 @@ import {
   KanjiMainInfo,
 } from "./kanji-worker-types";
 
-export type KanjiInfoRequestType =
-  | "hover-card"
-  | "general"
-  | "frequency-ranks"
-  | "main-plus-extended";
+export type KanjiInfoRequestType = "hover-card" | "general";
 
 export type VocabExtendedInfo = {
   vocabInfo?: {
