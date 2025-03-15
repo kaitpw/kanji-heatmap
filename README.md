@@ -1,12 +1,12 @@
 # Kanji Companion
 
-![./IMG/preview.png](./img/preview.png)
+![main page](./IMG/preview.png)
 
-| ![./IMG/kanji-details.png](./img/kanji-details.png) | ![./IMG/kanji-expanded.png](./img/kanji-expanded.png) |
+| ![kanji details](./IMG/kanji-details.png) | ![mobile screen](./IMG/kanji-expanded.png) |
 | --------------------------------------------------- | ----------------------------------------------------- |
 |                                                     |                                                       |
 
-![./IMG/kanji-sort-dialog.png](./img/sort-dialog.png)
+![sort and filter dialog](./IMG/sort-dialog.png)
 
 ## Talk to with Us
 
