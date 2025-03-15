@@ -1,26 +1,30 @@
 # Kanji Companion
 
+![./IMG/preview.png](./img/preview.png)
+
+| ![./IMG/kanji-details.png](./img/kanji-details.png) | ![./IMG/kanji-expanded.png](./img/kanji-expanded.png) |
+| --------------------------------------------------- | ----------------------------------------------------- |
+|                                                     |                                                       |
+
+![./IMG/kanji-sort-dialog.png](./img/sort-dialog.png)
+
+## Talk to with Us
+
+- [Discord](https://discord.gg/Ash8ZrGb4s)
+- [Ko-Fi](https://ko-fi.com/minimithi")
+
+## Run the app
+
+```
+pnpm install
+pnpm run dev --host
+pnpm run peek
+```
+
 ## Data Generation
 
 Run the script to generate data
 
 ```python
-python ./scripts/compress_kanji_data.py
+python3 ./SCRIPTS/compress_kanji_data.py
 ```
-
-## Information that can be computed on the fly
-
-1. `ultimate_average_rank` = `(goog + kuf + mcd + bunka + jisho + kd + wkfr) / 7`
-2. `ultimate_average_weighted` = `( 2 * goog + 2 * kuf + 2 * bunka + mcd + jisho + kd + wkfr ) / 10`
-3. `ultimate_rank_weighted5` = `(2 * goog + 3 * kuf + 2 *  mcd + 2 * bunka + jisho ) / 10`
-
-**Miscellaneous**
-
-1. Dependent Kanjis
-
-- Given kanji `A` loop through each kanji `B` and check its `part_components` array. If kanji `A` is a `part_component` of `B` then include in the list of dependent kanjis.
-
-2. Similar Kanjis
-
-- Given kanji `A`, check `part components of A` loop through each kanji `B` and look at `parts components of B`.If they have overlapping part components then this is a similar kanji. Then sort this list of kanjis by the difference of their stroke count. Then, given the difference in stroke count, sort by number of overlapping components they have. Get only the top 10.
-- This algorithm can be tweaked in the future.

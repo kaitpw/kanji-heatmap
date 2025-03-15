@@ -7,7 +7,7 @@ import { useKanjiSearchCount } from "@/kanji-worker/kanji-worker-provider";
 import { shouldShowAllKanji } from "./helpers";
 
 const disclaimer =
-  "Given your selected frequency data source, Kanji Characters with no available rank  are excluded.";
+  "Given your selected frequency data source, Kanji characters with no available rank  are excluded.";
 
 const AllMatchMsg = () => {
   return (
