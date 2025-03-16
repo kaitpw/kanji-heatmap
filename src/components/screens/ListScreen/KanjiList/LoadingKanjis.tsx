@@ -16,45 +16,47 @@ const LoadingKanjisRaw = ({
   type?: "colorful" | "gradient";
 }) => {
   const itemSettings = useDeferredItemSettings();
-  // TODO: Generate count depending on window size
   const isCompact = itemSettings.cardType === "compact";
-
-  const { itemSize, width, listHeight, cols, itemNums } = useVirtualListDims(
+  const { itemSize, width, listHeight, cols, idealRows } = useVirtualListDims(
     ESTIMATE_ITEM_COUNT,
     itemSettings.cardType
   );
 
-  const count = itemNums + cols;
-
   const itemStyle = isCompact
-    ? { height: itemSize - 6, width: width - 6 }
-    : { height: itemSize - 4, width: width - 5 };
-
-  const containerStyle = isCompact
-    ? { height: listHeight }
-    : { height: listHeight };
+    ? { minHeight: itemSize - 6, minWidth: width - 6 }
+    : { minHeight: itemSize, minWidth: width };
 
   return (
     <div
       role="status"
-      style={containerStyle}
+      style={{ height: listHeight }}
       className="flex flex-wrap items-start justify-start"
     >
       <div className="sr-only">loading</div>
-      {new Array(count).fill(null).map((_, i) => {
-        const colorCn = isCompact
-          ? type === "colorful"
-            ? randomCn2Colorful()
-            : randomCn2()
-          : type === "colorful"
-            ? randomCnColorful()
-            : randomCn();
+
+      {new Array(idealRows).fill(null).map((_, i) => {
         return (
           <div
-            key={i}
-            style={itemStyle}
-            className={`animate-pulse m-1 transition-all transition-discrete ${colorCn}`}
-          />
+            className="flex items-center justify-center w-full px-1"
+            key={`row-${i}`}
+          >
+            {new Array(cols).fill(null).map((_, i) => {
+              const colorCn = isCompact
+                ? type === "colorful"
+                  ? randomCn2Colorful()
+                  : randomCn2()
+                : type === "colorful"
+                  ? randomCnColorful()
+                  : randomCn();
+              return (
+                <div
+                  key={i}
+                  style={itemStyle}
+                  className={`animate-pulse transition-all transition-discrete  mr-1 mb-1 grow ${colorCn}`}
+                />
+              );
+            })}
+          </div>
         );
       })}
     </div>
