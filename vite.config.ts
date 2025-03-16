@@ -17,7 +17,7 @@ const pwaConfig = {
     display: "standalone" as const,
     lang: "en-US" as const,
     description:
-      "Yet another cool app for Japanese kanji exploration. Gain real-world usage insights by visualizing Kanji frequency rankings from 17+ sources (Netflix, Twitter, Google, Wikipedia and more). Quickly search and access detailed information like stroke animations, component breakdowns, sample vocabulary and more",
+      "A kanji exploration tool. Visualize kanji frequency rankings from 17+ sources (Netflix, Twitter, Google, Wikipedia, etc.) for real-world usage insights. Search effortlessly and dive into detailed info — stroke animations, component breakdowns, and sample vocab — all in one place.",
     start_url: ".",
     theme_color: "#fb02a8",
     background_color: "#FFFFFF",
