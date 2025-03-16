@@ -5,8 +5,8 @@ import {
   randomCn2Colorful,
 } from "@/lib/random-cn";
 import { useVirtualListDims } from "./useVirtualDims";
-import { useDeferredItemSettings } from "@/providers/item-settings-provider";
 import React from "react";
+import { useDeferredItemSettings } from "@/providers/item-settings-hooks";
 
 const ESTIMATE_ITEM_COUNT = 125;
 

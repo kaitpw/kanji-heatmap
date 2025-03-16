@@ -1,7 +1,3 @@
-import {
-  useIsKanjiWorkerReady,
-  useKanjiInfo,
-} from "@/kanji-worker/kanji-worker-provider";
 import { HoverItemReturnData, KanjiWordDetails } from "@/lib/kanji-info-types";
 import { SingleComponent } from "./SingleComponent";
 import { FrequencyBadges } from "./FrequencyBadges";
@@ -10,6 +6,10 @@ import { JLPTBadge } from "@/components/common/JLPTBadge";
 import { DefaultErrorFallback } from "@/components/common/DefaultErrorFallback";
 import { BasicLoading } from "@/components/common/BasicLoading";
 import { WordCard } from "./WordCard";
+import {
+  useIsKanjiWorkerReady,
+  useKanjiInfo,
+} from "@/kanji-worker/kanji-worker-hooks";
 
 const MISSING_KEYWORD = "🐛💔🪲 Keyword Unavailable";
 

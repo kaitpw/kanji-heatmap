@@ -1,4 +1,4 @@
-import { useKanjiSearchResult } from "@/kanji-worker/kanji-worker-provider";
+import { useKanjiSearchResult } from "@/kanji-worker/kanji-worker-hooks";
 
 export const ItemCountBadge = () => {
   const result = useKanjiSearchResult();

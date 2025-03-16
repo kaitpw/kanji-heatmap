@@ -1,11 +1,11 @@
 import * as wanakana from "wanakana";
 import { forwardRef } from "react";
-import { useGetKanjiInfoFn } from "@/kanji-worker/kanji-worker-provider";
-import { useDeferredItemSettings } from "@/providers/item-settings-provider";
 import { JLPTListItems } from "@/lib/jlpt";
 import { freqCategoryCn, getFreqCategory } from "@/lib/freq-category";
 import { freqMap } from "@/lib/label-maps";
 import { cnItemBg } from "@/lib/generic-cn";
+import { useGetKanjiInfoFn } from "@/kanji-worker/kanji-worker-hooks";
+import { useDeferredItemSettings } from "@/providers/item-settings-hooks";
 
 interface TriggerProps {
   onClick?: () => void;

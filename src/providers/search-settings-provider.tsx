@@ -1,36 +1,15 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { ReactNode, useCallback, useLayoutEffect, useMemo } from "react";
 
-import { createContextComponents, useContextWithCatch } from "./helpers";
 import {
   FilterSettings,
   SearchSettings,
   SortSettings,
   TextSearch,
 } from "@/lib/settings";
-import { MAX_FREQ_RANK, MAX_STROKE_COUNT, URL_PARAMS } from "@/lib/constants";
+import { URL_PARAMS } from "@/lib/constants";
 import { useSearchParams } from "wouter";
 import { toSearchParams, toSearchSettings } from "@/lib/url-params-helpers";
-
-const { StateContext, DispatchContext } =
-  createContextComponents<SearchSettings>({
-    textSearch: {
-      type: "keyword",
-      text: "",
-    },
-    filterSettings: {
-      strokeRange: { min: 1, max: MAX_STROKE_COUNT },
-      jlpt: ["n1", "n2", "n3", "n4", "n5", "none"] as const,
-      freq: {
-        source: "rank-netflix" as const,
-        rankRange: { min: 1, max: MAX_FREQ_RANK },
-      },
-    },
-    sortSettings: {
-      primary: "none",
-      secondary: "none",
-    },
-  });
+import { searchSettings } from "./search-settings-hooks";
 
 export function SearchSettingsProvider({ children }: { children: ReactNode }) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -88,26 +67,10 @@ export function SearchSettingsProvider({ children }: { children: ReactNode }) {
   }, [searchParams]);
 
   return (
-    <StateContext.Provider value={storageData}>
-      <DispatchContext.Provider value={updateItem}>
+    <searchSettings.StateContext.Provider value={storageData}>
+      <searchSettings.DispatchContext.Provider value={updateItem}>
         {children}
-      </DispatchContext.Provider>
-    </StateContext.Provider>
+      </searchSettings.DispatchContext.Provider>
+    </searchSettings.StateContext.Provider>
   );
-}
-
-const providerName = "SearchSettings";
-
-export function useSearchSettings() {
-  const context = useContextWithCatch(StateContext, providerName);
-  return context;
-}
-
-export function useSearchSettingsDispatch() {
-  const context = useContextWithCatch(
-    DispatchContext,
-    providerName,
-    `${providerName}Dispatch`
-  );
-  return context;
 }

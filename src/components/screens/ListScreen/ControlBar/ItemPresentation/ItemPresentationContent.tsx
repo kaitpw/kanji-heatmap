@@ -2,14 +2,15 @@ import { Separator } from "@/components/ui/separator";
 import { ReactNode, useState } from "react";
 import { JLPTBordersMeanings } from "./jlpt";
 import { BackgroundColorGradient } from "./freq";
-import {
-  useItemSettings,
-  useItemSettingsDispatch,
-} from "@/providers/item-settings-provider";
+
 import { ItemTypeSwitch } from "./ItemTypeSwitch";
 import { LabeledCheckbox } from "@/components/common/LabeledCheckbox";
 import { FrequencyRankDataSource } from "@/components/common/FrequencyRankDataSource";
 import { FrequencyType } from "@/lib/sort-freq-types";
+import {
+  useItemSettings,
+  useItemSettingsDispatch,
+} from "@/providers/item-settings-hooks";
 
 export const H2 = ({ children }: { children: ReactNode }) => (
   <h2 className="font-bold border-b-2 border-dotted mt-4 mb-2">{children}</h2>
