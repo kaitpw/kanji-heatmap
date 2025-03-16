@@ -17,7 +17,7 @@ const pwaConfig = {
     display: "standalone" as const,
     lang: "en-US" as const,
     description:
-      "Kanji Information User Interface that Japanese Learners will enjoy. Tailored for beginners and include Kanji frequency rankings from various data sources",
+      "An intuitive web app for Japanese kanji exploration. Gain real-world usage insights by visualizing Kanji frequency rankings from 17+ sources (Netflix, Twitter, Google, Wikipedia and more). Quickly search and access detailed information like stroke order animations, component breakdowns, sample vocabulary and more",
     start_url: ".",
     theme_color: "#fb02a8",
     background_color: "#FFFFFF",
@@ -26,13 +26,13 @@ const pwaConfig = {
         purpose: "maskable",
         sizes: "512x512",
         src: "img/app-icon-512x512.png",
-        type: "image/png"
+        type: "image/png",
       },
       {
         purpose: "maskable",
         sizes: "192x192",
         src: "img/app-icon-192x192.png",
-        type: "image/png"
+        type: "image/png",
       },
     ],
   },

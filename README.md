@@ -3,12 +3,12 @@
 ![main page](./IMG/preview.png)
 
 | ![kanji details](./IMG/kanji-details.png) | ![mobile screen](./IMG/kanji-expanded.png) |
-| --------------------------------------------------- | ----------------------------------------------------- |
-|                                                     |                                                       |
+| ----------------------------------------- | ------------------------------------------ |
+|                                           |                                            |
 
 ![sort and filter dialog](./IMG/sort-dialog.png)
 
-## Talk to with Us
+## Talk to Us
 
 - [Discord](https://discord.gg/Ash8ZrGb4s)
 - [Ko-Fi](https://ko-fi.com/minimithi")
@@ -26,5 +26,5 @@ pnpm run peek
 Run the script to generate data
 
 ```python
-python3 ./SCRIPTS/compress_kanji_data.py
+python3 ./DATA-SCRIPTS/compress_kanji_data.py
 ```

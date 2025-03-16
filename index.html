@@ -26,7 +26,7 @@
     <meta property="og:title" content="Kanji Companion" />
     <meta
       property="og:description"
-      content="Yet another cool Kanji Web Application to help you learn japanese"
+      content="An intuitive web app for Japanese kanji exploration. Gain real-world usage insights by visualizing Kanji frequency rankings from 17+ sources (Netflix, Twitter, Google, Wikipedia and more). Quickly search and access detailed information like stroke order animations, component breakdowns, sample vocabulary and more"
     />
     <meta
       property="og:image"
@@ -39,7 +39,7 @@
     <meta property="twitter:title" content="Kanji Companion" />
     <meta
       property="twitter:description"
-      content="Yet another cool Kanji Web Application to help you learn japanese"
+      content="An intuitive web app for Japanese kanji exploration. Gain real-world usage insights by visualizing Kanji frequency rankings from 17+ sources (Netflix, Twitter, Google, Wikipedia and more). Quickly search and access detailed information like stroke order animations, component breakdowns, sample vocabulary and more"
     />
     <meta
       property="twitter:image"
@@ -51,6 +51,81 @@
   </head>
   <body>
     <div id="root"></div>
+    <div class="sr-only">
+      <p>
+        An intuitive web app for Japanese kanji exploration. Visualize how each
+        kanji's frequency rank varies across contexts z for real-world usage
+        insights. Quickly search and access detailed information like stroke
+        order animations, component breakdowns, sample vocabulary and more.
+      </p>
+      <p>
+        Find kanji by English keyword, on'yomi reading, or kun'yomi reading via
+        intuitive search bar. Then, sort and filter results by JLPT level,
+        Jouyou Grade, Remembering the Kanji (RTK) index, Wanikani Level, stroke
+        count, or frequency ranking and more. Clicking on any kanji to reveal
+        sample vocabulary, component composition, stroke animations, how it
+        looks like in various fonts and more.
+      </p>
+      <p>
+        Jotoba The Kanji Map, Jisho, kanjiapi.dev, Kanji Alive, Hochanh,
+        JPDB.io, Wanikani, Remembering the Kanji, Heisig, Duolingo, Memrise,
+        Anki, Kanshudo, Immersion Kit, Tatoeba,
+      </p>
+      <p>
+        Frequency Rank Data Sources
+        <br />
+        Netflix - Derived from Japanese Netflix subtitles containing about 53M
+        total kanji occurrences. Compiled by OhTalkWho オタク (Dave Doebrick) in
+        2019.
+        <br />
+        Japanese Drama - Derived from 12,277 subtitles from Japanese drama,
+        anime and films containing about 20.5M total kanji occurrences. Compiled
+        by Chris Kempson. github.com/Matchoo95/JP-Subtitles
+        chriskempson/japanese-subtitles-word-kanji-frequency-lists
+        <br />
+        Novel- Derived from scanning 5100 novels containing about 180M total
+        kanji occurrences. Compiled by Redditor Nukemarine
+        <br />
+        Frequency Rankings By Dmitry Shpika scriptin.github.io/kanji-frequency
+        <br />
+        Twitter - Derived from Twitter messages collected last June 2015
+        containing about 10M total kanji occurrences.
+        <br />
+        Wikipedia = Derived from 100,000 Wikipedia articles sampled in 2023 and
+        contained 59M total kanji occurrences.
+        <br />
+        Online News - Derived from over 3,700 articles from Japanese Wikinews
+        that were published from 2005 to 2023 and contained 1.1M total kanji
+        occurrences.
+        <br />
+        Aozora - Derived from over 17,000 books from Aozora Bunko, the vast
+        majority of which are more than 70 years old, and contained 67.8M total
+        kanji occurrences
+        <br />
+        Compiled by Patrick Kandrac.
+        <br />
+        Google - Kouji Shibano's Google Kanji Data from 2009 that processed 133B
+        kanji occurrences.
+        <br />
+        Kanji Usage Frequency (KUF) from 2016 that processed 850M kanji
+        occurrences from Wikipedia, Aozora, e-news, Twitter.
+        <br />
+        Matsushita's Character Database (MCD) from 2014 that processed 33M words
+        from sources The Balanced Corpus of Contemporary Written Japanese
+        (BCCWJ) and Yahoo知恵袋 aka Japanese Yahoo Answer.
+        <br />
+        Published by the Japanese Agency for Cultural Affairs (文化庁) on 2010
+        that processed 1.45M kanji from various sources including books,
+        magazines, textbooks, newspapers such as Asahi and Yomiuri, websites,
+        etc.
+        <br />
+        Jisho.org uses Alexandre Girardi's word frequency list published in 1998
+        that used 300,000 words found in 4 years of the Mainichi Newpaper.
+        <br />
+        Alex Yatskov's Wikipedia Kanji Frequency Report (WKFR) published in 2010
+        analyzed more than 500M kanji occurrences.
+      </p>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
