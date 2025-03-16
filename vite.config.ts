@@ -11,13 +11,13 @@ const pwaConfig = {
     "img/icon512_rounded.png",
   ],
   manifest: {
-    name: "Kanji Companion",
-    short_name: "Kanji Friend",
+    name: "Kanji Heatmap",
+    short_name: "Kanji Heatmap",
     orientation: "any" as const,
     display: "standalone" as const,
     lang: "en-US" as const,
     description:
-      "An intuitive web app for Japanese kanji exploration. Gain real-world usage insights by visualizing Kanji frequency rankings from 17+ sources (Netflix, Twitter, Google, Wikipedia and more). Quickly search and access detailed information like stroke order animations, component breakdowns, sample vocabulary and more",
+      "Yet another cool app for Japanese kanji exploration. Gain real-world usage insights by visualizing Kanji frequency rankings from 17+ sources (Netflix, Twitter, Google, Wikipedia and more). Quickly search and access detailed information like stroke animations, component breakdowns, sample vocabulary and more",
     start_url: ".",
     theme_color: "#fb02a8",
     background_color: "#FFFFFF",
@@ -43,7 +43,7 @@ const pwaConfig = {
         urlPattern: /\.json$/i, // Cache JSON requests
         handler: "StaleWhileRevalidate" as const,
         options: {
-          cacheName: "kanji-companion-json-cache",
+          cacheName: "kanji-heatmap-json-cache",
           expiration: {
             maxEntries: 50,
             maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
