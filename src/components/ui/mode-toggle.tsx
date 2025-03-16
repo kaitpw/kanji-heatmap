@@ -7,8 +7,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useTheme } from "@/providers/theme-provider";
 import { useState } from "react";
+import { useTheme } from "@/providers/theme-hooks";
 
 // Copied and modified from: https://ui.shadcn.com/docs/dark-mode/vite
 

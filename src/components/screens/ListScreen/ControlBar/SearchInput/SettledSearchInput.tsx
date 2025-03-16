@@ -1,7 +1,7 @@
 import {
   useSearchSettings,
   useSearchSettingsDispatch,
-} from "@/providers/search-settings-provider";
+} from "@/providers/search-settings-hooks";
 import { SearchInput } from "./SearchInput";
 import { SearchType } from "@/lib/settings";
 

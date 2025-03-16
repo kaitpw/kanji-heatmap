@@ -9,14 +9,14 @@ import { Button } from "@/components/ui/button";
 import React, { ReactNode } from "react";
 import { X } from "lucide-react";
 import { KanjiCard } from "../InfoCard/KanjiCard";
-import {
-  useGetKanjiInfoFn,
-  useIsKanjiWorkerReady,
-} from "@/kanji-worker/kanji-worker-provider";
 import { KanjiDetails } from "./Details";
 import ErrorBoundary from "@/components/common/ErrorBoundary";
 import { BasicLoading } from "@/components/common/BasicLoading";
 import { KanjiNotFound } from "@/components/common/DefaultErrorFallback";
+import {
+  useGetKanjiInfoFn,
+  useIsKanjiWorkerReady,
+} from "@/kanji-worker/kanji-worker-hooks";
 
 export const Layout = ({
   first,

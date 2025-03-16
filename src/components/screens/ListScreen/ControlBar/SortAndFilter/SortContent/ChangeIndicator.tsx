@@ -1,4 +1,4 @@
-import { useKanjiSearchResult } from "@/kanji-worker/kanji-worker-provider";
+import { useKanjiSearchResult } from "@/kanji-worker/kanji-worker-hooks";
 import { KANJI_COUNT } from "@/lib/constants";
 
 export const ChangedIndicator = () => {

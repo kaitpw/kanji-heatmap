@@ -3,8 +3,8 @@ import { useDeferredValue } from "react";
 import { KANJI_COUNT } from "@/lib/constants";
 
 import { SearchSettings } from "@/lib/settings";
-import { useKanjiSearchCount } from "@/kanji-worker/kanji-worker-provider";
 import { shouldShowAllKanji } from "./helpers";
+import { useKanjiSearchCount } from "@/kanji-worker/kanji-worker-hooks";
 
 const disclaimer =
   "Given your selected frequency data source, Kanji characters with no available rank  are excluded.";
