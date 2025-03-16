@@ -31,7 +31,7 @@ const Header = ({ nav }: { nav: ReactNode }) => {
     <HeaderLayout
       title={
         <h1 className="hidden sm:flex font-bold text-xl px-1">
-          <Link to="/">Kanji Companion</Link>
+          <Link to="/">Kanji Heatmap</Link>
         </h1>
       }
       side={<LinkOutSection />}

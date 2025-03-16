@@ -12,7 +12,7 @@ const pwaConfig = {
   ],
   manifest: {
     name: "Kanji Heatmap",
-    short_name: "Kanji Heatmap",
+    short_name: "KanjiHeatmap",
     orientation: "any" as const,
     display: "standalone" as const,
     lang: "en-US" as const,

@@ -1,4 +1,4 @@
-# Kanji Companion
+# Kanji Heatmap (previously Kanji Companion)
 
 ![main page](./IMG/preview.png)
 
