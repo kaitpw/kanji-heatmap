@@ -48,8 +48,8 @@ def get_data_from_file(file_path):
 # JSON file paths
 # -------------------
 
-IN_DIR = "./scripts/original_data"
-OUT_DIR = "./scripts/generated"
+IN_DIR = "./DATA-SCRIPTS/original_data"
+OUT_DIR = "./DATA-SCRIPTS/generated"
 
 ORIGINAL_COMPONENTS_FILE_PATH = f"{IN_DIR}/missing_components.json"
 REFORMATTED_COMPONENTS_FILE_PATH = f"{OUT_DIR}/generated_reformatted_part_keyword_info.json"
