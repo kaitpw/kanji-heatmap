@@ -23,7 +23,7 @@ export const DefaultCta = () => {
       Please let us know about this
       <ExternalTextLink href={outLinks.discord} text="Discord," />
       <ExternalTextLink href={outLinks.githubIssue} text="Github," /> or
-      <ExternalTextLink href={outLinks.githubIssue} text="Ko-Fi" />; we'll try
+      <ExternalTextLink href={outLinks.githubIssue} text="Ko-Fi" /> - we'll try
       to address them promptly.
       <br />
       Meanwhile, you can try{" "}
