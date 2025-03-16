@@ -27,7 +27,7 @@ const LoadingKanjisRaw = ({
   const count = itemNums + cols;
 
   const itemStyle = isCompact
-    ? { height: itemSize - 3, width: width - 4 }
+    ? { height: itemSize - 6, width: width - 6 }
     : { height: itemSize - 4, width: width - 5 };
 
   const containerStyle = isCompact

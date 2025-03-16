@@ -45,13 +45,26 @@
       property="twitter:image"
       content="https://kanji-companion.pages.dev/img/social-preview.png"
     />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kanji Companion</title>
+    <style>
+      .dont-show {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+        opacity: 0;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
-    <div class="sr-only">
+    <div class="dont-show">
       <p>
         An intuitive web app for Japanese kanji exploration. Visualize how each
         kanji's frequency rank varies across contexts z for real-world usage

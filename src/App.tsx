@@ -30,7 +30,7 @@ const navItems: {
 }[] = [
   {
     href: "/",
-    title: "Basic List",
+    title: "Kanji List",
     component: ListScreen,
     description: "Quickly sort, filter and search Kanjis",
   },
@@ -38,7 +38,8 @@ const navItems: {
     href: "/about",
     title: "About",
     component: AboutScreen,
-    description: "Frequency Asked Questions and More",
+    description:
+      "About us, Frequency Asked Questions, Change log, Privacy Policy, Terms of use and More",
   },
   {
     href: "/cumulative-use-graph",
