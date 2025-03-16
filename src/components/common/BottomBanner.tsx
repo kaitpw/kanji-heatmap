@@ -42,7 +42,7 @@ export const BottomBanner = () => {
 
   return (
     <Layout>
-      (◍•ᴗ•◍) Do drop by and say hello on
+      (◍•ᴗ•◍) Say hello to us on
       <ExternalTextLink href={outLinks.discord} text="Discord," />
       <ExternalTextLink href={outLinks.githubIssue} text={"Github,"} />
       or
