@@ -98,7 +98,7 @@ export const transformToMainKanjiInfo = (
 
 export const transformToExtendedKanjiInfo = (
   item: ExtendedKanjiInfoItemType
-) => {
+): KanjiExtendedInfo => {
   const [
     parts,
     strokes,
@@ -111,19 +111,22 @@ export const transformToExtendedKanjiInfo = (
     phonetic,
     mainVocab,
   ] = item;
+
+  const hiraganaAllKun = (allKun ?? []).map((val) => wanakana.toHiragana(val));
+  const hiraganaAllKunStripped = (allKun ?? []).map((val) =>
+    wanakana.toHiragana(val.replace(/[-.。ー]/g, ""))
+  );
+
   return {
-    parts,
+    parts: new Set(parts),
     strokes,
     rtk,
     wk,
     jouyouGrade,
-    meanings,
-    allOn: Array.from(
-      new Set((allOn ?? []).map((val) => wanakana.toKatakana(val)))
-    ),
-    allKun: Array.from(
-      new Set((allKun ?? []).map((val) => wanakana.toHiragana(val)))
-    ),
+    meanings: new Set(meanings),
+    allOn: new Set((allOn ?? []).map((val) => wanakana.toKatakana(val))),
+    allKun: new Set(hiraganaAllKun),
+    allKunStripped: new Set(hiraganaAllKunStripped),
     phonetic: (phonetic ?? "").length > 0 ? phonetic : undefined,
     mainVocab,
   };

@@ -36,14 +36,15 @@ export type KanjiInfoFrequency = {
 };
 
 export type KanjiExtendedInfo = {
-  parts: string[];
+  parts: Set<string>;
   strokes: number;
   rtk: number;
   wk: number;
   jouyouGrade: number;
-  meanings: string[];
-  allOn: string[];
-  allKun: string[];
+  meanings: Set<string>;
+  allOn: Set<string>;
+  allKun: Set<string>;
+  allKunStripped: Set<string>; // same as allKun except wanakana.toHiragana(item.replace(/[-.。ー]/g, ""))
   phonetic?: string;
   mainVocab?: string[];
 };
