@@ -73,7 +73,7 @@ export const filterKanji = (
       ? wanakana.toKatakana(trimmedSearchText)
       : textSearch.type === "kunyomi"
         ? wanakana.toHiragana(trimmedSearchText)
-        : wanakana.toRomaji(trimmedSearchText);
+        : wanakana.toRomaji(trimmedSearchText.toLowerCase());
 
   // TODO: add logic early exit (return all)
   // when we know there's no need to filter
