@@ -1,12 +1,12 @@
 import "./JFonts.css";
+import { Route, Switch, useLocation } from "wouter";
+
 import {
-  Redirect,
-  Route,
-  RouteComponentProps,
-  Switch,
-  useLocation,
-} from "wouter";
-import { ListScreen, AboutScreen, CumUseScreen } from "@/components/screens";
+  ListScreen,
+  CumUseScreen,
+  DocsScreen,
+  AboutScreen,
+} from "@/components/screens";
 import { NavigationListItem, NavLayout } from "@/components/common/nav";
 import Header from "@/components/common/Header";
 import { ThemeProvider } from "@/providers/theme-provider";
@@ -14,79 +14,81 @@ import React from "react";
 import { KanjiFunctionalityProvider } from "./providers/kanji-functionality-provider";
 import ErrorBoundary from "./components/common/ErrorBoundary";
 import { DefaultErrorFallback } from "./components/common/DefaultErrorFallback";
+import { ExternalTextLink } from "./components/common/ExternalTextLink";
 
 const LazyBottomBanner = React.lazy(
   () => import("./components/common/BottomBanner")
 );
-const navItems: {
-  href: string;
-  title: string;
-  description: string;
-  component: React.ComponentType<
-    RouteComponentProps<{
-      [param: number]: string | undefined;
-    }>
-  >;
-}[] = [
-  {
-    href: "/",
-    title: "Kanji List",
-    component: ListScreen,
-    description: "Quickly sort, filter and search Kanjis",
-  },
-  {
-    href: "/about",
-    title: "About",
-    component: AboutScreen,
-    description:
-      "About us, Frequency Asked Questions, Change log, Privacy Policy, Terms of use and More",
-  },
-  {
-    href: "/cumulative-use-graph",
-    title: "Frequency Cumulative Use Graph",
-    description: "Inspect cumulative use data based on various datasets",
-    component: CumUseScreen,
-  },
-];
+
+const kanjiPage = {
+  href: "/",
+  title: "Kanji Grid",
+  component: ListScreen,
+  description: "Quickly sort, filter and search Kanjis",
+};
+
+const cumUseGraphPage = {
+  href: "/cum-use-graph",
+  title: "Cumulative Use Graph",
+  description: "Inspect Frequency Ranks vs Use trend across various datasets",
+  component: CumUseScreen,
+};
+
+const docsPage = {
+  href: "/docs",
+  title: "Docs",
+  component: DocsScreen,
+};
+
+const aboutPage = {
+  href: "/about",
+  title: "About",
+  component: AboutScreen,
+};
 
 export const Nav = () => {
   const [location] = useLocation();
 
   const triggerTitle =
-    navItems.find((item) => item.href === location)?.title ?? "Menu";
+    [kanjiPage, cumUseGraphPage].find((item) => item.href === location)
+      ?.title ?? "Menu";
 
   return (
     <NavLayout triggerTitle={triggerTitle}>
-      <>
-        {navItems.map((item) => {
-          return (
-            <NavigationListItem
-              key={item.href}
-              href={item.href}
-              title={item.title}
-            >
-              {item.description}
-            </NavigationListItem>
-          );
-        })}
-      </>
+      <NavigationListItem href={kanjiPage.href} title={kanjiPage.title}>
+        {kanjiPage.description}
+      </NavigationListItem>
+      <NavigationListItem
+        href={cumUseGraphPage.href}
+        title={cumUseGraphPage.title}
+      >
+        {cumUseGraphPage.description}
+      </NavigationListItem>
+      <div className="flex justify-center text-xs w-full py-1 border-t border-dotted">
+        <ExternalTextLink href={`${aboutPage.href}`} text="About" />
+        <ExternalTextLink
+          href={`${docsPage.href}#privacy`}
+          text="Privacy Policy"
+        />
+        <ExternalTextLink href={`${docsPage.href}#terms`} text="Terms of Use" />
+      </div>
     </NavLayout>
   );
 };
 
-const App = () => (
-  <ErrorBoundary
-    details="App"
-    fallback={
-      <div className="w-full pr-4">
-        <DefaultErrorFallback />{" "}
-      </div>
-    }
-  >
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <Header nav={<Nav />} />
-      <main>
-        <KanjiFunctionalityProvider>
+const App = () => {
+  return (
+    <ErrorBoundary
+      details="App"
+      fallback={
+        <div className="w-full pr-4">
+          <DefaultErrorFallback />
+        </div>
+      }
+    >
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <Header nav={<Nav />} />
+        <main>
           <ErrorBoundary
             details="App"
             fallback={
@@ -95,25 +97,33 @@ const App = () => (
               </div>
             }
           >
-            <Switch>
-              {navItems.map((item) => {
-                return (
-                  <React.Fragment key={item.href}>
-                    <Route path={item.href} component={item.component} />
-                    <Route path={`${item.href}/*`}>
-                      <Redirect to={item.href} replace />
-                    </Route>
-                  </React.Fragment>
-                );
-              })}
-              <Redirect to="/" replace />
-            </Switch>
+            <KanjiFunctionalityProvider>
+              <Switch>
+                <Route
+                  path={cumUseGraphPage.href}
+                  component={cumUseGraphPage.component}
+                />
+                <Route path={kanjiPage.href} component={kanjiPage.component} />
+                <Route path={aboutPage.href} component={aboutPage.component} />
+                <Route path={docsPage.href}>
+                  <DocsScreen />
+                </Route>
+                <Route path="*">
+                  <div className="w-full pr-4 mt-14">
+                    <DefaultErrorFallback
+                      message="404 - Page Not Found"
+                      showDefaultCta={false}
+                    />
+                  </div>
+                </Route>
+              </Switch>
+            </KanjiFunctionalityProvider>
           </ErrorBoundary>
-        </KanjiFunctionalityProvider>
-      </main>
-    </ThemeProvider>
-    <LazyBottomBanner />
-  </ErrorBoundary>
-);
+        </main>
+      </ThemeProvider>
+      <LazyBottomBanner />
+    </ErrorBoundary>
+  );
+};
 
 export default App;
