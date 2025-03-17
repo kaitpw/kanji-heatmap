@@ -13,7 +13,11 @@ export function translateValue(val: string, type: TranslateType) {
     return wanakana.toKatakana(val, { IMEMode: true });
   }
 
-  return wanakana.toRomaji(val);
+  if (type === "romaji") {
+    return wanakana.toRomaji(val);
+  }
+
+  return wanakana.toKana(val, { IMEMode: true });
 }
 
 export const tryConvertRomaji = (kana: string) => {
@@ -28,10 +32,16 @@ export const translateMap: Record<SearchType, TranslateType> = {
   keyword: "romaji",
   onyomi: "katakana",
   kunyomi: "hiragana",
+  meanings: "romaji",
+  readings: "hiragana",
+  "multi-kanji": "kana",
 };
 
 export const placeholderMap: Record<SearchType, string> = {
   keyword: "Keyword Search",
   onyomi: "オンヨミ 検索",
   kunyomi: "くんよみ 検索",
+  meanings: `e.g. "world" or "person"`,
+  readings: "Any Kun or On Reading",
+  "multi-kanji": "e.g paste 鼻詰まり ",
 };

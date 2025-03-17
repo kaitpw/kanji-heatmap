@@ -69,11 +69,27 @@ export const filterKanji = (
 
   const trimmedSearchText = textSearch.text.trim();
   const textToSearch =
-    textSearch.type === "onyomi"
-      ? wanakana.toKatakana(trimmedSearchText)
-      : textSearch.type === "kunyomi"
-        ? wanakana.toHiragana(trimmedSearchText)
-        : wanakana.toRomaji(trimmedSearchText.toLowerCase());
+    textSearch.type === "onyomi" ||
+    textSearch.type === "kunyomi" ||
+    textSearch.type === "readings"
+      ? wanakana.toHiragana(trimmedSearchText)
+      : textSearch.type == "meanings" || textSearch.type === "keyword"
+        ? wanakana.toRomaji(trimmedSearchText.toLowerCase())
+        : trimmedSearchText;
+
+  const kanjisToSearchList =
+    textSearch.type === "multi-kanji"
+      ? textToSearch.split("").filter((character) => {
+          return (
+            wanakana.isHiragana(character) === false &&
+            wanakana.isKatakana(character) === false &&
+            wanakana.isRomaji(character) === false &&
+            wanakana.isJapanese(character)
+          );
+        })
+      : [];
+
+  const kanjiToSearchSet = new Set(kanjisToSearchList);
 
   // TODO: add logic early exit (return all)
   // when we know there's no need to filter
@@ -94,14 +110,36 @@ export const filterKanji = (
         return fuzzysearch(textToSearch, info.keyword);
       }
 
+      if (textSearch.type === "meanings") {
+        const info = kanjiPool.main[kanji];
+        const meanings = kanjiPool.extended[kanji].meanings;
+        return (
+          fuzzysearch(textToSearch, info.keyword) ||
+          meanings.find((meaning) => meaning.includes(textToSearch))
+        );
+      }
+
       const exInfo = kanjiPool.extended[kanji];
       if (textSearch.type === "kunyomi") {
         const hit = exInfo.allKunStripped.has(textToSearch);
         return hit;
       }
+
       if (textSearch.type === "onyomi") {
         return exInfo.allOn.has(textToSearch);
       }
+
+      if (textSearch.type === "readings") {
+        return (
+          exInfo.allOn.has(textToSearch) ||
+          exInfo.allKunStripped.has(textToSearch)
+        );
+      }
+
+      if (textSearch.type === "multi-kanji") {
+        return kanjiToSearchSet.has(kanji);
+      }
+
       return true;
     })
     .filter((kanji) => {
