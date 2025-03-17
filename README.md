@@ -40,6 +40,15 @@ and then copy to `public/json` with `cp` so that `kanji-worker.ts` can access th
 - `generated_reformatted_phonetic.json`
 - `cum_use.json`
 
+```
+  2118 cum_use.json
+  1641 generated_reformatted_part_keyword_info.json
+  2187 generated_reformatted_phonetic.json
+282054 kanji_main_reformatted.json
+392617 kanji_other_reformatted.json
+512324 word_details.json
+```
+
 --- 🚧 🚧 TODO: Write what the above files contain 🚧 🚧 ---
 
 ## Run the app
