@@ -1,16 +1,6 @@
 from functools import reduce
 import json
 
-# see issue: https://github.com/mithi/kanji-data/issues/6
-OWN_KEYWORDS_OVERRIDE = {
-    #Duplicate keywords
-    "熙": "sunny",
-    "凜": "severe",
-    #Missing keywords:
-    "呟": "mutter",
-    "睨": "glaring at",
-    "頷": "nod approval",
-}
 # -------------------
 # JSON utilities
 # -------------------
@@ -71,6 +61,13 @@ compress_json(
 # COMMON HELPER FUNCTIONS
 # -------------------
 
+# see issue: https://github.com/mithi/kanji-data/issues/6
+OWN_KEYWORDS_OVERRIDE = get_data_from_file(f"{IN_DIR}/PIKAPIKAGEMS_KEYWORDS.json")
+
+# -------------------
+# COMMON HELPER FUNCTIONS
+# -------------------
+
 def to_int(str, default_value=None):
     if isinstance(str, (int)):
         return str
@@ -122,15 +119,15 @@ def get_all_generic(all_, all_source_keys):
         return None
     return item_list
 
-# -------------------
-# FUNCTIONS TO GET KANJI INFORMATION MINUS FREQUENCY INFO
-# -------------------
-
 def running_count_diff_GLOBAL_COUNT_UNSTABLE(a, b, c, r, pref):
     if (a and a != r) or (b and b != r) or (c and c != r):
         global global_count 
         global_count += 1
         print (global_count, pref, a, b, c)
+
+# -------------------
+# FUNCTIONS TO GET KANJI INFORMATION MINUS FREQUENCY INFO
+# -------------------
 
 def get_component_parts(kanji_info):
     deps = kanji_info.get('componentDependencies', {}).get('topoKanji', [])
@@ -147,23 +144,6 @@ def get_keyword(kanji_info):
         or dig('shirabeJishou') \
         or dig('waniKani')
     
-    # https://github.com/mithi/kanji-data/issues/6
-
-    # Duplicate keywords:
-    # 明, 熙 - bright
-    # 寒, 凜 - cold
-    # For the kanji with missing keywords, they all rely on the meaning from rtk5100.
-    # Missing keywords: 呟, 睨, 頷
-
-    #New keywords to assign as follows...
-    #Duplicate keywords:
-    #熙 - sunny
-    #凜 - severe
-    #Missing keywords:
-    #呟 - mutter
-    #睨 - glaring at
-    #頷 - nod approval
-
     override = OWN_KEYWORDS_OVERRIDE.get(kanji_info["kanji"], None)
     if override:
         keyword = override
@@ -312,8 +292,6 @@ def get_wanikani_lvl(kanji_info):
 
 def get_semantic_phonetic(kanji_info):
     phonetic = kanji_info.get("semanticPhonetic", {}).get('moeUsagi', None)
-    # if phonetic:
-    #     print("->", phonetic, kanji_info.get("kanji"))
     return phonetic
 
 DEFAULT_ARRAY_VAL = []
@@ -421,7 +399,15 @@ kanji_data = get_data_from_file(f"{IN_DIR}/kanji.json")
 kanji_list = [kanji for kanji in kanji_data.keys()]
 
 # .......................
-# Transform schema from { [kanji]: [word]: { furigina, meaning} } to { [kanji]: [word, furigana, meaning][] }
+# We just put the kanji as part of the value of the dictionary
+# for quick access
+# .......................
+
+for kanji in kanji_list: 
+    kanji_data[kanji]['kanji'] = kanji
+
+# .......................
+# Get vocabulary details
 # .......................
 
 
@@ -484,16 +470,9 @@ for kanji, words in kanji_vocab.items():
     for word, details in words.items():
         word_details[word] = [details.get('meaning', ''), details.get('parts', [])]
 
+print("---> word count", len(word_details.keys()))
+# ---> word count 4453
 dump_json(f"{OUT_DIR}/word_details.json", word_details)
-
-
-# .......................
-# We just put the kanji as part of the value of the dictionary
-# for quick access
-# .......................
-
-for kanji in kanji_list: 
-    kanji_info = kanji_data[kanji]['kanji'] = kanji
 
 # .......................
 # This is a crutch to find use to count
@@ -545,6 +524,23 @@ for kanji in kanji_list:
 dump_json(f"{OUT_DIR}/kanji_main_reformatted.json" , kanji_main_reformatted)
 dump_json(f"{OUT_DIR}/kanji_other_reformatted.json" , kanji_other_reformatted)
 
+
+# -----------------
+# Compress cumulative use points
+
+# -----------------
+def convert_cum_use_point(point):
+    [x, y] = point 
+    return [x, round(float(y), 2)]
+
+cum_use_data = get_data_from_file(f"{IN_DIR}/cum_use.json") 
+
+for key, value in cum_use_data.items():
+    cum_use_data[key] = [convert_cum_use_point(point) for point in value]
+
+dump_json(f"{OUT_DIR}/cum_use.json", cum_use_data)
+
+
 # -----------------
 # Inspect Data 
 # -----------------
@@ -568,50 +564,11 @@ def generic_get_max(retrieve_data):
         new_acc = max(len(items), acc)
 
         if new_acc > acc:
-            print("{:<4} {:<2} {:<0}".format(kanji, len(items), str(items)[:100]))
+            print("{:<4} {:<2} {:<0}".format(kanji, len(items), str(items)[:200]))
 
         return new_acc
 
     return get_max
-
-print("---> number of kanjis:", len(kanji_list))
-# 2427
-
-iter = [x for x in enumerate(kanji_list)]
-max_strokes = reduce(get_max_strokes, iter, 0)
-print("---> max strokes count:", max_strokes)
-# 24
-
-max_deps = reduce(generic_get_max(get_component_parts), iter, 0)
-print("---> max dependencies count:", max_deps)
-# max dependencies count: 8
-
-max_on_readings = reduce(generic_get_max(get_all_on_readings), iter, 0)
-
-print("---> max onyomi count:", max_on_readings)
-
-max_kun_readings = reduce(generic_get_max(get_all_kun_readings), iter, 0)
-print("---> max kun count:", max_kun_readings)
-# max kun count: 21
-
-max_meaning = reduce(generic_get_max(get_all_meanings), iter, 0)
-
-print("---> max meaning count:", max_meaning)
-# max meaning count: 16
-
-# Verify if keyword is unique
-keyword_list = [
-    get_keyword(kanji_data[kanji]) for kanji in kanji_list
-]
-
-print("---> Unique Keywords", len(set(keyword_list)))
-# Unique Keywords 2423
-
-no_keys = list(filter(lambda x: get_keyword(kanji_data[x]) is None, kanji_list))
-print("---> No keywords:", no_keys)
-# No keywords: ['呟', '睨', '頷']
-
-# TODO: Write a function to find duplicate keyword (there is atleast one)
 
 def get_reading_stats(get_readings):
     # number of possible readings
@@ -656,12 +613,51 @@ def get_reading_stats(get_readings):
     
     
     # Top X readings
-    top_x = 50
+    top_x = 10
     # mapping count of reading
     print(f"---- Top {top_x} Readings ---")
     print("{:<10} {:<15}".format('Reading','Count'))
     for item in reading_counts_array[:top_x]:
         print("{:<10} {:<15}".format(item['count'], item['reading']))
+
+
+iter = [x for x in enumerate(kanji_list)]
+max_strokes = reduce(get_max_strokes, iter, 0)
+print("---> max strokes count:", max_strokes)
+# 29
+
+max_deps = reduce(generic_get_max(get_component_parts), iter, 0)
+print("---> max dependencies count:", max_deps)
+# 8
+
+max_on_readings = reduce(generic_get_max(get_all_on_readings), iter, 0)
+
+print("---> max onyomi count:", max_on_readings)
+# 10
+
+max_kun_readings = reduce(generic_get_max(get_all_kun_readings), iter, 0)
+print("---> max kun count:", max_kun_readings)
+# 21
+
+max_meaning = reduce(generic_get_max(get_all_meanings), iter, 0)
+
+print("---> max meaning count:", max_meaning)
+# 16
+
+# Verify if keyword is unique
+keyword_list = [
+    get_keyword(kanji_data[kanji]) for kanji in kanji_list
+]
+
+print("---> Number of Kanjis:", len(kanji_list))
+# 2427
+
+print("---> Unique Keywords:", len(set(keyword_list)))
+# efore the override -> Unique Keywords 2423
+
+no_keys = list(filter(lambda x: get_keyword(kanji_data[x]) is None, kanji_list))
+print("---> No keywords:", no_keys)
+# Before the overrides -> No keywords: ['呟', '睨', '頷'] 
 
 print("..........")
 print("ONYOMI")
