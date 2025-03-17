@@ -13,7 +13,10 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import React from "react";
 import { KanjiFunctionalityProvider } from "./providers/kanji-functionality-provider";
 import ErrorBoundary from "./components/common/ErrorBoundary";
-import { DefaultErrorFallback } from "./components/common/DefaultErrorFallback";
+import {
+  DefaultErrorFallback,
+  PageNotFound,
+} from "./components/common/DefaultErrorFallback";
 import { ExternalTextLink } from "./components/common/ExternalTextLink";
 
 const LazyBottomBanner = React.lazy(
@@ -110,10 +113,7 @@ const App = () => {
                 </Route>
                 <Route path="*">
                   <div className="w-full pr-4 mt-14">
-                    <DefaultErrorFallback
-                      message="404 - Page Not Found"
-                      showDefaultCta={false}
-                    />
+                    <PageNotFound />
                   </div>
                 </Route>
               </Switch>

@@ -43,10 +43,18 @@ export const BottomBanner = () => {
   return (
     <Layout>
       (◍•ᴗ•◍) Say hello to us on
-      <ExternalTextLink href={outLinks.discord} text="Discord," />
-      <ExternalTextLink href={outLinks.githubIssue} text={"Github,"} />
+      <ExternalTextLink
+        href={outLinks.discord}
+        text="Discord,"
+        cnType="limeBg"
+      />
+      <ExternalTextLink
+        href={outLinks.githubIssue}
+        text={"Github,"}
+        cnType="limeBg"
+      />
       or
-      <ExternalTextLink href={outLinks.discord} text={"Ko-Fi."} />
+      <ExternalTextLink href={outLinks.koFi} text={"Ko-Fi."} cnType="limeBg" />
       {"🫰"}
     </Layout>
   );

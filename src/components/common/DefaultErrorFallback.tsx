@@ -4,6 +4,7 @@ import { outLinks } from "@/lib/constants";
 import { cnTextLink } from "@/lib/generic-cn";
 import { Link } from "wouter";
 import { ExternalKanjiLinks } from "./ExternalKanjiLinks";
+import { ReactNode } from "react";
 
 const APOLOGIZING_SYMBOL = [
   "(シ_ _)シ",
@@ -16,34 +17,6 @@ const APOLOGIZING_SYMBOL = [
   "(｡•́︿•̀｡)",
   //  "(；人；)",
 ];
-
-export const DefaultCta = () => {
-  return (
-    <div className="mx-2 text-xs w-w6">
-      Please let us know about this
-      <ExternalTextLink href={outLinks.discord} text="Discord," />
-      <ExternalTextLink href={outLinks.githubIssue} text="Github," /> or
-      <ExternalTextLink href={outLinks.githubIssue} text="Ko-Fi" /> - we'll try
-      to address them promptly.
-      <br />
-      Meanwhile, you can try{" "}
-      <button
-        className={cnTextLink}
-        onClick={() => {
-          window?.location.reload();
-        }}
-      >
-        refreshing the page
-      </button>{" "}
-      or check back later.
-      <br />
-      Go back
-      <Link to="/" className={cnTextLink}>
-        home.
-      </Link>
-    </div>
-  );
-};
 
 export const Sumimasen = () => {
   return (
@@ -62,20 +35,86 @@ export const Sumimasen = () => {
   );
 };
 
+const Wrapper = ({ children }: { children: ReactNode }) => {
+  return (
+    <div className="h-full w-95 flex flex-col items-center justify-center p-4 m-2">
+      {children}
+    </div>
+  );
+};
+
+const ReachOutToUs = ({
+  prefix = " Please let us know on ",
+}: {
+  prefix?: string;
+}) => {
+  return (
+    <>
+      {prefix}
+      <ExternalTextLink href={outLinks.discord} text="Discord," />
+      <ExternalTextLink href={outLinks.githubIssue} text="Github," /> or
+      <ExternalTextLink href={outLinks.koFi} text="Ko-Fi." />
+    </>
+  );
+};
+
+const RefreshOrGoBackHome = () => {
+  return (
+    <>
+      Meanwhile, you can try{" "}
+      <button
+        className={cnTextLink}
+        onClick={() => {
+          window?.location.reload();
+        }}
+      >
+        refreshing the page
+      </button>{" "}
+      or go back
+      <Link to="/" className={cnTextLink}>
+        home.
+      </Link>
+    </>
+  );
+};
+export const DefaultCta = () => {
+  return (
+    <div className="mx-2 text-xs">
+      <ReachOutToUs />
+      <br />
+      <RefreshOrGoBackHome />
+    </div>
+  );
+};
+
 export const KanjiNotFound = ({ kanji }: { kanji: string }) => {
   return (
-    <div className="h-full w-95 flex flex-col items-center justify-center p-4 m-2 rounded-3xl">
+    <Wrapper>
       <Sumimasen />
-      <div className="my-1 font-bold text-xs">
-        No information about "{kanji}" found.
-      </div>
+      <div className="my-2 font-bold">"{kanji}" Not Found</div>
       <div className="text-xs w-96 py-2  my-2 text-left border-t">
         <span>You can try looking for it in the following places:</span>
         <div className="flex flex-col items-center justify-center my-2">
           <ExternalKanjiLinks kanji={kanji} />
         </div>
       </div>
-    </div>
+    </Wrapper>
+  );
+};
+
+export const PageNotFound = () => {
+  return (
+    <Wrapper>
+      <Sumimasen />
+      <div className="my-2 font-bold">Page Not Found</div>
+      <div className="text-xs">
+        <div className="m-1 text-xs">
+          <ReachOutToUs prefix="If you think this is a mistake, you can report on " />
+          <br />
+          <RefreshOrGoBackHome />
+        </div>
+      </div>
+    </Wrapper>
   );
 };
 
@@ -87,10 +126,16 @@ export const DefaultErrorFallback = ({
   showDefaultCta?: boolean;
 }) => {
   return (
-    <div className="h-full w-95 flex flex-col items-center justify-center p-4 m-2 rounded-3xl">
+    <Wrapper>
       <Sumimasen />
       <div className="my-1 font-bold text-xs">{message}</div>
-      {showDefaultCta && <DefaultCta />}
-    </div>
+      {showDefaultCta && (
+        <div className="mx-2 text-xs">
+          <ReachOutToUs />
+          <br />
+          <RefreshOrGoBackHome />
+        </div>
+      )}
+    </Wrapper>
   );
 };
