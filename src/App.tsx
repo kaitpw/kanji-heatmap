@@ -1,7 +1,12 @@
 import "./JFonts.css";
 import { Route, Switch, useLocation } from "wouter";
 
-import { ListScreen, CumUseScreen, DocsScreen } from "@/components/screens";
+import {
+  ListScreen,
+  CumUseScreen,
+  DocsScreen,
+  AboutScreen,
+} from "@/components/screens";
 import { NavigationListItem, NavLayout } from "@/components/common/nav";
 import Header from "@/components/common/Header";
 import { ThemeProvider } from "@/providers/theme-provider";
@@ -25,7 +30,7 @@ const kanjiPage = {
 const cumUseGraphPage = {
   href: "/cum-use-graph",
   title: "Cumulative Use Graph",
-  description: "Inspect Frequency Ranks vs Use based on various datasets",
+  description: "Inspect Frequency Ranks vs Use trend across various datasets",
   component: CumUseScreen,
 };
 
@@ -33,6 +38,12 @@ const docsPage = {
   href: "/docs",
   title: "Docs",
   component: DocsScreen,
+};
+
+const aboutPage = {
+  href: "/about",
+  title: "About",
+  component: AboutScreen,
 };
 
 export const Nav = () => {
@@ -54,7 +65,7 @@ export const Nav = () => {
         {cumUseGraphPage.description}
       </NavigationListItem>
       <div className="flex justify-center text-xs w-full py-1 border-t border-dotted">
-        <ExternalTextLink href={`${docsPage.href}#about`} text="About" />
+        <ExternalTextLink href={`${aboutPage.href}`} text="About" />
         <ExternalTextLink
           href={`${docsPage.href}#privacy`}
           text="Privacy Policy"
@@ -93,6 +104,7 @@ const App = () => {
                   component={cumUseGraphPage.component}
                 />
                 <Route path={kanjiPage.href} component={kanjiPage.component} />
+                <Route path={aboutPage.href} component={aboutPage.component} />
                 <Route path={docsPage.href}>
                   <DocsScreen />
                 </Route>
