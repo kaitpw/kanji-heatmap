@@ -1,4 +1,5 @@
 import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
+import * as wanakana from "wanakana";
 import KANJI_WORKER_SINGLETON from "@/kanji-worker/kanji-worker-promise-wrapper";
 import {
   GeneralKanjiItem,
@@ -234,8 +235,8 @@ export function KanjiWorkerProvider({
 
           return {
             allKun: Array.from(allKun),
-            allOn: Array.from(allOn),
-            meanings: Array.from(meanings),
+            allOn: Array.from(allOn).map((item) => wanakana.toKatakana(item)),
+            meanings,
             jouyouGrade,
             wk,
             rtk,
