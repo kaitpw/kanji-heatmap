@@ -1,7 +1,14 @@
 import { JLTPTtypes } from "./jlpt";
 import { FrequencyType, SortKey } from "./sort-freq-types";
 
-export const SEARCH_TYPE_ARR = ["keyword", "onyomi", "kunyomi"] as const;
+export const SEARCH_TYPE_ARR = [
+  "keyword",
+  "meanings",
+  "readings",
+  "onyomi",
+  "kunyomi",
+  "multi-kanji",
+] as const;
 export type SearchType = (typeof SEARCH_TYPE_ARR)[number];
 
 export const SEARCH_TYPE_OPTIONS: {
@@ -9,8 +16,11 @@ export const SEARCH_TYPE_OPTIONS: {
   label: string;
 }[] = [
   { value: "keyword", label: "Keyword" },
-  { value: "onyomi", label: "オンヨミ" },
-  { value: "kunyomi", label: "くんよみ" },
+  { value: "multi-kanji", label: "Multi-Kanji" },
+  { value: "meanings", label: "Meanings" },
+  { value: "readings", label: "Readings" },
+  { value: "onyomi", label: "Onyomi" },
+  { value: "kunyomi", label: "Kunyomi" },
 ];
 
 export type TextSearch = {

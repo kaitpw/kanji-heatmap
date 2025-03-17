@@ -35,7 +35,10 @@ export const SearchInput = ({
     translateValue(initialText, translateMap[searchType])
   );
 
-  const fontCN = searchType !== "keyword" ? "kanji-font" : "";
+  const fontCN =
+    parsedValue === "" || searchType === "meanings" || searchType === "keyword"
+      ? ""
+      : "kanji-font";
 
   return (
     <section className="w-full relative">
@@ -72,11 +75,7 @@ export const SearchInput = ({
           setValue(newParsedValue);
           onSettle(newParsedValue.trim(), newType);
         }}
-        triggerCN={cn(
-          SELECT_CLASS,
-          searchType !== "keyword" ? "kanji-font" : ""
-        )}
-        selectItemCNFunc={(v: string) => (v !== "keyword" ? "kanji-font" : "")}
+        triggerCN={SELECT_CLASS}
         options={SEARCH_TYPE_OPTIONS}
         label="Search Type"
         isLabelSrOnly={true}

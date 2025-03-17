@@ -1,4 +1,5 @@
 import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
+import * as wanakana from "wanakana";
 import KANJI_WORKER_SINGLETON from "@/kanji-worker/kanji-worker-promise-wrapper";
 import {
   GeneralKanjiItem,
@@ -81,7 +82,7 @@ const extractKanjiHoverData = (
           }
         : undefined,
     },
-    parts: kanjiInfoExtended.parts.map((part) => {
+    parts: Array.from(kanjiInfoExtended.parts).map((part) => {
       const kanjiKeyword = kanjiCache?.[part]?.main.keyword;
       return {
         part,
@@ -229,7 +230,18 @@ export function KanjiWorkerProvider({
         }
 
         if (type === "general") {
-          return kanjiInfo.extended as GeneralKanjiItem;
+          const { allKun, allOn, meanings, jouyouGrade, wk, rtk, strokes } =
+            kanjiInfo.extended;
+
+          return {
+            allKun: Array.from(allKun),
+            allOn: Array.from(allOn).map((item) => wanakana.toKatakana(item)),
+            meanings,
+            jouyouGrade,
+            wk,
+            rtk,
+            strokes,
+          } as GeneralKanjiItem;
         }
 
         throw Error(`${type} Not Implemented (${kanji})`);
