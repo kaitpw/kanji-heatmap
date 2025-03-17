@@ -41,7 +41,7 @@ export type KanjiExtendedInfo = {
   rtk: number;
   wk: number;
   jouyouGrade: number;
-  meanings: Set<string>;
+  meanings: string[];
   allOn: Set<string>;
   allKun: Set<string>;
   allKunStripped: Set<string>; // same as allKun except wanakana.toHiragana(item.replace(/[-.。ー]/g, ""))
