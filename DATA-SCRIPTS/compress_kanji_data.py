@@ -621,9 +621,6 @@ def get_reading_stats(get_readings):
         print("{:<10} {:<15}".format(item['count'], item['reading']))
 
 
-print("---> number of kanjis:", len(kanji_list))
-# 2427
-
 iter = [x for x in enumerate(kanji_list)]
 max_strokes = reduce(get_max_strokes, iter, 0)
 print("---> max strokes count:", max_strokes)
@@ -652,12 +649,15 @@ keyword_list = [
     get_keyword(kanji_data[kanji]) for kanji in kanji_list
 ]
 
-print("---> Unique Keywords", len(set(keyword_list)))
-# Unique Keywords 2423
+print("---> Number of Kanjis:", len(kanji_list))
+# 2427
+
+print("---> Unique Keywords:", len(set(keyword_list)))
+# efore the override -> Unique Keywords 2423
 
 no_keys = list(filter(lambda x: get_keyword(kanji_data[x]) is None, kanji_list))
 print("---> No keywords:", no_keys)
-# No keywords: ['呟', '睨', '頷']
+# Before the overrides -> No keywords: ['呟', '睨', '頷'] 
 
 print("..........")
 print("ONYOMI")

@@ -8,7 +8,31 @@
 
 ![sort and filter dialog](./IMG/sort-dialog.png)
 
-## Data Generation
+## Data (Re) Generation
+
+## Kanji Keyword Override
+
+If you want to override the keyword, edit the file `./DATA-SCRIPTS/original_data/PIKAPIKAGEMS_KEYWORDS.json`
+
+```
+python3 ./DATA-SCRIPTS/compress_kanji_data.py
+cp ./DATA-SCRIPTS/generated/* ./public/json/
+
+pnpm install
+pnpm run peek
+  ➜  Local:   http://localhost:4173/
+  ➜  Network: http://192.168.254.107:4173/
+  ➜  press h + enter to show help
+```
+
+`pnpm run peek` is just `# prettier --write . && eslint . && tsc -b && vite build && vite preview --host`.
+The script rebuilds the data from the sources `./DATA-SCRIPTS/original_data/*` and also runs a few simple data analytics for quick inspections.
+
+## Kanji Vocab Override
+
+--- 🚧 🚧 WIP TODO: 🚧 🚧 ---
+
+### Data (Re) Generation Details
 
 Merged scraped data can be found on `./DATA-SCRIPTS/original_data/`
 
@@ -21,7 +45,7 @@ Merged scraped data can be found on `./DATA-SCRIPTS/original_data/`
 
 --- 🚧 🚧 WIP TODO: Write what the above files contain 🚧 🚧 ---
 
-Run the script and copy generated data to public folder for `kanji-worker` to access
+Run the script and copy generated data to public folder for `kanji-worker.ts` to access
 
 ```
 python3 ./DATA-SCRIPTS/compress_kanji_data.py
