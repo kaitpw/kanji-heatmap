@@ -7,12 +7,14 @@ import {
   TextSearch,
 } from "@/lib/settings";
 import { URL_PARAMS } from "@/lib/constants";
-import { useSearchParams } from "wouter";
+import { useLocation, useSearchParams } from "wouter";
 import { toSearchParams, toSearchSettings } from "@/lib/url-params-helpers";
 import { searchSettings } from "./search-settings-hooks";
 
+const ALLOWED_LOCATIONS = ["/"];
 export function SearchSettingsProvider({ children }: { children: ReactNode }) {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [location] = useLocation();
 
   const updateItem = useCallback(
     (
@@ -37,6 +39,10 @@ export function SearchSettingsProvider({ children }: { children: ReactNode }) {
   );
 
   useLayoutEffect(() => {
+    // we do not dabble with the search params on pages where we shouldn't such as `/docs`
+    if (!ALLOWED_LOCATIONS.includes(location)) {
+      return;
+    }
     setSearchParams(
       (prev) => {
         const searchSettings = toSearchSettings(prev);
@@ -60,7 +66,7 @@ export function SearchSettingsProvider({ children }: { children: ReactNode }) {
       },
       { replace: true }
     );
-  }, [setSearchParams]);
+  }, [setSearchParams, location]);
 
   const storageData: SearchSettings = useMemo(() => {
     return toSearchSettings(searchParams);
