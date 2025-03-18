@@ -11,8 +11,6 @@ import {
   useKanjiInfo,
 } from "@/kanji-worker/kanji-worker-hooks";
 
-const MISSING_KEYWORD = "🐛💔🪲 Keyword Unavailable";
-
 const transformKanjiWordDetails = (
   kanji: string,
   wordDetails?: KanjiWordDetails
@@ -81,7 +79,7 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
                 <SingleComponent
                   key={item.part}
                   kanji={item.part}
-                  keyword={item.keyword ?? MISSING_KEYWORD}
+                  keyword={item.keyword}
                   isKanji={item.isKanji}
                 />
               );
@@ -92,7 +90,7 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
                 .includes(info.phonetic.phonetic) === false && (
                 <SingleComponent
                   kanji={info.phonetic.phonetic}
-                  keyword={info.phonetic.keyword ?? MISSING_KEYWORD}
+                  keyword={info.phonetic.keyword}
                   phonetics={info.phonetic.sound}
                   isKanji={info.phonetic.isKanji}
                 />

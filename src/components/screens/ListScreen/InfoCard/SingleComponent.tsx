@@ -1,6 +1,8 @@
 import { GenericPopover } from "@/components/common/GenericPopover";
 import { RomajiBadge } from "@/components/common/RomajiBadge";
 import { KanjiLink } from "./KanjiLink";
+import { ExternalTextLink } from "@/components/common/ExternalTextLink";
+import { outLinks } from "@/lib/constants";
 
 export const SingleComponent = ({
   kanji,
@@ -9,7 +11,7 @@ export const SingleComponent = ({
   isKanji,
 }: {
   kanji: string;
-  keyword: string;
+  keyword?: string;
   phonetics?: string[];
   isKanji: boolean;
 }) => {
@@ -24,7 +26,16 @@ export const SingleComponent = ({
       }
       content={
         <div className="text-xs p-2 font-bold">
-          {isKanji ? (
+          {keyword == null ? (
+            <div className="w-32 my-2">
+              Keyword Missing
+              <br />
+              <ExternalTextLink
+                text="Report Bug."
+                href={outLinks.discord}
+              />{" "}
+            </div>
+          ) : isKanji ? (
             <KanjiLink keyword={keyword} kanji={kanji} />
           ) : (
             <span className="block">{keyword}</span>
