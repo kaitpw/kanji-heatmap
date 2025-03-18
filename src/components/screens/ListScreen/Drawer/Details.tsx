@@ -7,6 +7,7 @@ import { FrequencyInfo } from "./FrequencyInfo";
 import { DefaultErrorFallback } from "@/components/common/DefaultErrorFallback";
 import { BasicLoading } from "@/components/common/BasicLoading";
 import { useGetKanjiInfoFn } from "@/kanji-worker/kanji-worker-hooks";
+import ErrorBoundary from "@/components/common/ErrorBoundary";
 
 const StrokeAnimation = lazy(() => import("./StrokeAnimation"));
 
@@ -35,9 +36,11 @@ export const KanjiDetails = ({ kanji }: { kanji: string }) => {
         <General kanji={kanji} />
       </SimpleAccordion>
       <SimpleAccordion trigger={"Stroke Order Animation"}>
-        <Suspense fallback={<BasicLoading />}>
-          <StrokeAnimation kanji={kanji} />
-        </Suspense>
+        <ErrorBoundary details="StrokeAnimation in KanjiDetails">
+          <Suspense fallback={<BasicLoading />}>
+            <StrokeAnimation kanji={kanji} />
+          </Suspense>
+        </ErrorBoundary>
       </SimpleAccordion>
       <SimpleAccordion trigger={"Frequency Ranks"}>
         <FrequencyInfo freqRankInfo={data.frequency} />
