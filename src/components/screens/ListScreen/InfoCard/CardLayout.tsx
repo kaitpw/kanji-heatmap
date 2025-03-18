@@ -19,7 +19,9 @@ export const KanjiCardLayout = ({
         <div className=" border-r-2 border-dotted">{main}</div>
         <div className="px-2 w-full pb-4 pt-4">
           {firstWord}
-          <div className="mt-6 mb-2 border-b-2 border-dotted w-full" />
+          {firstWord && secondWord && (
+            <div className="mt-6 mb-2 border-b-2 border-dotted w-full" />
+          )}
           {secondWord}
         </div>
       </div>
