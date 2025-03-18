@@ -8,7 +8,7 @@ export const K_STROKES = "strokes";
 export const K_WK_LVL = "wanikani-level";
 
 export const K_RTK_INDEX = "rtk-index";
-export const K_MEANING_KEY = "meaning-key";
+export const K_MEANING_KEY = "keyword";
 
 export const K_RANK_NETFLIX = "rank-netflix";
 export const K_RANK_DRAMA_SUBTITLES = "rank-drama-subtitles";
