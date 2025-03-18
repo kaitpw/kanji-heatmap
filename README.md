@@ -48,7 +48,7 @@ Run the script and copy generated data to public folder for `kanji-worker.ts` to
 
 ```
 python3 ./DATA-SCRIPTS/compress_kanji_data.py
-cp ./DATA-SCRIPTS/generated/* ./public/json/
+cp ./DATA-SCRIPTS/generated/*.json ./public/json/
 ls -la ./DATA-SCRIPTS/generated/*
 ```
 
