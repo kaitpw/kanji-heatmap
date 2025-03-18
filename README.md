@@ -38,6 +38,7 @@ Merged scraped data can be found on `./DATA-SCRIPTS/original_data/`
 
 - `MERGED_KANJI.json`
 - `PIKAPIKAGEMS_KEYWORDS.json`
+- `PIKAPIKAGEMS_PARTS_OVERRIDE.json`
 - `kanji_to_vocabulary.json`
 - `missing_components.json`
 - `cum_use.json`

@@ -7,6 +7,8 @@ OUT_DIR = "./DATA-SCRIPTS/generated"
 
 IN_MERGED_KANJI_FILE_PATH = f"{IN_DIR}/MERGED_KANJI.json"
 IN_PIKAPIKAGEMS_KEYWORD_FILE_PATH = f"{IN_DIR}/PIKAPIKAGEMS_KEYWORDS.json"
+IN_PIKAPIKAGEMS_PARTS_OVERRIDE_FILE_PATH = f"{IN_DIR}/PIKAPIKAGEMS_PARTS_OVERRIDE.json"
+
 IN_KANJI_TO_VOCAB_FILE_PATH = f"{IN_DIR}/kanji_to_vocabulary.json"
 IN_MISSING_COMPONENTS_FILE_PATH = f"{IN_DIR}/missing_components.json"
 IN_PHONETIC_COMPONENTS_FILE_PATH = f"{IN_DIR}/phonetic_components.json"
@@ -22,18 +24,6 @@ OUT_CUM_USE_FILE_PATH = f"{OUT_DIR}/cum_use.json"
 # *********************************
 # JSON utilities
 # *********************************
-
-def compress_json(path_in, path_out):
-    with open(path_in, mode="r", encoding="utf-8") as read_file:
-        original_data = json.load(read_file)
-        with open(path_out, mode="w", encoding="utf-8") as write_file:
-            json.dump(
-                original_data,
-                write_file,
-                indent=None,
-                separators=(',', ':'),
-                ensure_ascii=False
-            )
 
 INDENT = None
 #INDENT = 4
@@ -51,14 +41,39 @@ def get_data_from_file(file_path):
     
     return {}
 
+def compress_json(path_in, path_out):
+    in_file = get_data_from_file(path_in)
+    dump_json(path_out, in_file)
+
+
+
 # *********************************
-# Compress existing jsons
+# LOAD kanji data from json
 # *********************************
 
-compress_json(
-    IN_MISSING_COMPONENTS_FILE_PATH,
-    OUT_PART_KEYWORD_FILE_PATH
-)
+KANJI_DATA = get_data_from_file(IN_MERGED_KANJI_FILE_PATH) 
+KANJI_LIST = [kanji for kanji in KANJI_DATA.keys()]
+
+# We just put the kanji as part of the value of the dictionary sfor quick access
+for kanji in KANJI_LIST: 
+    KANJI_DATA[kanji]['kanji'] = kanji
+    
+
+OWN_KEYWORDS_OVERRIDE = get_data_from_file(IN_PIKAPIKAGEMS_KEYWORD_FILE_PATH)
+OWN_PARTS_OVERRIDE = get_data_from_file(IN_PIKAPIKAGEMS_PARTS_OVERRIDE_FILE_PATH)
+
+# merge missing components from own keyword list
+missing_components = get_data_from_file(IN_MISSING_COMPONENTS_FILE_PATH)
+
+for part, keyword in OWN_KEYWORDS_OVERRIDE.items():
+    if KANJI_DATA.get(part, None):
+        continue
+
+    missing_components[part] = keyword
+
+dump_json(OUT_PART_KEYWORD_FILE_PATH, missing_components)
+
+# compress existing phonetics lookup table
 compress_json(
     IN_PHONETIC_COMPONENTS_FILE_PATH,
     OUT_PHONETIC_FILE_PATH
@@ -76,20 +91,6 @@ for key, value in cum_use_data.items():
     cum_use_data[key] = [convert_cum_use_point(point) for point in value]
 
 dump_json(OUT_CUM_USE_FILE_PATH, cum_use_data)
-
-# *********************************
-# LOAD kanji data from json
-# *********************************
-
-KANJI_DATA = get_data_from_file(IN_MERGED_KANJI_FILE_PATH) 
-KANJI_LIST = [kanji for kanji in KANJI_DATA.keys()]
-
-# We just put the kanji as part of the value of the dictionary sfor quick access
-for kanji in KANJI_LIST: 
-    KANJI_DATA[kanji]['kanji'] = kanji
-    
-
-OWN_KEYWORDS_OVERRIDE = get_data_from_file(IN_PIKAPIKAGEMS_KEYWORD_FILE_PATH)
 
 # *********************************
 # LOAD vocabulary details from json
@@ -228,7 +229,7 @@ def running_count_diff_GLOBAL_COUNT_UNSTABLE(a, b, c, r, pref):
 
 def get_component_parts(kanji_info):
     deps = kanji_info.get('componentDependencies', {}).get('topoKanji', [])
-    return deps
+    return OWN_PARTS_OVERRIDE.get(kanji_info['kanji'], None) or deps
 
 def get_keyword(kanji_info):
     all_ = kanji_info.get('meanings', {})
