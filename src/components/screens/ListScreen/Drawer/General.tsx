@@ -2,7 +2,7 @@ import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@radix-ui/react-select";
 import { RomajiBadge } from "@/components/common/RomajiBadge";
-import { BasicLoading } from "@/components/common/BasicLoading";
+import { BasicLoading } from "@/components/common/BasicLoading/BasicLoading";
 import { DefaultErrorFallback } from "@/components/common/DefaultErrorFallback";
 import { ExternalKanjiLinks } from "@/components/common/ExternalKanjiLinks";
 import { GeneralKanjiItem } from "@/lib/kanji-info-types";
