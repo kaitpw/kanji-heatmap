@@ -32,7 +32,7 @@ const freqRankMaxMin: Record<FreqCategory, { min: number; max: number }> = {
 };
 
 export const getFreqCategory = (freqRank?: number) => {
-  return freqRank == null || freqRank > 2250
+  return freqRank == null || freqRank < 1 || freqRank > 2250
     ? 0
     : freqRankMaxMin[1].min < freqRank && freqRank <= freqRankMaxMin[1].max
       ? 1
