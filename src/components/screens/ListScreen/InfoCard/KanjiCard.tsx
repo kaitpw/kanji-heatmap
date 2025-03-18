@@ -4,7 +4,7 @@ import { FrequencyBadges } from "./FrequencyBadges";
 import { KanjiCardLayout } from "./CardLayout";
 import { JLPTBadge } from "@/components/common/JLPTBadge";
 import { DefaultErrorFallback } from "@/components/common/DefaultErrorFallback";
-import { BasicLoading } from "@/components/common/BasicLoading";
+import { BasicLoading } from "@/components/common/BasicLoading/BasicLoading";
 import { WordCard } from "./WordCard";
 import {
   useIsKanjiWorkerReady,
@@ -59,6 +59,10 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
   const word1Props = transformKanjiWordDetails(kanji, info.mainVocab?.first);
   const word2Props = transformKanjiWordDetails(kanji, info.mainVocab?.second);
 
+  const parts = info.parts.filter((item) => item.part !== kanji);
+
+  const hasParts = parts.length > 0 || info.phonetic;
+
   return (
     <KanjiCardLayout
       main={
@@ -70,10 +74,9 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
       firstWord={word1Props && <WordCard {...word1Props} />}
       secondWord={word2Props && <WordCard {...word2Props} />}
       components={
-        <>
-          {info.parts
-            .filter((item) => item.part !== kanji)
-            .map((item) => {
+        hasParts && (
+          <>
+            {parts.map((item) => {
               return (
                 <SingleComponent
                   key={item.part}
@@ -83,18 +86,19 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
                 />
               );
             })}
-          {info.phonetic &&
-            info.parts
-              .map((part) => part.part)
-              .includes(info.phonetic.phonetic) === false && (
-              <SingleComponent
-                kanji={info.phonetic.phonetic}
-                keyword={info.phonetic.keyword ?? MISSING_KEYWORD}
-                phonetics={info.phonetic.sound}
-                isKanji={info.phonetic.isKanji}
-              />
-            )}
-        </>
+            {info.phonetic &&
+              info.parts
+                .map((part) => part.part)
+                .includes(info.phonetic.phonetic) === false && (
+                <SingleComponent
+                  kanji={info.phonetic.phonetic}
+                  keyword={info.phonetic.keyword ?? MISSING_KEYWORD}
+                  phonetics={info.phonetic.sound}
+                  isKanji={info.phonetic.isKanji}
+                />
+              )}
+          </>
+        )
       }
       badges={
         <>

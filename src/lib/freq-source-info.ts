@@ -33,9 +33,15 @@ const ultimate_kanji_links = [
   "https://docs.google.com/spreadsheets/d/1MBYfKPrlST3F51KIKbAlsGw1x4c_atuHfPwSSRN5sLs/edit?gid=496425456#gid=496425456",
 ];
 
+export const rankTypeLabel = {
+  1224: "(Rank Type: 1224)",
+  1223: "(Rank Type: 1223)",
+  "N/A": "",
+};
+
 export const FREQ_RANK_SOURCES_INFO: Record<
   FrequencyType,
-  { description: string; links: string[] }
+  { description: string; links: string[]; rankType: "1224" | "1223" | "N/A" }
 > = {
   [K_RANK_NETFLIX]: {
     description:
@@ -46,6 +52,7 @@ export const FREQ_RANK_SOURCES_INFO: Record<
       "https://www.mediafire.com/folder/mvh6jhwj6xxo6/Frequency_Lists",
       "https://drive.google.com/file/d/1qHEfYHXjEp83i6PxxMlSxluFyQg2W8Up/view",
     ],
+    rankType: "1224",
   },
   [K_RANK_DRAMA_SUBTITLES]: {
     description:
@@ -55,6 +62,7 @@ export const FREQ_RANK_SOURCES_INFO: Record<
       "https://github.com/chriskempson/japanese-subtitles-word-kanji-frequency-lists",
       "https://github.com/Matchoo95/JP-Subtitles",
     ],
+    rankType: "1224",
   },
   [K_RANK_NOVELS_5100]: {
     description:
@@ -65,15 +73,17 @@ export const FREQ_RANK_SOURCES_INFO: Record<
       "https://www.reddit.com/r/LearnJapanese/comments/fhx27j/comment/fkdyksq/",
       "https://drive.google.com/file/d/1SWkufrYEY8Xyyjpt_g-s1Ygqt_XzkHGK/view",
     ],
+    rankType: "1224",
   },
   [K_RANK_TWITTER]: {
     description:
       "Derived from Twitter messages collected last June 2015 containing about 10M total kanji occurrences. " +
-      "Compiled by Dmitry Shpika.",
+      scriptin_attribute_desc,
     links: [
       "https://github.com/scriptin/kanji-frequency/tree/master/data2015",
       "https://github.com/scriptin/kanji-frequency/blob/master/data2015/data/twitter.json",
     ],
+    rankType: "1224",
   },
   [K_RANK_WIKIPEDIA_DOC]: {
     description:
@@ -81,6 +91,7 @@ export const FREQ_RANK_SOURCES_INFO: Record<
       doc_count_desc +
       scriptin_attribute_desc,
     links: ["https://scriptin.github.io/kanji-frequency/wikipedia/"],
+    rankType: "1224",
   },
   [K_RANK_WIKIPEDIA_CHAR]: {
     description:
@@ -88,6 +99,7 @@ export const FREQ_RANK_SOURCES_INFO: Record<
       char_count_desc +
       scriptin_attribute_desc,
     links: ["https://scriptin.github.io/kanji-frequency/wikipedia/"],
+    rankType: "1224",
   },
   [K_RANK_ONLINE_NEWS_DOC]: {
     description:
@@ -96,6 +108,7 @@ export const FREQ_RANK_SOURCES_INFO: Record<
       doc_count_desc +
       scriptin_attribute_desc,
     links: ["https://scriptin.github.io/kanji-frequency/news/"],
+    rankType: "1224",
   },
   [K_RANK_ONLINE_NEWS_CHAR]: {
     description:
@@ -104,6 +117,7 @@ export const FREQ_RANK_SOURCES_INFO: Record<
       char_count_desc +
       scriptin_attribute_desc,
     links: ["https://scriptin.github.io/kanji-frequency/news/"],
+    rankType: "1224",
   },
   [K_RANK_AOZORA_DOC]: {
     description:
@@ -112,6 +126,7 @@ export const FREQ_RANK_SOURCES_INFO: Record<
       doc_count_desc +
       scriptin_attribute_desc,
     links: ["https://scriptin.github.io/kanji-frequency/aozora/"],
+    rankType: "1224",
   },
   [K_RANK_AOZORA_CHAR]: {
     description:
@@ -120,12 +135,14 @@ export const FREQ_RANK_SOURCES_INFO: Record<
       char_count_desc +
       scriptin_attribute_desc,
     links: ["https://scriptin.github.io/kanji-frequency/aozora/"],
+    rankType: "1224",
   },
   [K_RANK_GOOGLE]: {
     description:
       "Kouji Shibano's Google Kanji Data from 2009 that processed 133B kanji occurrences. " +
       ultimate_attribute_desc,
     links: ultimate_kanji_links,
+    rankType: "1223",
   },
   [K_RANK_KUF]: {
     description:
@@ -133,6 +150,7 @@ export const FREQ_RANK_SOURCES_INFO: Record<
       "e-news, Twitter. " +
       ultimate_attribute_desc,
     links: ultimate_kanji_links,
+    rankType: "1223",
   },
   [K_RANK_MCD]: {
     description:
@@ -140,6 +158,7 @@ export const FREQ_RANK_SOURCES_INFO: Record<
       "Corpus of Contemporary Written Japanese (BCCWJ) and Yahoo知恵袋 aka Japanese Yahoo Answer. " +
       ultimate_attribute_desc,
     links: ultimate_kanji_links,
+    rankType: "1223",
   },
   [K_RANK_BUNKA]: {
     description:
@@ -147,6 +166,7 @@ export const FREQ_RANK_SOURCES_INFO: Record<
       "various sources including books, magazines, textbooks, newspapers such as Asahi and Yomiuri, websites, etc. " +
       ultimate_attribute_desc,
     links: ultimate_kanji_links,
+    rankType: "1223",
   },
   [K_RANK_JISHO]: {
     description:
@@ -154,6 +174,7 @@ export const FREQ_RANK_SOURCES_INFO: Record<
       "in 4 years of the Mainichi Newpaper. " +
       ultimate_attribute_desc,
     links: ultimate_kanji_links,
+    rankType: "1223",
   },
   [K_RANK_KD]: {
     description:
@@ -161,6 +182,7 @@ export const FREQ_RANK_SOURCES_INFO: Record<
       "about 300M kanji occurrences published in the Mainichi Newspaper from 2000 to 2010. " +
       ultimate_attribute_desc,
     links: ultimate_kanji_links,
+    rankType: "1223",
   },
   [K_RANK_WKFR]: {
     description:
@@ -168,9 +190,11 @@ export const FREQ_RANK_SOURCES_INFO: Record<
       "kanji occurrences. " +
       ultimate_attribute_desc,
     links: ultimate_kanji_links,
+    rankType: "1223",
   },
   [K_RANK_NONE]: {
     description: "Do not select any frequency data source.",
     links: [],
+    rankType: "N/A",
   },
 };

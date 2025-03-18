@@ -14,31 +14,27 @@ export const FrequencyBadges = ({
 
   return (
     <>
-      {frequency && (
-        <>
-          <FrequencyBadge
-            rank={frequency.netflix}
-            text="Netflix"
-            content={<FreqRankTypeInfo value={inverseFreqMap.netflix} />}
-          />
-          <FrequencyBadge
-            rank={frequency.google}
-            text="Google"
-            content={<FreqRankTypeInfo value={inverseFreqMap.google} />}
-          />
-          <FrequencyBadge
-            rank={frequency.wikiChar}
-            text="Wikipedia"
-            content={<FreqRankTypeInfo value={inverseFreqMap.wikiChar} />}
-          />
+      <FrequencyBadge
+        rank={frequency.netflix}
+        text="Netflix"
+        content={<FreqRankTypeInfo value={inverseFreqMap.netflix} />}
+      />
+      <FrequencyBadge
+        rank={frequency.google}
+        text="Google"
+        content={<FreqRankTypeInfo value={inverseFreqMap.google} />}
+      />
+      <FrequencyBadge
+        rank={frequency.wikiChar}
+        text="Wikipedia"
+        content={<FreqRankTypeInfo value={inverseFreqMap.wikiChar} />}
+      />
 
-          <FrequencyBadge
-            rank={frequency.twitter}
-            text="Twitter"
-            content={<FreqRankTypeInfo value={inverseFreqMap.twitter} />}
-          />
-        </>
-      )}
+      <FrequencyBadge
+        rank={frequency.twitter}
+        text="Twitter"
+        content={<FreqRankTypeInfo value={inverseFreqMap.twitter} />}
+      />
     </>
   );
 };

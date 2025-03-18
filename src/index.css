@@ -73,6 +73,11 @@ h6 {
   overflow-wrap: break-word;
 }
 
+code {
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+}
+
 button {
   cursor: pointer;
 }
@@ -125,6 +130,7 @@ button:focus-visible {
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
+
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
@@ -151,39 +157,11 @@ button:focus-visible {
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
   }
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: -1000px 0;
-  }
-  100% {
-    background-position: 1000px 0;
-  }
-}
-
-.animate-shimmer {
-  animation: shimmer 2s infinite linear;
-  background: linear-gradient(to right, #f6f7f8 4%, #edeef1 25%, #f6f7f8 36%);
-  background-size: 1000px 100%;
-}
-
-.dark .animate-shimmer {
-  animation: shimmer 2s infinite linear;
-  background: linear-gradient(to right, #25272c 4%, #34373e 25%, #282a2f 36%);
-  background-size: 1000px 100%;
-}
-
-code {
-  font-family: "Courier New", Courier, monospace;
-  font-weight: bold;
 }

@@ -9,7 +9,7 @@ export const JLPTBadge = ({ jlpt }: { jlpt: JLTPTtypes }) => {
           <span
             className={`h-3 w-3 block ${JLPTListItems[jlpt].cn} !rounded-full mr-1`}
           />
-          JLPT {jlpt.toUpperCase()}
+          {jlpt.toUpperCase()}
         </Badge>
       )}
     </>

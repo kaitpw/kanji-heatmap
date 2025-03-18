@@ -5,7 +5,7 @@ import ChangeFontButton from "@/components/common/ChangeFontButton";
 import { General } from "./General";
 import { FrequencyInfo } from "./FrequencyInfo";
 import { DefaultErrorFallback } from "@/components/common/DefaultErrorFallback";
-import { BasicLoading } from "@/components/common/BasicLoading";
+import { BasicLoading } from "@/components/common/BasicLoading/BasicLoading";
 import { useGetKanjiInfoFn } from "@/kanji-worker/kanji-worker-hooks";
 import ErrorBoundary from "@/components/common/ErrorBoundary";
 

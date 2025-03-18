@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { HoverItemReturnData } from "@/lib/kanji-info-types";
 import { FrequencyBadges } from "./FrequencyBadges";
 import { JLPTBadge } from "@/components/common/JLPTBadge";
-import { BasicLoading } from "@/components/common/BasicLoading";
+import { BasicLoading } from "@/components/common/BasicLoading/BasicLoading";
 import { DefaultErrorFallback } from "@/components/common/DefaultErrorFallback";
 import {
   useIsKanjiWorkerReady,

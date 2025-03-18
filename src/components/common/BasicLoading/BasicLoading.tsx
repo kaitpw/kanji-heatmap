@@ -1,3 +1,5 @@
+import "./basic-loading.css";
+
 export const BasicLoading = () => {
   return (
     <div className="bg-white dark:bg-black rounded-xl p-6 space-y-4">

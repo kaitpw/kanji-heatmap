@@ -1,4 +1,4 @@
-import { FREQ_RANK_SOURCES_INFO } from "./freq-source-info";
+import { FREQ_RANK_SOURCES_INFO, rankTypeLabel } from "./freq-source-info";
 import {
   freqMap,
   frequencyRankLabels,
@@ -55,12 +55,14 @@ export const ALL_SORT_OPTIONS: SortKey[] = [
 
 export const SORT_ORDER_SELECT = ALL_SORT_OPTIONS.map((item) => {
   const freqDesc = FREQ_RANK_SOURCES_INFO[item as FrequencyType]?.description;
+  const rankType = FREQ_RANK_SOURCES_INFO[item as FrequencyType]?.rankType;
 
   const raw = SORT_OPTION_LABELS[item as SortKey];
   const label = item === "none" ? "None" : freqDesc ? `${raw} Rank` : raw;
   return {
     value: item,
     label,
-    description: item !== "none" ? freqDesc : undefined,
+    description:
+      item !== "none" ? `${freqDesc} ${rankTypeLabel[rankType]}` : undefined,
   };
 });
