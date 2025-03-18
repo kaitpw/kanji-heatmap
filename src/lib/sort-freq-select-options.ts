@@ -63,6 +63,8 @@ export const SORT_ORDER_SELECT = ALL_SORT_OPTIONS.map((item) => {
     value: item,
     label,
     description:
-      item !== "none" ? `${freqDesc} ${rankTypeLabel[rankType]}` : undefined,
+      item !== "none" && freqDesc
+        ? `${freqDesc} ${rankTypeLabel[rankType]}`
+        : undefined,
   };
 });
