@@ -14,11 +14,11 @@ import * as wanakana from "wanakana";
 export const kanjiMainInfoCache: Record<string, KanjiMainInfo> = {};
 export const kanjiOtherInfoCache: Record<string, KanjiExtendedInfo> = {};
 
-const MAIN_KANJI_INFO_FILE_PATH = "/json/kanji_main_reformatted.json";
-const EXTENDED_KANJI_INFO_FILE_PATH = "/json/kanji_other_reformatted.json";
-const PHONETIC_FILE = "/json/generated_reformatted_phonetic.json";
-const PART_KEYWORD_FILE = "/json/generated_reformatted_part_keyword_info.json";
-const SEGMENTED_VOCAB_FILE = "/json/word_details.json";
+const MAIN_KANJI_INFO_FILE_PATH = "/json/kanji_main.json";
+const EXTENDED_KANJI_INFO_FILE_PATH = "/json/kanji_extended.json";
+const PHONETIC_FILE = "/json/phonetic.json";
+const PART_KEYWORD_FILE = "/json/component_keyword.json";
+const SEGMENTED_VOCAB_FILE = "/json/vocabulary.json";
 
 const createFetch = <T>(path: string) => {
   return () =>
@@ -53,7 +53,7 @@ export const transformToSegmentedVocab = (
 
 export const transformToMainKanjiInfo = (
   raw: [string, string, string, number, FreqList]
-) => {
+): KanjiMainInfo => {
   const [keyword, on, kun, jlptRaw, freq] = raw;
 
   const jlpt: JLTPTtypes =
@@ -69,6 +69,9 @@ export const transformToMainKanjiInfo = (
               ? "n1"
               : "none";
 
+  // TODO: This assumes that the "raw" which is the data from JSON
+  // has no issues. (IE. No missing values, numbers are not string, undefined or NaN)
+  // we can perform transformations here to make sure it is.
   return {
     keyword,
     on,

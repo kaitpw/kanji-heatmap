@@ -1,9 +1,27 @@
 from functools import reduce
 import json
 
-# -------------------
+NUMBER_DATA_NOT_FOUND_VAL = -1
+IN_DIR = "./DATA-SCRIPTS/original_data"
+OUT_DIR = "./DATA-SCRIPTS/generated"
+
+IN_MERGED_KANJI_FILE_PATH = f"{IN_DIR}/MERGED_KANJI.json"
+IN_PIKAPIKAGEMS_KEYWORD_FILE_PATH = f"{IN_DIR}/PIKAPIKAGEMS_KEYWORDS.json"
+IN_KANJI_TO_VOCAB_FILE_PATH = f"{IN_DIR}/kanji_to_vocabulary.json"
+IN_MISSING_COMPONENTS_FILE_PATH = f"{IN_DIR}/missing_components.json"
+IN_PHONETIC_COMPONENTS_FILE_PATH = f"{IN_DIR}/phonetic_components.json"
+IN_CUM_USE_FILE_PATH = f"{IN_DIR}/cum_use.json"
+
+OUT_KANJI_MAIN_FILE_PATH = f"{OUT_DIR}/kanji_main.json"
+OUT_KANJI_EXTENDED_FILE_PATH = f"{OUT_DIR}/kanji_extended.json"
+OUT_PART_KEYWORD_FILE_PATH = f"{OUT_DIR}/component_keyword.json"
+OUT_PHONETIC_FILE_PATH = f"{OUT_DIR}/phonetic.json"
+OUT_VOCAB_FILE_PATH = f"{OUT_DIR}/vocabulary.json"
+OUT_CUM_USE_FILE_PATH = f"{OUT_DIR}/cum_use.json"
+
+# *********************************
 # JSON utilities
-# -------------------
+# *********************************
 
 def compress_json(path_in, path_out):
     with open(path_in, mode="r", encoding="utf-8") as read_file:
@@ -33,40 +51,120 @@ def get_data_from_file(file_path):
     
     return {}
 
-
-# -------------------
-# JSON file paths
-# -------------------
-
-IN_DIR = "./DATA-SCRIPTS/original_data"
-OUT_DIR = "./DATA-SCRIPTS/generated"
-
-ORIGINAL_COMPONENTS_FILE_PATH = f"{IN_DIR}/missing_components.json"
-REFORMATTED_COMPONENTS_FILE_PATH = f"{OUT_DIR}/generated_reformatted_part_keyword_info.json"
-
-ORIGINAL_PHONETIC_FILE_PATH = f"{IN_DIR}/phonetic_components.json"
-REFORMATTED_PHONETIC_FILE_PATH = f"{OUT_DIR}/generated_reformatted_phonetic.json"
-
+# *********************************
+# Compress existing jsons
+# *********************************
 
 compress_json(
-    ORIGINAL_COMPONENTS_FILE_PATH,
-    REFORMATTED_COMPONENTS_FILE_PATH
+    IN_MISSING_COMPONENTS_FILE_PATH,
+    OUT_PART_KEYWORD_FILE_PATH
 )
 compress_json(
-    ORIGINAL_PHONETIC_FILE_PATH,
-    REFORMATTED_PHONETIC_FILE_PATH
+    IN_PHONETIC_COMPONENTS_FILE_PATH,
+    OUT_PHONETIC_FILE_PATH
 )
 
-# -------------------
-# COMMON HELPER FUNCTIONS
-# -------------------
+# Compress cumulative use data
+
+def convert_cum_use_point(point):
+    [x, y] = point 
+    return [x, round(float(y), 2)]
+
+cum_use_data = get_data_from_file(IN_CUM_USE_FILE_PATH) 
+
+for key, value in cum_use_data.items():
+    cum_use_data[key] = [convert_cum_use_point(point) for point in value]
+
+dump_json(OUT_CUM_USE_FILE_PATH, cum_use_data)
+
+# *********************************
+# LOAD kanji data from json
+# *********************************
+
+KANJI_DATA = get_data_from_file(IN_MERGED_KANJI_FILE_PATH) 
+KANJI_LIST = [kanji for kanji in KANJI_DATA.keys()]
+
+# We just put the kanji as part of the value of the dictionary sfor quick access
+for kanji in KANJI_LIST: 
+    KANJI_DATA[kanji]['kanji'] = kanji
+    
 
 # see issue: https://github.com/mithi/kanji-data/issues/6
-OWN_KEYWORDS_OVERRIDE = get_data_from_file(f"{IN_DIR}/PIKAPIKAGEMS_KEYWORDS.json")
+OWN_KEYWORDS_OVERRIDE = get_data_from_file(IN_PIKAPIKAGEMS_KEYWORD_FILE_PATH)
 
-# -------------------
+# *********************************
+# LOAD vocabulary details from json
+# *********************************
+
+'''
+########
+Input
+#########
+{
+    "為": {
+        "行為": {
+            "meaning": "act, deed, conduct",
+            "parts": [
+                ["行", "こう"],
+                ["為","い"]
+            ]
+        },
+        "為る": {
+            "meaning": "to do, to carry out, to perform; to cause to become",
+            "parts": [
+                ["為", "す"],
+                ["る"]
+            ]
+        }
+    }
+}
+
+########
+kanji_words
+#########
+{ "為": ["行為", "為る"] }
+
+
+########
+word_details
+#########
+{        
+    "行為": {
+        "meaning": "act, deed, conduct",
+        "parts": [
+            ["行", "こう"],
+            ["為","い"]
+        ]
+    },
+    "為る": {
+        "meaning": "to do, to carry out, to perform; to cause to become",
+        "parts": [
+            ["為", "す"],
+            ["る"]
+        ]
+    }
+}
+
+'''
+kanji_vocab = get_data_from_file(IN_KANJI_TO_VOCAB_FILE_PATH) 
+KANJI_WORDS = {}
+WORD_DETAILS = {}
+
+for kanji, words in kanji_vocab.items():
+    KANJI_WORDS[kanji] = list(words.keys())
+    for word, details in words.items():
+        WORD_DETAILS[word] = [details.get('meaning', ''), details.get('parts', [])]
+
+print("---> word count", len(WORD_DETAILS.keys()))
+# ---> word count 4453
+
+# compress vocab details
+dump_json(OUT_VOCAB_FILE_PATH, WORD_DETAILS)
+
+
+# *********************************
 # COMMON HELPER FUNCTIONS
-# -------------------
+# *********************************
 
 def to_int(str, default_value=None):
     if isinstance(str, (int)):
@@ -125,9 +223,9 @@ def running_count_diff_GLOBAL_COUNT_UNSTABLE(a, b, c, r, pref):
         global_count += 1
         print (global_count, pref, a, b, c)
 
-# -------------------
-# FUNCTIONS TO GET KANJI INFORMATION MINUS FREQUENCY INFO
-# -------------------
+# *********************************
+# FUNCTIONS TO EXTRACT KANJI INFORMATION
+# *********************************
 
 def get_component_parts(kanji_info):
     deps = kanji_info.get('componentDependencies', {}).get('topoKanji', [])
@@ -207,7 +305,7 @@ def get_jlpt(kanji_info):
     c = dig('davidluzgouveiaJlpt')
     r = a or b or c
 
-    # kanji = kanji_info["kanji"]
+    # kanji = KANJI_INFO["kanji"]
     # running_count_diff_GLOBAL_COUNT_UNSTABLE(a, b, c, r, f"{kanji} jl:")
     # 416 Kanji do not match
 
@@ -294,10 +392,9 @@ def get_semantic_phonetic(kanji_info):
     phonetic = kanji_info.get("semanticPhonetic", {}).get('moeUsagi', None)
     return phonetic
 
-DEFAULT_ARRAY_VAL = []
-# -------------------
-# FUNCTIONS TO GET FREQUENCY RANK INFORMATION
-# -------------------
+# *********************************
+# FUNCTIONS TO EXTRACT FREQUENCY RANK INFORMATION
+# *********************************
 
 def get_ranks(kanji_info):
     all_ = kanji_info.get('frequency', {})
@@ -314,35 +411,32 @@ def get_ranks(kanji_info):
     def dig_ultimate(source_key):
         rank = all_ultimate.get(source_key, None)
         return to_int(rank)
-    
-    DEFAULT_VAL = -1
 
-    rank_aozora_char = dig_scriptin('aozora') or DEFAULT_VAL
-    rank_aozora_doc = dig_scriptin('aozora', 'docRank') or DEFAULT_VAL
-    rank_wikipedia_char = dig_scriptin('wikipedia') or DEFAULT_VAL
-    rank_wikipedia_doc = dig_scriptin('wikipedia', 'docRank') or DEFAULT_VAL
-    rank_online_news_char = dig_scriptin('news') or DEFAULT_VAL
-    rank_online_news_doc = dig_scriptin('news', 'docRank') or DEFAULT_VAL
+    rank_aozora_char = dig_scriptin('aozora') or NUMBER_DATA_NOT_FOUND_VAL
+    rank_aozora_doc = dig_scriptin('aozora', 'docRank') or NUMBER_DATA_NOT_FOUND_VAL
+    rank_wikipedia_char = dig_scriptin('wikipedia') or NUMBER_DATA_NOT_FOUND_VAL
+    rank_wikipedia_doc = dig_scriptin('wikipedia', 'docRank') or NUMBER_DATA_NOT_FOUND_VAL
+    rank_online_news_char = dig_scriptin('news') or NUMBER_DATA_NOT_FOUND_VAL
+    rank_online_news_doc = dig_scriptin('news', 'docRank') or NUMBER_DATA_NOT_FOUND_VAL
 
     rank_twitter_raw = all_.get('scriptin', {}).get('year2015', {}).get("twitter", {}).get("rank1224", None)
-    rank_twitter = to_int(rank_twitter_raw) or DEFAULT_VAL
+    rank_twitter = to_int(rank_twitter_raw) or NUMBER_DATA_NOT_FOUND_VAL
 
-    rank_netflix = dig_1224('ohTalkWhoNetflix') or DEFAULT_VAL
-    rank_novels_5100 = dig_1224('rtk5100') or DEFAULT_VAL
-    rank_drama_subtitles = dig_1224('chriskempsonSubtitles') or DEFAULT_VAL
+    rank_netflix = dig_1224('ohTalkWhoNetflix') or NUMBER_DATA_NOT_FOUND_VAL
+    rank_novels_5100 = dig_1224('rtk5100') or NUMBER_DATA_NOT_FOUND_VAL
+    rank_drama_subtitles = dig_1224('chriskempsonSubtitles') or NUMBER_DATA_NOT_FOUND_VAL
 
-    rank_google = dig_ultimate("google") or DEFAULT_VAL
-    rank_kuf = dig_ultimate("kuf") or DEFAULT_VAL
-    rank_mcd = dig_ultimate("mcd") or DEFAULT_VAL
-    rank_bunka = dig_ultimate("bunka") or DEFAULT_VAL
-    rank_kd = dig_ultimate("kd") or DEFAULT_VAL
-    rank_wkfr = dig_ultimate("wkfr") or DEFAULT_VAL
+    rank_google = dig_ultimate("google") or NUMBER_DATA_NOT_FOUND_VAL
+    rank_kuf = dig_ultimate("kuf") or NUMBER_DATA_NOT_FOUND_VAL
+    rank_mcd = dig_ultimate("mcd") or NUMBER_DATA_NOT_FOUND_VAL
+    rank_bunka = dig_ultimate("bunka") or NUMBER_DATA_NOT_FOUND_VAL
+    rank_kd = dig_ultimate("kd") or NUMBER_DATA_NOT_FOUND_VAL
+    rank_wkfr = dig_ultimate("wkfr") or NUMBER_DATA_NOT_FOUND_VAL
 
-    rank_jisho = dig_ultimate("jisho") or DEFAULT_VAL
+    rank_jisho = dig_ultimate("jisho") or NUMBER_DATA_NOT_FOUND_VAL
 
     # rank_newspapers_1 = all_.get('davidluzgouveiaJlpt', None) or None
     # rank_newspapers_2 = all_.get('kanjiSchool', None) or None
-
     # a = rank_jisho
     # b = rank_newspapers_1
     # c = rank_newspapers_2 
@@ -391,163 +485,56 @@ def get_ranks(kanji_info):
 
     return freqs 
 
-# *******************
-# MAIN SCRIPT HERE
-# *******************
+# *********************************
+# BUILD KANJI DATA: Create kanji_main.json and kanji_extended.json
+# *********************************
 
-kanji_data = get_data_from_file(f"{IN_DIR}/kanji.json") 
-kanji_list = [kanji for kanji in kanji_data.keys()]
-
-# .......................
-# We just put the kanji as part of the value of the dictionary
-# for quick access
-# .......................
-
-for kanji in kanji_list: 
-    kanji_data[kanji]['kanji'] = kanji
-
-# .......................
-# Get vocabulary details
-# .......................
-
-
-'''
-########
-Input
-#########
-{
-    "為": {
-        "行為": {
-            "meaning": "act, deed, conduct",
-            "parts": [
-                ["行", "こう"],
-                ["為","い"]
-            ]
-        },
-        "為る": {
-            "meaning": "to do, to carry out, to perform; to cause to become",
-            "parts": [
-                ["為", "す"],
-                ["る"]
-            ]
-        }
-    }
-}
-
-########
-kanji_words
-#########
-{ "為": ["行為", "為る"] }
-
-
-########
-word_details
-#########
-{        
-    "行為": {
-        "meaning": "act, deed, conduct",
-        "parts": [
-            ["行", "こう"],
-            ["為","い"]
-        ]
-    },
-    "為る": {
-        "meaning": "to do, to carry out, to perform; to cause to become",
-        "parts": [
-            ["為", "す"],
-            ["る"]
-        ]
-    }
-}
-
-'''
-kanji_vocab = get_data_from_file(f"{IN_DIR}/kanji_to_vocabulary.json") 
-kanji_words = {}
-word_details = {}
-
-for kanji, words in kanji_vocab.items():
-    kanji_words[kanji] = list(words.keys())
-    for word, details in words.items():
-        word_details[word] = [details.get('meaning', ''), details.get('parts', [])]
-
-print("---> word count", len(word_details.keys()))
-# ---> word count 4453
-dump_json(f"{OUT_DIR}/word_details.json", word_details)
-
-# .......................
 # This is a crutch to find use to count
 # the number of items that various sources differ
 # e.g source 1 says stroke is 15 while source 2 says it's 16.
-# .......................
 
 global global_count
 global_count = 0
 
-# .......................
-# Creates two jsons main_info and other_info
-# which contains information about each kanji
-# .......................
+# Splits kanji information into two  jsons for each kanji
 
 kanji_main_reformatted = {}
-kanji_other_reformatted = {}
-for kanji in kanji_list:
+kanji_extended_reformatted = {}
+for kanji in KANJI_LIST:
 
-    kanji_info = kanji_data[kanji]
-
-    main_info = [
+    kanji_info = KANJI_DATA[kanji]
+    
+    kanji_main_reformatted[kanji] = [
         get_keyword(kanji_info) or "",
         get_main_on_reading(kanji_info) or "",
         get_main_kun_reading(kanji_info) or "",
-        get_jlpt(kanji_info) or -1,
+        get_jlpt(kanji_info) or NUMBER_DATA_NOT_FOUND_VAL,
         get_ranks(kanji_info),
     ]
-    
-    kanji_main_reformatted[kanji] = main_info
 
-    kanji_other_reformatted[kanji] = [
+    kanji_extended_reformatted[kanji] = [
         get_component_parts(kanji_info) or [],
-        get_strokes(kanji_info) or -1,
-        get_rtk_index(kanji_info) or -1,
-        get_wanikani_lvl(kanji_info) or -1,
-        get_jouyou(kanji_info) or -1,
+        get_strokes(kanji_info) or NUMBER_DATA_NOT_FOUND_VAL,
+        get_rtk_index(kanji_info) or NUMBER_DATA_NOT_FOUND_VAL,
+        get_wanikani_lvl(kanji_info) or NUMBER_DATA_NOT_FOUND_VAL,
+        get_jouyou(kanji_info) or NUMBER_DATA_NOT_FOUND_VAL,
         (get_all_meanings(kanji_info) or [])[:],
         get_all_on_readings(kanji_info) or [],
         get_all_kun_readings(kanji_info) or [],
-        get_semantic_phonetic(kanji_info) or "",
-        kanji_words.get(kanji, [])
+        get_semantic_phonetic(kanji_info) or [],
+        KANJI_WORDS.get(kanji, [])
     ]
 
-# -----------------
-# Dump Json
-# -----------------
+dump_json(OUT_KANJI_MAIN_FILE_PATH , kanji_main_reformatted)
+dump_json(OUT_KANJI_EXTENDED_FILE_PATH , kanji_extended_reformatted)
 
-dump_json(f"{OUT_DIR}/kanji_main_reformatted.json" , kanji_main_reformatted)
-dump_json(f"{OUT_DIR}/kanji_other_reformatted.json" , kanji_other_reformatted)
-
-
-# -----------------
-# Compress cumulative use points
-
-# -----------------
-def convert_cum_use_point(point):
-    [x, y] = point 
-    return [x, round(float(y), 2)]
-
-cum_use_data = get_data_from_file(f"{IN_DIR}/cum_use.json") 
-
-for key, value in cum_use_data.items():
-    cum_use_data[key] = [convert_cum_use_point(point) for point in value]
-
-dump_json(f"{OUT_DIR}/cum_use.json", cum_use_data)
-
-
-# -----------------
+# *********************************
 # Inspect Data 
-# -----------------
+# *********************************
 
 def get_max_strokes(acc, iter):
     kanji = iter[1]
-    kanji_info = kanji_data[kanji]
+    kanji_info = KANJI_DATA[kanji]
     new_acc = get_strokes(kanji_info)
     if new_acc is not None:
         new_acc = max(new_acc, acc)
@@ -559,12 +546,12 @@ def get_max_strokes(acc, iter):
 def generic_get_max(retrieve_data):
     def get_max(acc, iter):
         kanji = iter[1]
-        kanji_info = kanji_data[kanji]
+        kanji_info = KANJI_DATA[kanji]
         items = retrieve_data(kanji_info) or []
         new_acc = max(len(items), acc)
 
         if new_acc > acc:
-            print("{:<4} {:<2} {:<0}".format(kanji, len(items), str(items)[:200]))
+            print("{:<4} {:<2} {:<0}".format(kanji, len(items), str(items)[:]))
 
         return new_acc
 
@@ -573,22 +560,22 @@ def generic_get_max(retrieve_data):
 def get_reading_stats(get_readings):
     # number of possible readings
     def get_reading_set(acc, kanji):
-        kanji_info = kanji_data[kanji]
+        kanji_info = KANJI_DATA[kanji]
         items = get_readings(kanji_info) or []
         acc.update(items)
         return acc
     
     
-    one_reading = list(filter(lambda x: len(get_readings(kanji_data[x]) or []) == 1, kanji_list))
+    one_reading = list(filter(lambda x: len(get_readings(KANJI_DATA[x]) or []) == 1, KANJI_LIST))
     print("---> number of kanjis with one reading", len(one_reading))
     
     
-    all_readings = reduce(get_reading_set, kanji_list, set())
+    all_readings = reduce(get_reading_set, KANJI_LIST, set())
     print("---> All possible readings", len(list(all_readings)))
     
     reading_counts = {}
-    for kanji in kanji_list:
-        readings = get_readings(kanji_data[kanji]) or []
+    for kanji in KANJI_LIST:
+        readings = get_readings(KANJI_DATA[kanji]) or []
         for reading in readings:
             reading_counts[reading] = reading_counts.get(reading, 0) + 1
     
@@ -621,7 +608,7 @@ def get_reading_stats(get_readings):
         print("{:<10} {:<15}".format(item['count'], item['reading']))
 
 
-iter = [x for x in enumerate(kanji_list)]
+iter = [x for x in enumerate(KANJI_LIST)]
 max_strokes = reduce(get_max_strokes, iter, 0)
 print("---> max strokes count:", max_strokes)
 # 29
@@ -646,16 +633,16 @@ print("---> max meaning count:", max_meaning)
 
 # Verify if keyword is unique
 keyword_list = [
-    get_keyword(kanji_data[kanji]) for kanji in kanji_list
+    get_keyword(KANJI_DATA[kanji]) for kanji in KANJI_LIST
 ]
 
-print("---> Number of Kanjis:", len(kanji_list))
+print("---> Number of Kanjis:", len(KANJI_LIST))
 # 2427
 
 print("---> Unique Keywords:", len(set(keyword_list)))
 # efore the override -> Unique Keywords 2423
 
-no_keys = list(filter(lambda x: get_keyword(kanji_data[x]) is None, kanji_list))
+no_keys = list(filter(lambda x: get_keyword(KANJI_DATA[x]) is None, KANJI_LIST))
 print("---> No keywords:", no_keys)
 # Before the overrides -> No keywords: ['呟', '睨', '頷'] 
 

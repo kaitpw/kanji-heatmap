@@ -12,7 +12,7 @@
 
 ## Kanji Keyword Override
 
-If you want to override the keyword, edit the file `./DATA-SCRIPTS/original_data/PIKAPIKAGEMS_KEYWORDS.json`
+If you want to override the keyword, edit the file `./DATA-SCRIPTS/original_data/PIKAPIKAGEMS_KEYWORDS.json` and then run
 
 ```
 python3 ./DATA-SCRIPTS/compress_kanji_data.py
@@ -36,12 +36,11 @@ The script rebuilds the data from the sources `./DATA-SCRIPTS/original_data/*` a
 
 Merged scraped data can be found on `./DATA-SCRIPTS/original_data/`
 
-- `kanji.json`
+- `MERGED_KANJI.json`
+- `PIKAPIKAGEMS_KEYWORDS.json`
 - `kanji_to_vocabulary.json`
 - `missing_components.json`
-- `composition.json`
 - `cum_use.json`
-- `PIKAPIKAGEMS_KEYWORDS.json`
 
 --- 🚧 🚧 WIP TODO: Write what the above files contain 🚧 🚧 ---
 
@@ -50,6 +49,7 @@ Run the script and copy generated data to public folder for `kanji-worker.ts` to
 ```
 python3 ./DATA-SCRIPTS/compress_kanji_data.py
 cp ./DATA-SCRIPTS/generated/* ./public/json/
+ls -la ./DATA-SCRIPTS/generated/*
 ```
 
 --- 🚧 🚧 WIP TODO: Write what the script does 🚧 🚧 ---
@@ -57,20 +57,23 @@ cp ./DATA-SCRIPTS/generated/* ./public/json/
 Running the python script will generate the following files
 and then copy to `public/json` with `cp` so that `kanji-worker.ts` can access the data
 
-- `kanji_main_reformatted.json`
-- `kanji_other_reformatted.json`
-- `word_details.json`
-- `generated_reformatted_part_keyword_info.json`
-- `generated_reformatted_phonetic.json`
+- `kanji_main.json`
+- `kanji_extended.json`
+- `vocabulary.json`
+- `component_keyword.json`
+- `phonetic.json`
 - `cum_use.json`
 
 ```
+ ls -la ./DATA-SCRIPTS/generated/*
+# Mar 18 2025
+
+  1641 component_keyword.json
   2118 cum_use.json
-  1641 generated_reformatted_part_keyword_info.json
-  2187 generated_reformatted_phonetic.json
-282054 kanji_main_reformatted.json
-392617 kanji_other_reformatted.json
-512324 word_details.json
+392617 kanji_extended.json
+282054 kanji_main.json
+  2187 phonetic.json
+512324 vocabulary.json
 ```
 
 --- 🚧 🚧 TODO: Write what the above files contain 🚧 🚧 ---
