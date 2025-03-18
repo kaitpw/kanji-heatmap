@@ -9,7 +9,7 @@ export const FrequencyBadge = ({
   content,
 }: {
   text: string;
-  rank?: number;
+  rank?: number | null;
   content: ReactNode;
 }) => {
   if (rank == null || rank < 1) {

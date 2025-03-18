@@ -31,7 +31,7 @@ const freqRankMaxMin: Record<FreqCategory, { min: number; max: number }> = {
   5: { min: 0, max: 300 },
 };
 
-export const getFreqCategory = (freqRank?: number) => {
+export const getFreqCategory = (freqRank?: number | null) => {
   return freqRank == null || freqRank < 1 || freqRank > 2250
     ? 0
     : freqRankMaxMin[1].min < freqRank && freqRank <= freqRankMaxMin[1].max
@@ -46,8 +46,8 @@ export const getFreqCategory = (freqRank?: number) => {
             : 5;
 };
 
-export const getFreqCnByRank = (rank: number) => {
-  const freqRankCategory = rank === -1 ? 0 : getFreqCategory(rank);
+export const getFreqCnByRank = (rank: number | null) => {
+  const freqRankCategory = rank == null || rank < 1 ? 0 : getFreqCategory(rank);
 
   const bgColor = freqCategoryCn[freqRankCategory];
   return `${cnItemBg} ${cnSquare} ${bgColor}`;

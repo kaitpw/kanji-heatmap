@@ -49,7 +49,7 @@ const numericSort = (a: number, b: number) => {
   return a - b;
 };
 
-const freqSort = (a: number | undefined, b: number | undefined) => {
+const freqSort = (a?: number | null, b?: number | null) => {
   const numA = a ?? Number.MAX_VALUE;
   const numB = b ?? Number.MAX_VALUE;
   return numA - numB;

@@ -30,7 +30,7 @@ export const FrequencyInfo = ({
             const rank = freqRankInfo[item as keyof KanjiInfoFrequency];
             const label = frequencyRankLabels[item as keyof KanjiInfoFrequency];
             const progress =
-              rank === -1
+              rank == null || rank < 1
                 ? 0
                 : (Math.max(KANJI_COUNT - rank, 0) * 100) / KANJI_COUNT;
 
