@@ -89,7 +89,6 @@ for kanji in KANJI_LIST:
     KANJI_DATA[kanji]['kanji'] = kanji
     
 
-# see issue: https://github.com/mithi/kanji-data/issues/6
 OWN_KEYWORDS_OVERRIDE = get_data_from_file(IN_PIKAPIKAGEMS_KEYWORD_FILE_PATH)
 
 # *********************************
@@ -317,7 +316,7 @@ def get_jouyou(kanji_info):
         return all_.get(source_key, None)
 
     # KanjiSchool is more accurate
-    # see: https://github.com/mithi/kanji-data/issues/5
+    # see: https://github.com/PikaPikaGems/kanji-data/issues/5
     a = dig('kanjiSchool')
     b = dig('davidluzgouveiaJlpt')
     c = dig('kanjiApi')
@@ -363,11 +362,11 @@ def get_strokes(kanji_info):
     # or davidluzgouveiaJlpt (latter two have the same count). 
     # By manually verifying the stroke count with the help of https://jisho.org,
     # topoKanji has been found to be consistently incorrect. 
-    # see: https://github.com/mithi/kanji-data/issues/5
+    # see: https://github.com/PikaPikaGems/kanji-data/issues/5
 
     # Found incorrect stroke count for davidluzgouveiaJlpt which indicates 稽 has stroke count of 16 when it should only have 15.
     #  Discovered when comparing it against scriptin's kanjidic2-en-3.6.1.json.
-    # See also https://github.com/mithi/kanji-data/issues/8
+    # See also https://github.com/PikaPikaGems/kanji-data/issues/8
 
     if kanji_info["kanji"] == "稽":
         return 15
