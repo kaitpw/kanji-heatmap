@@ -70,9 +70,10 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
       firstWord={word1Props && <WordCard {...word1Props} />}
       secondWord={word2Props && <WordCard {...word2Props} />}
       components={
-        info.parts.length > 1 && (
-          <>
-            {info.parts.map((item) => {
+        <>
+          {info.parts
+            .filter((item) => item.part !== kanji)
+            .map((item) => {
               return (
                 <SingleComponent
                   key={item.part}
@@ -82,19 +83,18 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
                 />
               );
             })}
-            {info.phonetic &&
-              info.parts
-                .map((part) => part.part)
-                .includes(info.phonetic.phonetic) === false && (
-                <SingleComponent
-                  kanji={info.phonetic.phonetic}
-                  keyword={info.phonetic.keyword ?? MISSING_KEYWORD}
-                  phonetics={info.phonetic.sound}
-                  isKanji={info.phonetic.isKanji}
-                />
-              )}
-          </>
-        )
+          {info.phonetic &&
+            info.parts
+              .map((part) => part.part)
+              .includes(info.phonetic.phonetic) === false && (
+              <SingleComponent
+                kanji={info.phonetic.phonetic}
+                keyword={info.phonetic.keyword ?? MISSING_KEYWORD}
+                phonetics={info.phonetic.sound}
+                isKanji={info.phonetic.isKanji}
+              />
+            )}
+        </>
       }
       badges={
         <>
