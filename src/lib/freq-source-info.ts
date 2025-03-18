@@ -20,7 +20,8 @@ import {
   K_RANK_WKFR,
 } from "./sort-freq-types";
 
-const scriptin_attribute_desc = " Compiled by Dmitry Shpika.";
+const scriptin_attribute_desc =
+  " Compiled by Dmitry Shpika. Converted to Rank 1224 type by @mikong.";
 const doc_count_desc =
   "Document count measures how many documents the kanji appears in.";
 const char_count_desc =
