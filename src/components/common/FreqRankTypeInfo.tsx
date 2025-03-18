@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import { ExternalTextLink } from "./ExternalTextLink";
 import { FrequencyType, SortKey } from "@/lib/sort-freq-types";
-import { FREQ_RANK_SOURCES_INFO } from "@/lib/freq-source-info";
+import { FREQ_RANK_SOURCES_INFO, rankTypeLabel } from "@/lib/freq-source-info";
 
 export const FreqRankTypeInfo = ({
   value,
@@ -19,6 +19,10 @@ export const FreqRankTypeInfo = ({
   return (
     <div className="text-xs mt-1 text-left px-3">
       *{sourceInfo.description}
+      <br />
+      <span className="italic text-muted-foreground font-semibold">
+        {rankTypeLabel[sourceInfo.rankType]}
+      </span>
       {sourceInfo.links && sourceInfo.links.length > 0 && (
         <div className="my-1">
           <span className="font-extrabold">Visit related link(s): </span>[

@@ -3,7 +3,7 @@ import { FREQUENCY_RANK_FILTER_OPTIONS } from "@/lib/sort-freq-select-options";
 import { FreqRankTypeInfo } from "./FreqRankTypeInfo";
 import { Combobox } from "./Combobox";
 import { FrequencyType } from "@/lib/sort-freq-types";
-import { FREQ_RANK_SOURCES_INFO } from "@/lib/freq-source-info";
+import { FREQ_RANK_SOURCES_INFO, rankTypeLabel } from "@/lib/freq-source-info";
 
 export function FrequencyRankDataSource({
   value,
@@ -22,11 +22,10 @@ export function FrequencyRankDataSource({
           onChange={(newValue) => setValue(newValue as FrequencyType)}
           triggerCN={"h-8 w-full"}
           options={FREQUENCY_RANK_FILTER_OPTIONS.map((item) => {
+            const info = FREQ_RANK_SOURCES_INFO[item.value as FrequencyType];
             return {
               ...item,
-              description:
-                FREQ_RANK_SOURCES_INFO[item.value as FrequencyType]
-                  ?.description,
+              description: `${info.description ?? ""} ${rankTypeLabel[info.rankType]} `,
             };
           })}
           label="Frequency Data Source"
@@ -42,11 +41,11 @@ export function FrequencyRankDataSource({
         value={value}
         setValue={(newValue) => setValue(newValue as FrequencyType)}
         options={FREQUENCY_RANK_FILTER_OPTIONS.map((option) => {
-          const description =
-            FREQ_RANK_SOURCES_INFO[option.value as FrequencyType]?.description;
+          const info = FREQ_RANK_SOURCES_INFO[option.value as FrequencyType];
+
           return {
             ...option,
-            description,
+            description: `${info.description ?? ""} ${rankTypeLabel[info.rankType]} `,
           };
         })}
       />
