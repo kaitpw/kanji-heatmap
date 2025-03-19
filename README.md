@@ -45,3 +45,8 @@ $ pnpm run peek
   ➜  Network: http://192.168.254.107:4173/
   ➜  press h + enter to show help
 ```
+
+## Talk to Us
+
+- [Discord](https://discord.gg/Ash8ZrGb4s)
+- [Ko-Fi](https://ko-fi.com/minimithi")
