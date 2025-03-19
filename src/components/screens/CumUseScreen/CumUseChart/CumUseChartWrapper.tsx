@@ -1,0 +1,39 @@
+import { ReactNode } from "react";
+
+export const CumUseChartWrapper = ({
+  legends,
+  children,
+}: {
+  legends: ReactNode;
+  children: ReactNode;
+}) => {
+  return (
+    <article className="flex justify-center flex-col items-center">
+      <div className="w-full md:w-[1000px]">
+        <div className="my-4">
+          <h1 className="font-bold text-xl">
+            Cumulative Usage vs Frequency Rank
+          </h1>
+        </div>
+
+        <div className="mr-10  ">{children}</div>
+        <div className="flex flex-wrap justify-center">{legends}</div>
+        <div>
+          <p className="my-2 ">
+            The x-axis lists items by their frequency rank (Rank 1224**), and
+            the y-axis shows the cumulative percentage of total usage up to that
+            rank. The graph highlights how quickly the most frequent items build
+            up to account for the bulk of the overall usage.
+          </p>
+          <p className="my-2 text-xs">
+            **Ranks are Standard competition (or Rank 1224) means items that
+            rank equally receive the same ranking number, and then a gap is left
+            after the equally ranked items in the ranking number.
+          </p>
+        </div>
+      </div>
+    </article>
+  );
+};
+
+export default CumUseChartWrapper;
