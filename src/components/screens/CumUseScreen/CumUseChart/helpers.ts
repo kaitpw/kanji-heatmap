@@ -27,41 +27,16 @@ export const colorMap: Record<string, string> = {
   wikipedia: "oklch(0.553 0.013 58.071)",
 };
 
-export const buildChartData = (data: ChartData) => {
-  const dataKeys = Object.keys(data);
-  const dataMaps = dataKeys.reduce(
-    (acc, key) => {
-      const points = data[key];
-      const pointMap = new Map(points);
-      pointMap.set(0, 0);
-      acc[key] = pointMap;
-      return acc;
-    },
-    {} as Record<string, Map<number, number>>
-  );
-
-  /**
-   * { x: number, [key1]: number, [key2]: number }
-   */
-  const chartData = ALL_X_POINTS.map((x) => {
-    const acc = dataKeys.reduce(
-      (acc, key) => {
-        acc[key] = dataMaps[key].get(x) ?? null;
-        return acc;
-      },
-      { x } as Record<string, number | null>
-    );
-
-    return acc;
-  });
-
-  /**
+/**
     const chartConfig = {
       [key1]: { label: string,  color: string },
       [key2]: { label: string,  color: string },
     } satisfies ChartConfig;
 
   **/
+export const buildChartConfig = (data: ChartData) => {
+  const dataKeys = Object.keys(data);
+
   const chartConfig = dataKeys.reduce(
     (acc, key) => {
       acc[key] = {
@@ -72,5 +47,6 @@ export const buildChartData = (data: ChartData) => {
     },
     {} as Record<string, { label: string; color: string }>
   );
-  return { chartData, chartConfig };
+
+  return chartConfig;
 };
