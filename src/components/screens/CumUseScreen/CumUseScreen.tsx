@@ -3,7 +3,7 @@ import { BasicLoading } from "@/components/common/BasicLoading/BasicLoading";
 import { DefaultErrorFallback } from "@/components/common/DefaultErrorFallback";
 import CumUseChartWrapper from "./CumUseChart/CumUseChartWrapper";
 import { KeyLegend } from "./CumUseChart/KeyLegend";
-import { CumUseGraph } from "./CumUseChart/CumUseGraph2";
+import { CumUseGraph } from "./CumUseChart/CumUseGraph";
 import { ChartData } from "./CumUseChart/helpers";
 
 const CumUseScreen = () => {

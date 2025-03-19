@@ -18,7 +18,7 @@ export const CumUseChartWrapper = ({
 
         <div className="mr-10  ">{children}</div>
         <div className="flex flex-wrap justify-center">{legends}</div>
-        <div>
+        <div className="mx-2 text-left">
           <p className="my-2 ">
             The x-axis lists items by their frequency rank (Rank 1224**), and
             the y-axis shows the cumulative percentage of total usage up to that
