@@ -10,6 +10,11 @@ import {
   LinearScale,
   CategoryScale,
   Tooltip,
+  TooltipModel,
+  ChartType,
+  ChartOptions,
+  ChartData as ChartJSData,
+  ChartTypeRegistry,
 } from "chart.js";
 import { useTheme } from "@/providers/theme-hooks";
 import { buildChartConfig, ChartData } from "./helpers";
@@ -83,10 +88,10 @@ const getDataset = (data: MultiLineChartData, config: ChartConfig) => {
 };
 
 const renderTooltip = (
-  context: any,
-  tooltipEl: any,
-  verticalLineEl: any,
-  containerEl: any
+  context: TooltipContext,
+  tooltipEl: HTMLDivElement,
+  verticalLineEl: HTMLDivElement,
+  containerEl: HTMLDivElement
 ) => {
   const { chart, tooltip } = context;
 
@@ -138,22 +143,20 @@ const renderTooltip = (
   verticalLineEl.style.zIndex = "1";
 };
 
-const buildTooltipInnerHtml = (context: any) => {
+const buildTooltipInnerHtml = (context: TooltipContext) => {
   const { chart, tooltip } = context;
 
-  const tooltipItems: TooltipItem[] = tooltip.dataPoints.map(
-    (dataPoint: any) => {
-      const datasetIndex = dataPoint.datasetIndex;
-      const dataset = chart.data.datasets[datasetIndex];
-      return {
-        label: dataset.label || "",
-        value: dataPoint.parsed.y,
-        color: dataset.borderColor as string,
-        datasetLabel: dataset.label || "",
-        xValue: dataPoint.parsed.x,
-      };
-    }
-  );
+  const tooltipItems: TooltipItem[] = tooltip.dataPoints.map((dataPoint) => {
+    const datasetIndex = dataPoint.datasetIndex;
+    const dataset = chart.data.datasets[datasetIndex];
+    return {
+      label: dataset.label || "",
+      value: dataPoint.parsed.y,
+      color: dataset.borderColor as string,
+      datasetLabel: dataset.label || "",
+      xValue: dataPoint.parsed.x,
+    };
+  });
 
   const xValue = tooltipItems[0]?.xValue;
   const sortedItems = [...tooltipItems].sort((a, b) => b.value - a.value);
@@ -177,11 +180,20 @@ const buildTooltipInnerHtml = (context: any) => {
   `;
 };
 
+interface TooltipContext {
+  chart: Chart;
+  tooltip: TooltipModel<"line">;
+}
+
 const buildChartJSConfig = (
   datasets: DataSet[],
   isDarkMode: boolean,
-  externalTooltipHandler: (context: any) => void
-) => {
+  externalTooltipHandler: (context: TooltipContext) => void
+): {
+  type: ChartType;
+  data: ChartJSData<keyof ChartTypeRegistry>;
+  options: ChartOptions<keyof ChartTypeRegistry>;
+} => {
   return {
     type: "line",
     data: {
@@ -199,8 +211,8 @@ const buildChartJSConfig = (
           display: false,
         },
         tooltip: {
-          enabled: false, // Disable default tooltip
-          external: externalTooltipHandler, // Use external tooltip handler
+          enabled: false,
+          external: externalTooltipHandler,
           mode: "index",
           intersect: false,
         },
@@ -237,7 +249,7 @@ const buildChartJSConfig = (
             color: isDarkMode
               ? "rgba(255, 255, 255, 0.7)"
               : "rgba(0, 0, 0, 0.7)",
-            callback: (value: string) => `${value}%`,
+            callback: (value: string | number) => `${value}%`,
           },
           title: {
             display: true,
@@ -249,7 +261,7 @@ const buildChartJSConfig = (
         },
       },
     },
-  } as any;
+  };
 };
 
 export function MultiLineChart({
@@ -300,14 +312,14 @@ export function MultiLineChart({
     <div className={"relative min-h-[600px] w-full mt-4"} ref={containerRef}>
       <div
         ref={verticalLineRef}
-        className="absolute opacity-0 pointer-events-none -z-10"
+        className="absolute opacity-0 pointer-events-none"
         style={{
           width: "1px",
           backgroundColor: isDarkMode ? "white" : "darkgray",
           transform: "translateX(-50%)",
         }}
       />
-      <canvas ref={canvasRef} style={{ zIndex: 20 }} />
+      <canvas ref={canvasRef} />
       <div
         ref={tooltipRef}
         className={cn(
