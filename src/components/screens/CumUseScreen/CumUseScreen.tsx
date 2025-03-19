@@ -1,9 +1,10 @@
 import { useJsonFetch } from "@/hooks/use-json";
 import { BasicLoading } from "@/components/common/BasicLoading/BasicLoading";
 import { DefaultErrorFallback } from "@/components/common/DefaultErrorFallback";
-import CumUseChart from "./CumUseChart/CumUseChart";
-
-type ChartData = Record<string, [number, number][]>;
+import CumUseChartWrapper from "./CumUseChart/CumUseChartWrapper";
+import { KeyLegend } from "./CumUseChart/KeyLegend";
+import { CumUseGraph } from "./CumUseChart/CumUseGraph2";
+import { ChartData } from "./CumUseChart/helpers";
 
 const CumUseScreen = () => {
   const { data, status } = useJsonFetch("json/cum_use.json");
@@ -20,7 +21,19 @@ const CumUseScreen = () => {
     );
   }
 
-  return <CumUseChart data={data as ChartData} />;
+  return (
+    <CumUseChartWrapper
+      legends={
+        <>
+          {Object.keys(data).map((key) => {
+            return <KeyLegend key={key} freqKey={key} />;
+          })}
+        </>
+      }
+    >
+      <CumUseGraph data={data as ChartData} />
+    </CumUseChartWrapper>
+  );
 };
 
 export default CumUseScreen;

@@ -27,6 +27,30 @@ export const colorMap: Record<string, string> = {
   wikipedia: "oklch(0.553 0.013 58.071)",
 };
 
+/**
+    const chartConfig = {
+      [key1]: { label: string,  color: string },
+      [key2]: { label: string,  color: string },
+    } satisfies ChartConfig;
+
+  **/
+export const buildChartConfig = (data: ChartData) => {
+  const dataKeys = Object.keys(data);
+
+  const chartConfig = dataKeys.reduce(
+    (acc, key) => {
+      acc[key] = {
+        label: frequencyRankLabels[freqKeyMap[key]],
+        color: colorMap[key],
+      };
+      return acc;
+    },
+    {} as Record<string, { label: string; color: string }>
+  );
+
+  return chartConfig;
+};
+
 export const buildChartData = (data: ChartData) => {
   const dataKeys = Object.keys(data);
   const dataMaps = dataKeys.reduce(
@@ -55,22 +79,5 @@ export const buildChartData = (data: ChartData) => {
     return acc;
   });
 
-  /**
-    const chartConfig = {
-      [key1]: { label: string,  color: string },
-      [key2]: { label: string,  color: string },
-    } satisfies ChartConfig;
-
-  **/
-  const chartConfig = dataKeys.reduce(
-    (acc, key) => {
-      acc[key] = {
-        label: frequencyRankLabels[freqKeyMap[key]],
-        color: colorMap[key],
-      };
-      return acc;
-    },
-    {} as Record<string, { label: string; color: string }>
-  );
-  return { chartData, chartConfig };
+  return { chartData, chartConfig: buildChartConfig(data) };
 };

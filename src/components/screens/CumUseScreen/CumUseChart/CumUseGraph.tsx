@@ -7,10 +7,8 @@ import {
 
 import { frequencyRankLabels } from "@/lib/label-maps";
 import { buildChartData, ChartData, colorMap, freqKeyMap } from "./helpers";
-import { KeyLegend } from "./KeyLegend";
-import CumUseChartWrapper from "./CumUseChartWrapper";
 
-const CumUseChartContent = ({ data }: { data: ChartData }) => {
+export const CumUseGraph = ({ data }: { data: ChartData }) => {
   const { chartData, chartConfig } = buildChartData(data);
 
   return (
@@ -65,21 +63,3 @@ const CumUseChartContent = ({ data }: { data: ChartData }) => {
     </ChartContainer>
   );
 };
-
-const CumUseChart = ({ data }: { data: ChartData }) => {
-  return (
-    <CumUseChartWrapper
-      legends={
-        <>
-          {Object.keys(data).map((key) => {
-            return <KeyLegend key={key} freqKey={key} />;
-          })}
-        </>
-      }
-    >
-      <CumUseChartContent data={data} />
-    </CumUseChartWrapper>
-  );
-};
-
-export default CumUseChart;
