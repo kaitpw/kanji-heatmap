@@ -11,6 +11,7 @@ node_modules
 dist
 DATA-SCRIPTS/generated/*
 !/DATA-SCRIPTS/generated/.keep
+DATA-SCRIPTS/__pycache__/*
 
 dist-ssr
 *.local
