@@ -54,8 +54,10 @@ const KanjiListRaw = ({
         itemCount={rows}
         itemSize={itemSize}
         renderItem={({ index: rowIndex, style }) => {
-          const items = rowIndex < rows - 1 ? cols : kanjiKeys.length % cols;
-
+          const items =
+            rowIndex < rows - 1 || kanjiKeys.length % cols === 0
+              ? cols
+              : kanjiKeys.length % cols;
           return (
             <div
               key={rowIndex}
@@ -65,7 +67,6 @@ const KanjiListRaw = ({
               {new Array(items).fill(null).map((_, colIndex: number) => {
                 const index = cols * rowIndex + colIndex;
                 const key = kanjiKeys[index];
-
                 return (
                   <HoverKanji
                     key={key}
