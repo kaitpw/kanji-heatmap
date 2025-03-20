@@ -18,6 +18,7 @@ export function ModeToggle() {
 
   return (
     <DropdownMenu
+      modal={false}
       open={isOpen}
       onOpenChange={(newState) => {
         setIsOpen(newState);
