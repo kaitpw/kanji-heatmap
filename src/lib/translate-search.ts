@@ -1,4 +1,4 @@
-import * as wanakana from "wanakana";
+import wanakana from "@/lib/wanakana-adapter";
 import { SearchType } from "@/lib/settings";
 
 export type TranslateType = "romaji" | "hiragana" | "katakana" | "kana";

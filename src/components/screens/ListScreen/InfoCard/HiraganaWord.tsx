@@ -1,5 +1,5 @@
-import * as wanakana from "wanakana";
 import { useState } from "react";
+import wanakana from "@/lib/wanakana-adapter";
 import { Button } from "@/components/ui/button";
 import { SpanBadge } from "@/components/ui/badge";
 import { badgeCn } from "@/components/ui/badge-utils";

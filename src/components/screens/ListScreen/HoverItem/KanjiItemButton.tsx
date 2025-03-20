@@ -1,5 +1,5 @@
-import * as wanakana from "wanakana";
 import { forwardRef } from "react";
+import wanakana from "@/lib/wanakana-adapter";
 import { JLPTListItems } from "@/lib/jlpt";
 import { freqCategoryCn, getFreqCategory } from "@/lib/freq-category";
 import { freqMap } from "@/lib/label-maps";
