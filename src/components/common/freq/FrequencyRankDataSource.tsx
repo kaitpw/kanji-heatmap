@@ -1,9 +1,10 @@
 import BasicSelect from "@/components/common/BasicSelect";
 import { FREQUENCY_RANK_FILTER_OPTIONS } from "@/lib/sort-freq-select-options";
-import { FreqRankTypeInfo } from "./FreqRankTypeInfo";
-import { Combobox } from "./Combobox";
-import { FrequencyType } from "@/lib/sort-freq-types";
 import { FREQ_RANK_SOURCES_INFO, rankTypeLabel } from "@/lib/freq-source-info";
+import { FrequencyType } from "@/lib/sort-freq-types";
+
+import { Combobox } from "../Combobox";
+import { FreqRankTypeInfo } from "./FreqRankTypeInfo";
 
 export function FrequencyRankDataSource({
   value,

@@ -1,20 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { FilterSectionLayout } from "./FilterContent/FilterContentLayout";
-import { FrequencyRankDataSource } from "../../../../common/FrequencyRankDataSource";
-import { JLPTSelector } from "./FilterContent/JLPTSelector";
+import { FilterSectionLayout } from "./FilterContentLayout";
+import { FrequencyRankDataSource } from "../../../../common/freq/FrequencyRankDataSource";
+import { JLPTSelector } from "../../../../common/jlpt/JLPTSelector";
 import { SORT_ORDER_SELECT } from "@/lib/sort-freq-select-options";
-import {
-  SortAdditionalInfo,
-  SortOrderSectionLayout,
-} from "./SortContent/SortOrderLayout";
+import { SortAdditionalInfo, SortOrderSectionLayout } from "./SortOrderLayout";
 import BasicSelect from "@/components/common/BasicSelect";
 import { MAX_FREQ_RANK, MAX_STROKE_COUNT } from "@/lib/constants";
-import { FrequencyRankingRangeField } from "./FilterContent/FrequencyRankingRangeField";
-import { StrokeCountField } from "./FilterContent/StrokeCountField";
+import { FrequencyRankingRangeField } from "../../../../common/freq/FrequencyRankingRangeField";
+import { StrokeCountField } from "../../../../common/StrokeCountField";
 import { FilterSettings, SearchSettings, SortSettings } from "@/lib/settings";
 import { isEqualFilters } from "./helpers";
-import { FreqRankTypeInfo } from "@/components/common/FreqRankTypeInfo";
+import { FreqRankTypeInfo } from "@/components/common/freq/FreqRankTypeInfo";
 import { ItemCount } from "./ItemCount";
 import { FrequencyType, GROUP_OPTIONS, SortKey } from "@/lib/sort-freq-types";
 

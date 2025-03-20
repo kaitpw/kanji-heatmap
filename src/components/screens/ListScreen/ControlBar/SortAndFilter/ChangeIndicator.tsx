@@ -5,7 +5,7 @@ export const ChangedIndicator = () => {
   const data = useKanjiSearchResult();
 
   if (data.data == null || data.data.length >= KANJI_COUNT) {
-    return <></>;
+    return null;
   }
 
   return (

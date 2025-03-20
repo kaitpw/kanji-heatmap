@@ -1,7 +1,7 @@
+import { ReactNode } from "react";
 import { GenericPopover } from "@/components/common/GenericPopover";
 import { getFreqCnByRank } from "@/lib/freq-category";
-import { ReactNode } from "react";
-import { badgeCnOutline } from "../ui/badge-utils";
+import { badgeCnOutline } from "../../ui/badge-utils";
 
 export const FrequencyBadge = ({
   text,
@@ -13,7 +13,7 @@ export const FrequencyBadge = ({
   content: ReactNode;
 }) => {
   if (rank == null || rank < 1) {
-    return <></>;
+    return null;
   }
 
   return (

@@ -1,4 +1,4 @@
-import ErrorBoundary from "@/components/common/ErrorBoundary";
+import ErrorBoundary from "@/components/sections/error/ErrorBoundary";
 import { KanjiCard } from "./KanjiCard";
 import { SmallKanjiCard } from "./SmallCard";
 

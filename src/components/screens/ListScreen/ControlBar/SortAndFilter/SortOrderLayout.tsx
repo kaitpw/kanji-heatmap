@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { Badge } from "@/components/ui/badge";
 import { ArrowDownWideNarrow } from "lucide-react";
 import { SORT_OPTION_LABELS } from "@/lib/sort-freq-select-options";
-import { UppercaseHeading } from "../UpperCaseHeading";
+import { UppercaseHeading } from "../../../../common/UpperCaseHeading";
 import { SortKey } from "@/lib/sort-freq-types";
 
 export const SortAdditionalInfo = ({

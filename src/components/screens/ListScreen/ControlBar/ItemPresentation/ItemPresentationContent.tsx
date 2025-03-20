@@ -1,27 +1,57 @@
 import { Separator } from "@/components/ui/separator";
 import { ReactNode, useState } from "react";
-import { JLPTBordersMeanings } from "./jlpt";
-import { BackgroundColorGradient } from "./freq";
-
-import { ItemTypeSwitch } from "./ItemTypeSwitch";
 import { LabeledCheckbox } from "@/components/common/LabeledCheckbox";
-import { FrequencyRankDataSource } from "@/components/common/FrequencyRankDataSource";
+import { FrequencyRankDataSource } from "@/components/common/freq/FrequencyRankDataSource";
 import { FrequencyType } from "@/lib/sort-freq-types";
 import {
   useItemSettings,
   useItemSettingsDispatch,
 } from "@/providers/item-settings-hooks";
+import { FreqGradient } from "@/components/common/freq/FreqGradient";
+import { ItemTypeSwitch } from "@/components/common/ItemTypeSwitch";
+import { JLPTBordersMeanings } from "@/components/common/jlpt/JLPTBorderMeanings";
 
 export const H2 = ({ children }: { children: ReactNode }) => (
   <h2 className="font-bold border-b-2 border-dotted mt-4 mb-2">{children}</h2>
 );
 
+const BackgroundColorSection = ({
+  initialState,
+  onFalse,
+  children,
+}: {
+  initialState: boolean;
+  onFalse: () => void;
+  children: ReactNode;
+}) => {
+  const [shouldAttachMeaning, setShouldAttachMeaning] = useState(initialState);
+
+  return (
+    <>
+      <H2>Background Color Meaning</H2>
+      <LabeledCheckbox
+        label="Attach Background Color Meaning"
+        value={shouldAttachMeaning}
+        onChange={(v) => {
+          if (v === false) {
+            onFalse();
+          }
+          setShouldAttachMeaning(v);
+        }}
+      />
+      {shouldAttachMeaning && (
+        <>
+          <FreqGradient />
+          {children}
+        </>
+      )}
+    </>
+  );
+};
+
 export const ItemPresentationSettingsContent = () => {
   const cardState = useItemSettings();
   const dispatch = useItemSettingsDispatch();
-  const [shouldAttachMeaning, setShouldAttachMeaning] = useState(
-    cardState.backgroundColorSettingDataSource !== "none"
-  );
 
   return (
     <article className="text-left">
@@ -45,28 +75,19 @@ export const ItemPresentationSettingsContent = () => {
         }}
       />
       {cardState.borderColorAttached && <JLPTBordersMeanings />}
-      <H2>Background Color Meaning</H2>
-      <LabeledCheckbox
-        label="Attach Background Color Meaning"
-        value={shouldAttachMeaning}
-        onChange={(v) => {
-          if (v === false) {
-            dispatch("backgroundColorSettingDataSource", "none");
-          }
-          setShouldAttachMeaning(v);
+      <BackgroundColorSection
+        onFalse={() => {
+          dispatch("backgroundColorSettingDataSource", "none");
         }}
-      />
-      {shouldAttachMeaning && (
-        <>
-          <BackgroundColorGradient />
-          <FrequencyRankDataSource
-            value={cardState.backgroundColorSettingDataSource}
-            setValue={(v) => {
-              dispatch("backgroundColorSettingDataSource", v as FrequencyType);
-            }}
-          />
-        </>
-      )}
+        initialState={cardState.backgroundColorSettingDataSource !== "none"}
+      >
+        <FrequencyRankDataSource
+          value={cardState.backgroundColorSettingDataSource}
+          setValue={(v) => {
+            dispatch("backgroundColorSettingDataSource", v as FrequencyType);
+          }}
+        />
+      </BackgroundColorSection>
     </article>
   );
 };

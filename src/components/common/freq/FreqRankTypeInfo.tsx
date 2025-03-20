@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { ExternalTextLink } from "./ExternalTextLink";
+import { ExternalTextLink } from "../ExternalTextLink";
 import { FrequencyType, SortKey } from "@/lib/sort-freq-types";
 import { FREQ_RANK_SOURCES_INFO, rankTypeLabel } from "@/lib/freq-source-info";
 

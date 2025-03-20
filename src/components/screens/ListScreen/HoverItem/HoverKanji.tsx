@@ -1,10 +1,10 @@
+import React, { useCallback } from "react";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
   HoverCardArrow,
 } from "@/components/ui/hover-card";
-import React, { useCallback } from "react";
 import { ResponsiveKanjiCard } from "../InfoCard";
 import { KanjiItemButton } from "./KanjiItemButton";
 import { useIsTouchDevice } from "@/hooks/use-is-touch-device";

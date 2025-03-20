@@ -2,7 +2,7 @@ import { frequencyRankLabels } from "@/lib/label-maps";
 import { GenericPopover } from "@/components/common/GenericPopover";
 import { badgeCnOutline } from "@/components/ui/badge-utils";
 import { cnSquare } from "@/lib/generic-cn";
-import { FreqRankTypeInfo } from "@/components/common/FreqRankTypeInfo";
+import { FreqRankTypeInfo } from "@/components/common/freq/FreqRankTypeInfo";
 import { inverseFreqMap } from "@/lib/freq-rank-map";
 import { colorMap, freqKeyMap } from "./helpers";
 

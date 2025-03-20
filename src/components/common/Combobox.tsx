@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { CheckCircle, ChevronsUpDown } from "lucide-react";
-
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,37 +18,10 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-const frameworks: { value: string; label: string }[] = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
-] as const;
-
 export function Combobox<T>({
   value,
   setValue,
-  options = frameworks as unknown as {
-    value: T;
-    label: string;
-    description?: string;
-  }[],
+  options,
   emptyMsg = "No match found.",
   searchMsg = "Search..",
 }: {

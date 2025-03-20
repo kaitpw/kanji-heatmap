@@ -3,7 +3,7 @@ import { ItemPresentationSettingsContent } from "./ItemPresentation/ItemPresenta
 import { SettledSearchInput } from "./SearchInput/SettledSearchInput";
 import { SettledSortAndFilter } from "./SortAndFilter/SettledSortAndFilter";
 import React from "react";
-import ErrorBoundary from "@/components/common/ErrorBoundary";
+import ErrorBoundary from "@/components/sections/error/ErrorBoundary";
 import { ReportBugIconBtn } from "@/components/common/LinkOutSection";
 import { ItemCountBadge } from "./SearchInput/ItemCountBadge";
 

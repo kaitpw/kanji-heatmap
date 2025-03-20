@@ -2,9 +2,9 @@ import { Badge } from "@/components/ui/badge";
 
 import { HoverItemReturnData } from "@/lib/kanji-info-types";
 import { FrequencyBadges } from "./FrequencyBadges";
-import { JLPTBadge } from "@/components/common/JLPTBadge";
-import { BasicLoading } from "@/components/common/BasicLoading/BasicLoading";
-import { DefaultErrorFallback } from "@/components/common/DefaultErrorFallback";
+import { JLPTBadge } from "@/components/common/jlpt/JLPTBadge";
+import { BasicLoading } from "@/components/common/BasicLoading";
+import { DefaultErrorFallback } from "@/components/sections/error/DefaultErrorFallback";
 import {
   useIsKanjiWorkerReady,
   useKanjiInfo,

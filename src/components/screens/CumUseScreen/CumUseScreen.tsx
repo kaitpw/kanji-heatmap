@@ -1,6 +1,6 @@
 import { useJsonFetch } from "@/hooks/use-json";
-import { BasicLoading } from "@/components/common/BasicLoading/BasicLoading";
-import { DefaultErrorFallback } from "@/components/common/DefaultErrorFallback";
+import { BasicLoading } from "@/components/common/BasicLoading";
+import { DefaultErrorFallback } from "@/components/sections/error/DefaultErrorFallback";
 import CumUseChartWrapper from "./CumUseChart/CumUseChartWrapper";
 import { KeyLegend } from "./CumUseChart/KeyLegend";
 import { CumUseGraph } from "./CumUseChart/CumUseGraph";

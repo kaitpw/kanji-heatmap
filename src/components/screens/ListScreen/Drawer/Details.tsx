@@ -4,10 +4,10 @@ import { LinksOutItems } from "@/components/common/LinkOutSection";
 import ChangeFontButton from "@/components/common/ChangeFontButton";
 import { General } from "./General";
 import { FrequencyInfo } from "./FrequencyInfo";
-import { DefaultErrorFallback } from "@/components/common/DefaultErrorFallback";
-import { BasicLoading } from "@/components/common/BasicLoading/BasicLoading";
+import { DefaultErrorFallback } from "@/components/sections/error/DefaultErrorFallback";
+import { BasicLoading } from "@/components/common/BasicLoading";
 import { useGetKanjiInfoFn } from "@/kanji-worker/kanji-worker-hooks";
-import ErrorBoundary from "@/components/common/ErrorBoundary";
+import ErrorBoundary from "@/components/sections/error/ErrorBoundary";
 
 const StrokeAnimation = lazy(() => import("./StrokeAnimation"));
 

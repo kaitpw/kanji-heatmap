@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -12,12 +12,10 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { Settings2 } from "lucide-react";
-import { useState } from "react";
 import { SortAndFilterSettingsForm } from "./SortAndFilterForm";
 import { SearchSettings } from "@/lib/settings";
-import { ChangedIndicator } from "./SortContent/ChangeIndicator";
-import ErrorBoundary from "@/components/common/ErrorBoundary";
+import ErrorBoundary from "@/components/sections/error/ErrorBoundary";
+import { SortAndFilterButton } from "./SortAndFilterButton";
 
 export const SortAndFilterSettingsDialog = ({
   initialValue,
@@ -33,18 +31,11 @@ export const SortAndFilterSettingsDialog = ({
       <HoverCard openDelay={0} closeDelay={0}>
         <HoverCardTrigger asChild>
           <DialogTrigger asChild>
-            <Button
-              variant="outline"
-              size="icon"
-              className="h-9 w-9 relative"
+            <SortAndFilterButton
               onClick={() => {
                 setIsOpen(true);
               }}
-            >
-              <Settings2 />
-              <span className="sr-only">Sort and Filter Settings</span>
-              <ChangedIndicator />
-            </Button>
+            />
           </DialogTrigger>
         </HoverCardTrigger>
         <HoverCardContent className="p-2 w-24 text-xs z-50 rounded-md border bg-popover text-popover-foreground shadow-md outline-none">

@@ -5,7 +5,7 @@ import { InfoIcon } from "lucide-react";
 import { GenericPopover } from "@/components/common/GenericPopover";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 
-import { FreqRankTypeInfo } from "@/components/common/FreqRankTypeInfo";
+import { FreqRankTypeInfo } from "@/components/common/freq/FreqRankTypeInfo";
 import { getFreqCnByRank } from "@/lib/freq-category";
 import {
   frequencyRankLabels,

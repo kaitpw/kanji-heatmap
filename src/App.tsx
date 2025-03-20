@@ -1,55 +1,24 @@
 import "./JFonts.css";
 import { Route, Switch, useLocation } from "wouter";
 
-import {
-  ListScreen,
-  CumUseScreen,
-  DocsScreen,
-  AboutScreen,
-} from "@/components/screens";
-import { NavigationListItem, NavLayout } from "@/components/common/nav";
-import Header from "@/components/common/Header";
+import Header from "@/components/sections/Header";
 import { ThemeProvider } from "@/providers/theme-provider";
 import React from "react";
 import { KanjiFunctionalityProvider } from "./providers/kanji-functionality-provider";
-import ErrorBoundary from "./components/common/ErrorBoundary";
-import {
-  DefaultErrorFallback,
-  PageNotFound,
-} from "./components/common/DefaultErrorFallback";
+import ErrorBoundary from "./components/sections/error/ErrorBoundary";
+import { DefaultErrorFallback } from "./components/sections/error/DefaultErrorFallback";
+import pageItems from "./components/items/page-items";
 import { ExternalTextLink } from "./components/common/ExternalTextLink";
+import { PageNotFound } from "./components/sections/error/PageNotFound";
+import { Nav } from "./components/sections/NavItem";
 
 const LazyBottomBanner = React.lazy(
-  () => import("./components/common/BottomBanner")
+  () => import("./components/sections/BottomBanner")
 );
 
-const kanjiPage = {
-  href: "/",
-  title: "Kanji Grid",
-  component: ListScreen,
-  description: "Quickly sort, filter and search Kanjis",
-};
+const { kanjiPage, cumUseGraphPage, aboutPage, docsPage } = pageItems;
 
-const cumUseGraphPage = {
-  href: "/cum-use-graph",
-  title: "Cumulative Use Graph",
-  description: "Inspect Frequency Ranks vs Use trend across various datasets",
-  component: CumUseScreen,
-};
-
-const docsPage = {
-  href: "/docs",
-  title: "Docs",
-  component: DocsScreen,
-};
-
-const aboutPage = {
-  href: "/about",
-  title: "About",
-  component: AboutScreen,
-};
-
-export const Nav = () => {
+export const NavBar = () => {
   const [location] = useLocation();
 
   const triggerTitle =
@@ -57,25 +26,23 @@ export const Nav = () => {
       ?.title ?? "Menu";
 
   return (
-    <NavLayout triggerTitle={triggerTitle}>
-      <NavigationListItem href={kanjiPage.href} title={kanjiPage.title}>
-        {kanjiPage.description}
-      </NavigationListItem>
-      <NavigationListItem
-        href={cumUseGraphPage.href}
-        title={cumUseGraphPage.title}
-      >
-        {cumUseGraphPage.description}
-      </NavigationListItem>
-      <div className="flex justify-center text-xs w-full py-1 border-t border-dotted">
-        <ExternalTextLink href={`${aboutPage.href}`} text="About" />
-        <ExternalTextLink
-          href={`${docsPage.href}#privacy`}
-          text="Privacy Policy"
-        />
-        <ExternalTextLink href={`${docsPage.href}#terms`} text="Terms of Use" />
-      </div>
-    </NavLayout>
+    <Nav
+      triggerTitle={triggerTitle}
+      navItems={[kanjiPage, cumUseGraphPage]}
+      footer={
+        <>
+          <ExternalTextLink href={`${aboutPage.href}`} text="About" />
+          <ExternalTextLink
+            href={`${docsPage.href}#privacy`}
+            text="Privacy Policy"
+          />
+          <ExternalTextLink
+            href={`${docsPage.href}#terms`}
+            text="Terms of Use"
+          />
+        </>
+      }
+    />
   );
 };
 
@@ -90,7 +57,7 @@ const App = () => {
       }
     >
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <Header nav={<Nav />} />
+        <Header nav={<NavBar />} />
         <main>
           <ErrorBoundary
             details="App"
@@ -104,12 +71,12 @@ const App = () => {
               <Switch>
                 <Route
                   path={cumUseGraphPage.href}
-                  component={cumUseGraphPage.component}
+                  component={cumUseGraphPage.Component}
                 />
-                <Route path={kanjiPage.href} component={kanjiPage.component} />
-                <Route path={aboutPage.href} component={aboutPage.component} />
+                <Route path={kanjiPage.href} component={kanjiPage.Component} />
+                <Route path={aboutPage.href} component={aboutPage.Component} />
                 <Route path={docsPage.href}>
-                  <DocsScreen />
+                  <pageItems.docsPage.Component />
                 </Route>
                 <Route path="*">
                   <div className="w-full pr-4 mt-14">

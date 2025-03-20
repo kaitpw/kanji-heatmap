@@ -1,6 +1,5 @@
-import { BugIcon, EllipsisIcon } from "lucide-react";
+import { EllipsisIcon } from "lucide-react";
 import LinkOutIcon from "./LinkOutIcon";
-import { KoFiIcon } from "../icons";
 import { ModeToggle } from "../ui/mode-toggle";
 import {
   DropdownMenu,
@@ -8,35 +7,10 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
-import { ReactNode } from "react";
-import { outLinks } from "@/lib/constants";
-import DiscordIcon from "../icons/DiscordIcon";
-
-const bugItem = {
-  href: outLinks.githubIssue,
-  text: "Report bug on Github issues",
-  icon: <BugIcon />,
-};
-
-const discordItem = {
-  href: outLinks.discord,
-  text: "Join our Discord server",
-  icon: <DiscordIcon />,
-};
-
-const kofiItem = {
-  href: outLinks.koFi,
-  text: "Donate on Ko-Fi",
-  icon: <KoFiIcon />,
-};
-const linkOutItems: {
-  href: string;
-  text: string;
-  icon: ReactNode;
-}[] = [bugItem, kofiItem, discordItem];
+import { linksOutItems } from "../items/links-out-items";
 
 export const ReportBugIconBtn = ({ cnOverride }: { cnOverride?: string }) => {
-  const item = bugItem;
+  const item = linksOutItems.bugItem;
   return (
     <LinkOutIcon
       key={item.href}
@@ -52,7 +26,7 @@ export const ReportBugIconBtn = ({ cnOverride }: { cnOverride?: string }) => {
 export const LinksOutItems = () => {
   return (
     <>
-      {linkOutItems.map((item) => {
+      {Object.values(linksOutItems).map((item) => {
         return (
           <LinkOutIcon
             key={item.href}

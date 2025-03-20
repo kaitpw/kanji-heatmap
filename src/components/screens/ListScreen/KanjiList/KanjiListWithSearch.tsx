@@ -1,7 +1,7 @@
 import { useDeferredItemSettings } from "@/providers/item-settings-hooks";
 import LoadingKanjis from "./LoadingKanjis";
 import { VirtualKanjiList } from "./VirtualKanjiList";
-import { DefaultErrorFallback } from "@/components/common/DefaultErrorFallback";
+import { DefaultErrorFallback } from "@/components/sections/error/DefaultErrorFallback";
 import { useKanjiSearchResult } from "@/kanji-worker/kanji-worker-hooks";
 
 const KanjiListWithSearch = () => {
