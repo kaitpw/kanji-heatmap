@@ -5,8 +5,7 @@ import {
   useIsKanjiWorkerReady,
 } from "@/kanji-worker/kanji-worker-hooks";
 
-import ErrorBoundary from "@/components/error/ErrorBoundary";
-import { KanjiNotFound } from "@/components/error/KanjiNotFound";
+import { ErrorBoundary, KanjiNotFound } from "@/components/error";
 
 import { BasicLoading } from "@/components/common/BasicLoading";
 

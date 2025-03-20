@@ -2,13 +2,12 @@ import React from "react";
 
 import { ReportBugIconBtn } from "@/components/common/ReportBugIconBtn";
 
-import ErrorBoundary from "@/components/error/ErrorBoundary";
-
 import ItemPresentationSettingsPopover from "./ItemPresentation/ItemPresentationPopover";
 import { ItemPresentationSettingsContent } from "./ItemPresentation/ItemPresentationContent";
 import { SettledSearchInput } from "./SearchInput/SettledSearchInput";
 import { SettledSortAndFilter } from "./SortAndFilter/SettledSortAndFilter";
 import { ItemCountBadge } from "./SearchInput/ItemCountBadge";
+import { ErrorBoundary } from "@/components/error";
 
 export const ControlBarRaw = () => {
   return (

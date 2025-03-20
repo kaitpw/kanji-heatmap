@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { ReactNode } from "react";
-import ErrorBoundary from "../error/ErrorBoundary";
+import { ErrorBoundary } from "../error";
 
 import ChangeFontButton from "../common/ChangeFontButton";
 import LinkOutSection from "../common/LinkOutSection";

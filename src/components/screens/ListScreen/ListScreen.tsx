@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { useIsKanjiWorkerReady } from "@/kanji-worker/kanji-worker-hooks";
+import { ErrorBoundary } from "@/components/error";
 
-import ErrorBoundary from "@/components/error/ErrorBoundary";
 import { ControlBar } from "./ControlBar/";
 import LoadingKanjis from "./KanjiList/LoadingKanjis";
 

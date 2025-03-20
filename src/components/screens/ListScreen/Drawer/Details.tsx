@@ -1,8 +1,7 @@
 import { lazy, Suspense } from "react";
 import { useGetKanjiInfoFn } from "@/kanji-worker/kanji-worker-hooks";
 
-import { DefaultErrorFallback } from "@/components/error/DefaultErrorFallback";
-import ErrorBoundary from "@/components/error/ErrorBoundary";
+import { DefaultErrorFallback, ErrorBoundary } from "@/components/error";
 
 import SimpleAccordion from "@/components/common/SimpleAccordion";
 import ChangeFontButton from "@/components/common/ChangeFontButton";

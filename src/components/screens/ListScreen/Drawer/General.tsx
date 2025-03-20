@@ -1,7 +1,7 @@
 import { GeneralKanjiItem } from "@/lib/kanji-info-types";
 import { useKanjiInfo } from "@/kanji-worker/kanji-worker-hooks";
 
-import { DefaultErrorFallback } from "@/components/error/DefaultErrorFallback";
+import { DefaultErrorFallback } from "@/components/error";
 
 import { Separator } from "@/components/ui/separator";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";

@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 import { KanjiWorkerProvider } from "@/kanji-worker/kanji-worker-provider";
-import { DefaultErrorFallback } from "@/components/error/DefaultErrorFallback";
+import { DefaultErrorFallback } from "@/components/error";
 
 import { SearchSettingsProvider } from "./search-settings-provider";
 import { ItemSettingsProvider } from "./item-settings-provider";

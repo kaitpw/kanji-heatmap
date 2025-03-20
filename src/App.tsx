@@ -5,17 +5,18 @@ import React from "react";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { KanjiFunctionalityProvider } from "./providers/kanji-functionality-provider";
 
-import ErrorBoundary from "./components/error/ErrorBoundary";
-import { DefaultErrorFallback } from "./components/error/DefaultErrorFallback";
-import { PageNotFound } from "./components/error/PageNotFound";
-
-import Header from "@/components/sections/Header";
+import {
+  ErrorBoundary,
+  PageNotFound,
+  DefaultErrorFallback,
+} from "./components/error";
+import { Header, Nav } from "@/components/site-layout/";
 import pageItems from "@/components/items/page-items";
+
 import { ExternalTextLink } from "@/components/common/ExternalTextLink";
-import { Nav } from "./components/sections/NavItem";
 
 const LazyBottomBanner = React.lazy(
-  () => import("./components/sections/BottomBanner")
+  () => import("./components/site-layout/BottomBanner")
 );
 
 const { kanjiPage, cumUseGraphPage, aboutPage, docsPage } = pageItems;

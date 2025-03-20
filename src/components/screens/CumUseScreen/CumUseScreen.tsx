@@ -1,10 +1,10 @@
 import { useJsonFetch } from "@/hooks/use-json";
-import { DefaultErrorFallback } from "@/components/error/DefaultErrorFallback";
 import { BasicLoading } from "@/components/common/BasicLoading";
 import CumUseChartWrapper from "./CumUseChart/CumUseChartWrapper";
 import { KeyLegend } from "./CumUseChart/KeyLegend";
 import { CumUseGraph } from "./CumUseChart/CumUseGraph";
 import { ChartData } from "./CumUseChart/helpers";
+import { DefaultErrorFallback } from "@/components/error";
 
 const CumUseScreen = () => {
   const { data, status } = useJsonFetch("json/cum_use.json");

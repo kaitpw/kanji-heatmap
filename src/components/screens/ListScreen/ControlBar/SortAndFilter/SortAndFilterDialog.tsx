@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SearchSettings } from "@/lib/settings";
-import ErrorBoundary from "@/components/error/ErrorBoundary";
+import { ErrorBoundary } from "@/components/error";
 import {
   Dialog,
   DialogContent,

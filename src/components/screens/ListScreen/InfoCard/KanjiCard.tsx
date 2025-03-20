@@ -4,7 +4,7 @@ import {
   useKanjiInfo,
 } from "@/kanji-worker/kanji-worker-hooks";
 
-import { DefaultErrorFallback } from "@/components/error/DefaultErrorFallback";
+import { DefaultErrorFallback } from "@/components/error";
 
 import { BasicLoading } from "@/components/common/BasicLoading";
 import { JLPTBadge } from "@/components/common/jlpt/JLPTBadge";
