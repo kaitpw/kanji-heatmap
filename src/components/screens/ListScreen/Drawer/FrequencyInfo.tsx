@@ -1,17 +1,19 @@
 import { KanjiInfoFrequency } from "@/lib/kanji-worker-types";
 import { KANJI_COUNT } from "@/lib/constants";
-import { Progress } from "@/components/ui/progress";
-import { InfoIcon } from "lucide-react";
-import { GenericPopover } from "@/components/common/GenericPopover";
-import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-
-import { FreqRankTypeInfo } from "@/components/common/freq/FreqRankTypeInfo";
+import { inverseFreqMap } from "@/lib/freq-rank-map";
 import { getFreqCnByRank } from "@/lib/freq-category";
 import {
   frequencyRankLabels,
   frequencyRankNamesOrdered,
 } from "@/lib/label-maps";
-import { inverseFreqMap } from "@/lib/freq-rank-map";
+
+import { InfoIcon } from "@/components/icons";
+
+import { Progress } from "@/components/ui/progress";
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+
+import { GenericPopover } from "@/components/common/GenericPopover";
+import { FreqRankTypeInfo } from "@/components/common/freq/FreqRankTypeInfo";
 
 export const FrequencyInfo = ({
   freqRankInfo,

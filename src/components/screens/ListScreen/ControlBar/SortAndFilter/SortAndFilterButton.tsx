@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/button";
-import { Settings2 } from "lucide-react";
-import { useKanjiSearchResult } from "@/kanji-worker/kanji-worker-hooks";
-import { KANJI_COUNT } from "@/lib/constants";
 import { forwardRef } from "react";
+import { KANJI_COUNT } from "@/lib/constants";
+import { useKanjiSearchResult } from "@/kanji-worker/kanji-worker-hooks";
+import { Button } from "@/components/ui/button";
+import { Settings2 } from "@/components/icons";
 
-export const ChangedIndicator = () => {
+const ChangedIndicator = () => {
   const data = useKanjiSearchResult();
 
   if (data.data == null || data.data.length >= KANJI_COUNT) {

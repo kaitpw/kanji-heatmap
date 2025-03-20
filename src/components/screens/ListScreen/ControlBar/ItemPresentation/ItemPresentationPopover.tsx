@@ -1,3 +1,4 @@
+import { useState, ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 
 import {
@@ -5,8 +6,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Flower } from "lucide-react";
-import { useState, ReactNode } from "react";
+import { Flower } from "@/components/icons";
 
 const ItemPresentationSettingsPopover = ({
   children,

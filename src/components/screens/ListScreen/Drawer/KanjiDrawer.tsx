@@ -1,3 +1,12 @@
+import React, { ReactNode } from "react";
+
+import { X } from "@/components/icons";
+
+import {
+  useGetKanjiInfoFn,
+  useIsKanjiWorkerReady,
+} from "@/kanji-worker/kanji-worker-hooks";
+
 import {
   Drawer,
   DrawerClose,
@@ -6,17 +15,14 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
-import React, { ReactNode } from "react";
-import { X } from "lucide-react";
+
+import { BasicLoading } from "@/components/common/BasicLoading";
+
+import ErrorBoundary from "@/components/sections/error/ErrorBoundary";
+import { KanjiNotFound } from "@/components/sections/error/KanjiNotFound";
+
 import { KanjiCard } from "../InfoCard/KanjiCard";
 import { KanjiDetails } from "./Details";
-import ErrorBoundary from "@/components/sections/error/ErrorBoundary";
-import { BasicLoading } from "@/components/common/BasicLoading";
-import {
-  useGetKanjiInfoFn,
-  useIsKanjiWorkerReady,
-} from "@/kanji-worker/kanji-worker-hooks";
-import { KanjiNotFound } from "@/components/sections/error/KanjiNotFound";
 
 export const Layout = ({
   first,

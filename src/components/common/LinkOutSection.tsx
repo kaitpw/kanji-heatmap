@@ -1,5 +1,3 @@
-import { EllipsisIcon } from "lucide-react";
-import LinkOutIcon from "./LinkOutIcon";
 import { ModeToggle } from "../ui/mode-toggle";
 import {
   DropdownMenu,
@@ -8,6 +6,8 @@ import {
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
 import { linksOutItems } from "../items/links-out-items";
+import { EllipsisIcon } from "../icons";
+import LinkOutIcon from "./LinkOutIcon";
 
 export const ReportBugIconBtn = ({ cnOverride }: { cnOverride?: string }) => {
   const item = linksOutItems.bugItem;

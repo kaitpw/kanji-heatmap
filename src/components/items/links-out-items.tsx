@@ -1,7 +1,5 @@
-import { BugIcon } from "lucide-react";
-import { KoFiIcon } from "../icons";
 import { outLinks } from "@/lib/constants";
-import DiscordIcon from "../icons/DiscordIcon";
+import { BugIcon, KoFiIcon, DiscordIcon } from "../icons";
 
 const bugItem = {
   href: outLinks.githubIssue,

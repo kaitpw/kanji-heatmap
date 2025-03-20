@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { CheckCircle, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,6 +16,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { CheckCircle, ChevronsUpDown } from "../icons";
 
 export function Combobox<T>({
   value,

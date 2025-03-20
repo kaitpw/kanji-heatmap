@@ -1,6 +1,4 @@
-import { Search } from "lucide-react";
 import { useRef, useState } from "react";
-import BasicSelect from "@/components/common/BasicSelect";
 import { cn } from "@/lib/utils";
 import { SEARCH_TYPE_OPTIONS, SearchType } from "@/lib/settings";
 import {
@@ -8,6 +6,8 @@ import {
   translateMap,
   translateValue,
 } from "@/lib/translate-search";
+import { Search } from "@/components/icons";
+import BasicSelect from "@/components/common/BasicSelect";
 
 const INPUT_DEBOUNCE_TIME = 1000;
 

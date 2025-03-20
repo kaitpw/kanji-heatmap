@@ -1,17 +1,17 @@
-import { Separator } from "@/components/ui/separator";
 import { ReactNode, useState } from "react";
-import { LabeledCheckbox } from "@/components/common/LabeledCheckbox";
-import { FrequencyRankDataSource } from "@/components/common/freq/FrequencyRankDataSource";
 import { FrequencyType } from "@/lib/sort-freq-types";
 import {
   useItemSettings,
   useItemSettingsDispatch,
 } from "@/providers/item-settings-hooks";
+import { Separator } from "@/components/ui/separator";
+import { LabeledCheckbox } from "@/components/common/LabeledCheckbox";
+import { FrequencyRankDataSource } from "@/components/common/freq/FrequencyRankDataSource";
 import { FreqGradient } from "@/components/common/freq/FreqGradient";
 import { ItemTypeSwitch } from "@/components/common/ItemTypeSwitch";
 import { JLPTBordersMeanings } from "@/components/common/jlpt/JLPTBorderMeanings";
 
-export const H2 = ({ children }: { children: ReactNode }) => (
+const H2 = ({ children }: { children: ReactNode }) => (
   <h2 className="font-bold border-b-2 border-dotted mt-4 mb-2">{children}</h2>
 );
 

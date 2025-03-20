@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
-import { FilterX } from "lucide-react";
-import { UppercaseHeading } from "../../../../common/UpperCaseHeading";
+import { FilterX } from "@/components/icons";
+import { UppercaseHeading } from "@/components/common/UpperCaseHeading";
 
 export const FilterSectionLayout = ({
   jlptField,
