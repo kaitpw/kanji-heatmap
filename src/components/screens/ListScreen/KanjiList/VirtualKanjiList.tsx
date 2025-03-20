@@ -1,9 +1,10 @@
 import React, { useCallback, useState } from "react";
 import VirtualList from "react-tiny-virtual-list";
+
+import { useKanjiUrlState } from "@/components/dependent/routing/routing-hooks";
 import { HoverKanji } from "../../../sections/KanjiHoverItem";
 import { useVirtualListDims } from "./useVirtualDims";
 import { KanjiDrawer } from "../Drawer";
-import { useKanjiUrlState } from "@/components/routing-tools/hooks";
 
 const KanjiListRaw = ({
   kanjiKeys = [],

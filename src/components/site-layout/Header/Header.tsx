@@ -1,7 +1,7 @@
-import ChangeFontButton from "@/components/common/ChangeFontButton";
+import ChangeFontButton from "@/components/dependent/site-wide/ChangeFontButton";
 import { LinksOutItems } from "@/components/common/LinksOutItems";
 import { ErrorBoundary } from "@/components/error";
-import { GlobalHomeHeaderLink } from "@/components/routing-tools";
+import { GlobalHomeHeaderLink } from "@/components/dependent/routing";
 import { ReactNode } from "react";
 import HeaderIcons from "./HeaderIcons";
 

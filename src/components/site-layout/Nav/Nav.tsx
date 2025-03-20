@@ -7,7 +7,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { Link } from "@/components/routing-tools";
+import { Link } from "@/components/dependent/routing";
 
 export const NavLayout = ({
   triggerTitle,

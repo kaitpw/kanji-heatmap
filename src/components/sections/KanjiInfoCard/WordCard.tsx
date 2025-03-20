@@ -6,8 +6,9 @@ import { DottedSeparator } from "@/components/ui/dotted-separator";
 
 import { GenericPopover } from "@/components/common/GenericPopover";
 import { ExternalTextLink } from "@/components/common/ExternalTextLink";
-import { HiraganaWord } from "@/components/common/HiraganaWord";
-import { GlobalKanjiLink } from "@/components/routing-tools";
+
+import { GlobalKanjiLink } from "@/components/dependent/routing";
+import { HiraganaWord } from "@/components/dependent/kana/HiraganaWord";
 
 const SeeMoreDefinition = ({ definition }: { definition: string }) => {
   const [showMore, setShowMore] = useState(false);

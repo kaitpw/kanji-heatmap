@@ -4,9 +4,10 @@ import { useGetKanjiInfoFn } from "@/kanji-worker/kanji-worker-hooks";
 import { DefaultErrorFallback, ErrorBoundary } from "@/components/error";
 
 import SimpleAccordion from "@/components/common/SimpleAccordion";
-import ChangeFontButton from "@/components/common/ChangeFontButton";
 import { BasicLoading } from "@/components/common/BasicLoading";
 import { LinksOutItems } from "@/components/common/LinksOutItems";
+
+import ChangeFontButton from "@/components/dependent/site-wide/ChangeFontButton";
 
 import { FrequencyInfo } from "./FrequencyInfo";
 import { General } from "./General";

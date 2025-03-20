@@ -11,7 +11,7 @@ import { toSearchParams, toSearchSettings } from "@/lib/url-params-helpers";
 import {
   useSearchParams,
   useUrlLocation,
-} from "@/components/routing-tools/hooks";
+} from "@/components/dependent/routing/routing-hooks";
 import { searchSettings } from "./search-settings-hooks";
 
 const ALLOWED_LOCATIONS = ["/"];

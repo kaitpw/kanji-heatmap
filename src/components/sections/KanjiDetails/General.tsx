@@ -7,9 +7,10 @@ import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { DottedSeparator } from "@/components/ui/dotted-separator";
 
-import { RomajiBadge } from "@/components/common/RomajiBadge";
 import { BasicLoading } from "@/components/common/BasicLoading";
 import { ExternalKanjiLinks } from "@/components/common/ExternalKanjiLinks";
+
+import { RomajiBadge } from "@/components/dependent/kana/RomajiBadge";
 
 const hasData = (data?: number) => data != null && data !== -1;
 

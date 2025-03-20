@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { LinksOutItems } from "@/components/common/LinksOutItems";
-import { ModeToggle } from "@/components/common/ModeToggle";
+import { ModeToggle } from "@/components/dependent/site-wide/ModeToggle";
 import { EllipsisIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import {

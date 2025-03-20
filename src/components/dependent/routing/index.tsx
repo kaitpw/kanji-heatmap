@@ -1,7 +1,7 @@
 import { Link, Route, Switch } from "wouter";
 import { cnTextLink } from "@/lib/generic-cn";
 import { Badge } from "@/components/ui/badge";
-import { useKanjiFromUrl } from "./hooks";
+import { useKanjiFromUrl } from "./routing-hooks";
 
 export const GlobalHomeLink = () => {
   return (

@@ -12,7 +12,7 @@ import { FrequencyBadges } from "@/components/common/freq/FrequencyBadges";
 
 import { KanjiCardLayout } from "./CardLayout";
 import { WordCard } from "./WordCard";
-import { SingleKanjiPart } from "@/components/common/SingleKanjiPart";
+import { SingleKanjiPart } from "@/components/dependent/site-wide/SingleKanjiPart";
 
 const transformKanjiWordDetails = (
   kanji: string,

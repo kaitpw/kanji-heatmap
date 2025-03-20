@@ -3,8 +3,8 @@ import React from "react";
 
 import { ThemeProvider } from "@/providers/theme-provider";
 import { KanjiFunctionalityProvider } from "./providers/kanji-functionality-provider";
-import { useUrlLocation } from "./components/routing-tools/hooks";
-import { Route, Switch } from "./components/routing-tools";
+import { useUrlLocation } from "./components/dependent/routing/routing-hooks";
+import { Route, Switch } from "./components/dependent/routing";
 
 import {
   ErrorBoundary,
