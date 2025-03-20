@@ -3,7 +3,7 @@ import Raphael from "raphael";
 import "dmak";
 import { useEffect, useId, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Play } from "lucide-react";
+import { Play } from "@/components/icons";
 
 const SVG_SIZE = 280;
 const CONTAINER_CN = `flex w-full justify-center my-4 h-[${SVG_SIZE}px]`;
