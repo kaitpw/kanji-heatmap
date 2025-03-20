@@ -1,12 +1,13 @@
-import { ModeToggle } from "../../common/ModeToggle";
+import { useEffect, useState } from "react";
+import { LinksOutItems } from "@/components/common/LinksOutItems";
+import { ModeToggle } from "@/components/common/ModeToggle";
+import { EllipsisIcon } from "@/components/icons";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "../../ui/dropdown-menu";
-import { Button } from "../../ui/button";
-import { EllipsisIcon } from "../../icons";
-import { LinksOutItems } from "../../common/LinksOutItems";
+} from "@/components/ui/dropdown-menu";
 
 const MenuItems = () => {
   return (
@@ -18,8 +19,19 @@ const MenuItems = () => {
 };
 
 export function Menu({ cn }: { cn: string }) {
+  const [isOpen, setIsOpen] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsOpen(false);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false} open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild className={cn}>
         <Button variant="outline" size="icon" className="h-8 w-8">
           <EllipsisIcon />
