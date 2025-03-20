@@ -1,8 +1,10 @@
+import { ReactNode } from "react";
+
 import { KanjiWorkerProvider } from "@/kanji-worker/kanji-worker-provider";
+import { DefaultErrorFallback } from "@/components/error/DefaultErrorFallback";
+
 import { SearchSettingsProvider } from "./search-settings-provider";
 import { ItemSettingsProvider } from "./item-settings-provider";
-import { ReactNode } from "react";
-import { DefaultErrorFallback } from "@/components/sections/error/DefaultErrorFallback";
 
 export const KanjiFunctionalityProvider = ({
   children,

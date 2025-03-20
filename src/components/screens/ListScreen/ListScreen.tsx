@@ -1,10 +1,12 @@
-import { ControlBar } from "./ControlBar/";
-import { SuspendedKanjiList } from "./KanjiList";
-import LoadingKanjis from "./KanjiList/LoadingKanjis";
 import { ReactNode } from "react";
-import ErrorBoundary from "@/components/sections/error/ErrorBoundary";
 import { useIsKanjiWorkerReady } from "@/kanji-worker/kanji-worker-hooks";
+
+import ErrorBoundary from "@/components/error/ErrorBoundary";
+import { ControlBar } from "./ControlBar/";
+import LoadingKanjis from "./KanjiList/LoadingKanjis";
+
 import { LinksOutItems } from "@/components/common/LinksOutItems";
+import { SuspendedKanjiList } from "./KanjiList/LazyKanjiList";
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (

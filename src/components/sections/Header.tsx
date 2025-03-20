@@ -1,7 +1,8 @@
-import { ReactNode } from "react";
-import ChangeFontButton from "../common/ChangeFontButton";
-import ErrorBoundary from "./error/ErrorBoundary";
 import { Link } from "wouter";
+import { ReactNode } from "react";
+import ErrorBoundary from "../error/ErrorBoundary";
+
+import ChangeFontButton from "../common/ChangeFontButton";
 import LinkOutSection from "../common/LinkOutSection";
 import { LinksOutItems } from "../common/LinksOutItems";
 

@@ -1,13 +1,13 @@
 import { lazy, Suspense } from "react";
 import { useGetKanjiInfoFn } from "@/kanji-worker/kanji-worker-hooks";
 
+import { DefaultErrorFallback } from "@/components/error/DefaultErrorFallback";
+import ErrorBoundary from "@/components/error/ErrorBoundary";
+
 import SimpleAccordion from "@/components/common/SimpleAccordion";
 import ChangeFontButton from "@/components/common/ChangeFontButton";
 import { BasicLoading } from "@/components/common/BasicLoading";
 import { LinksOutItems } from "@/components/common/LinksOutItems";
-
-import { DefaultErrorFallback } from "@/components/sections/error/DefaultErrorFallback";
-import ErrorBoundary from "@/components/sections/error/ErrorBoundary";
 
 import { FrequencyInfo } from "./FrequencyInfo";
 import { General } from "./General";

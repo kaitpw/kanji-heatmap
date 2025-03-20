@@ -4,12 +4,13 @@ import {
   useKanjiInfo,
 } from "@/kanji-worker/kanji-worker-hooks";
 
+import { DefaultErrorFallback } from "@/components/error/DefaultErrorFallback";
+
 import { BasicLoading } from "@/components/common/BasicLoading";
 import { JLPTBadge } from "@/components/common/jlpt/JLPTBadge";
 import { SingleComponent } from "./SingleComponent";
 import { FrequencyBadges } from "./FrequencyBadges";
 import { KanjiCardLayout } from "./CardLayout";
-import { DefaultErrorFallback } from "@/components/sections/error/DefaultErrorFallback";
 import { WordCard } from "./WordCard";
 
 const transformKanjiWordDetails = (

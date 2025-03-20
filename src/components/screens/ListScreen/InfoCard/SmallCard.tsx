@@ -4,10 +4,11 @@ import {
   useKanjiInfo,
 } from "@/kanji-worker/kanji-worker-hooks";
 
+import { DefaultErrorFallback } from "@/components/error/DefaultErrorFallback";
+
 import { Badge } from "@/components/ui/badge";
 import { JLPTBadge } from "@/components/common/jlpt/JLPTBadge";
 import { BasicLoading } from "@/components/common/BasicLoading";
-import { DefaultErrorFallback } from "@/components/sections/error/DefaultErrorFallback";
 
 import { FrequencyBadges } from "./FrequencyBadges";
 

@@ -5,10 +5,10 @@ import {
   useIsKanjiWorkerReady,
 } from "@/kanji-worker/kanji-worker-hooks";
 
-import { BasicLoading } from "@/components/common/BasicLoading";
+import ErrorBoundary from "@/components/error/ErrorBoundary";
+import { KanjiNotFound } from "@/components/error/KanjiNotFound";
 
-import ErrorBoundary from "@/components/sections/error/ErrorBoundary";
-import { KanjiNotFound } from "@/components/sections/error/KanjiNotFound";
+import { BasicLoading } from "@/components/common/BasicLoading";
 
 import { KanjiCard } from "../InfoCard/KanjiCard";
 import { KanjiDetails } from "./Details";

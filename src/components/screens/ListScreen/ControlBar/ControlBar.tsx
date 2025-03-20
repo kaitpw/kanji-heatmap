@@ -2,7 +2,7 @@ import React from "react";
 
 import { ReportBugIconBtn } from "@/components/common/ReportBugIconBtn";
 
-import ErrorBoundary from "@/components/sections/error/ErrorBoundary";
+import ErrorBoundary from "@/components/error/ErrorBoundary";
 
 import ItemPresentationSettingsPopover from "./ItemPresentation/ItemPresentationPopover";
 import { ItemPresentationSettingsContent } from "./ItemPresentation/ItemPresentationContent";

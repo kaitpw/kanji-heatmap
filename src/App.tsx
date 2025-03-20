@@ -1,15 +1,17 @@
 import "./JFonts.css";
 import { Route, Switch, useLocation } from "wouter";
+import React from "react";
+
+import { ThemeProvider } from "@/providers/theme-provider";
+import { KanjiFunctionalityProvider } from "./providers/kanji-functionality-provider";
+
+import ErrorBoundary from "./components/error/ErrorBoundary";
+import { DefaultErrorFallback } from "./components/error/DefaultErrorFallback";
+import { PageNotFound } from "./components/error/PageNotFound";
 
 import Header from "@/components/sections/Header";
-import { ThemeProvider } from "@/providers/theme-provider";
-import React from "react";
-import { KanjiFunctionalityProvider } from "./providers/kanji-functionality-provider";
-import ErrorBoundary from "./components/sections/error/ErrorBoundary";
-import { DefaultErrorFallback } from "./components/sections/error/DefaultErrorFallback";
-import pageItems from "./components/items/page-items";
-import { ExternalTextLink } from "./components/common/ExternalTextLink";
-import { PageNotFound } from "./components/sections/error/PageNotFound";
+import pageItems from "@/components/items/page-items";
+import { ExternalTextLink } from "@/components/common/ExternalTextLink";
 import { Nav } from "./components/sections/NavItem";
 
 const LazyBottomBanner = React.lazy(
