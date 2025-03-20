@@ -17,7 +17,10 @@ import { FrequencyRankingRangeField } from "@/components/common/freq/FrequencyRa
 
 import { FilterSectionLayout } from "./FilterContentLayout";
 import { ItemCount } from "./ItemCount";
-import { SortAdditionalInfo, SortOrderSectionLayout } from "./SortOrderLayout";
+import {
+  SortAdditionalInfo,
+  SortOrderSectionLayout,
+} from "./SortOrderPresentation";
 
 export const SortAndFilterSettingsForm = ({
   initialValue,
