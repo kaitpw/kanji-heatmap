@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { SearchSettings } from "@/lib/settings";
 import {
   Dialog,
   DialogContent,
@@ -12,9 +13,8 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { SortAndFilterSettingsForm } from "./SortAndFilterForm";
-import { SearchSettings } from "@/lib/settings";
 import ErrorBoundary from "@/components/sections/error/ErrorBoundary";
+import { SortAndFilterSettingsForm } from "./SortAndFilterForm";
 import { SortAndFilterButton } from "./SortAndFilterButton";
 
 export const SortAndFilterSettingsDialog = ({

@@ -1,13 +1,16 @@
 import { lazy, Suspense } from "react";
+import { useGetKanjiInfoFn } from "@/kanji-worker/kanji-worker-hooks";
+
 import SimpleAccordion from "@/components/common/SimpleAccordion";
 import ChangeFontButton from "@/components/common/ChangeFontButton";
-import { General } from "./General";
-import { FrequencyInfo } from "./FrequencyInfo";
-import { DefaultErrorFallback } from "@/components/sections/error/DefaultErrorFallback";
 import { BasicLoading } from "@/components/common/BasicLoading";
-import { useGetKanjiInfoFn } from "@/kanji-worker/kanji-worker-hooks";
-import ErrorBoundary from "@/components/sections/error/ErrorBoundary";
 import { LinksOutItems } from "@/components/common/LinksOutItems";
+
+import { DefaultErrorFallback } from "@/components/sections/error/DefaultErrorFallback";
+import ErrorBoundary from "@/components/sections/error/ErrorBoundary";
+
+import { FrequencyInfo } from "./FrequencyInfo";
+import { General } from "./General";
 
 const StrokeAnimation = lazy(() => import("./StrokeAnimation"));
 

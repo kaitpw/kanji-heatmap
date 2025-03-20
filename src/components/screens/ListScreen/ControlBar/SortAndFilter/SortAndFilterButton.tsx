@@ -1,8 +1,8 @@
 import { forwardRef } from "react";
 import { KANJI_COUNT } from "@/lib/constants";
 import { useKanjiSearchResult } from "@/kanji-worker/kanji-worker-hooks";
-import { Button } from "@/components/ui/button";
 import { Settings2 } from "@/components/icons";
+import { Button } from "@/components/ui/button";
 
 const ChangedIndicator = () => {
   const data = useKanjiSearchResult();
