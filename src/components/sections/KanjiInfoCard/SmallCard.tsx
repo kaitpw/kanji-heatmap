@@ -29,9 +29,12 @@ export const SmallKanjiCard = ({ kanji }: { kanji: string }) => {
   const info = data.data as HoverItemReturnData;
 
   return (
-    <div className="flex flex-wrap items-center justify-center m-2">
-      <Badge className="text-nowrap m-1">{info.keyword.toUpperCase()}</Badge>
-      <JLPTBadge jlpt={info.jlpt} />
+    <div>
+      <div className="flex flex-wrap items-center justify-center mx-1">
+        <Badge className="text-nowrap m-1">{info.keyword.toUpperCase()}</Badge>
+        <JLPTBadge jlpt={info.jlpt} />
+      </div>
+      <div className="kanji-font text-8xl mb-4">{kanji}</div>
     </div>
   );
 };
