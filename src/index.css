@@ -19,14 +19,19 @@
   margin: 0;
   display: flex;
 
-  --scrollbar-bg: rgba(255, 255, 255, 0);
-  --thumb-bg: rgba(120, 120, 120, 0.4);
+  --scrollbar-bg: white;
+  --thumb-bg: rgba(0, 0, 0, 0.3);
   scrollbar-width: thin;
   scrollbar-color: var(--thumb-bg) var(--scrollbar-bg);
 
   margin: 0 auto;
   text-align: center;
   box-sizing: border-box;
+}
+
+.dark {
+  --scrollbar-bg: black;
+  --thumb-bg: rgba(255, 255, 255, 0.3);
 }
 
 ::-webkit-scrollbar {
