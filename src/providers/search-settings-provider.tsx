@@ -7,10 +7,12 @@ import {
   TextSearch,
 } from "@/lib/settings";
 import { URL_PARAMS } from "@/lib/constants";
-import { useSearchParams } from "wouter";
 import { toSearchParams, toSearchSettings } from "@/lib/url-params-helpers";
+import {
+  useSearchParams,
+  useUrlLocation,
+} from "@/components/routing-tools/hooks";
 import { searchSettings } from "./search-settings-hooks";
-import { useUrlLocation } from "@/components/routing-tools/hooks";
 
 const ALLOWED_LOCATIONS = ["/"];
 

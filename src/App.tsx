@@ -1,9 +1,10 @@
 import "./JFonts.css";
-import { Route, Switch } from "wouter";
 import React from "react";
 
 import { ThemeProvider } from "@/providers/theme-provider";
 import { KanjiFunctionalityProvider } from "./providers/kanji-functionality-provider";
+import { useUrlLocation } from "./components/routing-tools/hooks";
+import { Route, Switch } from "./components/routing-tools";
 
 import {
   ErrorBoundary,
@@ -14,7 +15,6 @@ import { Header, Nav } from "@/components/site-layout/";
 import pageItems from "@/components/items/page-items";
 
 import { ExternalTextLink } from "@/components/common/ExternalTextLink";
-import { useUrlLocation } from "./components/routing-tools/hooks";
 
 const LazyBottomBanner = React.lazy(
   () => import("./components/site-layout/BottomBanner")

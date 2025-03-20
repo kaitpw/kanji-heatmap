@@ -44,3 +44,5 @@ export const useUrlLocation = () => {
   const [location] = useLocation();
   return location;
 };
+
+export { useSearchParams };

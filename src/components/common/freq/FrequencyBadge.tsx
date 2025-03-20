@@ -21,7 +21,7 @@ export const FrequencyBadge = ({
       trigger={
         <button className={`${badgeCnOutline} text-nowrap py-1 m-1 text-xs`}>
           <span className={`block  h-3 w-3 ${getFreqCnByRank(rank)} mr-1`} />
-          <span className="font-normal mr-1">
+          <span className="font-normal mr-1 !text-xs">
             {text} {rank}
           </span>
         </button>

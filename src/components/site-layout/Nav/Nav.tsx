@@ -1,4 +1,3 @@
-import { Link } from "wouter";
 import { ReactNode } from "react";
 import {
   NavigationMenu,
@@ -8,6 +7,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import { Link } from "@/components/routing-tools";
 
 export const NavLayout = ({
   triggerTitle,

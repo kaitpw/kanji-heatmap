@@ -1,4 +1,4 @@
-import { Link } from "wouter";
+import { Link, Route, Switch } from "wouter";
 import { cnTextLink } from "@/lib/generic-cn";
 import { Badge } from "@/components/ui/badge";
 import { useKanjiFromUrl } from "./hooks";
@@ -35,3 +35,5 @@ export const GlobalKanjiLink = ({
 export const GlobalHomeHeaderLink = () => {
   return <Link to="/">Kanji Heatmap</Link>;
 };
+
+export { Route, Switch, Link };
