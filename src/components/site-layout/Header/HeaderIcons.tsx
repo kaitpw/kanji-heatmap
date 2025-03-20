@@ -1,12 +1,12 @@
-import { ModeToggle } from "../ui/mode-toggle";
+import { ModeToggle } from "../../common/ModeToggle";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { Button } from "../ui/button";
-import { EllipsisIcon } from "../icons";
-import { LinksOutItems } from "./LinksOutItems";
+} from "../../ui/dropdown-menu";
+import { Button } from "../../ui/button";
+import { EllipsisIcon } from "../../icons";
+import { LinksOutItems } from "../../common/LinksOutItems";
 
 const MenuItems = () => {
   return (
@@ -33,7 +33,7 @@ export function Menu({ cn }: { cn: string }) {
   );
 }
 
-const LinkOutSection = () => {
+const HeaderIcons = () => {
   return (
     <>
       <Menu cn="md:hidden" />
@@ -44,4 +44,4 @@ const LinkOutSection = () => {
   );
 };
 
-export default LinkOutSection;
+export default HeaderIcons;

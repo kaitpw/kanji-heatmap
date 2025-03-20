@@ -1,10 +1,9 @@
+import ChangeFontButton from "@/components/common/ChangeFontButton";
+import { LinksOutItems } from "@/components/common/LinksOutItems";
+import { ErrorBoundary } from "@/components/error";
+import { GlobalHomeHeaderLink } from "@/components/routing-tools";
 import { ReactNode } from "react";
-import { ErrorBoundary } from "../error";
-
-import ChangeFontButton from "../common/ChangeFontButton";
-import LinkOutSection from "../common/LinkOutSection";
-import { LinksOutItems } from "../common/LinksOutItems";
-import { GlobalHomeHeaderLink } from "../routing-tools";
+import HeaderIcons from "./HeaderIcons";
 
 const HeaderLayout = ({
   title,
@@ -36,7 +35,7 @@ const Header = ({ nav }: { nav: ReactNode }) => {
           <GlobalHomeHeaderLink />
         </h1>
       }
-      side={<LinkOutSection />}
+      side={<HeaderIcons />}
       main={
         <>
           <ErrorBoundary
