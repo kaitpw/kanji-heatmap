@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { vocabExternalLinks } from "@/lib/constants";
 
-import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
+import { DottedSeparator } from "@/components/ui/dotted-separator";
 
 import { GenericPopover } from "@/components/common/GenericPopover";
 import { ExternalTextLink } from "@/components/common/ExternalTextLink";
 import { HiraganaWord } from "@/components/common/HiraganaWord";
-
-import { KanjiLink } from "./KanjiLink";
+import { GlobalKanjiLink } from "@/components/routing-tools";
 
 const SeeMoreDefinition = ({ definition }: { definition: string }) => {
   const [showMore, setShowMore] = useState(false);
@@ -67,7 +66,7 @@ export const WordCard = ({
             <div className="flex p-1 flex-wrap justify-center">
               {wordKanjis.map((item, index) => {
                 return (
-                  <KanjiLink
+                  <GlobalKanjiLink
                     key={`${item.kanji}-${index}`}
                     keyword={item.keyword}
                     kanji={item.kanji}
@@ -75,9 +74,9 @@ export const WordCard = ({
                 );
               })}
             </div>
-            <Separator className="border-dotted border" />
+            <DottedSeparator />
             <SeeMoreDefinition definition={definition} />
-            <Separator className="border-dotted border" />
+            <DottedSeparator />
             <div className="text-xs p-2 flex flex-wrap justify-center">
               {vocabExternalLinks.map((item) => {
                 return (

@@ -1,5 +1,5 @@
 import "./JFonts.css";
-import { Route, Switch, useLocation } from "wouter";
+import { Route, Switch } from "wouter";
 import React from "react";
 
 import { ThemeProvider } from "@/providers/theme-provider";
@@ -14,6 +14,7 @@ import { Header, Nav } from "@/components/site-layout/";
 import pageItems from "@/components/items/page-items";
 
 import { ExternalTextLink } from "@/components/common/ExternalTextLink";
+import { useUrlLocation } from "./components/routing-tools/hooks";
 
 const LazyBottomBanner = React.lazy(
   () => import("./components/site-layout/BottomBanner")
@@ -22,7 +23,7 @@ const LazyBottomBanner = React.lazy(
 const { kanjiPage, cumUseGraphPage, aboutPage, docsPage } = pageItems;
 
 export const NavBar = () => {
-  const [location] = useLocation();
+  const location = useUrlLocation();
 
   const triggerTitle =
     [kanjiPage, cumUseGraphPage].find((item) => item.href === location)

@@ -1,5 +1,5 @@
-import { Link } from "wouter";
 import { cnTextLink } from "@/lib/generic-cn";
+import { GlobalHomeLink } from "../routing-tools";
 
 export const RefreshOrGoBackHome = () => {
   return (
@@ -13,10 +13,7 @@ export const RefreshOrGoBackHome = () => {
       >
         refreshing the page
       </button>{" "}
-      or go back
-      <Link to="/" className={cnTextLink}>
-        home.
-      </Link>
+      or go back <GlobalHomeLink />
     </>
   );
 };

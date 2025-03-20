@@ -3,9 +3,9 @@ import { useKanjiInfo } from "@/kanji-worker/kanji-worker-hooks";
 
 import { DefaultErrorFallback } from "@/components/error";
 
-import { Separator } from "@/components/ui/separator";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { DottedSeparator } from "@/components/ui/dotted-separator";
 
 import { RomajiBadge } from "@/components/common/RomajiBadge";
 import { BasicLoading } from "@/components/common/BasicLoading";
@@ -38,7 +38,7 @@ export const General = ({ kanji }: { kanji: string }) => {
         {hasData(data.wk) && <Badge className="m-1">Wanikani {data.wk}</Badge>}
         {hasData(data.rtk) && <Badge className="m-1">RTK {data.rtk}</Badge>}
       </div>
-      <Separator className="border-b-2 border-dotted my-4" />
+      <DottedSeparator className="border-b-2 my-4" />
       <Table>
         <TableBody>
           <TableRow className="text-left">
@@ -75,7 +75,7 @@ export const General = ({ kanji }: { kanji: string }) => {
           </TableRow>
         </TableBody>
       </Table>
-      <Separator className="border-b-2 border-dotted mb-4" />
+      <DottedSeparator className="border-b-2 mb-4" />
       <div className="text-left">
         <h1 className="font-bold mb-1">External Links: </h1>
         <ExternalKanjiLinks kanji={kanji} />

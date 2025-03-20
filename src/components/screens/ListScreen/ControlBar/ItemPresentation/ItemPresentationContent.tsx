@@ -4,7 +4,9 @@ import {
   useItemSettings,
   useItemSettingsDispatch,
 } from "@/providers/item-settings-hooks";
-import { Separator } from "@/components/ui/separator";
+
+import { DottedSeparator } from "@/components/ui/dotted-separator";
+
 import { LabeledCheckbox } from "@/components/common/LabeledCheckbox";
 import { FrequencyRankDataSource } from "@/components/common/freq/FrequencyRankDataSource";
 import { FreqGradient } from "@/components/common/freq/FreqGradient";
@@ -58,7 +60,7 @@ export const ItemPresentationSettingsContent = () => {
       <h1 className="text-lg font-bold flex space-x-2 items-center mb-0 pb-0">
         Item Presentation Settings
       </h1>
-      <Separator className="p-0 m-0" />
+      <DottedSeparator className="p-0 m-0" />
       <H2>Design</H2>
       <ItemTypeSwitch
         value={cardState.cardType !== "compact"}

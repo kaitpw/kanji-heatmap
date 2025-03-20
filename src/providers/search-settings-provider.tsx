@@ -7,14 +7,16 @@ import {
   TextSearch,
 } from "@/lib/settings";
 import { URL_PARAMS } from "@/lib/constants";
-import { useLocation, useSearchParams } from "wouter";
+import { useSearchParams } from "wouter";
 import { toSearchParams, toSearchSettings } from "@/lib/url-params-helpers";
 import { searchSettings } from "./search-settings-hooks";
+import { useUrlLocation } from "@/components/routing-tools/hooks";
 
 const ALLOWED_LOCATIONS = ["/"];
+
 export function SearchSettingsProvider({ children }: { children: ReactNode }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [location] = useLocation();
+  const location = useUrlLocation();
 
   const updateItem = useCallback(
     (

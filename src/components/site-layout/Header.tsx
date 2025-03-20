@@ -1,10 +1,10 @@
-import { Link } from "wouter";
 import { ReactNode } from "react";
 import { ErrorBoundary } from "../error";
 
 import ChangeFontButton from "../common/ChangeFontButton";
 import LinkOutSection from "../common/LinkOutSection";
 import { LinksOutItems } from "../common/LinksOutItems";
+import { GlobalHomeHeaderLink } from "../routing-tools";
 
 const HeaderLayout = ({
   title,
@@ -33,7 +33,7 @@ const Header = ({ nav }: { nav: ReactNode }) => {
     <HeaderLayout
       title={
         <h1 className="hidden sm:flex font-bold text-xl px-1">
-          <Link to="/">Kanji Heatmap</Link>
+          <GlobalHomeHeaderLink />
         </h1>
       }
       side={<LinkOutSection />}

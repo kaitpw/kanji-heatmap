@@ -2,7 +2,7 @@ import { outLinks } from "@/lib/constants";
 import { ExternalTextLink } from "@/components/common/ExternalTextLink";
 import { GenericPopover } from "@/components/common/GenericPopover";
 import { RomajiBadge } from "@/components/common/RomajiBadge";
-import { KanjiLink } from "../sections/KanjiInfoCard/KanjiLink";
+import { GlobalKanjiLink } from "../routing-tools";
 
 export const SingleKanjiPart = ({
   kanji,
@@ -36,7 +36,7 @@ export const SingleKanjiPart = ({
               />{" "}
             </div>
           ) : isKanji ? (
-            <KanjiLink keyword={keyword} kanji={kanji} />
+            <GlobalKanjiLink keyword={keyword} kanji={kanji} />
           ) : (
             <span className="block">{keyword}</span>
           )}
