@@ -1,3 +1,4 @@
+import wanakana from "@/lib/wanakana-adapter";
 import { JLTPTtypes } from "@/lib/jlpt";
 import {
   ExtendedKanjiInfoItemType,
@@ -9,7 +10,6 @@ import {
   SegmentedVocabInfo,
   SegmentedVocabResponseType,
 } from "@/lib/kanji-worker-types";
-import * as wanakana from "wanakana";
 
 export const kanjiMainInfoCache: Record<string, KanjiMainInfo> = {};
 export const kanjiOtherInfoCache: Record<string, KanjiExtendedInfo> = {};

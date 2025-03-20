@@ -1,5 +1,5 @@
 import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
-import * as wanakana from "wanakana";
+import wanakana from "@/lib/wanakana-adapter";
 import KANJI_WORKER_SINGLETON from "@/kanji-worker/kanji-worker-promise-wrapper";
 import {
   GeneralKanjiItem,

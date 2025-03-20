@@ -55,7 +55,7 @@ const toFrequencySrc = (srcStr?: string | null) => {
   return "none" as const;
 };
 
-export const toSearchSettings = (sp: URLSearchParams): SearchSettings => {
+const toSearchSettings = (sp: URLSearchParams): SearchSettings => {
   const p = URL_PARAMS;
 
   const searchType = toSearchType(sp.get(p.textSearch.type));
@@ -107,7 +107,7 @@ export const toSearchSettings = (sp: URLSearchParams): SearchSettings => {
   };
 };
 
-export const toSearchParams = (
+const toSearchParams = (
   prev: URLSearchParams,
   key: keyof SearchSettings,
   value: TextSearch | FilterSettings | SortSettings
@@ -200,3 +200,5 @@ export const toSearchParams = (
 
   return prev;
 };
+
+export { toSearchParams, toSearchSettings };

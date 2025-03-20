@@ -1,10 +1,10 @@
+import { ReactNode, useId } from "react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { ReactNode, useId } from "react";
 
 const SimpleAccordion = ({
   trigger,

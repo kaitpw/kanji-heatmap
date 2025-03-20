@@ -1,81 +1,52 @@
 import "./JFonts.css";
-import { Route, Switch, useLocation } from "wouter";
+import React from "react";
+
+import { ThemeProvider } from "@/providers/theme-provider";
+import { KanjiFunctionalityProvider } from "./providers/kanji-functionality-provider";
+import { useUrlLocation } from "./components/dependent/routing/routing-hooks";
+import { Route, Switch } from "./components/dependent/routing";
 
 import {
-  ListScreen,
-  CumUseScreen,
-  DocsScreen,
-  AboutScreen,
-} from "@/components/screens";
-import { NavigationListItem, NavLayout } from "@/components/common/nav";
-import Header from "@/components/common/Header";
-import { ThemeProvider } from "@/providers/theme-provider";
-import React from "react";
-import { KanjiFunctionalityProvider } from "./providers/kanji-functionality-provider";
-import ErrorBoundary from "./components/common/ErrorBoundary";
-import {
-  DefaultErrorFallback,
+  ErrorBoundary,
   PageNotFound,
-} from "./components/common/DefaultErrorFallback";
-import { ExternalTextLink } from "./components/common/ExternalTextLink";
+  DefaultErrorFallback,
+} from "./components/error";
+import { Header, Nav } from "@/components/site-layout/";
+import pageItems from "@/components/items/page-items";
+
+import { ExternalTextLink } from "@/components/common/ExternalTextLink";
 
 const LazyBottomBanner = React.lazy(
-  () => import("./components/common/BottomBanner")
+  () => import("./components/site-layout/BottomBanner")
 );
 
-const kanjiPage = {
-  href: "/",
-  title: "Kanji Grid",
-  component: ListScreen,
-  description: "Quickly sort, filter and search Kanjis",
-};
+const { kanjiPage, cumUseGraphPage, aboutPage, docsPage } = pageItems;
 
-const cumUseGraphPage = {
-  href: "/cum-use-graph",
-  title: "Cumulative Use Graph",
-  description: "Inspect Frequency Ranks vs Use trend across various datasets",
-  component: CumUseScreen,
-};
-
-const docsPage = {
-  href: "/docs",
-  title: "Docs",
-  component: DocsScreen,
-};
-
-const aboutPage = {
-  href: "/about",
-  title: "About",
-  component: AboutScreen,
-};
-
-export const Nav = () => {
-  const [location] = useLocation();
+export const NavBar = () => {
+  const location = useUrlLocation();
 
   const triggerTitle =
     [kanjiPage, cumUseGraphPage].find((item) => item.href === location)
       ?.title ?? "Menu";
 
   return (
-    <NavLayout triggerTitle={triggerTitle}>
-      <NavigationListItem href={kanjiPage.href} title={kanjiPage.title}>
-        {kanjiPage.description}
-      </NavigationListItem>
-      <NavigationListItem
-        href={cumUseGraphPage.href}
-        title={cumUseGraphPage.title}
-      >
-        {cumUseGraphPage.description}
-      </NavigationListItem>
-      <div className="flex justify-center text-xs w-full py-1 border-t border-dotted">
-        <ExternalTextLink href={`${aboutPage.href}`} text="About" />
-        <ExternalTextLink
-          href={`${docsPage.href}#privacy`}
-          text="Privacy Policy"
-        />
-        <ExternalTextLink href={`${docsPage.href}#terms`} text="Terms of Use" />
-      </div>
-    </NavLayout>
+    <Nav
+      triggerTitle={triggerTitle}
+      navItems={[kanjiPage, cumUseGraphPage]}
+      footer={
+        <>
+          <ExternalTextLink href={`${aboutPage.href}`} text="About" />
+          <ExternalTextLink
+            href={`${docsPage.href}#privacy`}
+            text="Privacy Policy"
+          />
+          <ExternalTextLink
+            href={`${docsPage.href}#terms`}
+            text="Terms of Use"
+          />
+        </>
+      }
+    />
   );
 };
 
@@ -90,7 +61,7 @@ const App = () => {
       }
     >
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <Header nav={<Nav />} />
+        <Header nav={<NavBar />} />
         <main>
           <ErrorBoundary
             details="App"
@@ -104,12 +75,12 @@ const App = () => {
               <Switch>
                 <Route
                   path={cumUseGraphPage.href}
-                  component={cumUseGraphPage.component}
+                  component={cumUseGraphPage.Component}
                 />
-                <Route path={kanjiPage.href} component={kanjiPage.component} />
-                <Route path={aboutPage.href} component={aboutPage.component} />
+                <Route path={kanjiPage.href} component={kanjiPage.Component} />
+                <Route path={aboutPage.href} component={aboutPage.Component} />
                 <Route path={docsPage.href}>
-                  <DocsScreen />
+                  <pageItems.docsPage.Component />
                 </Route>
                 <Route path="*">
                   <div className="w-full pr-4 mt-14">

@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from "react";
-import { useSearchParams } from "wouter";
-import { HoverKanji } from "../HoverItem";
 import VirtualList from "react-tiny-virtual-list";
+
+import { useKanjiUrlState } from "@/components/dependent/routing/routing-hooks";
+import { HoverKanji } from "../../../sections/KanjiHoverItem";
 import { useVirtualListDims } from "./useVirtualDims";
 import { KanjiDrawer } from "../Drawer";
-import { URL_PARAMS } from "@/lib/constants";
 
 const KanjiListRaw = ({
   kanjiKeys = [],
@@ -14,31 +14,12 @@ const KanjiListRaw = ({
   size: "compact" | "expanded";
 }) => {
   const [hoveredKanji, setHoveredKanji] = useState<string | null>(null);
-  const [searchParams, setSearchParams] = useSearchParams();
 
-  const setOpenedKanji = useCallback(
-    (kanji: string | null) => {
-      setSearchParams((prev) => {
-        if (kanji == null) {
-          prev.delete(URL_PARAMS.openKanji);
-          return prev;
-        }
-
-        prev.set(URL_PARAMS.openKanji, kanji);
-        return prev;
-      });
-    },
-    [setSearchParams]
-  );
-  const openedKanji = searchParams.get(URL_PARAMS.openKanji);
+  const [openedKanji, setOpenedKanji] = useKanjiUrlState();
 
   const onDrawerClose = useCallback(() => {
-    setSearchParams((prev) => {
-      prev.delete(URL_PARAMS.openKanji);
-      return prev;
-    });
-    setHoveredKanji(null);
-  }, [setSearchParams]);
+    setOpenedKanji(null);
+  }, [setOpenedKanji]);
 
   const { cols, rows, itemSize, listHeight } = useVirtualListDims(
     kanjiKeys.length,

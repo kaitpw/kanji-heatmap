@@ -1,6 +1,6 @@
 import { lazy, Suspense } from "react";
-import { BasicLoading } from "@/components/common/BasicLoading/BasicLoading";
-import ErrorBoundary from "@/components/common/ErrorBoundary";
+import { ErrorBoundary } from "@/components/error";
+import { BasicLoading } from "@/components/common/BasicLoading";
 
 const LazyCumUseScreen = lazy(() => import("./CumUseScreen"));
 

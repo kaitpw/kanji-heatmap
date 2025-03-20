@@ -1,11 +1,13 @@
+import React from "react";
+
+import { ReportBugIconBtn } from "@/components/common/ReportBugIconBtn";
+
 import ItemPresentationSettingsPopover from "./ItemPresentation/ItemPresentationPopover";
 import { ItemPresentationSettingsContent } from "./ItemPresentation/ItemPresentationContent";
 import { SettledSearchInput } from "./SearchInput/SettledSearchInput";
 import { SettledSortAndFilter } from "./SortAndFilter/SettledSortAndFilter";
-import React from "react";
-import ErrorBoundary from "@/components/common/ErrorBoundary";
-import { ReportBugIconBtn } from "@/components/common/LinkOutSection";
-import { ItemCountBadge } from "./SearchInput/ItemCountBadge";
+import { ErrorBoundary } from "@/components/error";
+import { ItemCountBadge } from "./ItemCountBadge";
 
 export const ControlBarRaw = () => {
   return (

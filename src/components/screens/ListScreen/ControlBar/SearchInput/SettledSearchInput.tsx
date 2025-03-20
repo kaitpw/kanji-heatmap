@@ -1,9 +1,9 @@
+import { SearchType } from "@/lib/settings";
 import {
   useSearchSettings,
   useSearchSettingsDispatch,
 } from "@/providers/search-settings-hooks";
 import { SearchInput } from "./SearchInput";
-import { SearchType } from "@/lib/settings";
 
 export const SettledSearchInput = () => {
   const dispatch = useSearchSettingsDispatch();

@@ -1,22 +1,26 @@
-import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { FilterSectionLayout } from "./FilterContent/FilterContentLayout";
-import { FrequencyRankDataSource } from "../../../../common/FrequencyRankDataSource";
-import { JLPTSelector } from "./FilterContent/JLPTSelector";
+
+import { FrequencyType, GROUP_OPTIONS, SortKey } from "@/lib/sort-freq-types";
+import { isEqualFilters } from "@/lib/kanji-display-utils";
 import { SORT_ORDER_SELECT } from "@/lib/sort-freq-select-options";
+import { MAX_FREQ_RANK, MAX_STROKE_COUNT } from "@/lib/constants";
+import { FilterSettings, SearchSettings, SortSettings } from "@/lib/settings";
+
+import { Button } from "@/components/ui/button";
+import BasicSelect from "@/components/common/BasicSelect";
+
+import { FreqRankTypeInfo } from "@/components/common/freq/FreqRankTypeInfo";
+import { StrokeCountField } from "@/components/common/StrokeCountField";
+import { JLPTSelector } from "@/components/common/jlpt/JLPTSelector";
+import { FrequencyRankDataSource } from "@/components/common/freq/FrequencyRankDataSource";
+import { FrequencyRankingRangeField } from "@/components/common/freq/FrequencyRankingRangeField";
+
+import { FilterSectionLayout } from "./FilterContentLayout";
+import { ItemCount } from "./ItemCount";
 import {
   SortAdditionalInfo,
   SortOrderSectionLayout,
-} from "./SortContent/SortOrderLayout";
-import BasicSelect from "@/components/common/BasicSelect";
-import { MAX_FREQ_RANK, MAX_STROKE_COUNT } from "@/lib/constants";
-import { FrequencyRankingRangeField } from "./FilterContent/FrequencyRankingRangeField";
-import { StrokeCountField } from "./FilterContent/StrokeCountField";
-import { FilterSettings, SearchSettings, SortSettings } from "@/lib/settings";
-import { isEqualFilters } from "./helpers";
-import { FreqRankTypeInfo } from "@/components/common/FreqRankTypeInfo";
-import { ItemCount } from "./ItemCount";
-import { FrequencyType, GROUP_OPTIONS, SortKey } from "@/lib/sort-freq-types";
+} from "./SortOrderPresentation";
 
 export const SortAndFilterSettingsForm = ({
   initialValue,

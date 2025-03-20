@@ -1,5 +1,5 @@
-import { Checkbox } from "@/components/ui/checkbox";
 import { useId } from "react";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export const LabeledCheckbox = ({
   label,

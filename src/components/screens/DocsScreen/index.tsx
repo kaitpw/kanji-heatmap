@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { BasicLoading } from "@/components/common/BasicLoading/BasicLoading";
+import { BasicLoading } from "@/components/common/BasicLoading";
 
 const LazyDocsScreen = lazy(() => import("./DocsScreen"));
 
