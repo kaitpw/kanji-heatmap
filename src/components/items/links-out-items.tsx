@@ -15,7 +15,7 @@ const discordItem = {
 
 const kofiItem = {
   href: outLinks.koFi,
-  text: "Donate on Ko-Fi",
+  text: "Support us on Ko-Fi",
   icon: <KoFiIcon />,
 };
 
