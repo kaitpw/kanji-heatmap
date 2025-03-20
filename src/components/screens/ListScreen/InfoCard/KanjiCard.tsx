@@ -8,8 +8,9 @@ import { DefaultErrorFallback } from "@/components/error";
 
 import { BasicLoading } from "@/components/common/BasicLoading";
 import { JLPTBadge } from "@/components/common/jlpt/JLPTBadge";
+import { FrequencyBadges } from "@/components/common/freq/FrequencyBadges";
+
 import { SingleComponent } from "./SingleComponent";
-import { FrequencyBadges } from "./FrequencyBadges";
 import { KanjiCardLayout } from "./CardLayout";
 import { WordCard } from "./WordCard";
 

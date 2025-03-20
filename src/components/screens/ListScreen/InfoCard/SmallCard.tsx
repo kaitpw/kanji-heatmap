@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { JLPTBadge } from "@/components/common/jlpt/JLPTBadge";
 import { BasicLoading } from "@/components/common/BasicLoading";
 
-import { FrequencyBadges } from "./FrequencyBadges";
+import { FrequencyBadges } from "../../../common/freq/FrequencyBadges";
 
 export const SmallKanjiCard = ({ kanji }: { kanji: string }) => {
   const data = useKanjiInfo(kanji, "hover-card");
