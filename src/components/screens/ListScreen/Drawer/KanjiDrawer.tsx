@@ -1,9 +1,5 @@
-import React, { ReactNode } from "react";
+import React from "react";
 
-import {
-  useGetKanjiInfoFn,
-  useIsKanjiWorkerReady,
-} from "@/kanji-worker/kanji-worker-hooks";
 import { X } from "@/components/icons";
 
 import {
@@ -14,37 +10,7 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
-
-import { BasicLoading } from "@/components/common/BasicLoading";
-
-import ErrorBoundary from "@/components/sections/error/ErrorBoundary";
-import { KanjiNotFound } from "@/components/sections/error/KanjiNotFound";
-
-import { KanjiCard } from "../InfoCard/KanjiCard";
-import { KanjiDetails } from "./Details";
-
-export const Layout = ({
-  first,
-  second,
-}: {
-  first: ReactNode;
-  second: ReactNode;
-}) => {
-  return (
-    <div className="w-full flex flex-col overflow-y-scroll overflow-x-hidden md:flex-row md:space-x-1 ">
-      <div className="px-1 md:sticky md:top-[0px] md:left-[0px] md:min-w-96 md:max-w-96 md:w-96">
-        <ErrorBoundary details="Kanji Card in KanjiDrawer Layout">
-          {first}
-        </ErrorBoundary>
-      </div>
-      <div className="grow">
-        <ErrorBoundary details="Kanji Details in KanjiDrawer Layout">
-          {second}
-        </ErrorBoundary>
-      </div>
-    </div>
-  );
-};
+import { KanjiInfoContent } from "./KanjiInfoContent";
 
 export function KanjiDrawerRaw({
   isOpen,
@@ -55,21 +21,6 @@ export function KanjiDrawerRaw({
   onClose: () => void;
   kanji: string;
 }) {
-  const ready = useIsKanjiWorkerReady();
-  const getFn = useGetKanjiInfoFn();
-  const info = getFn?.(kanji);
-
-  const content = !ready ? (
-    <BasicLoading />
-  ) : info != null ? (
-    <Layout
-      first={<KanjiCard kanji={kanji} />}
-      second={<KanjiDetails kanji={kanji} />}
-    />
-  ) : (
-    <KanjiNotFound kanji={kanji} />
-  );
-
   // need autoFocus=true see also: https://github.com/emilkowalski/vaul/issues/517#issuecomment-2571619213
   return (
     <Drawer open={isOpen} onClose={onClose}>
@@ -77,13 +28,11 @@ export function KanjiDrawerRaw({
         className="!select-text h-[95svh] !duration-150"
         autoFocus={true}
       >
-        <DrawerTitle className="sr-only">
-          Information for Kanji {kanji}
-        </DrawerTitle>
+        <DrawerTitle className="sr-only">Information for Kanji</DrawerTitle>
         <DrawerDescription className="sr-only">
           Includes Sample Usage, Semantic Phonetic Compositions etc.
         </DrawerDescription>
-        {content}
+        <KanjiInfoContent kanji={kanji} />
         <DrawerClose asChild className="absolute -top-1 right-0">
           <Button variant="ghost" size="icon" className="m-2">
             <X />
