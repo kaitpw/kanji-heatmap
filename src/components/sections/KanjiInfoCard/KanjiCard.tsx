@@ -10,9 +10,9 @@ import { BasicLoading } from "@/components/common/BasicLoading";
 import { JLPTBadge } from "@/components/common/jlpt/JLPTBadge";
 import { FrequencyBadges } from "@/components/common/freq/FrequencyBadges";
 
-import { SingleComponent } from "./SingleComponent";
 import { KanjiCardLayout } from "./CardLayout";
 import { WordCard } from "./WordCard";
+import { SingleKanjiPart } from "@/components/common/SingleKanjiPart";
 
 const transformKanjiWordDetails = (
   kanji: string,
@@ -79,7 +79,7 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
           <>
             {parts.map((item) => {
               return (
-                <SingleComponent
+                <SingleKanjiPart
                   key={item.part}
                   kanji={item.part}
                   keyword={item.keyword}
@@ -91,7 +91,7 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
               info.parts
                 .map((part) => part.part)
                 .includes(info.phonetic.phonetic) === false && (
-                <SingleComponent
+                <SingleKanjiPart
                   kanji={info.phonetic.phonetic}
                   keyword={info.phonetic.keyword}
                   phonetics={info.phonetic.sound}

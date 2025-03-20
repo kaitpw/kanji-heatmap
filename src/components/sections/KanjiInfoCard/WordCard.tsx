@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button";
 
 import { GenericPopover } from "@/components/common/GenericPopover";
 import { ExternalTextLink } from "@/components/common/ExternalTextLink";
+import { HiraganaWord } from "@/components/common/HiraganaWord";
 
-import { HiraganaWord } from "./HiraganaWord";
 import { KanjiLink } from "./KanjiLink";
 
 const SeeMoreDefinition = ({ definition }: { definition: string }) => {

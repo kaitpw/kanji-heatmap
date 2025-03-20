@@ -8,9 +8,8 @@ import {
 import { ErrorBoundary, KanjiNotFound } from "@/components/error";
 
 import { BasicLoading } from "@/components/common/BasicLoading";
-
-import { KanjiCard } from "../InfoCard/KanjiCard";
-import { KanjiDetails } from "./Details";
+import { KanjiCard } from "@/components/sections/KanjiInfoCard/KanjiCard";
+import { KanjiDetails } from "@/components/sections/KanjiDetails/Details";
 
 const Layout = ({ first, second }: { first: ReactNode; second: ReactNode }) => {
   return (

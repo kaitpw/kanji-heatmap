@@ -6,8 +6,8 @@ import ItemPresentationSettingsPopover from "./ItemPresentation/ItemPresentation
 import { ItemPresentationSettingsContent } from "./ItemPresentation/ItemPresentationContent";
 import { SettledSearchInput } from "./SearchInput/SettledSearchInput";
 import { SettledSortAndFilter } from "./SortAndFilter/SettledSortAndFilter";
-import { ItemCountBadge } from "./SearchInput/ItemCountBadge";
 import { ErrorBoundary } from "@/components/error";
+import { ItemCountBadge } from "./ItemCountBadge";
 
 export const ControlBarRaw = () => {
   return (

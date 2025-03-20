@@ -6,7 +6,7 @@ import {
   HoverCardTrigger,
   HoverCardArrow,
 } from "@/components/ui/hover-card";
-import { ResponsiveKanjiCard } from "../InfoCard";
+import { ResponsiveKanjiCard } from "../KanjiInfoCard";
 import { KanjiItemButton } from "./KanjiItemButton";
 
 const HOVER_OPEN_DELAY = 400;

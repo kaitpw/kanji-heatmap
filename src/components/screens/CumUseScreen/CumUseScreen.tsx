@@ -1,10 +1,12 @@
 import { useJsonFetch } from "@/hooks/use-json";
-import { BasicLoading } from "@/components/common/BasicLoading";
-import CumUseChartWrapper from "./CumUseChart/CumUseChartWrapper";
-import { KeyLegend } from "./CumUseChart/KeyLegend";
-import { CumUseGraph } from "./CumUseChart/CumUseGraph";
-import { ChartData } from "./CumUseChart/helpers";
+
 import { DefaultErrorFallback } from "@/components/error";
+
+import { BasicLoading } from "@/components/common/BasicLoading";
+import CumUseChartWrapper from "@/components/sections/KanjiCumUseChart/CumUseChartWrapper";
+import { KeyLegend } from "@/components/sections/KanjiCumUseChart/KeyLegend";
+import { CumUseGraph } from "@/components/sections/KanjiCumUseChart/CumUseGraph";
+import { ChartData } from "@/components/sections/KanjiCumUseChart/helpers";
 
 const CumUseScreen = () => {
   const { data, status } = useJsonFetch("json/cum_use.json");

@@ -10,8 +10,6 @@ import { Badge } from "@/components/ui/badge";
 import { JLPTBadge } from "@/components/common/jlpt/JLPTBadge";
 import { BasicLoading } from "@/components/common/BasicLoading";
 
-import { FrequencyBadges } from "../../../common/freq/FrequencyBadges";
-
 export const SmallKanjiCard = ({ kanji }: { kanji: string }) => {
   const data = useKanjiInfo(kanji, "hover-card");
   const ready = useIsKanjiWorkerReady();
@@ -34,7 +32,6 @@ export const SmallKanjiCard = ({ kanji }: { kanji: string }) => {
     <div className="flex flex-wrap items-center justify-center m-2">
       <Badge className="text-nowrap m-1">{info.keyword.toUpperCase()}</Badge>
       <JLPTBadge jlpt={info.jlpt} />
-      <FrequencyBadges frequency={info.frequency} />
     </div>
   );
 };
