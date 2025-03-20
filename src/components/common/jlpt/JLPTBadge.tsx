@@ -1,5 +1,5 @@
-import { Badge } from "@/components/ui/badge";
 import { JLPTListItems, JLTPTtypes } from "@/lib/jlpt";
+import { Badge } from "@/components/ui/badge";
 
 export const JLPTBadge = ({ jlpt }: { jlpt: JLTPTtypes }) => {
   return (

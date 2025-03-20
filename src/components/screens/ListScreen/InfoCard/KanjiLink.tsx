@@ -1,7 +1,8 @@
 import { Link, useSearchParams } from "wouter";
+import { useState } from "react";
+
 import { Badge } from "@/components/ui/badge";
 import { URL_PARAMS } from "@/lib/constants";
-import { useState } from "react";
 
 export const KanjiLink = ({
   kanji,

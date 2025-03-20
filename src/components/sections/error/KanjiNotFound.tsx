@@ -1,6 +1,6 @@
-import { ExternalKanjiLinks } from "../../common/ExternalKanjiLinks";
-import { Sumimasen } from "./Sumimasen";
+import { ExternalKanjiLinks } from "@/components/common/ExternalKanjiLinks";
 import { Wrapper } from "./common";
+import { Sumimasen } from "./Sumimasen";
 
 export const KanjiNotFound = ({ kanji }: { kanji: string }) => {
   return (

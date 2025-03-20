@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import { SpanBadge } from "@/components/ui/badge";
 import * as wanakana from "wanakana";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { SpanBadge } from "@/components/ui/badge";
 import { badgeCn } from "@/components/ui/badge-utils";
 
 const useHiraganaWordButton = (rawKana: string) => {

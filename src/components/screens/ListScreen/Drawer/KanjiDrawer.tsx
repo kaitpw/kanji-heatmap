@@ -1,11 +1,10 @@
 import React, { ReactNode } from "react";
 
-import { X } from "@/components/icons";
-
 import {
   useGetKanjiInfoFn,
   useIsKanjiWorkerReady,
 } from "@/kanji-worker/kanji-worker-hooks";
+import { X } from "@/components/icons";
 
 import {
   Drawer,

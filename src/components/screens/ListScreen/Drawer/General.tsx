@@ -4,11 +4,13 @@ import { useKanjiInfo } from "@/kanji-worker/kanji-worker-hooks";
 import { Separator } from "@/components/ui/separator";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+
 import { RomajiBadge } from "@/components/common/RomajiBadge";
 import { BasicLoading } from "@/components/common/BasicLoading";
 import { ExternalKanjiLinks } from "@/components/common/ExternalKanjiLinks";
 
 import { DefaultErrorFallback } from "@/components/sections/error/DefaultErrorFallback";
+
 const hasData = (data?: number) => data != null && data !== -1;
 
 export const General = ({ kanji }: { kanji: string }) => {

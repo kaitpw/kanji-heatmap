@@ -1,7 +1,8 @@
 import { useId } from "react";
+import { MAX_FREQ_RANK } from "@/lib/constants";
+
 import { DualRangeSlider } from "@/components/ui/dual-range-slider";
 import { Label } from "@/components/ui/label";
-import { MAX_FREQ_RANK } from "@/lib/constants";
 
 const FREQ_RANK_STEP = 50;
 

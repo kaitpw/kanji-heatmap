@@ -4,8 +4,8 @@ import { SettledSearchInput } from "./SearchInput/SettledSearchInput";
 import { SettledSortAndFilter } from "./SortAndFilter/SettledSortAndFilter";
 import React from "react";
 import ErrorBoundary from "@/components/sections/error/ErrorBoundary";
-import { ReportBugIconBtn } from "@/components/common/LinkOutSection";
 import { ItemCountBadge } from "./SearchInput/ItemCountBadge";
+import { ReportBugIconBtn } from "@/components/common/ReportBugIconBtn";
 
 export const ControlBarRaw = () => {
   return (

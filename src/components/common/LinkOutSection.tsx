@@ -5,41 +5,8 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
-import { linksOutItems } from "../items/links-out-items";
 import { EllipsisIcon } from "../icons";
-import LinkOutIcon from "./LinkOutIcon";
-
-export const ReportBugIconBtn = ({ cnOverride }: { cnOverride?: string }) => {
-  const item = linksOutItems.bugItem;
-  return (
-    <LinkOutIcon
-      key={item.href}
-      href={item.href}
-      hoverText={item.text}
-      srOnlyText={item.text}
-      icon={item.icon}
-      cnOverride={cnOverride}
-    />
-  );
-};
-
-export const LinksOutItems = () => {
-  return (
-    <>
-      {Object.values(linksOutItems).map((item) => {
-        return (
-          <LinkOutIcon
-            key={item.href}
-            href={item.href}
-            hoverText={item.text}
-            srOnlyText={item.text}
-            icon={item.icon}
-          />
-        );
-      })}
-    </>
-  );
-};
+import { LinksOutItems } from "./LinksOutItems";
 
 const MenuItems = () => {
   return (

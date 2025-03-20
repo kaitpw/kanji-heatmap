@@ -1,5 +1,5 @@
-import { ExternalTextLink } from "../../common/ExternalTextLink";
 import { outLinks } from "@/lib/constants";
+import { ExternalTextLink } from "@/components/common/ExternalTextLink";
 
 export const ReachOutToUs = ({
   prefix = " Please let us know on ",

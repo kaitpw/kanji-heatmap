@@ -1,15 +1,16 @@
 import { HoverItemReturnData, KanjiWordDetails } from "@/lib/kanji-info-types";
-import { SingleComponent } from "./SingleComponent";
-import { FrequencyBadges } from "./FrequencyBadges";
-import { KanjiCardLayout } from "./CardLayout";
-import { JLPTBadge } from "@/components/common/jlpt/JLPTBadge";
-import { DefaultErrorFallback } from "@/components/sections/error/DefaultErrorFallback";
-import { BasicLoading } from "@/components/common/BasicLoading";
-import { WordCard } from "./WordCard";
 import {
   useIsKanjiWorkerReady,
   useKanjiInfo,
 } from "@/kanji-worker/kanji-worker-hooks";
+
+import { BasicLoading } from "@/components/common/BasicLoading";
+import { JLPTBadge } from "@/components/common/jlpt/JLPTBadge";
+import { SingleComponent } from "./SingleComponent";
+import { FrequencyBadges } from "./FrequencyBadges";
+import { KanjiCardLayout } from "./CardLayout";
+import { DefaultErrorFallback } from "@/components/sections/error/DefaultErrorFallback";
+import { WordCard } from "./WordCard";
 
 const transformKanjiWordDetails = (
   kanji: string,

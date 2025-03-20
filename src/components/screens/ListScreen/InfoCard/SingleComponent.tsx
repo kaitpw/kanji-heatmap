@@ -1,8 +1,8 @@
+import { outLinks } from "@/lib/constants";
+import { ExternalTextLink } from "@/components/common/ExternalTextLink";
 import { GenericPopover } from "@/components/common/GenericPopover";
 import { RomajiBadge } from "@/components/common/RomajiBadge";
 import { KanjiLink } from "./KanjiLink";
-import { ExternalTextLink } from "@/components/common/ExternalTextLink";
-import { outLinks } from "@/lib/constants";
 
 export const SingleComponent = ({
   kanji,

@@ -1,8 +1,9 @@
 import { ReactNode } from "react";
-import LinkOutSection, { LinksOutItems } from "../common/LinkOutSection";
 import ChangeFontButton from "../common/ChangeFontButton";
 import ErrorBoundary from "./error/ErrorBoundary";
 import { Link } from "wouter";
+import LinkOutSection from "../common/LinkOutSection";
+import { LinksOutItems } from "../common/LinksOutItems";
 
 const HeaderLayout = ({
   title,

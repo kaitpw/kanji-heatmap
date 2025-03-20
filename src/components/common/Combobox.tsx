@@ -2,6 +2,9 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
+
+import { CheckCircle, ChevronsUpDown } from "@/components/icons";
+
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -16,7 +19,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { CheckCircle, ChevronsUpDown } from "../icons";
 
 export function Combobox<T>({
   value,

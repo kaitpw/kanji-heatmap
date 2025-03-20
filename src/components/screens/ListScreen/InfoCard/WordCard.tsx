@@ -1,11 +1,14 @@
-import { GenericPopover } from "@/components/common/GenericPopover";
-import { HiraganaWord } from "./HiraganaWord";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@radix-ui/react-separator";
-import { KanjiLink } from "./KanjiLink";
 import { useState } from "react";
 import { vocabExternalLinks } from "@/lib/constants";
+
+import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+
+import { GenericPopover } from "@/components/common/GenericPopover";
 import { ExternalTextLink } from "@/components/common/ExternalTextLink";
+
+import { HiraganaWord } from "./HiraganaWord";
+import { KanjiLink } from "./KanjiLink";
 
 const SeeMoreDefinition = ({ definition }: { definition: string }) => {
   const [showMore, setShowMore] = useState(false);

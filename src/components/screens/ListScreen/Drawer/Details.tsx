@@ -1,6 +1,5 @@
 import { lazy, Suspense } from "react";
 import SimpleAccordion from "@/components/common/SimpleAccordion";
-import { LinksOutItems } from "@/components/common/LinkOutSection";
 import ChangeFontButton from "@/components/common/ChangeFontButton";
 import { General } from "./General";
 import { FrequencyInfo } from "./FrequencyInfo";
@@ -8,6 +7,7 @@ import { DefaultErrorFallback } from "@/components/sections/error/DefaultErrorFa
 import { BasicLoading } from "@/components/common/BasicLoading";
 import { useGetKanjiInfoFn } from "@/kanji-worker/kanji-worker-hooks";
 import ErrorBoundary from "@/components/sections/error/ErrorBoundary";
+import { LinksOutItems } from "@/components/common/LinksOutItems";
 
 const StrokeAnimation = lazy(() => import("./StrokeAnimation"));
 

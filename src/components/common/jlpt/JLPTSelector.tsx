@@ -1,7 +1,7 @@
 import { useId } from "react";
+import { JLPTOptions, JLTPTtypes } from "@/lib/jlpt";
 import { Label } from "@/components/ui/label";
 import { MultiSelect } from "@/components/ui/multi-select";
-import { JLPTOptions, JLTPTtypes } from "@/lib/jlpt";
 
 const JLPTOptionsWithIcon = JLPTOptions.map((entry) => {
   return {

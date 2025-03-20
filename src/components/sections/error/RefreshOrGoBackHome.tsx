@@ -1,5 +1,5 @@
-import { cnTextLink } from "@/lib/generic-cn";
 import { Link } from "wouter";
+import { cnTextLink } from "@/lib/generic-cn";
 
 export const RefreshOrGoBackHome = () => {
   return (

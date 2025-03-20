@@ -1,4 +1,5 @@
 import React, { useCallback } from "react";
+import { useIsTouchDevice } from "@/hooks/use-is-touch-device";
 import {
   HoverCard,
   HoverCardContent,
@@ -7,7 +8,6 @@ import {
 } from "@/components/ui/hover-card";
 import { ResponsiveKanjiCard } from "../InfoCard";
 import { KanjiItemButton } from "./KanjiItemButton";
-import { useIsTouchDevice } from "@/hooks/use-is-touch-device";
 
 const HOVER_OPEN_DELAY = 400;
 const HOVER_CLOSE_DELAY = 200;

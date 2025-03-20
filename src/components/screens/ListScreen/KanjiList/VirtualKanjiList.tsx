@@ -1,10 +1,10 @@
-import React, { useCallback, useState } from "react";
 import { useSearchParams } from "wouter";
-import { HoverKanji } from "../HoverItem";
+import React, { useCallback, useState } from "react";
+import { URL_PARAMS } from "@/lib/constants";
 import VirtualList from "react-tiny-virtual-list";
+import { HoverKanji } from "../HoverItem";
 import { useVirtualListDims } from "./useVirtualDims";
 import { KanjiDrawer } from "../Drawer";
-import { URL_PARAMS } from "@/lib/constants";
 
 const KanjiListRaw = ({
   kanjiKeys = [],

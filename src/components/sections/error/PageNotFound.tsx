@@ -1,7 +1,7 @@
+import { Wrapper } from "./common";
 import { ReachOutToUs } from "./ReachOutToUs";
 import { RefreshOrGoBackHome } from "./RefreshOrGoBackHome";
 import { Sumimasen } from "./Sumimasen";
-import { Wrapper } from "./common";
 
 export const PageNotFound = () => {
   return (
