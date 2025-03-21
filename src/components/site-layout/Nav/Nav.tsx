@@ -77,7 +77,11 @@ export const Nav = ({
     <NavLayout triggerTitle={triggerTitle}>
       {navItems.map((item) => {
         return (
-          <NavigationListItem href={item.href} title={item.title}>
+          <NavigationListItem
+            key={item.href}
+            href={item.href}
+            title={item.title}
+          >
             {item.description}
           </NavigationListItem>
         );

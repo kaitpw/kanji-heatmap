@@ -30,7 +30,7 @@ const ItemCountComputed = ({ settings }: { settings: SearchSettings }) => {
       <>
         Your Search Text is{" "}
         <span className="mx-1 font-extrabold">
-          "{settings.textSearch.text}".
+          {`"${settings.textSearch.text}"`}.
         </span>
       </>
     ) : (

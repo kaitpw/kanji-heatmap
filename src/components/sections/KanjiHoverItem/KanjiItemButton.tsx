@@ -105,7 +105,7 @@ const useItemBtnCn = (kanji: string) => {
   return { btnCn, itemType: itemSettings.cardType };
 };
 
-export const KanjiItemButton = forwardRef<HTMLButtonElement, TriggerProps>(
+const KanjiItemButton = forwardRef<HTMLButtonElement, TriggerProps>(
   (props, ref) => {
     const { kanji, ...rest } = props;
     const { loadingCn, btnCn, itemType } = useItemBtnCn(kanji);
@@ -136,3 +136,7 @@ export const KanjiItemButton = forwardRef<HTMLButtonElement, TriggerProps>(
     );
   }
 );
+
+KanjiItemButton.displayName = "KanjiItemButton";
+
+export { KanjiItemButton };

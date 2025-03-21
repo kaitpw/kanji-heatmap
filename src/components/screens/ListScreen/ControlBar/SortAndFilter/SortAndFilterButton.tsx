@@ -34,3 +34,5 @@ export const SortAndFilterButton = forwardRef<
     </Button>
   );
 });
+
+SortAndFilterButton.displayName = "SortAndFilterButton";

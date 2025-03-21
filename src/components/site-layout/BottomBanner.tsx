@@ -16,8 +16,10 @@ export const BottomBanner = () => {
   if (!network.online) {
     return (
       <Layout>
-        ٩(๑❛ᴗ❛๑)۶ A few features may be unavailable in offline mode. Don't
-        worry, you can still use the site. Reconnect to enjoy all features.💖
+        {"٩(๑❛ᴗ❛๑)۶"} A few features may be unavailable in offline mode.{" "}
+        {`Don't`}
+        worry, you can still use the site. Reconnect to enjoy all features.
+        {"💖"}
       </Layout>
     );
   }
@@ -25,8 +27,9 @@ export const BottomBanner = () => {
   if (network.saveData === true) {
     return (
       <Layout>
-        (╭ರ_•́) It seems that you're in data-saving mode, don't worry, you can
-        still use the site, but some features may take longer to load.
+        {"(╭ರ_•́)"} It seems that {`you're`} in data-saving mode, {`don't`}{" "}
+        worry, you can still use the site, but some features may take longer to
+        load.
       </Layout>
     );
   }
@@ -42,7 +45,7 @@ export const BottomBanner = () => {
 
   return (
     <Layout>
-      (◍•ᴗ•◍) Say hello to us on
+      {"(◍•ᴗ•◍)"} Say hello to us on
       <ExternalTextLink
         href={outLinks.discord}
         text="Discord,"
@@ -55,7 +58,7 @@ export const BottomBanner = () => {
       />
       or
       <ExternalTextLink href={outLinks.koFi} text={"Ko-Fi."} cnType="limeBg" />
-      {"🫰"}
+      {"🫰🫰"}
     </Layout>
   );
 };
