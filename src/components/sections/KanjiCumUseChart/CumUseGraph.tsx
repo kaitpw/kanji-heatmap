@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { useRef, useEffect } from "react";
 
 import {
@@ -18,7 +16,6 @@ import {
 } from "chart.js";
 import { useTheme } from "@/providers/theme-hooks";
 import { buildChartConfig, ChartData } from "./helpers";
-import { cn } from "@/lib/utils";
 
 Chart.register(
   LineController,
@@ -29,23 +26,22 @@ Chart.register(
   Tooltip
 );
 
-export type MultiLineChartData = Record<string, [number, number][]>;
+type MultiLineChartData = Record<string, [number, number][]>;
 
-export type ChartConfig = Record<
+type ChartConfig = Record<
   string,
   {
     label: string;
     color: string;
   }
 >;
-
-export interface MultiLineChartProps {
+interface MultiLineChartProps {
   data: MultiLineChartData;
   config: ChartConfig;
   isDarkMode?: boolean;
 }
 
-export interface TooltipItem {
+interface TooltipItem {
   label: string;
   value: number;
   color: string;
@@ -139,7 +135,6 @@ const renderTooltip = (
   verticalLineEl.style.left = `${xPosition}px`;
   verticalLineEl.style.top = `${chart.chartArea.top}px`;
   verticalLineEl.style.height = `${chart.chartArea.bottom - chart.chartArea.top}px`;
-  // Set z-index to ensure vertical line is below points
   verticalLineEl.style.zIndex = "1";
 };
 
@@ -264,7 +259,7 @@ const buildChartJSConfig = (
   };
 };
 
-export function MultiLineChart({
+function MultiLineChart({
   data,
   config,
   isDarkMode = false,
@@ -295,7 +290,7 @@ export function MultiLineChart({
 
     chartRef.current = new Chart(
       ctx,
-      buildChartJSConfig(datasets, isDarkMode, (context: any) => {
+      buildChartJSConfig(datasets, isDarkMode, (context: TooltipContext) => {
         renderTooltip(context, tooltipEl, verticalLineEl, containerEl);
       })
     );
@@ -309,28 +304,17 @@ export function MultiLineChart({
   }, [data, config, isDarkMode]);
 
   return (
-    <div className={"relative min-h-[600px] w-full mt-4"} ref={containerRef}>
+    <div className={"relative min-h-[600px] w-full"} ref={containerRef}>
       <div
         ref={verticalLineRef}
-        className="absolute opacity-0 pointer-events-none"
-        style={{
-          width: "1px",
-          backgroundColor: isDarkMode ? "white" : "darkgray",
-          transform: "translateX(-50%)",
-        }}
+        className="absolute opacity-0 pointer-events-none w-px bg-gray-500 "
       />
       <canvas ref={canvasRef} />
       <div
         ref={tooltipRef}
-        className={cn(
-          "absolute z-10 rounded-lg shadow-md min-w-[150px] opacity-0 pointer-events-none",
-          isDarkMode ? "bg-black" : "bg-white"
-        )}
-        style={{
-          border: isDarkMode
-            ? "1px solid rgba(255, 255, 255, 0.4)"
-            : "1px solid rgba(0, 0, 0, 0.1)",
-        }}
+        className={
+          "absolute z-10 rounded-lg shadow-md min-w-[150px] opacity-0 pointer-events-none bg-white dark:bg-black border border-gray-200 dark:border-gray-800"
+        }
       />
     </div>
   );
@@ -341,11 +325,6 @@ export const CumUseGraph = ({ data }: { data: ChartData }) => {
   const { theme } = useTheme();
   const isDarkMode = theme === "dark";
   return (
-    <MultiLineChart
-      config={chartConfig}
-      data={data}
-      key={isDarkMode.toString()}
-      isDarkMode={isDarkMode}
-    />
+    <MultiLineChart config={chartConfig} data={data} isDarkMode={isDarkMode} />
   );
 };

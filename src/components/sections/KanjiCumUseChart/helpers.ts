@@ -18,13 +18,13 @@ export const freqKeyMap: Record<string, keyof KanjiInfoFrequency> = {
 };
 
 export const colorMap: Record<string, string> = {
-  rtk5100: "oklch(0.795 0.184 86.047)",
-  aozora: "oklch(0.768 0.233 130.85)",
-  netflix: "oklch(0.577 0.245 27.325)",
-  news: "oklch(0.585 0.233 277.117)",
-  subtitles: "oklch(0.705 0.213 47.604)",
-  twitter: "oklch(0.715 0.143 215.221)",
-  wikipedia: "oklch(0.553 0.013 58.071)",
+  rtk5100: "#ff9066",
+  aozora: "#7eccb1",
+  netflix: "#e50914",
+  news: "#8c52ff",
+  subtitles: "#edae4c",
+  twitter: "#1da1f2",
+  wikipedia: "#636363",
 };
 
 /**

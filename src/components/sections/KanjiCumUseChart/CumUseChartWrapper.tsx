@@ -9,14 +9,14 @@ export const CumUseChartWrapper = ({
 }) => {
   return (
     <article className="flex justify-center flex-col items-center">
-      <div className="w-full md:w-[1000px]">
+      <div className="w-full md:w-[700px] lg:w-[1000px]">
         <div className="my-4">
-          <h1 className="font-bold text-xl">
+          <h1 className="font-bold text-base md:text-xl">
             Cumulative Usage vs Frequency Rank
           </h1>
         </div>
 
-        <div className="mr-10  ">{children}</div>
+        <div>{children}</div>
         <div className="flex flex-wrap justify-center">{legends}</div>
         <div className="mx-2 text-left">
           <p className="my-2 ">
