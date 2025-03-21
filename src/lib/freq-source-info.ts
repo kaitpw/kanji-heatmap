@@ -163,7 +163,7 @@ export const FREQ_RANK_SOURCES_INFO: Record<
   },
   [K_RANK_BUNKA]: {
     description:
-      "Published by the Japanese Agency for Cultural Affairs (文化庁) on 2010 that processed 1.45M kanji from " +
+      "Published by the Japanese Agency for Cultural Affairs (文化庁) in 2010 that processed 1.45M kanji from " +
       "various sources including books, magazines, textbooks, newspapers such as Asahi and Yomiuri, websites, etc. " +
       ultimate_attribute_desc,
     links: ultimate_kanji_links,
