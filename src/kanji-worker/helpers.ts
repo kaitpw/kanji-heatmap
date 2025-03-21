@@ -126,7 +126,7 @@ export const transformToExtendedKanjiInfo = (
     rtk,
     wk,
     jouyouGrade,
-    meanings,
+    meanings: Array.from(new Set(meanings)),
     allOn: new Set((allOn ?? []).map((val) => wanakana.toHiragana(val))),
     allKun: new Set(hiraganaAllKun),
     allKunStripped: new Set(hiraganaAllKunStripped),
