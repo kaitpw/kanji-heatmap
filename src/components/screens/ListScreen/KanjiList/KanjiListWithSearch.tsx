@@ -3,6 +3,7 @@ import { useKanjiSearchResult } from "@/kanji-worker/kanji-worker-hooks";
 import { DefaultErrorFallback } from "@/components/error";
 import { VirtualKanjiList } from "./VirtualKanjiList";
 import LoadingKanjis from "./LoadingKanjis";
+import { NoSearchResults } from "@/components/error/NoSearchResults";
 
 const KanjiListWithSearch = () => {
   const result = useKanjiSearchResult();
@@ -17,7 +18,7 @@ const KanjiListWithSearch = () => {
   }
 
   if (result.data.length === 0) {
-    return <div className="p-20">No kanji match your search</div>;
+    return <NoSearchResults />;
   }
   return (
     <VirtualKanjiList kanjiKeys={result.data} size={itemSettings.cardType} />

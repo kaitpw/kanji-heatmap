@@ -17,9 +17,9 @@ export const JLPTListItems: Record<
   { cn: string; color: string; label: string; cnBorder: string }
 > = {
   n1: {
-    cn: "bg-lime-400",
-    cnBorder: "border-lime-400",
-    color: "lime",
+    cn: "bg-red-400",
+    cnBorder: "border-red-400",
+    color: "orange",
     label: "N1",
   },
   n2: {
@@ -41,9 +41,9 @@ export const JLPTListItems: Record<
     label: "N4",
   },
   n5: {
-    cn: "bg-red-400",
-    cnBorder: "border-red-400",
-    color: "orange",
+    cn: "bg-lime-400",
+    cnBorder: "border-lime-400",
+    color: "lime",
     label: "N5",
   },
   none: {

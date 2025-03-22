@@ -15,10 +15,12 @@ const APOLOGIZING_SYMBOL = [
 export const Sumimasen = () => {
   return (
     <>
-      <span className="text-xl my-1 kanji-font">{"すみません"}</span>
-      <div className="flex space-x-2 justify-center items-center">
+      <span className="text-3xl sm:text-3xl my-1 kanji-font">
+        {"すみません"}
+      </span>
+      <div className="flex space-x-2 my-4 justify-center items-center">
         {Math.random() < 0.8 ? (
-          <code className="text-md font-bolder text-xl text-pink-500">
+          <code className="font-bolder text-4xl text-pink-500">
             {selectRandom(APOLOGIZING_SYMBOL)}
           </code>
         ) : (

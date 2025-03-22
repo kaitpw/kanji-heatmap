@@ -10,7 +10,7 @@ export const ResponsiveKanjiCard = ({ kanji }: { kanji: string }) => {
           <KanjiCard kanji={kanji} />
         </ErrorBoundary>
       </div>
-      <div className="w-52 flex items-center justify-center [@media(min-height:900px)]:[@media(min-width:400px)]:hidden">
+      <div className="flex items-center justify-center [@media(min-height:900px)]:[@media(min-width:400px)]:hidden">
         <ErrorBoundary details="SmallKanjiCard in ResponsiveKanjiCard">
           <SmallKanjiCard kanji={kanji} />
         </ErrorBoundary>
