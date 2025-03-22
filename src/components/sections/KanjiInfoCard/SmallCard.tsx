@@ -1,4 +1,4 @@
-import { HoverItemReturnData } from "@/lib/kanji-info-types";
+import { HoverItemReturnData } from "@/lib/kanji/kanji-info-types";
 import {
   useIsKanjiWorkerReady,
   useKanjiInfo,
@@ -29,12 +29,12 @@ export const SmallKanjiCard = ({ kanji }: { kanji: string }) => {
   const info = data.data as HoverItemReturnData;
 
   return (
-    <div>
+    <div className="m-1 border border-dashed p-2">
       <div className="flex flex-wrap items-center justify-center mx-1">
         <Badge className="text-nowrap m-1">{info.keyword.toUpperCase()}</Badge>
         <JLPTBadge jlpt={info.jlpt} />
       </div>
-      <div className="kanji-font text-8xl mb-4">{kanji}</div>
+      <div className="kanji-font text-8xl mb-2">{kanji}</div>
     </div>
   );
 };

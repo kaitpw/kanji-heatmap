@@ -1,5 +1,5 @@
-import { KanjiInfoFrequency } from "@/lib/kanji-worker-types";
-import { frequencyRankLabels } from "@/lib/label-maps";
+import { KanjiInfoFrequency } from "@/lib/kanji/kanji-worker-types";
+import { frequencyRankLabels } from "@/lib/options/options-label-maps";
 
 export type ChartData = Record<string, [number, number][]>;
 

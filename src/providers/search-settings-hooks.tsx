@@ -1,6 +1,6 @@
 import { createContextComponents, useContextWithCatch } from "./helpers";
-import { SearchSettings } from "@/lib/settings";
-import { MAX_FREQ_RANK, MAX_STROKE_COUNT } from "@/lib/constants";
+import { SearchSettings } from "@/lib/settings/settings";
+import { MAX_FREQ_RANK, MAX_STROKE_COUNT } from "@/lib/options/constants";
 
 export const searchSettings = createContextComponents<SearchSettings>({
   textSearch: {

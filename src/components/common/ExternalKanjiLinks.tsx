@@ -1,4 +1,4 @@
-import { externalLinks } from "@/lib/constants";
+import { externalLinks } from "@/lib/external-links";
 import { ExternalTextLink } from "./ExternalTextLink";
 
 export const ExternalKanjiLinks = ({ kanji }: { kanji: string }) => {

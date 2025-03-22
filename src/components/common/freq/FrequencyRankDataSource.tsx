@@ -1,6 +1,9 @@
-import { FREQUENCY_RANK_FILTER_OPTIONS } from "@/lib/sort-freq-select-options";
-import { FREQ_RANK_SOURCES_INFO, rankTypeLabel } from "@/lib/freq-source-info";
-import { FrequencyType } from "@/lib/sort-freq-types";
+import { FREQUENCY_RANK_FILTER_OPTIONS } from "@/lib/options/options-arr";
+import {
+  FREQ_RANK_SOURCES_INFO,
+  rankTypeLabel,
+} from "@/lib/freq/freq-source-info";
+import { FrequencyType } from "@/lib/options/options-types";
 
 import BasicSelect from "../BasicSelect";
 import { Combobox } from "../Combobox";

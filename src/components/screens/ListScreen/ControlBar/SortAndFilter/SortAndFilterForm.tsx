@@ -1,10 +1,14 @@
 import { useState } from "react";
 
-import { FrequencyType, GROUP_OPTIONS, SortKey } from "@/lib/sort-freq-types";
-import { isEqualFilters } from "@/lib/kanji-display-utils";
-import { SORT_ORDER_SELECT } from "@/lib/sort-freq-select-options";
-import { MAX_FREQ_RANK, MAX_STROKE_COUNT } from "@/lib/constants";
-import { FilterSettings, SearchSettings, SortSettings } from "@/lib/settings";
+import { FrequencyType, SortKey } from "@/lib/options/options-types";
+import { isEqualFilters } from "@/lib/results-utils";
+import { SORT_ORDER_SELECT } from "@/lib/options/options-arr";
+import { MAX_FREQ_RANK, MAX_STROKE_COUNT } from "@/lib/options/constants";
+import {
+  FilterSettings,
+  SearchSettings,
+  SortSettings,
+} from "@/lib/settings/settings";
 
 import { Button } from "@/components/ui/button";
 import BasicSelect from "@/components/common/BasicSelect";
@@ -21,6 +25,7 @@ import {
   SortAdditionalInfo,
   SortOrderSectionLayout,
 } from "./SortOrderPresentation";
+import { GROUP_OPTIONS } from "@/lib/options/options-constants";
 
 export const SortAndFilterSettingsForm = ({
   initialValue,

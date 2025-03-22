@@ -1,19 +1,22 @@
 import fuzzysearch from "fuzzysearch";
 import wanakana from "@/lib/wanakana-adapter";
+import { JLPTOptionsCount, JLPTRank, JLTPTtypes } from "@/lib/jlpt";
 import {
-  FREQ_RANK_OPTIONS_NONE_REMOVED,
+  KanjiExtendedInfo,
+  KanjiMainInfo,
+} from "@/lib/kanji/kanji-worker-types";
+import { SearchSettings } from "@/lib/settings/settings";
+import {
   K_JLPT,
   K_JOUYOU_KEY,
   K_MEANING_KEY,
   K_RTK_INDEX,
   K_STROKES,
   K_WK_LVL,
-  SortKey,
-} from "@/lib/sort-freq-types";
-import { JLPTOptionsCount, JLPTRank, JLTPTtypes } from "@/lib/jlpt";
-import { KanjiExtendedInfo, KanjiMainInfo } from "@/lib/kanji-worker-types";
-import { SearchSettings } from "@/lib/settings";
-import { getFrequency } from "@/lib/freq-rank-map";
+} from "@/lib/options/options-constants";
+import { FREQ_RANK_OPTIONS_NONE_REMOVED } from "@/lib/options/options-arr";
+import { getFrequency } from "@/lib/options/options-label-maps";
+import { SortKey } from "@/lib/options/options-types";
 
 type DataPool = {
   main: Record<string, KanjiMainInfo>;

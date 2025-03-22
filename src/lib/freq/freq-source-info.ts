@@ -1,5 +1,5 @@
+import { FrequencyType } from "../options/options-types";
 import {
-  FrequencyType,
   K_RANK_AOZORA_CHAR,
   K_RANK_AOZORA_DOC,
   K_RANK_BUNKA,
@@ -18,7 +18,7 @@ import {
   K_RANK_WIKIPEDIA_CHAR,
   K_RANK_WIKIPEDIA_DOC,
   K_RANK_WKFR,
-} from "./sort-freq-types";
+} from "../options/options-constants";
 
 const scriptin_attribute_desc =
   " Compiled by Dmitry Shpika. Converted to Rank 1224 type by @mikong.";

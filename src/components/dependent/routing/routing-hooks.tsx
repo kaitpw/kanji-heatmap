@@ -1,6 +1,6 @@
 import { useLocation, useSearchParams } from "wouter";
 import { useCallback, useMemo } from "react";
-import { URL_PARAMS } from "@/lib/constants";
+import { URL_PARAMS } from "@/lib/settings/url-params";
 
 export const useKanjiUrlState = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -31,7 +31,6 @@ export const useKanjiFromUrl = (kanji: string) => {
   const [params] = useSearchParams();
 
   const urlState = useMemo(() => {
-    // TODO. Is there a better way that doesn't use useState and useSearchParams?
     params.delete(URL_PARAMS.openKanji);
     params.set(URL_PARAMS.openKanji, kanji);
     return params.toString();

@@ -1,9 +1,9 @@
-import { outLinks } from "@/lib/constants";
+import { outLinks } from "@/lib/external-links";
 import { BugIcon, KoFiIcon, DiscordIcon } from "../icons";
 
 const bugItem = {
   href: outLinks.githubIssue,
-  text: "Report bug on Github issues",
+  text: "Report bug on Github issues 🐛🐞",
   icon: <BugIcon />,
 };
 
@@ -15,7 +15,7 @@ const discordItem = {
 
 const kofiItem = {
   href: outLinks.koFi,
-  text: "Support us on Ko-Fi",
+  text: "Motivate us with a Ko-Fi ☕🧋🍵",
   icon: <KoFiIcon />,
 };
 

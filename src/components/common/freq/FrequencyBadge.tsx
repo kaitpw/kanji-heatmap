@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { getFreqCnByRank } from "@/lib/freq-category";
+import { getFreqCnByRank } from "@/lib/freq/freq-category";
 import { GenericPopover } from "@/components/common/GenericPopover";
 import { badgeCnOutline } from "@/components/ui/badge-utils";
 

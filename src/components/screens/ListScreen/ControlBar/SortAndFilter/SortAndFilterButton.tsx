@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { KANJI_COUNT } from "@/lib/constants";
+import { KANJI_COUNT } from "@/lib/options/constants";
 import { useKanjiSearchResult } from "@/kanji-worker/kanji-worker-hooks";
 import { Settings2 } from "@/components/icons";
 import { Button } from "@/components/ui/button";

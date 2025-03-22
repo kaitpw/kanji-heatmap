@@ -2,7 +2,7 @@ import * as React from "react";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { ChevronDown, ChevronUp, CircleCheckBig } from "lucide-react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/generic-utils";
 
 const Select = SelectPrimitive.Root;
 
@@ -124,7 +124,7 @@ const SelectItem = React.forwardRef<
     <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
     <span className="absolute right-4 top-2 flex h-3.5 w-3.5 items-center justify-center z-50">
       <SelectPrimitive.ItemIndicator>
-        <CircleCheckBig className="h-4 w-4 text-green-500" />
+        <CircleCheckBig className="h-4 w-4 text-lime-500" />
       </SelectPrimitive.ItemIndicator>
     </span>
   </SelectPrimitive.Item>

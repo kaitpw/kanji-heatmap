@@ -1,4 +1,4 @@
-import { KanjiInfoFrequency } from "./kanji-worker-types";
+import { KanjiInfoFrequency } from "../kanji/kanji-worker-types";
 
 export const K_JLPT = "jlpt";
 export const K_JOUYOU_KEY = "jouyou-grade";
@@ -61,13 +61,22 @@ export const FREQ_RANK_OPTIONS = [
   K_RANK_NONE,
 ] as const;
 
-export const FREQ_RANK_OPTIONS_NONE_REMOVED = FREQ_RANK_OPTIONS.filter(
-  (option) => option != K_RANK_NONE
-);
-
-export type SortGroup = (typeof GROUP_OPTIONS)[number];
-export type SortNonGroup = (typeof NONGROUP_OPTIONS)[number];
-export type FrequencyType = (typeof FREQ_RANK_OPTIONS)[number];
-export type SortKey = SortGroup | SortNonGroup | FrequencyType;
-export type FreqMapInverse = Record<keyof KanjiInfoFrequency, FrequencyType>;
-export type SortOptionLabelType = Record<SortKey, string>;
+export const frequencyRankNamesOrdered: (keyof KanjiInfoFrequency)[] = [
+  "netflix",
+  "twitter",
+  "google",
+  "wkfr",
+  "wikiChar",
+  "wikiDoc",
+  "aozoraChar",
+  "aozoraDoc",
+  "onlineNewsChar",
+  "onlineNewsDoc",
+  "novels5100",
+  "dramaSubs",
+  "kuf",
+  "kd",
+  "mcd",
+  "bunka",
+  "jisho",
+] as const;

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { translateValue } from "@/lib/translate-search";
 import { Badge } from "@/components/ui/badge";
+import { translateValue } from "@/lib/wanakana-adapter";
 
 export const RomajiBadge = ({ kana }: { kana: string }) => {
   const [isKana, setIsKana] = useState(true);

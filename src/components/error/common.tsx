@@ -1,9 +1,9 @@
 import { ReactNode } from "react";
-import { outLinks } from "@/lib/constants";
 import { ExternalTextLink } from "@/components/common/ExternalTextLink";
 
 import { cnTextLink } from "@/lib/generic-cn";
 import { GlobalHomeLink } from "../dependent/routing";
+import { outLinks } from "@/lib/external-links";
 
 export const RefreshOrGoBackHome = () => {
   return (
@@ -24,7 +24,7 @@ export const RefreshOrGoBackHome = () => {
 
 export const Wrapper = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="h-full w-95 flex flex-col items-center justify-center p-4 m-2">
+    <div className="h-full w-full flex flex-col items-center justify-center p-4 m-2">
       {children}
     </div>
   );

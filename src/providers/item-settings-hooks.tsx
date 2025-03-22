@@ -1,6 +1,6 @@
 import { useDeferredValue } from "react";
 import { createContextComponents, useContextWithCatch } from "./helpers";
-import { ItemSettings } from "@/lib/settings";
+import { ItemSettings } from "@/lib/settings/settings";
 
 export const defaultItemSettingsValue: ItemSettings = {
   cardType: "compact",

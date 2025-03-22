@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import KANJI_WORKER_SINGLETON from "@/kanji-worker/kanji-worker-promise-wrapper";
 import { useContextWithCatch } from "../providers/helpers";
 
-import { SearchSettings } from "@/lib/settings";
-import { KanjiInfoRequestType } from "@/lib/kanji-info-types";
+import { SearchSettings } from "@/lib/settings/settings";
+import { KanjiInfoRequestType } from "@/lib/kanji/kanji-info-types";
 import { createContext } from "react";
-import { KanjiMainInfo } from "@/lib/kanji-worker-types";
+import { KanjiMainInfo } from "@/lib/kanji/kanji-worker-types";
 import { useSearchSettings } from "@/providers/search-settings-hooks";
 
 export type KanjiRequestFn = (

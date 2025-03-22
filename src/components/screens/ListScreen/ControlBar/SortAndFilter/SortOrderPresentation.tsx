@@ -1,11 +1,11 @@
 import { ReactNode } from "react";
-import { SORT_OPTION_LABELS } from "@/lib/sort-freq-select-options";
-import { SortKey } from "@/lib/sort-freq-types";
+import { SortKey } from "@/lib/options/options-types";
 
 import { ArrowDownWideNarrow } from "@/components/icons";
 import { Badge } from "@/components/ui/badge";
 
 import { UppercaseHeading } from "@/components/common/UpperCaseHeading";
+import { SORT_OPTION_LABELS } from "@/lib/options/options-label-maps";
 
 export const SortAdditionalInfo = ({
   val1,

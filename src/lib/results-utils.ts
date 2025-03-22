@@ -1,6 +1,6 @@
-import { MAX_STROKE_COUNT } from "@/lib/constants";
+import { MAX_STROKE_COUNT } from "@/lib/options/constants";
 import { JLPTOptions } from "@/lib/jlpt";
-import { FilterSettings, SearchSettings } from "@/lib/settings";
+import { FilterSettings, SearchSettings } from "@/lib/settings/settings";
 
 export const shouldShowAllKanji = (settings: SearchSettings) => {
   const { strokeRange, freq, jlpt } = settings.filterSettings;

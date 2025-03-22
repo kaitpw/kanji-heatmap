@@ -1,6 +1,5 @@
-import { KanjiInfoFrequency } from "./kanji-worker-types";
+import { KanjiInfoFrequency, KanjiMainInfo } from "../kanji/kanji-worker-types";
 import {
-  FrequencyType,
   K_JLPT,
   K_JOUYOU_KEY,
   K_MEANING_KEY,
@@ -25,16 +24,21 @@ import {
   K_RTK_INDEX,
   K_STROKES,
   K_WK_LVL,
+} from "./options-constants";
+import {
+  FreqMapInverse,
+  FrequencyType,
   SortGroup,
   SortNonGroup,
-} from "./sort-freq-types";
+  SortOptionLabelType,
+} from "./options-types";
 
 export const nonFreqOptionLabels: Record<SortGroup | SortNonGroup, string> = {
   [K_JLPT]: "JLPT",
   [K_JOUYOU_KEY]: "Jouyou Grade",
   [K_STROKES]: "Stroke Count",
   [K_WK_LVL]: "Wanikani Level",
-  [K_RTK_INDEX]: "RTK Index",
+  [K_RTK_INDEX]: "Remember the Kanji Index",
   [K_MEANING_KEY]: "Keyword",
 };
 
@@ -82,22 +86,50 @@ export const frequencyRankLabels: Record<keyof KanjiInfoFrequency, string> = {
   jisho: "Jisho.org",
 };
 
-export const frequencyRankNamesOrdered: (keyof KanjiInfoFrequency)[] = [
-  "netflix",
-  "twitter",
-  "google",
-  "wkfr",
-  "wikiChar",
-  "wikiDoc",
-  "aozoraChar",
-  "aozoraDoc",
-  "onlineNewsChar",
-  "onlineNewsDoc",
-  "novels5100",
-  "dramaSubs",
-  "kuf",
-  "kd",
-  "mcd",
-  "bunka",
-  "jisho",
-] as const;
+export const SORT_OPTION_LABELS: SortOptionLabelType = Object.keys({
+  ...nonFreqOptionLabels,
+  ...freqMap,
+}).reduce((acc: SortOptionLabelType, option: string) => {
+  const name = freqMap[option as FrequencyType];
+
+  if (name != null) {
+    const label = frequencyRankLabels[name];
+    acc[option as FrequencyType] = label;
+    return acc;
+  }
+
+  const label = nonFreqOptionLabels[option as SortGroup | SortNonGroup];
+
+  if (label != null) {
+    acc[option as SortGroup | SortNonGroup] = label;
+    return acc;
+  }
+
+  return acc;
+}, {} as SortOptionLabelType);
+
+export const inverseFreqMap = Object.keys(freqMap).reduce((acc, item) => {
+  const infoFreq = item as FrequencyType;
+
+  if (item == null) {
+    return acc;
+  }
+
+  const type = freqMap[infoFreq];
+
+  if (type == null) {
+    return acc;
+  }
+
+  acc[type] = infoFreq;
+
+  return acc;
+}, {} as FreqMapInverse);
+
+export const getFrequency = (freq: FrequencyType, info: KanjiMainInfo) => {
+  return freqMap[freq] &&
+    info.frequency &&
+    (info.frequency[freqMap[freq]] ?? 0) > 0
+    ? info.frequency[freqMap[freq]]
+    : undefined;
+};

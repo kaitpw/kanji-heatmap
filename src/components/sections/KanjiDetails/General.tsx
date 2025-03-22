@@ -1,4 +1,4 @@
-import { GeneralKanjiItem } from "@/lib/kanji-info-types";
+import { GeneralKanjiItem } from "@/lib/kanji/kanji-info-types";
 import { useKanjiInfo } from "@/kanji-worker/kanji-worker-hooks";
 
 import { DefaultErrorFallback } from "@/components/error";
@@ -78,7 +78,7 @@ export const General = ({ kanji }: { kanji: string }) => {
       </Table>
       <DottedSeparator className="border-b-2 mb-4" />
       <div className="text-left">
-        <h1 className="font-bold mb-1">External Links: </h1>
+        <h1 className="font-bold mb-1">Learn more with: </h1>
         <ExternalKanjiLinks kanji={kanji} />
       </div>
     </>

@@ -3,7 +3,7 @@
 import * as React from "react";
 import * as SliderPrimitive from "@radix-ui/react-slider";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/generic-utils";
 
 /* copied from https://github.com/hsuanyi-chou/shadcn-ui-expansions/blob/main/components/ui/dual-range-slider.tsx */
 

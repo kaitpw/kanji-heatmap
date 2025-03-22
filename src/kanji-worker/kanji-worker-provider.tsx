@@ -10,8 +10,11 @@ import {
   KanjiPartKeywordCacheType,
   KanjiPhoneticCacheType,
   VocabExtendedInfo,
-} from "@/lib/kanji-info-types";
-import { KanjiExtendedInfo, KanjiMainInfo } from "@/lib/kanji-worker-types";
+} from "@/lib/kanji/kanji-info-types";
+import {
+  KanjiExtendedInfo,
+  KanjiMainInfo,
+} from "@/lib/kanji/kanji-worker-types";
 import {
   ActionContext,
   GetBasicKanjiInfoContext,

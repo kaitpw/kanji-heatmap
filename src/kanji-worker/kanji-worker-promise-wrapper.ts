@@ -20,7 +20,7 @@
  * The surprising detail is that general worker errors can reject all pending requests, which users should be aware of for proper error handling in their applications.
  */
 
-import { KanjiWorkerRequest } from "../lib/kanji-worker-types";
+import { KanjiWorkerRequest } from "../lib/kanji/kanji-worker-types";
 import KanjiWorker from "@/kanji-worker/kanji-worker.ts?worker";
 
 export type PromiseWrappedWorker = {
