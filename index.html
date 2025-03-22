@@ -26,7 +26,10 @@
     <meta property="og:title" content="Kanji Heatmap" />
     <meta
       property="og:description"
-      content="A kanji exploration tool. Visualize kanji frequency rankings from 17+ sources (Netflix, Twitter, Google, Wikipedia, etc.) for real-world usage insights. Search effortlessly and dive into detailed info — stroke animations, component breakdowns, and sample vocab — all in one place."
+      content="Efficiently identify, search for, study, and gain
+        real-world usage insights into the most relevant kanji with frequency
+        data-driven visuals. Data corpus drawn from 17+ sources - Netflix,
+        Twitter, Google, Wikipedia..."
     />
     <meta
       property="og:image"
@@ -39,7 +42,10 @@
     <meta property="twitter:title" content="Kanji Heatmap" />
     <meta
       property="twitter:description"
-      content="A kanji exploration tool. Visualize kanji frequency rankings from 17+ sources (Netflix, Twitter, Google, Wikipedia, etc.) for real-world usage insights. Search effortlessly and dive into detailed info — stroke animations, component breakdowns, and sample vocab — all in one place."
+      content="Efficiently identify, search for, study, and gain
+        real-world usage insights into the most relevant kanji with frequency
+        data-driven visuals. Data corpus drawn from 17+ sources - Netflix,
+        Twitter, Google, Wikipedia..."
     />
     <meta
       property="twitter:image"
@@ -65,111 +71,88 @@
   <body>
     <div id="root"></div>
     <div class="dont-show">
+      <h1>Kanji Heatmap</h1>
+
       <p>
-        An intuitive web app for Japanese kanji exploration. Visualize how each
-        kanji's frequency rank varies across contexts z for real-world usage
-        insights. Quickly search and access detailed information like stroke
-        order animations, component breakdowns, sample vocabulary and more.
+        A kanji exploration tool. Visualize kanji frequency rankings from 17+
+        sources (Netflix, Twitter, Google, Wikipedia, etc.) for real-world usage
+        insights. Search effortlessly and dive into detailed info — stroke
+        animations, component breakdowns, and sample vocab — all in one place.
       </p>
       <p>
-        Find kanji by English keyword, on'yomi reading, or kun'yomi reading via
-        intuitive search bar. Then, sort and filter results by JLPT level,
-        Jouyou Grade, Remembering the Kanji (RTK) index, Wanikani Level, stroke
-        count, or frequency ranking and more. Clicking on any kanji to reveal
-        sample vocabulary, component composition, stroke animations, how it
-        looks like in various fonts and more.
+        Efficiently identify, search for, study, and gain real-world usage
+        insights into the most relevant kanji with frequency data-driven
+        visuals. Data corpus drawn from 17+ sources - Netflix, Twitter, Google,
+        Wikipedia...
       </p>
-      <p>
-        Jotoba The Kanji Map, Jisho, kanjiapi.dev, Kanji Alive, Hochanh,
-        JPDB.io, Wanikani, Remembering the Kanji, Heisig, Duolingo, Memrise,
-        Anki, Kanshudo, Immersion Kit, Tatoeba,
-      </p>
-      <p>
-        Frequency Rank Data Sources
-        <br />
-        Netflix - Derived from Japanese Netflix subtitles containing about 53M
-        total kanji occurrences. Compiled by OhTalkWho オタク (Dave Doebrick) in
-        2019.
-        <br />
-        Japanese Drama - Derived from 12,277 subtitles from Japanese drama,
-        anime and films containing about 20.5M total kanji occurrences. Compiled
-        by Chris Kempson. github.com/Matchoo95/JP-Subtitles
-        chriskempson/japanese-subtitles-word-kanji-frequency-lists
-        <br />
-        Novel- Derived from scanning 5100 novels containing about 180M total
-        kanji occurrences. Compiled by Redditor Nukemarine
-        <br />
-        Frequency Rankings By Dmitry Shpika scriptin.github.io/kanji-frequency
-        <br />
-        Twitter - Derived from Twitter messages collected last June 2015
-        containing about 10M total kanji occurrences.
-        <br />
-        Wikipedia = Derived from 100,000 Wikipedia articles sampled in 2023 and
-        contained 59M total kanji occurrences.
-        <br />
-        Online News - Derived from over 3,700 articles from Japanese Wikinews
-        that were published from 2005 to 2023 and contained 1.1M total kanji
-        occurrences.
-        <br />
-        Aozora - Derived from over 17,000 books from Aozora Bunko, the vast
-        majority of which are more than 70 years old, and contained 67.8M total
-        kanji occurrences
-        <br />
-        Compiled by Patrick Kandrac.
-        <br />
-        Google - Kouji Shibano's Google Kanji Data from 2009 that processed 133B
-        kanji occurrences.
-        <br />
-        Kanji Usage Frequency (KUF) from 2016 that processed 850M kanji
-        occurrences from Wikipedia, Aozora, e-news, Twitter.
-        <br />
-        Matsushita's Character Database (MCD) from 2014 that processed 33M words
-        from sources The Balanced Corpus of Contemporary Written Japanese
-        (BCCWJ) and Yahoo知恵袋 aka Japanese Yahoo Answer.
-        <br />
-        Published by the Japanese Agency for Cultural Affairs (文化庁) in 2010
-        that processed 1.45M kanji from various sources including books,
-        magazines, textbooks, newspapers such as Asahi and Yomiuri, websites,
-        etc.
-        <br />
-        Jisho.org uses Alexandre Girardi's word frequency list published in 1998
-        that used 300,000 words found in 4 years of the Mainichi Newpaper.
-        <br />
-        Alex Yatskov's Wikipedia Kanji Frequency Report (WKFR) published in 2010
-        analyzed more than 500M kanji occurrences.
-      </p>
+
+      <h1>Japanese Learning Resources</h1>
       <p>
         Jotoba: An online Japanese dictionary that offers comprehensive kanji
-        lookups using keywords, radicals, or stroke counts. The Kanji Map: An
-        interactive tool that visually organizes kanji, helping users see
-        relationships and connections between characters. Jisho: A popular
-        Japanese-English dictionary known for its detailed kanji entries,
-        example sentences, and versatile search options. kanjiapi.dev: A
-        developer-friendly RESTful API that provides extensive data on
-        kanji—including meanings, readings, and usage examples. Kanji Alive: An
-        educational platform featuring detailed kanji information, stroke order
-        animations, and example vocabulary for effective learning. Hochanh: A
-        resource offering visual and interactive tools to aid in kanji study
-        (often paired with other databases for comprehensive learning). JPDB.io:
-        A robust Japanese language database that features kanji, vocabulary, and
-        example sentences with advanced search capabilities. Wanikani: A
-        structured kanji learning application that uses mnemonics and spaced
-        repetition to help learners master characters efficiently. Remembering
-        the Kanji/Heisig: A method and associated resources that introduce
-        mnemonic techniques to simplify the process of learning kanji. Duolingo:
-        A gamified language-learning platform that includes Japanese lessons
-        with kanji practice integrated into its curriculum. Memrise: A language
-        learning app that employs spaced repetition and mnemonic devices to
-        assist with memorizing kanji and vocabulary. Anki: A flashcard-based
-        tool widely used for spaced repetition, making it a favorite among
-        students for memorizing kanji and other study materials. Kanshudo: A
-        comprehensive online resource offering interactive kanji learning tools,
-        quizzes, and detailed character information. Immersion Kit: A platform
-        providing immersive language resources, including contextual vocabulary
-        and kanji references, to enhance language acquisition. Tatoeba: A
-        collaborative database of example sentences in multiple languages,
-        useful for understanding real-world kanji usage in context.
+        lookups using keywords, radicals, or stroke counts.
       </p>
+      <p>
+        The Kanji Map: An interactive tool that visually organizes kanji,
+        helping users see relationships and connections between characters.
+      </p>
+      <p>
+        Jisho: A popular Japanese-English dictionary known for its detailed
+        kanji entries, example sentences, and versatile search options.
+      </p>
+      <p>
+        kanjiapi.dev: A developer-friendly RESTful API that provides extensive
+        data on kanji—including meanings, readings, and usage examples.
+      </p>
+      <p>
+        Kanji Alive: An educational platform featuring detailed kanji
+        information, stroke order animations, and example vocabulary for
+        effective learning.
+      </p>
+      <p>
+        Hochanh: A resource offering visual and interactive tools to aid in
+        kanji study (often paired with other databases for comprehensive
+        learning). https://hochanh.github.io/rtk/%E5%93%81/index.html
+      </p>
+      <p>
+        JPDB.io: A robust Japanese language database that features kanji,
+        vocabulary, and example sentences with advanced search capabilities.
+      </p>
+      <p>
+        Wanikani: A structured kanji learning application that uses mnemonics
+        and spaced repetition to help learners master characters efficiently.
+        Tofugu
+      </p>
+      <p>
+        Remembering the Kanji/Heisig: A method and associated resources that
+        introduce mnemonic techniques to simplify the process of learning kanji.
+      </p>
+      <p>
+        Duolingo: A gamified language-learning platform that includes Japanese
+        lessons with kanji practice integrated into its curriculum.
+      </p>
+      <p>
+        Memrise: A language learning app that employs spaced repetition and
+        mnemonic devices to assist with memorizing kanji and vocabulary.
+      </p>
+      <p>
+        Anki: A flashcard-based tool widely used for spaced repetition, making
+        it a favorite among students for memorizing kanji and other study
+        materials.
+      </p>
+      <p>
+        Kanshudo: A comprehensive online resource offering interactive kanji
+        learning tools, quizzes, and detailed character information.
+      </p>
+      <p>
+        Immersion Kit: A platform providing immersive language resources,
+        including contextual vocabulary and kanji references, to enhance
+        language acquisition.
+      </p>
+      <p>
+        Tatoeba: A collaborative database of example sentences in multiple
+        languages, useful for understanding real-world kanji usage in context.
+      </p>
+      <h1>What is Kanji Heatmap all About</h1>
       <p>
         A dynamic web app designed to revolutionize how you study Japanese
         kanji. Perfect for learners at all levels, this tool offers real-time
@@ -184,9 +167,9 @@
         customizable fonts. Optimize your learning with a sleek, user-friendly
         interface that prioritizes clarity and efficiency. Whether prepping for
         the JLPT exam, analyzing kanji usage in media, or exploring etymology,
-        Kanji Companion connects you to external resources like Jisho, Wanikani,
+        Kanji Heatmap connects you to external resources like Jisho, Wanikani,
         and Kanshudo for seamless cross-referencing. Rank higher in your studies
-        and let Google rank us higher too—Kanji Companion is the go-to hub for
+        and let Google rank us higher too—Kanji Heatmap is the go-to hub for
         data-driven kanji mastery.
       </p>
       <p>
@@ -199,27 +182,348 @@
         sources—including Netflix, Twitter, Google, Wikipedia, Aozora, and
         more—and dive deeper by clicking on any kanji to reveal sample
         vocabulary, component parts, stroke animations, and even font
-        customization options. Kanji Companion offers a clean, user-friendly
+        customization options. Kanji Heatmap offers a clean, user-friendly
         interface and a visually engaging experience, making it the perfect tool
         for learners and enthusiasts looking to refine their study and expand
         their Japanese vocabulary.
       </p>
       <p>
-        Elevate your Japanese language learning. Rhe ultimate web application
+        Elevate your Japanese language learning. The ultimate web application
         for mastering kanji with precision and ease. Perfect for beginners and
-        advanced learners alike, Kanji Companion offers a powerful suite of
-        tools to explore kanji in depth. Search effortlessly using English
-        keywords, onyomi, or kunyomi readings via an intuitive search bar, and
-        sort kanji by JLPT level, Jouyou Grade, Remembering the Kanji Index,
-        keywords, or frequency rankings. With data from 17 diverse
-        sources—including Netflix, Twitter, Google, Wikipedia, and Aozora—you
-        can visualize how kanji frequency varies across contexts, giving you
-        unique insights into real-world usage. Refine your study with advanced
-        filters like stroke count, JLPT level, or frequency ranking, and dive
-        into detailed kanji profiles featuring sample vocabulary, component
-        breakdowns, stroke order animations, and customizable fonts. Wrapped in
-        a sleek, user-friendly interface. Makes learning kanji engaging and
-        efficient. Transform your kanji study experience!
+        advanced learners alike, Kanji Heatmap offers a powerful suite of tools
+        to explore kanji in depth. Search effortlessly using English keywords,
+        onyomi, or kunyomi readings via an intuitive search bar, and sort kanji
+        by JLPT level, Jouyou Grade, Remembering the Kanji Index, keywords, or
+        frequency rankings. With data from 17 diverse sources—including Netflix,
+        Twitter, Google, Wikipedia, and Aozora—you can visualize how kanji
+        frequency varies across contexts, giving you unique insights into
+        real-world usage. Refine your study with advanced filters like stroke
+        count, JLPT level, or frequency ranking, and dive into detailed kanji
+        profiles featuring sample vocabulary, component breakdowns, stroke order
+        animations, and customizable fonts. Wrapped in a sleek, user-friendly
+        interface. Makes learning kanji engaging and efficient. Transform your
+        kanji study experience!
+      </p>
+      <h1>User Impressions</h1>
+      <h2>Review One</h2>
+      <p>
+        KanjiHeatmap.com is a specialized educational tool designed to assist
+        Japanese language learners in visualizing and prioritizing kanji
+        characters based on their frequency of use. Here's a detailed breakdown:
+        Core Features: Heatmap Visualization: Kanji are displayed in a grid,
+        color-coded to indicate usage frequency (e.g., warm colors like red for
+        high frequency, cooler colors like blue for rare characters). A legend
+        clarifies the frequency-intensity scale, helping users quickly identify
+        which kanji to prioritize. Interactive Kanji Cards: Clicking a character
+        reveals detailed information, including readings (onyomi/kunyomi),
+        meanings, stroke order, and example compounds. Links to external
+        resources (e.g., Jisho, WaniKani) are provided for deeper study.
+        Filtering and Search: Users can filter kanji by JLPT levels (N5-N1) or
+        Japanese school grades (1st-6th), aligning with standardized learning
+        benchmarks. A search bar allows quick lookup by kanji, reading, or
+        English meaning. Mobile-Friendly Design: Responsive layout ensures
+        accessibility across devices, from desktops to smartphones. Target
+        Audience: Learners: Focus on high-frequency kanji to optimize study time
+        for exams (JLPT) or practical fluency. Educators: Use heatmap data to
+        structure curricula around commonly encountered characters. Data Sources
+        & Utility: Likely aggregates frequency data from contemporary Japanese
+        media (news, literature, online content), though the exact source isn’t
+        specified. Serves as a quick reference tool rather than a comprehensive
+        learning platform, complementing apps like Anki or textbooks. Potential
+        Limitations: Color Accessibility: May pose challenges for colorblind
+        users without alternative text or high-contrast modes. Data Freshness:
+        Frequency rankings could become outdated if not regularly updated.
+        Dependency on External Tools: Relies on third-party sites for in-depth
+        practice or memorization features. Overall Impression: KanjiHeatmap.com
+        is a streamlined, visually intuitive resource for learners to
+        efficiently identify and study the most relevant kanji. Its strength
+        lies in simplifying prioritization through data-driven visuals, making
+        it a practical addition to a learner’s toolkit.
+      </p>
+      <h2>Review Two</h2>
+      <p>
+        Kanji Heatmap is an interactive, data‐driven web application designed to
+        help learners and enthusiasts explore Japanese kanji in depth. It offers
+        a visually engaging platform where users can: Search and Filter: Quickly
+        find kanji using English keywords, on’yomi or kun’yomi readings, and
+        refine searches by filters such as JLPT level, Jouyou Grade, stroke
+        count, Remembering the Kanji index, and more. Visualize Frequency Data:
+        See how the usage frequency of each kanji varies across multiple
+        real-world data sources—from Netflix subtitles and Japanese dramas to
+        novels, Twitter, Wikipedia, and more. Explore Detailed Profiles: Click
+        on individual kanji to reveal comprehensive information including stroke
+        order animations, component breakdowns, sample vocabulary, and even
+        customizable fonts. Integrate with External Resources: Benefit from
+        connections to additional resources like Jisho, Wanikani, Kanji Alive,
+        and others for extended study and cross-referencing. Overall, the
+        website serves as a powerful tool for anyone looking to deepen their
+        understanding of Japanese kanji through data visualization and detailed,
+        interactive insights.
+      </p>
+      <h2>Review Three</h2>
+      <p>
+        What a fascinating website! The Kanji Heatmap website is an interactive
+        tool that visualizes the frequency of kanji characters in Japanese
+        texts. It displays a heatmap of kanji characters, with more frequently
+        used characters appearing in darker shades. This website is likely to be
+        useful for: Japanese language learners, who can identify common kanji
+        characters and focus on learning the most frequently used ones. Language
+        researchers, who can analyze the distribution of kanji characters in
+        different texts and genres. Anyone interested in linguistics, data
+        visualization, or Japanese culture. Overall, the Kanji Heatmap website
+        is a unique and informative resource that provides insights into the
+        Japanese language and its usage patterns.
+      </p>
+      <h2>Review Four</h2>
+      <p>
+        Based on the information available, Kanji Heatmap (kanjiheatmap.com) is
+        a web application designed to aid in the study of Japanese kanji. Here's
+        a breakdown of its key features: Kanji Frequency Visualization: It
+        allows users to visualize how the frequency of kanji usage varies across
+        multiple data sources, including platforms like Netflix, Twitter,
+        Google, Wikipedia, and Aozora. This provides valuable insights into the
+        real-world application of kanji. Comprehensive Kanji Information: It
+        offers detailed profiles for each kanji, including: Stroke order
+        animations. Component breakdowns. Sample vocabulary. Advanced Search and
+        Filtering: Users can search for kanji using English keywords, on'yomi,
+        or kun'yomi readings. Results can be sorted and filtered by various
+        criteria, such as JLPT level, Jouyou Grade, stroke count, and frequency
+        rank. User-Friendly Interface: The application is designed with a sleek
+        and intuitive interface to enhance the learning experience. External
+        Resource Integration: It connects users to external resources like
+        Jisho, Wanikani, and Kanshudo for seamless cross-referencing. In
+        essence, Kanji Heatmap is a tool that aims to provide a data-driven
+        approach to kanji learning, making it easier for learners to understand
+        and master Japanese characters.
+      </p>
+      <h2>Review Five</h2>
+      <p>
+        Key Points Kanji Heatmap seems to be a helpful tool for studying
+        Japanese kanji, offering real-time frequency rankings from over 17 data
+        sources like Netflix and Wikipedia. It likely supports learners at all
+        levels with features like searching by English keywords, sorting by JLPT
+        level, and detailed kanji profiles with animations. The evidence leans
+        toward it being user-friendly, ideal for JLPT exam prep, media analysis,
+        and etymology exploration, with connections to resources like Jisho and
+        Wanikani. Website Description Kanji Heatmap appears to be a dynamic and
+        intuitive web application designed to revolutionize how people study
+        Japanese kanji. It caters to learners at all levels, from beginners to
+        advanced, by providing real-time visualization of kanji frequency
+        rankings. This feature draws from over 17 diverse data sources,
+        including popular media like Netflix (with 53 million kanji occurrences
+        from 2019, compiled by OhTalkWho) and Japanese dramas, as well as
+        traditional sources like novels (180 million kanji occurrences, compiled
+        by Redditor Nukemarine) and Wikipedia (59 million kanji occurrences,
+        sampled in 2023). The platform allows users to search for kanji using
+        English keywords, on'yomi, or kun'yomi readings, and offers advanced
+        sorting and filtering options. You can sort by JLPT level, Jouyou Grade,
+        Remembering the Kanji (RTK) index, Wanikani Level, stroke count, or
+        frequency ranking, making it flexible for different learning needs. Each
+        kanji entry includes detailed profiles with stroke-order animations,
+        component breakdowns, sample vocabulary, and customizable fonts, which
+        can aid in memorization and understanding. An unexpected detail is its
+        integration with external resources like Jisho, Wanikani, and Kanshudo,
+        enabling cross-referencing for a more comprehensive learning experience.
+        The user-friendly interface is described as sleek and efficient, making
+        it particularly useful for JLPT exam preparation, analyzing kanji usage
+        in media, and exploring etymology. This makes it a versatile tool not
+        just for language learners but also for those interested in media
+        analysis or linguistic research. Survey Note: Comprehensive Analysis of
+        Kanji Heatmap is a web-based application aimed at revolutionizing the
+        study of Japanese kanji, catering to learners across all proficiency
+        levels. Its primary mission is to enhance kanji mastery through a
+        data-driven, intuitive interface, offering tools for exploration,
+        visualization, and detailed analysis. This section provides a thorough
+        examination of its features, data sources, and utility, based on the
+        available information. Purpose and Mission The website's core purpose is
+        to revolutionize Japanese kanji study by providing an engaging,
+        efficient, and data-driven learning experience. It aims to help learners
+        master kanji with precision and ease, supporting activities such as JLPT
+        exam preparation, media analysis, and etymology exploration. The mission
+        emphasizes real-time visualization of kanji frequency rankings across
+        17+ data sources, ensuring insights into real-world usage, and
+        integrates with external resources for comprehensive learning. Data
+        Sources and Frequency Rankings A key component is its extensive use of
+        frequency rank data, drawn from over 17 sources, each with specific
+        compilation details and occurrence counts. Below is a detailed table
+        summarizing these sources:
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th><strong>Data Source</strong></th>
+            <th><strong>Description</strong></th>
+            <th><strong>Kanji Occurrences</strong></th>
+            <th><strong>Year/Compilation Details</strong></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Netflix</td>
+            <td>Derived from Japanese Netflix subtitles</td>
+            <td>53M</td>
+            <td>Compiled by OhTalkWho (Dave Doebrick) in 2019</td>
+          </tr>
+          <tr>
+            <td>Japanese Drama</td>
+            <td>Derived from 12,277 subtitles from drama, anime, films</td>
+            <td>20.5M</td>
+            <td>
+              Compiled by Chris Kempson,
+              <a
+                href="https://github.com/Matchoo95/JP-Subtitles"
+                target="_blank"
+                rel="noopener noreferrer"
+                >github.com/Matchoo95/JP-Subtitles</a
+              >,
+              <a
+                href="https://chriskempson.github.io/japanese-subtitles-word-kanji-frequency-lists"
+                target="_blank"
+                rel="noopener noreferrer"
+                >chriskempson/japanese-subtitles-word-kanji-frequency-lists</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Novel</td>
+            <td>Derived from scanning 5100 novels</td>
+            <td>180M</td>
+            <td>Compiled by Redditor Nukemarine</td>
+          </tr>
+          <tr>
+            <td>Twitter</td>
+            <td>Derived from Twitter messages collected</td>
+            <td>10M</td>
+            <td>Last June 2015</td>
+          </tr>
+          <tr>
+            <td>Wikipedia</td>
+            <td>Derived from 100,000 articles sampled</td>
+            <td>59M</td>
+            <td>2023</td>
+          </tr>
+          <tr>
+            <td>Online News</td>
+            <td>
+              Derived from over 3,700 articles from Japanese Wikinews
+              (2005-2023)
+            </td>
+            <td>1.1M</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>Aozora</td>
+            <td>
+              Derived from over 17,000 books from Aozora Bunko (mostly &gt;70
+              years old)
+            </td>
+            <td>67.8M</td>
+            <td>Compiled by Patrick Kandrac</td>
+          </tr>
+          <tr>
+            <td>Google</td>
+            <td>Kouji Shibano's Google Kanji Data</td>
+            <td>133B</td>
+            <td>2009</td>
+          </tr>
+          <tr>
+            <td>Kanji Usage Frequency (KUF)</td>
+            <td>Processed from Wikipedia, Aozora, e-news, Twitter</td>
+            <td>850M</td>
+            <td>2016</td>
+          </tr>
+          <tr>
+            <td>Matsushita's Character Database (MCD)</td>
+            <td>Processed 33M words from BCCWJ and Yahoo知恵袋</td>
+            <td>-</td>
+            <td>2014</td>
+          </tr>
+          <tr>
+            <td>Japanese Agency for Cultural Affairs</td>
+            <td>
+              Processed from books, magazines, textbooks, newspapers, websites,
+              etc.
+            </td>
+            <td>1.45M</td>
+            <td>Published in 2010</td>
+          </tr>
+          <tr>
+            <td>Jisho.org</td>
+            <td>Uses Alexandre Girardi's word frequency list</td>
+            <td>300,000 words</td>
+            <td>Published in 1998, 4 years of Mainichi Newspaper</td>
+          </tr>
+          <tr>
+            <td>Alex Yatskov's Wikipedia Kanji Frequency Report (WKFR)</td>
+            <td>Analyzed more than 500M kanji occurrences</td>
+            <td>500M+</td>
+            <td>Published in 2010</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        This table highlights the breadth of data, ranging from modern media
+        (Netflix, Twitter) to historical texts (Aozora, with 67.8 million
+        occurrences from books mostly over 70 years old), ensuring a
+        comprehensive view of kanji usage.
+      </p>
+      <p>
+        Features and Functionality Kanji Heatmap offers a suite of features to
+        enhance the learning experience: Search Capabilities: Users can search
+        by English keyword, on'yomi, or kun'yomi readings via an intuitive
+        search bar, making it accessible for non-native speakers. Sorting and
+        Filtering: Options include JLPT level, Jouyou Grade, Remembering the
+        Kanji (RTK) index, Wanikani Level, stroke count, or frequency ranking,
+        allowing customization based on learning goals. Detailed Kanji Profiles:
+        Each kanji entry includes stroke-order animations, component breakdowns,
+        sample vocabulary, and customizable fonts, aiding in memorization and
+        understanding. Integration with External Resources: It connects to tools
+        like Jisho, Wanikani, and Kanshudo, enabling cross-referencing for
+        deeper insights. Other mentioned resources include Jotoba, The Kanji
+        Map, kanjiapi.dev, Kanji Alive, Hochanh, JPDB.io, Remembering the
+        Kanji/Heisig, Duolingo, Memrise, Anki, Immersion Kit, and Tatoeba,
+        expanding its utility. The interface is described as user-friendly,
+        sleek, and efficient, prioritizing clarity and engagement, which is
+        particularly beneficial for JLPT exam preparation, media analysis (e.g.,
+        analyzing kanji in Netflix subtitles), and etymology exploration.
+      </p>
+      <p>
+        Utility and Audience This tool is ideal for a wide audience, from
+        beginners needing basic kanji profiles to advanced learners preparing
+        for JLPT exams or conducting media analysis. Its data-driven approach,
+        with visualizations from sources like Google (133 billion kanji
+        occurrences from 2009) and Wikipedia (59 million from 2023), provides
+        insights into real-world usage, making it valuable for linguistic
+        research as well. An unexpected detail is the inclusion of historical
+        data like Aozora (67.8 million occurrences from over 17,000 books,
+        mostly over 70 years old), which adds depth for etymology exploration,
+        appealing to scholars and enthusiasts alike.
+      </p>
+      <p>
+        Conclusion Kanji Heatmap stands out as a comprehensive resource for
+        Japanese kanji study, leveraging extensive data and advanced features to
+        support learners and researchers. Its integration with external tools
+        and focus on visualization make it a versatile platform, though no
+        recent updates or additional features were noted as of the latest
+        information.
+      </p>
+      <h2>Review Six</h2>
+      <p>
+        Kanji Heatmap (kanjiheatmap.com) is a visually striking website
+        dedicated to Japanese kanji characters. The site features: - A vibrant
+        interface with kanji characters displayed in bright pink/magenta squares
+        arranged in a grid format - A search functionality with keyword
+        filtering - Navigation options including "Kanji Grid" in the dropdown
+        menu - A comprehensive collection of kanji characters organized in an
+        easy-to-scan visual format The website appears to be a tool for Japanese
+        language learners or linguists to explore kanji characters in a visual
+        way. The grid layout makes it easy to browse through many characters at
+        once, and the bright color scheme creates a distinctive visual
+        experience. This type of "heatmap" visualization could potentially help
+        users identify patterns or relationships between different kanji
+        characters. The interface is clean and focused on presenting the kanji
+        characters prominently, making it a specialized resource for anyone
+        studying or working with Japanese writing.
       </p>
     </div>
     <script type="module" src="/src/main.tsx"></script>

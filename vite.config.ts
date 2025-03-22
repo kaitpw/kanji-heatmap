@@ -17,7 +17,7 @@ const pwaConfig = {
     display: "standalone" as const,
     lang: "en-US" as const,
     description:
-      "A kanji exploration tool. Visualize kanji frequency rankings from 17+ sources (Netflix, Twitter, Google, Wikipedia, etc.) for real-world usage insights. Search effortlessly and dive into detailed info — stroke animations, component breakdowns, and sample vocab — all in one place.",
+      "Efficiently identify, search for, study, and gain real-world usage insights into the most relevant kanji with frequency data-driven visuals. Data corpus drawn from 17+ sources - Netflix, Twitter, Google, Wikipedia...",
     start_url: ".",
     theme_color: "#fb02a8",
     background_color: "#FFFFFF",
