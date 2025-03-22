@@ -23,7 +23,7 @@ const KanjiDMAK = ({ kanji }: { kanji: string }) => {
     dmakInstanceRef.current = new (window as any).Dmak(kanji, {
       element: kanjiId,
       // uri: "/kanji/",
-      uri: "https://kanjivg.tagaini.net/kanjivg/kanji/",
+      uri: "https://assets.pikapikagems.com/kanji/",
       height: SVG_SIZE,
       width: SVG_SIZE,
       step: 0.01,
