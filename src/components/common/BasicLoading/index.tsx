@@ -3,6 +3,7 @@ import "./basic-loading.css";
 export const BasicLoading = () => {
   return (
     <div className="bg-white dark:bg-black rounded-xl p-6 space-y-4">
+      <div className="sr-only">Loading...</div>
       <div className="flex items-center space-x-4">
         <div className="w-12 h-12 rounded-full animate-shimmer"></div>
         <div className="space-y-2 flex-1">

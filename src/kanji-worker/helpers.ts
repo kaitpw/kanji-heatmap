@@ -10,15 +10,10 @@ import {
   SegmentedVocabInfo,
   SegmentedVocabResponseType,
 } from "@/lib/kanji/kanji-worker-types";
+import jsonPaths from "@/lib/kanji/kanji-worker-json-paths";
 
 export const kanjiMainInfoCache: Record<string, KanjiMainInfo> = {};
 export const kanjiOtherInfoCache: Record<string, KanjiExtendedInfo> = {};
-
-const MAIN_KANJI_INFO_FILE_PATH = "/json/kanji_main.json";
-const EXTENDED_KANJI_INFO_FILE_PATH = "/json/kanji_extended.json";
-const PHONETIC_FILE = "/json/phonetic.json";
-const PART_KEYWORD_FILE = "/json/component_keyword.json";
-const SEGMENTED_VOCAB_FILE = "/json/vocabulary.json";
 
 const createFetch = <T>(path: string) => {
   return () =>
@@ -29,20 +24,25 @@ const createFetch = <T>(path: string) => {
 };
 
 export const fetchMainManjiInfo = createFetch<MainKanjiInfoResponseType>(
-  MAIN_KANJI_INFO_FILE_PATH
+  jsonPaths.MAIN_KANJI_INFO_FILE_PATH
 );
 
 export const fetchExtendedKanjiInfo =
-  createFetch<ExtendedKanjiInfoResponseType>(EXTENDED_KANJI_INFO_FILE_PATH);
+  createFetch<ExtendedKanjiInfoResponseType>(
+    jsonPaths.EXTENDED_KANJI_INFO_FILE_PATH
+  );
 
-export const fetchPhoneticInfo =
-  createFetch<Record<string, string>>(PHONETIC_FILE);
+export const fetchPhoneticInfo = createFetch<Record<string, string>>(
+  jsonPaths.PHONETIC_FILE
+);
 
-export const fetchPartKeywordInfo =
-  createFetch<Record<string, string>>(PART_KEYWORD_FILE);
+export const fetchPartKeywordInfo = createFetch<Record<string, string>>(
+  jsonPaths.PART_KEYWORD_FILE
+);
 
-export const fetchSegmentedVocab =
-  createFetch<SegmentedVocabResponseType>(SEGMENTED_VOCAB_FILE);
+export const fetchSegmentedVocab = createFetch<SegmentedVocabResponseType>(
+  jsonPaths.SEGMENTED_VOCAB_FILE
+);
 
 export const transformToSegmentedVocab = (
   raw: [string, string[][]]

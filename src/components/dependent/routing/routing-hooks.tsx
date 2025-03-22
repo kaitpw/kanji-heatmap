@@ -31,7 +31,6 @@ export const useKanjiFromUrl = (kanji: string) => {
   const [params] = useSearchParams();
 
   const urlState = useMemo(() => {
-    // TODO. Is there a better way that doesn't use useState and useSearchParams?
     params.delete(URL_PARAMS.openKanji);
     params.set(URL_PARAMS.openKanji, kanji);
     return params.toString();
