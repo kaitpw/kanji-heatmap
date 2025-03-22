@@ -1,4 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@500&family=Klee+One&family=Noto+Sans+JP:wght@100..900&family=Yuji+Mai&family=Zen+Old+Mincho&display=swap");
+@import "@fontsource/kiwi-maru/japanese-500.css";
+@import "@fontsource/klee-one/japanese-600.css";
+@import "@fontsource/noto-sans-jp/japanese-500.css";
+@import "@fontsource/yuji-mai/japanese-400.css";
+@import "@fontsource/zen-old-mincho/japanese-500.css";
 
 @font-face {
   font-family: "gutsukku";
