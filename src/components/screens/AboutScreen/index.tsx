@@ -5,12 +5,13 @@ const LazyAboutScreen = lazy(() => import("./AboutScreen"));
 
 const AboutScreen = () => {
   return (
-    <div className="mt-20">
-      <KaomojiAnimation />
-    </div>
-  );
-  return (
-    <Suspense fallback={<KaomojiAnimation />}>
+    <Suspense
+      fallback={
+        <div className="mt-20">
+          <KaomojiAnimation />
+        </div>
+      }
+    >
       <LazyAboutScreen />
     </Suspense>
   );

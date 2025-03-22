@@ -30,7 +30,7 @@ export const HiraganaWord = ({
   return (
     <Button
       variant="ghost"
-      className={`flex px-1 z-0 text-[15px] md:text-[20px] overflow-hidden ${fontCss} ${btnCn}`}
+      className={`flex px-1 z-0 text-md lg:text-2xl ${fontCss} ${btnCn}`}
       onClick={onToggle}
     >
       {kana.split(" ").map((mora, index) => {
@@ -38,14 +38,17 @@ export const HiraganaWord = ({
 
         if (index === highlightIndex) {
           return (
-            <SpanBadge className={`${badgeCn}  ${spanCn}`} key={key}>
+            <SpanBadge
+              className={`${badgeCn} text-[15px] md:text-[20px] ${spanCn}`}
+              key={key}
+            >
               {mora}
             </SpanBadge>
           );
         }
 
         return (
-          <span className={` ${spanCn}`} key={key}>
+          <span className={`text-[15px] md:text-[20px] ${spanCn}`} key={key}>
             {mora}
           </span>
         );
