@@ -22,7 +22,7 @@ export function KanjiDrawerRaw({
   onClose: () => void;
   kanji: string;
 }) {
-  useHtmlDocumentTitle(kanji ? `${kanji} - Heatmap` : "Heatmap");
+  useHtmlDocumentTitle(kanji ? `${kanji} - Kanji Heatmap` : "Kanji Heatmap");
   // need autoFocus=true see also: https://github.com/emilkowalski/vaul/issues/517#issuecomment-2571619213
   return (
     <Drawer open={isOpen} onClose={onClose}>
