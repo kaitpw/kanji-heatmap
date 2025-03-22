@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { vocabExternalLinks } from "@/lib/constants";
 
 import { Button } from "@/components/ui/button";
 import { DottedSeparator } from "@/components/ui/dotted-separator";
@@ -9,6 +8,7 @@ import { ExternalTextLink } from "@/components/common/ExternalTextLink";
 
 import { GlobalKanjiLink } from "@/components/dependent/routing";
 import { HiraganaWord } from "@/components/dependent/kana/HiraganaWord";
+import { vocabExternalLinks } from "@/lib/external-links";
 
 const SeeMoreDefinition = ({ definition }: { definition: string }) => {
   const [showMore, setShowMore] = useState(false);

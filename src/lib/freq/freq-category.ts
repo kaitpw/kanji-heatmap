@@ -1,4 +1,4 @@
-import { cnItemBg, cnSquare } from "./generic-cn";
+import { cnItemBg, cnSquare } from "../generic-cn";
 
 export const freqCategoryCount = 6;
 export type FreqCategory = 0 | 1 | 2 | 3 | 4 | 5;

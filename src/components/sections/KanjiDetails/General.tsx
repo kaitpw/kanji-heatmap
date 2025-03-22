@@ -1,4 +1,4 @@
-import { GeneralKanjiItem } from "@/lib/kanji-info-types";
+import { GeneralKanjiItem } from "@/lib/kanji/kanji-info-types";
 import { useKanjiInfo } from "@/kanji-worker/kanji-worker-hooks";
 
 import { DefaultErrorFallback } from "@/components/error";

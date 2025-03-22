@@ -5,14 +5,17 @@ import {
   SearchSettings,
   SortSettings,
   TextSearch,
-} from "@/lib/settings";
-import { URL_PARAMS } from "@/lib/constants";
-import { toSearchParams, toSearchSettings } from "@/lib/url-params-helpers";
+} from "@/lib/settings/settings";
+import {
+  toSearchParams,
+  toSearchSettings,
+} from "@/lib/settings/search-settings-adapter";
 import {
   useSearchParams,
   useUrlLocation,
 } from "@/components/dependent/routing/routing-hooks";
 import { searchSettings } from "./search-settings-hooks";
+import { URL_PARAMS } from "@/lib/settings/url-params";
 
 const ALLOWED_LOCATIONS = ["/"];
 

@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { useNetworkState } from "@/hooks/use-network-state";
-import { outLinks } from "@/lib/constants";
 import { ExternalTextLink } from "@/components/common/ExternalTextLink";
+import { outLinks } from "@/lib/external-links";
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (

@@ -1,6 +1,6 @@
 import { useLocation, useSearchParams } from "wouter";
 import { useCallback, useMemo } from "react";
-import { URL_PARAMS } from "@/lib/constants";
+import { URL_PARAMS } from "@/lib/settings/url-params";
 
 export const useKanjiUrlState = () => {
   const [searchParams, setSearchParams] = useSearchParams();

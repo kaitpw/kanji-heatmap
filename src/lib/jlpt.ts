@@ -1,6 +1,8 @@
 export const JLPT_TYPE_ARR = ["n1", "n2", "n3", "n4", "n5", "none"] as const;
 export type JLTPTtypes = (typeof JLPT_TYPE_ARR)[number];
 
+export const validJlpts: JLTPTtypes[] = ["n1", "n2", "n3", "n4", "n5"] as const;
+
 export const JLPTRank: Record<JLTPTtypes, number> = {
   n5: 0,
   n4: 1,

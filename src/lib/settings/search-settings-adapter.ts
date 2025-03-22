@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import { ALL_SORT_OPTIONS } from "@/lib/sort-freq-select-options";
+import { ALL_SORT_OPTIONS } from "@/lib/options/options-arr";
 import {
   FilterSettings,
   SEARCH_TYPE_ARR,
@@ -7,23 +7,15 @@ import {
   SearchType,
   SortSettings,
   TextSearch,
-} from "@/lib/settings";
-import { MAX_FREQ_RANK, MAX_STROKE_COUNT, URL_PARAMS } from "@/lib/constants";
+} from "@/lib/settings/settings";
+import { MAX_FREQ_RANK, MAX_STROKE_COUNT } from "@/lib/options/constants";
 import { JLPT_TYPE_ARR, JLPTOptionsCount, JLTPTtypes } from "@/lib/jlpt";
-import { FREQ_RANK_OPTIONS, FrequencyType, SortKey } from "./sort-freq-types";
-import { translateMap, translateValue } from "./translate-search";
-
-const clamp = (num: number, min: number, max: number) => {
-  return Math.min(max, Math.max(num, min));
-};
-
-const toNum = (str?: string | null | number, fallback?: number) => {
-  if (typeof str === "string" && !Number.isNaN(Number(str))) {
-    return Number(str);
-  }
-
-  return fallback ?? 0;
-};
+import { FrequencyType, SortKey } from "../options/options-types";
+import { translateMap } from "../search-input-maps";
+import { FREQ_RANK_OPTIONS } from "../options/options-constants";
+import { clamp, toNum } from "../generic-utils";
+import { URL_PARAMS } from "./url-params";
+import { translateValue } from "../wanakana-adapter";
 
 const toSearchType = (val?: string | null) => {
   if (val != null && SEARCH_TYPE_ARR.includes(val as SearchType)) {

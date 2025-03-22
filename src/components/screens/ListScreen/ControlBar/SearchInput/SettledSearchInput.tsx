@@ -1,4 +1,4 @@
-import { SearchType } from "@/lib/settings";
+import { SearchType } from "@/lib/settings/settings";
 import {
   useSearchSettings,
   useSearchSettingsDispatch,

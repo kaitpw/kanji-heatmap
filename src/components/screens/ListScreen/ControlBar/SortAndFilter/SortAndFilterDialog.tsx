@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SearchSettings } from "@/lib/settings";
+import { SearchSettings } from "@/lib/settings/settings";
 import { ErrorBoundary } from "@/components/error";
 import {
   Dialog,

@@ -2,7 +2,7 @@ import {
   FreqCategory,
   freqCategoryCn,
   freqCategoryCount,
-} from "@/lib/freq-category";
+} from "@/lib/freq/freq-category";
 import { cnItemBg } from "@/lib/generic-cn";
 import { FreqSquare } from "./FreqSquare";
 

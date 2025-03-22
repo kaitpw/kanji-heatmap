@@ -1,11 +1,12 @@
 import { useRef, useState } from "react";
-import { cn } from "@/lib/utils";
-import { SEARCH_TYPE_OPTIONS, SearchType } from "@/lib/settings";
+import { cn } from "@/lib/generic-utils";
+import { SearchType } from "@/lib/settings/settings";
 import {
   placeholderMap,
+  SEARCH_TYPE_OPTIONS,
   translateMap,
-  translateValue,
-} from "@/lib/translate-search";
+} from "@/lib/search-input-maps";
+import { translateValue } from "@/lib/wanakana-adapter";
 import { Search } from "@/components/icons";
 import BasicSelect from "@/components/common/BasicSelect";
 

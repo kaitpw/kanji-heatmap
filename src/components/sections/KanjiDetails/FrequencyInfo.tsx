@@ -1,11 +1,10 @@
-import { KanjiInfoFrequency } from "@/lib/kanji-worker-types";
-import { KANJI_COUNT } from "@/lib/constants";
-import { inverseFreqMap } from "@/lib/freq-rank-map";
-import { getFreqCnByRank } from "@/lib/freq-category";
+import { KanjiInfoFrequency } from "@/lib/kanji/kanji-worker-types";
+import { KANJI_COUNT } from "@/lib/options/constants";
+import { getFreqCnByRank } from "@/lib/freq/freq-category";
 import {
   frequencyRankLabels,
-  frequencyRankNamesOrdered,
-} from "@/lib/label-maps";
+  inverseFreqMap,
+} from "@/lib/options/options-label-maps";
 
 import { InfoIcon } from "@/components/icons";
 
@@ -14,6 +13,7 @@ import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 
 import { GenericPopover } from "@/components/common/GenericPopover";
 import { FreqRankTypeInfo } from "@/components/common/freq/FreqRankTypeInfo";
+import { frequencyRankNamesOrdered } from "@/lib/options/options-constants";
 
 export const FrequencyInfo = ({
   freqRankInfo,

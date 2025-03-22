@@ -1,9 +1,9 @@
 import { ReactNode } from "react";
-import { outLinks } from "@/lib/constants";
 import { ExternalTextLink } from "@/components/common/ExternalTextLink";
 
 import { cnTextLink } from "@/lib/generic-cn";
 import { GlobalHomeLink } from "../dependent/routing";
+import { outLinks } from "@/lib/external-links";
 
 export const RefreshOrGoBackHome = () => {
   return (

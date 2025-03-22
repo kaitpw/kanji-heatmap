@@ -1,7 +1,10 @@
 import React, { ReactNode } from "react";
 
-import { FrequencyType, SortKey } from "@/lib/sort-freq-types";
-import { FREQ_RANK_SOURCES_INFO, rankTypeLabel } from "@/lib/freq-source-info";
+import { FrequencyType, SortKey } from "@/lib/options/options-types";
+import {
+  FREQ_RANK_SOURCES_INFO,
+  rankTypeLabel,
+} from "@/lib/freq/freq-source-info";
 
 import { ExternalTextLink } from "../ExternalTextLink";
 

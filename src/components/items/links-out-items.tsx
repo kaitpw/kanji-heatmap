@@ -1,4 +1,4 @@
-import { outLinks } from "@/lib/constants";
+import { outLinks } from "@/lib/external-links";
 import { BugIcon, KoFiIcon, DiscordIcon } from "../icons";
 
 const bugItem = {

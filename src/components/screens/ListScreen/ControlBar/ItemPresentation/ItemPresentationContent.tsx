@@ -1,5 +1,5 @@
 import { ReactNode, useState } from "react";
-import { FrequencyType } from "@/lib/sort-freq-types";
+import { FrequencyType } from "@/lib/options/options-types";
 import {
   useItemSettings,
   useItemSettingsDispatch,

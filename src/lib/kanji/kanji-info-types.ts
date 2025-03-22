@@ -1,4 +1,4 @@
-import { JLTPTtypes } from "./jlpt";
+import { JLTPTtypes } from "../jlpt";
 import {
   KanjiExtendedInfo,
   KanjiInfoFrequency,

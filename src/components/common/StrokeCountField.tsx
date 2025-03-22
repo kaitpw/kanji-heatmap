@@ -1,5 +1,5 @@
 import { useId } from "react";
-import { MAX_STROKE_COUNT } from "@/lib/constants";
+import { MAX_STROKE_COUNT } from "@/lib/options/constants";
 import { DualRangeSlider } from "@/components/ui/dual-range-slider";
 import { Label } from "@/components/ui/label";
 

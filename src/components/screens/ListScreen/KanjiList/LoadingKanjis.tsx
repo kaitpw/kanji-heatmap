@@ -3,7 +3,7 @@ import {
   randomCn2,
   randomCnColorful,
   randomCn2Colorful,
-} from "@/lib/random-cn";
+} from "@/lib/cn-fns";
 import { useVirtualListDims } from "./useVirtualDims";
 import React from "react";
 import { useDeferredItemSettings } from "@/providers/item-settings-hooks";

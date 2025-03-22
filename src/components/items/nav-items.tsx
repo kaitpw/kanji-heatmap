@@ -7,7 +7,7 @@ import {
 
 const kanjiPage = {
   href: "/",
-  title: "Kanji Grid",
+  title: "Find Kanjis",
   component: ListScreen,
   description: "Quickly sort, filter and search Kanjis",
 };

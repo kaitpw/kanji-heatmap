@@ -1,4 +1,7 @@
-import { HoverItemReturnData, KanjiWordDetails } from "@/lib/kanji-info-types";
+import {
+  HoverItemReturnData,
+  KanjiWordDetails,
+} from "@/lib/kanji/kanji-info-types";
 import {
   useIsKanjiWorkerReady,
   useKanjiInfo,

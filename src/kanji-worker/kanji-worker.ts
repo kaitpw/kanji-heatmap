@@ -7,7 +7,7 @@ import {
   PostMessageResponseType,
   SegmentedVocabInfo,
   SegmentedVocabResponseType,
-} from "@/lib/kanji-worker-types";
+} from "@/lib/kanji/kanji-worker-types";
 import {
   fetchExtendedKanjiInfo,
   fetchMainManjiInfo,
@@ -19,7 +19,7 @@ import {
   transformToSegmentedVocab,
 } from "./helpers";
 import { filterKanji, searchKanji } from "./kanji-search";
-import { SearchSettings } from "@/lib/settings";
+import { SearchSettings } from "@/lib/settings/settings";
 
 const KANJI_INFO_MAIN_CACHE: Record<string, KanjiMainInfo> = {};
 const KANJI_INFO_EXTENDED_CACHE: Record<string, KanjiExtendedInfo> = {};

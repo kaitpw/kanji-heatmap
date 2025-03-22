@@ -1,4 +1,4 @@
-import { JLTPTtypes } from "./jlpt";
+import { JLTPTtypes } from "../jlpt";
 
 export type KanjiWorkerInfoRequestType = "kanji-extended";
 // | "kanji-related-kanji"

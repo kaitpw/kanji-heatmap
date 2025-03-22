@@ -1,7 +1,7 @@
 import { useDeferredValue } from "react";
-import { KANJI_COUNT } from "@/lib/constants";
-import { SearchSettings } from "@/lib/settings";
-import { shouldShowAllKanji } from "@/lib/kanji-display-utils";
+import { KANJI_COUNT } from "@/lib/options/constants";
+import { SearchSettings } from "@/lib/settings/settings";
+import { shouldShowAllKanji } from "@/lib/results-utils";
 
 import { useKanjiSearchCount } from "@/kanji-worker/kanji-worker-hooks";
 
