@@ -26,6 +26,10 @@ import {
   SortOrderSectionLayout,
 } from "./SortOrderPresentation";
 import { GROUP_OPTIONS } from "@/lib/options/options-constants";
+import {
+  defaultFilterSettings,
+  defaultSortSettings,
+} from "@/lib/settings/search-settings-adapter";
 
 export const SortAndFilterSettingsForm = ({
   initialValue,
@@ -217,7 +221,18 @@ export const SortAndFilterSettingsForm = ({
           There are no changes to apply yet.
         </div>
       )}
-      <div className="flex justify-end border-t pt-3 px-0">
+      <div className="flex justify-end border-t pt-3 px-0 space-x-1">
+        <Button
+          variant="outline"
+          onClick={(e) => {
+            e.preventDefault();
+            setSortValues(defaultSortSettings);
+            setFilterValues(defaultFilterSettings);
+            e.stopPropagation();
+          }}
+        >
+          Clear all
+        </Button>
         <Button disabled={isDisabled} type="submit">
           Apply
         </Button>

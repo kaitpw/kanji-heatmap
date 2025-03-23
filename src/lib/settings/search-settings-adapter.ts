@@ -17,12 +17,31 @@ import { clamp, toNum } from "../generic-utils";
 import { URL_PARAMS } from "./url-params";
 import { translateValue } from "../wanakana-adapter";
 
-const toSearchType = (val?: string | null) => {
+const defaultFilterSettings: FilterSettings = {
+  strokeRange: { min: 1, max: MAX_STROKE_COUNT },
+  jlpt: [],
+  freq: {
+    source: "none",
+    rankRange: { min: 1, max: MAX_FREQ_RANK },
+  },
+};
+
+const defaultSortSettings: SortSettings = {
+  primary: "none",
+  secondary: "none",
+};
+
+const defaultSearchTextSettings: TextSearch = {
+  text: "",
+  type: "keyword",
+};
+
+const toSearchType = (val?: string | null): SearchType => {
   if (val != null && SEARCH_TYPE_ARR.includes(val as SearchType)) {
     return val as SearchType;
   }
 
-  return "keyword" as const;
+  return defaultSearchTextSettings.type;
 };
 
 const toJLPT = (jlptString?: string | null) => {
@@ -193,4 +212,10 @@ const toSearchParams = (
   return prev;
 };
 
-export { toSearchParams, toSearchSettings };
+export {
+  toSearchParams,
+  toSearchSettings,
+  defaultFilterSettings,
+  defaultSortSettings,
+  defaultSearchTextSettings,
+};

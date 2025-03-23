@@ -24,8 +24,6 @@ export function JLPTSelector({
 }) {
   const id = useId();
   const fieldId = `jlpt-multiselect-${id}`;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onValueChange = setSelectedJLPT as any;
   return (
     <div>
       <Label className="text-xs font-thin" htmlFor={fieldId}>
@@ -34,8 +32,8 @@ export function JLPTSelector({
       <MultiSelect
         name={fieldId}
         options={JLPTOptionsWithIcon}
-        onValueChange={onValueChange}
-        defaultValue={selectedJLPT}
+        onValueChange={setSelectedJLPT as (v: string[]) => void}
+        value={selectedJLPT}
         placeholder="All levels selected"
         variant="inverted"
         maxCount={JLPTOptionsWithIcon.length}
