@@ -26,6 +26,10 @@ export const SingleKanjiPart = ({
       }
       content={
         <div className="text-xs p-2 font-bold">
+          {phonetics.map((phonetic) => (
+            <RomajiBadge key={phonetic} kana={phonetic} />
+          ))}
+
           {keyword == null ? (
             <div className="w-32 my-2">
               Keyword Missing
@@ -38,9 +42,6 @@ export const SingleKanjiPart = ({
           ) : (
             <span className="block">{keyword}</span>
           )}
-          {phonetics.map((phonetic) => (
-            <RomajiBadge key={phonetic} kana={phonetic} />
-          ))}
         </div>
       }
     />
