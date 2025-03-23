@@ -11,11 +11,15 @@ export const BasicLoading = () => {
           <div className="h-3 w-1/3 animate-shimmer rounded"></div>
         </div>
       </div>
-      <div className="space-y-3">
+      <div className="flex flex-col space-y-3">
         <div className="h-4 w-full animate-shimmer rounded"></div>
         <div className="h-4 w-full animate-shimmer rounded"></div>
         <div className="h-4 w-3/4 animate-shimmer rounded"></div>
-
+        <div className="h-4 w-full animate-shimmer rounded"></div>
+        <div className="h-4 w-full animate-shimmer rounded"></div>
+        <div className="h-4 w-3/4 animate-shimmer rounded"></div>
+      </div>
+      <div className="flex flex-col space-y-3">
         <div className="h-4 w-full animate-shimmer rounded"></div>
         <div className="h-4 w-full animate-shimmer rounded"></div>
         <div className="h-4 w-3/4 animate-shimmer rounded"></div>
