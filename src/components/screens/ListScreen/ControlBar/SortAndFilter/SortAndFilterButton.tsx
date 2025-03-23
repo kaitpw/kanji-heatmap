@@ -1,13 +1,14 @@
 import { forwardRef } from "react";
-import { KANJI_COUNT } from "@/lib/options/constants";
-import { useKanjiSearchResult } from "@/kanji-worker/kanji-worker-hooks";
 import { Settings2 } from "@/components/icons";
 import { Button } from "@/components/ui/button";
+import { hasNoFilters } from "@/lib/results-utils";
+import { useSearchSettings } from "@/providers/search-settings-hooks";
 
 const ChangedIndicator = () => {
-  const data = useKanjiSearchResult();
+  const settings = useSearchSettings();
+  const noFilters = hasNoFilters(settings);
 
-  if (data.data == null || data.data.length >= KANJI_COUNT) {
+  if (noFilters) {
     return null;
   }
 
