@@ -1,16 +1,20 @@
 import { ExternalKanjiLinks } from "@/components/common/ExternalKanjiLinks";
 import { ReachOutToUs, Wrapper } from "./common";
 import { Sumimasen } from "./Sumimasen";
+import { ClearFiltersCTA } from "../dependent/routing";
 
 export const NoSearchResults = () => {
   return (
     <Wrapper>
       <Sumimasen />
-      <div className="my-2 font-bold">No kanji match your search</div>
+      <div className="my-2 font-bold">
+        No kanji match your search settings. <br />
+        <ClearFiltersCTA />
+      </div>
 
       <div className="text-xs flex items-center flex-wrap mx-4">
         <ReachOutToUs
-          prefix={`If you think this is a mistake, you can let us know on `}
+          prefix={`. If you think this is a mistake, you can let us know on `}
         />
       </div>
       <div className="text-xs pt-4 text-left">
