@@ -75,8 +75,8 @@ interface MultiSelectProps
    */
   onValueChange: (value: string[]) => void;
 
-  /** The default selected values when the component mounts. */
-  defaultValue?: string[];
+  /** value  */
+  value?: string[];
 
   /**
    * Placeholder text to be displayed when no values are selected.
@@ -117,9 +117,9 @@ export const MultiSelect = React.forwardRef<
   (
     {
       options,
+      value,
       onValueChange,
       variant,
-      defaultValue = [],
       placeholder = "Select options",
       maxCount = 1,
       modalPopover = false,
@@ -129,8 +129,9 @@ export const MultiSelect = React.forwardRef<
     },
     ref
   ) => {
-    const [selectedValues, setSelectedValues] =
-      React.useState<string[]>(defaultValue);
+    const selectedValues = value ?? [];
+    const setSelectedValues = onValueChange;
+
     const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
 
     const handleInputKeyDown = (
@@ -142,7 +143,6 @@ export const MultiSelect = React.forwardRef<
         const newSelectedValues = [...selectedValues];
         newSelectedValues.pop();
         setSelectedValues(newSelectedValues);
-        onValueChange(newSelectedValues);
       }
     };
 
@@ -151,12 +151,10 @@ export const MultiSelect = React.forwardRef<
         ? selectedValues.filter((value) => value !== option)
         : [...selectedValues, option];
       setSelectedValues(newSelectedValues);
-      onValueChange(newSelectedValues);
     };
 
     const handleClear = () => {
       setSelectedValues([]);
-      onValueChange([]);
     };
 
     const handleTogglePopover = () => {
@@ -166,7 +164,6 @@ export const MultiSelect = React.forwardRef<
     const clearExtraOptions = () => {
       const newSelectedValues = selectedValues.slice(0, maxCount);
       setSelectedValues(newSelectedValues);
-      onValueChange(newSelectedValues);
     };
 
     const toggleAll = () => {
@@ -175,7 +172,6 @@ export const MultiSelect = React.forwardRef<
       } else {
         const allValues = options.map((option) => option.value);
         setSelectedValues(allValues);
-        onValueChange(allValues);
       }
     };
 
