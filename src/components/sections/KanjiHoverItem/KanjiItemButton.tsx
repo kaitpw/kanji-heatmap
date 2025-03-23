@@ -52,7 +52,7 @@ const ExpandedBtnContent = ({ kanji }: { kanji: string }) => {
           )}
         </>
       </span>
-      <span className="kanji-font text-5xl block -mt-1">{kanji}</span>
+      <span className="kanji-font text-5xl block">{kanji}</span>
       <span
         className={`${ellipsisCn} block text-xs font-extrabold uppercase mt-1`}
       >

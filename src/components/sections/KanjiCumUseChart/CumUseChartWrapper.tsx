@@ -19,7 +19,7 @@ export const CumUseChartWrapper = ({
         <div>{children}</div>
         <div className="flex flex-wrap justify-center">{legends}</div>
         <div className="mx-2 text-left">
-          <p className="my-2 ">
+          <p className="text-base my-2">
             The x-axis lists items by their frequency rank (Rank 1224**), and
             the y-axis shows the cumulative percentage of total usage up to that
             rank. The graph highlights how quickly the most frequent items build

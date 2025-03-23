@@ -30,10 +30,8 @@ export const SingleKanjiPart = ({
             <div className="w-32 my-2">
               Keyword Missing
               <br />
-              <ExternalTextLink
-                text="Report Bug."
-                href={outLinks.discord}
-              />{" "}
+              <ExternalTextLink text="Report Bug" href={outLinks.discord} />
+              {"🐛🐞"}
             </div>
           ) : isKanji ? (
             <GlobalKanjiLink keyword={keyword} kanji={kanji} />
