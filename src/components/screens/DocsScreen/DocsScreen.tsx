@@ -1,4 +1,5 @@
 import { useLayoutEffect } from "react";
+import useHtmlDocumentTitle from "@/hooks/use-html-document-title";
 import { PrivacyPolicySection } from "./PrivacySection";
 import { TermsOfUseSection } from "./TermsOfUseSection";
 
@@ -13,6 +14,8 @@ const useScrollToHashOnLoad = () => {
       });
     }
   }, []);
+
+  useHtmlDocumentTitle(`Docs - Kanji Heatmap`);
 };
 
 const DocsScreen = () => {

@@ -1,4 +1,7 @@
+import useHtmlDocumentTitle from "@/hooks/use-html-document-title";
+
 const AboutScreen = () => {
+  useHtmlDocumentTitle("About - Kanji Heatmap");
   return (
     <div className="my-20 flex flex-col items-center justify-center w-full">
       <div className="max-w-2xl">
