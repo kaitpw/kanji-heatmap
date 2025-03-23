@@ -12,11 +12,15 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@fontsource/dotgothic16": "^5.2.5",
     "@fontsource/kiwi-maru": "^5.2.5",
     "@fontsource/klee-one": "^5.2.5",
     "@fontsource/noto-sans-jp": "^5.2.5",
+    "@fontsource/noto-serif-jp": "^5.2.5",
+    "@fontsource/nunito": "^5.2.5",
+    "@fontsource/rampart-one": "^5.2.5",
+    "@fontsource/reggae-one": "^5.2.5",
     "@fontsource/yuji-mai": "^5.2.5",
-    "@fontsource/zen-old-mincho": "^5.2.5",
     "@radix-ui/react-accordion": "^1.2.3",
     "@radix-ui/react-checkbox": "^1.1.4",
     "@radix-ui/react-dialog": "^1.1.6",

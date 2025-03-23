@@ -1,8 +1,10 @@
-@import "@fontsource/kiwi-maru/japanese-500.css";
 @import "@fontsource/klee-one/japanese-600.css";
 @import "@fontsource/noto-sans-jp/japanese-500.css";
 @import "@fontsource/yuji-mai/japanese-400.css";
-@import "@fontsource/zen-old-mincho/japanese-500.css";
+@import "@fontsource/noto-serif-jp/japanese-800.css";
+@import "@fontsource/kiwi-maru/japanese-500.css";
+@import "@fontsource/dotgothic16/japanese-400.css";
+@import "@fontsource/reggae-one/japanese-400.css";
 
 @font-face {
   font-family: "gutsukku";
@@ -13,18 +15,24 @@
 
 :root {
   --jap-font-0: "Klee One";
-  --jap-font-1: "Kiwi Maru";
+  --jap-font-1: "Noto Sans JP";
   --jap-font-2: "Yuji Mai";
-  --jap-font-3: "Noto Sans JP";
-  --jap-font-4: "Zen Old Mincho";
-  --jap-font-5: "gutsukku";
+  --jap-font-3: "Noto Serif JP";
+  --jap-font-4: "DotGothic16";
+  --jap-font-5: "Reggae One";
+  --jap-font-6: "Kiwi Maru";
+  --jap-font-7: "gutsukku";
   --kanji-font: var(--jap-font-0);
 }
 
 .kanji-font {
-  font-family: var(--kanji-font), "Klee One", "Yuji Mai", "gutsukku";
+  font-family:
+    var(--kanji-font), "Klee One", "Noto Sans JP", "Yuji Mai", "Kiwi Maru",
+    "gutsukku", "Noto Serif JP", "-apple-system", "system-ui";
 }
 
 .romaji-font {
-  font-family: Avenir, Inter, system-ui, Helvetica, Arial, sans-serif;
+  font-family:
+    Avenir, "Avenir Next", "Proxima Nova", "Nunito", "Inter", "-apple-system",
+    "system-ui", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
 }

@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@fontsource/dotgothic16':
+        specifier: ^5.2.5
+        version: 5.2.5
       '@fontsource/kiwi-maru':
         specifier: ^5.2.5
         version: 5.2.5
@@ -17,10 +20,19 @@ importers:
       '@fontsource/noto-sans-jp':
         specifier: ^5.2.5
         version: 5.2.5
-      '@fontsource/yuji-mai':
+      '@fontsource/noto-serif-jp':
         specifier: ^5.2.5
         version: 5.2.5
-      '@fontsource/zen-old-mincho':
+      '@fontsource/nunito':
+        specifier: ^5.2.5
+        version: 5.2.5
+      '@fontsource/rampart-one':
+        specifier: ^5.2.5
+        version: 5.2.5
+      '@fontsource/reggae-one':
+        specifier: ^5.2.5
+        version: 5.2.5
+      '@fontsource/yuji-mai':
         specifier: ^5.2.5
         version: 5.2.5
       '@radix-ui/react-accordion':
@@ -875,6 +887,9 @@ packages:
   '@floating-ui/utils@0.2.9':
     resolution: {integrity: sha512-MDWhGtE+eHw5JW7lq4qhc5yRLS11ERl1c7Z6Xd0a58DozHES6EnNNwUWbMiG4J9Cgj053Bhk8zvlhFYKVhULwg==}
 
+  '@fontsource/dotgothic16@5.2.5':
+    resolution: {integrity: sha512-HWLJ9E5suw2auxrUVLWjNZ/CSeG6SQG6fBDt8u7HXyb5YlpRTXIa9Yrer8t9d+x0jmnrlPiT2QHWB7juf55w1g==}
+
   '@fontsource/kiwi-maru@5.2.5':
     resolution: {integrity: sha512-ZosG5JFSSdF6kVAj0YcGy9CKGSomHVsaSCJnMvt6tdfIbrg43rp6bAzM45r33KzfJIdRndhz6uMo5yI5ZxHB0g==}
 
@@ -884,11 +899,20 @@ packages:
   '@fontsource/noto-sans-jp@5.2.5':
     resolution: {integrity: sha512-ISoJUQlsuSo4y56P+eJD+g022BRAF1BC2uCyEFGRsob0g8VvQAoWNMlWh+P0VQw68QzZHHj41zRzeRFpzAdA7w==}
 
+  '@fontsource/noto-serif-jp@5.2.5':
+    resolution: {integrity: sha512-SL1XItZarPv+3KXo/D0Xa8hXChZN7kkuWuAqrRqilWLn/UKbCPIPoDr/rnbqmVMlCGzshX7PAPR+FW1ka5oKIw==}
+
+  '@fontsource/nunito@5.2.5':
+    resolution: {integrity: sha512-KeB3US1uHB3GpVo0FewYRtHpG+UZJiRqu4xzvCRkZ8ceJPTx7lf0ZsKKWpvXCMALUJSeaD/ol/BSvLaqli5ZRQ==}
+
+  '@fontsource/rampart-one@5.2.5':
+    resolution: {integrity: sha512-LniF7Q+ydhKZ9DrqP8YtrCwsBjbrnGOEgIhHnpGMm+mFmFviBoojrND1xMZ2FwtjJLKRn8P9GU0VRKA7LLD2kg==}
+
+  '@fontsource/reggae-one@5.2.5':
+    resolution: {integrity: sha512-Lta4RqX1NBkCzVIBHpypijzzUftsfxkHZCRMhRN9Rc+UVq8zGd0ChSdU4PKmgCjUOrsN5ikwN7Myf2r5NNFe9Q==}
+
   '@fontsource/yuji-mai@5.2.5':
     resolution: {integrity: sha512-2kfVqrkEoaK9IibODA5ZkMsnMvznrg6bSWzlyHmEkzSIvyDnQ3UM9bJ5afXr2my7mJXTk56eoAuRLvT4XPnTqw==}
-
-  '@fontsource/zen-old-mincho@5.2.5':
-    resolution: {integrity: sha512-/fNb9oQJkDg0qwMaH2AI5xOvtyXATqbtz17zFq8FEqqOOIrfmqqPLnGbWQMc2yR1sMna8xIAJfsc7a8abwxPCg==}
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -4393,15 +4417,23 @@ snapshots:
 
   '@floating-ui/utils@0.2.9': {}
 
+  '@fontsource/dotgothic16@5.2.5': {}
+
   '@fontsource/kiwi-maru@5.2.5': {}
 
   '@fontsource/klee-one@5.2.5': {}
 
   '@fontsource/noto-sans-jp@5.2.5': {}
 
-  '@fontsource/yuji-mai@5.2.5': {}
+  '@fontsource/noto-serif-jp@5.2.5': {}
 
-  '@fontsource/zen-old-mincho@5.2.5': {}
+  '@fontsource/nunito@5.2.5': {}
+
+  '@fontsource/rampart-one@5.2.5': {}
+
+  '@fontsource/reggae-one@5.2.5': {}
+
+  '@fontsource/yuji-mai@5.2.5': {}
 
   '@humanfs/core@0.19.1': {}
 
