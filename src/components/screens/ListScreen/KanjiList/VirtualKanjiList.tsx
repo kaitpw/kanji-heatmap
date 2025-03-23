@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from "react";
-import VirtualList from "react-tiny-virtual-list";
-
+import { VList as VirtualList } from "virtua";
 import { useKanjiUrlState } from "@/components/dependent/routing/routing-hooks";
 import { HoverKanji } from "../../../sections/KanjiHoverItem";
 import { useVirtualListDims } from "./useVirtualDims";
@@ -21,20 +20,20 @@ const KanjiListRaw = ({
     setOpenedKanji(null);
   }, [setOpenedKanji]);
 
-  const { cols, rows, itemSize, listHeight } = useVirtualListDims(
-    kanjiKeys.length,
-    size
-  );
+  const { cols, rows, listHeight } = useVirtualListDims(kanjiKeys.length, size);
 
   return (
     <>
       <VirtualList
-        style={{ overflowX: "hidden", paddingBottom: "25px" }}
-        width="100%"
-        height={listHeight}
-        itemCount={rows}
-        itemSize={itemSize}
-        renderItem={({ index: rowIndex, style }) => {
+        style={{
+          overflowX: "hidden",
+          paddingBottom: "25px",
+          width: "100%",
+          overflowY: "auto",
+          height: listHeight,
+        }}
+      >
+        {Array.from({ length: rows }).map((_, rowIndex) => {
           const items =
             rowIndex < rows - 1 || kanjiKeys.length % cols === 0
               ? cols
@@ -42,8 +41,7 @@ const KanjiListRaw = ({
           return (
             <div
               key={rowIndex}
-              style={style}
-              className={"flex items-center justify-center w-full pr-1"}
+              className={"flex items-center justify-center w-full pr-1 pb-1"}
             >
               {new Array(items).fill(null).map((_, colIndex: number) => {
                 const index = cols * rowIndex + colIndex;
@@ -60,8 +58,9 @@ const KanjiListRaw = ({
               })}
             </div>
           );
-        }}
-      />
+        })}
+      </VirtualList>
+
       <KanjiDrawer
         isOpen={openedKanji !== null}
         onClose={onDrawerClose}
