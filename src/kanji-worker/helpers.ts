@@ -10,7 +10,7 @@ import {
   SegmentedVocabInfo,
   SegmentedVocabResponseType,
 } from "@/lib/kanji/kanji-worker-types";
-import jsonPaths from "@/lib/kanji/kanji-worker-json-paths";
+import assetsPaths from "@/lib/assets-paths";
 
 export const kanjiMainInfoCache: Record<string, KanjiMainInfo> = {};
 export const kanjiOtherInfoCache: Record<string, KanjiExtendedInfo> = {};
@@ -24,24 +24,24 @@ const createFetch = <T>(path: string) => {
 };
 
 export const fetchMainManjiInfo = createFetch<MainKanjiInfoResponseType>(
-  jsonPaths.MAIN_KANJI_INFO_FILE_PATH
+  assetsPaths.MAIN_KANJI_INFO_FILE_PATH
 );
 
 export const fetchExtendedKanjiInfo =
   createFetch<ExtendedKanjiInfoResponseType>(
-    jsonPaths.EXTENDED_KANJI_INFO_FILE_PATH
+    assetsPaths.EXTENDED_KANJI_INFO_FILE_PATH
   );
 
 export const fetchPhoneticInfo = createFetch<Record<string, string>>(
-  jsonPaths.PHONETIC_FILE
+  assetsPaths.PHONETIC_FILE
 );
 
 export const fetchPartKeywordInfo = createFetch<Record<string, string>>(
-  jsonPaths.PART_KEYWORD_FILE
+  assetsPaths.PART_KEYWORD_FILE
 );
 
 export const fetchSegmentedVocab = createFetch<SegmentedVocabResponseType>(
-  jsonPaths.SEGMENTED_VOCAB_FILE
+  assetsPaths.SEGMENTED_VOCAB_FILE
 );
 
 export const transformToSegmentedVocab = (

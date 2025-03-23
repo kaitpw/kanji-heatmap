@@ -5,12 +5,12 @@ import { DefaultErrorFallback } from "@/components/error";
 import { ChartData } from "@/components/sections/KanjiCumUseChart/helpers";
 import { KanjiCumUseChart } from "@/components/sections/KanjiCumUseChart";
 import KaomojiAnimation from "@/components/common/KaomojiLoading";
-import jsonPaths from "@/lib/kanji/kanji-worker-json-paths";
+import assetsPaths from "@/lib/assets-paths";
 import useHtmlDocumentTitle from "@/hooks/use-html-document-title";
 import pageItems from "@/components/items/page-items";
 
 const CumUseScreen = () => {
-  const { data, status } = useJsonFetch(jsonPaths.CUM_USE);
+  const { data, status } = useJsonFetch(assetsPaths.CUM_USE);
   useHtmlDocumentTitle(`${pageItems.cumUseGraphPage.title} - Kanji Heatmap`);
 
   if (status == "pending") {
