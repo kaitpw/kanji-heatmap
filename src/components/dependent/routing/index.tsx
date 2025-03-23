@@ -4,9 +4,8 @@ import { Badge } from "@/components/ui/badge";
 import { useClearedUrl, useKanjiFromUrl } from "./routing-hooks";
 
 export const GlobalHomeLink = () => {
-  const link = useClearedUrl();
   return (
-    <Link to={`/?${link}`} className={cnTextLink}>
+    <Link to={"/"} className={cnTextLink}>
       home.
     </Link>
   );
@@ -34,8 +33,7 @@ export const GlobalKanjiLink = ({
 };
 
 export const GlobalHomeHeaderLink = () => {
-  const link = useClearedUrl();
-  return <Link to={`/?${link}`}>Kanji Heatmap</Link>;
+  return <Link to={"/"}>Kanji Heatmap</Link>;
 };
 
 export const ClearFiltersCTA = () => {
