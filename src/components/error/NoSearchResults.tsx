@@ -8,7 +8,8 @@ export const NoSearchResults = () => {
     <Wrapper>
       <Sumimasen />
       <div className="my-2 font-bold">
-        No kanji match your search settings. <br />
+        <span>No Kanji match your search.</span>
+        <br />
         <ClearFiltersCTA />
       </div>
 
