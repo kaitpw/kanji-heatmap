@@ -31,7 +31,7 @@ export const Sumimasen = () => {
       </span>
       <div className="flex space-x-2 my-4 justify-center items-center">
         {Math.random() < 0.8 ? (
-          <code className="font-bolder text-4xl text-pink-500">
+          <code className="font-bolder text-3xl sm:text-4xl text-pink-500 whitespace-nowrap">
             {selectRandom(APOLOGIZING_SYMBOL)}
           </code>
         ) : (
