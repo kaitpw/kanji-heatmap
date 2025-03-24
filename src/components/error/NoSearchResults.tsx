@@ -13,7 +13,7 @@ export const NoSearchResults = () => {
         <ClearFiltersCTA />
       </div>
 
-      <div className="text-xs flex items-center flex-wrap mx-4">
+      <div className="text-xs flex items-center flex-wrap mx-4 justify-center">
         <ReachOutToUs
           prefix={`If you think this is a mistake, you can let us know on `}
         />

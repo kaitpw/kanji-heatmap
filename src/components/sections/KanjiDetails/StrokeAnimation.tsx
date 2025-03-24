@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Raphael from "raphael";
 import "dmak";
-import { ReactNode, useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import assetsPaths from "@/lib/assets-paths";
-import { PlayCircle, Rabbit, Snail } from "lucide-react";
+import { PlayCircle, Snail } from "@/components/icons";
 
 type AnimationSpeed = "fast" | "slow";
 
-const SPEEDS: Record<AnimationSpeed, { rate: number; icon: ReactNode }> = {
-  fast: { rate: 0.0095, icon: <Rabbit className="scale-150" /> },
-  slow: { rate: 0.022, icon: <Snail className="scale-150" /> },
+const SPEEDS: Record<AnimationSpeed, { rate: number }> = {
+  fast: { rate: 0.0095 },
+  slow: { rate: 0.022 },
 };
 
 const SVG_SIZE = 280;

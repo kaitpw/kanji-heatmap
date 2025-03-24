@@ -1,5 +1,5 @@
-import { Moon, Sun } from "lucide-react";
-
+import { useState } from "react";
+import { useTheme } from "@/providers/theme-hooks";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -7,8 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useState } from "react";
-import { useTheme } from "@/providers/theme-hooks";
+import { Moon, Sun } from "@/components/icons";
 
 // Copied and modified from: https://ui.shadcn.com/docs/dark-mode/vite
 

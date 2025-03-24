@@ -1,7 +1,6 @@
 import React from "react";
-
-import { X } from "@/components/icons";
-
+import useHtmlDocumentTitle from "@/hooks/use-html-document-title";
+import { ErrorBoundary } from "@/components/error";
 import {
   Drawer,
   DrawerClose,
@@ -11,7 +10,7 @@ import {
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import { KanjiInfoContent } from "./KanjiInfoContent";
-import useHtmlDocumentTitle from "@/hooks/use-html-document-title";
+import { CircleX } from "lucide-react";
 
 export function KanjiDrawerRaw({
   isOpen,
@@ -34,10 +33,16 @@ export function KanjiDrawerRaw({
         <DrawerDescription className="sr-only">
           Includes Sample Usage, Semantic Phonetic Compositions etc.
         </DrawerDescription>
-        <KanjiInfoContent kanji={kanji} />
+        <ErrorBoundary>
+          <KanjiInfoContent kanji={kanji} />
+        </ErrorBoundary>
         <DrawerClose asChild className="absolute -top-1 right-0">
-          <Button variant="ghost" size="icon" className="m-2">
-            <X />
+          <Button
+            variant="secondary"
+            size="icon"
+            className="mx-3 mt-3 rounded-full border-2 border-dotted flex justify-center item-center"
+          >
+            <CircleX />
           </Button>
         </DrawerClose>
       </DrawerContent>

@@ -52,7 +52,7 @@ export const externalLinks: { name: string; url: (x: string) => string }[] = [
 ];
 
 export const outLinks = {
-  githubIssue: "https://github.com/mithi/mithi/issues/3",
+  githubIssue: "https://github.com/PikaPikaGems/kanji-heatmap/issues/63",
   koFi: "https://ko-fi.com/minimithi",
   discord: "https://discord.gg/Ash8ZrGb4s",
 };

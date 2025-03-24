@@ -24,7 +24,7 @@ const SimpleAccordion = ({
       defaultValue={defaultOpen ? id : undefined}
     >
       <AccordionItem value={id}>
-        <AccordionTrigger className="p-2 flex justify-start space-x-2 focus:outline-none">
+        <AccordionTrigger className="p-2 flex justify-start space-x-2 focus:outline-none text-xl">
           {trigger}
         </AccordionTrigger>
         <AccordionContent>{children}</AccordionContent>

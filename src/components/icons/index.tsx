@@ -15,6 +15,12 @@ import {
   Play,
   FilterX,
   X,
+  PlayCircle,
+  Rabbit,
+  Snail,
+  Moon,
+  Sun,
+  CircleX,
 } from "lucide-react";
 export {
   GithubIcon,
@@ -32,4 +38,10 @@ export {
   Play,
   FilterX,
   X,
+  PlayCircle,
+  Rabbit,
+  Snail,
+  Moon,
+  Sun,
+  CircleX,
 };

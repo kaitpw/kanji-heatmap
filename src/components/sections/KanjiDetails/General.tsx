@@ -77,8 +77,8 @@ export const General = ({ kanji }: { kanji: string }) => {
         </TableBody>
       </Table>
       <DottedSeparator className="border-b-2 mb-4" />
-      <div className="text-left text-base">
-        <h1 className="font-bold mb-1">Learn more with: </h1>
+      <div className="text-left">
+        <h1 className="font-bold mb-1">Learn more from: </h1>
         <ExternalKanjiLinks kanji={kanji} />
       </div>
     </>

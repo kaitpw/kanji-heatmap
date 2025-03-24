@@ -3,7 +3,7 @@ import { BugIcon, KoFiIcon, DiscordIcon } from "../icons";
 
 const bugItem = {
   href: outLinks.githubIssue,
-  text: "Report bug on Github issues 🐛🐞",
+  text: "Report bug on GitHub issues 🐛🐞",
   icon: <BugIcon />,
 };
 

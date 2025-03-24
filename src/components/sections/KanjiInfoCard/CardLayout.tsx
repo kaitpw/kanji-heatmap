@@ -15,9 +15,20 @@ export const KanjiCardLayout = ({
 }) => {
   return (
     <article className="w-full rounded-lg border-2 border-dotted">
-      <div className="flex">
+      <div className="hidden sm:flex">
         <div className=" border-r-2 border-dotted">{main}</div>
         <div className="px-2 w-full pb-4 pt-4">
+          {firstWord}
+          {firstWord && secondWord && (
+            <div className="mt-6 mb-2 border-b-2 border-dotted w-full" />
+          )}
+          {secondWord}
+        </div>
+      </div>
+
+      <div className="flex flex-col sm:hidden">
+        <div>{main}</div>
+        <div className="px-2 w-full pb-4 pt-4  mt-4 border-t-2 border-dotted flex flex-col justify-center">
           {firstWord}
           {firstWord && secondWord && (
             <div className="mt-6 mb-2 border-b-2 border-dotted w-full" />

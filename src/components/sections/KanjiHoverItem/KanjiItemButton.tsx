@@ -6,6 +6,7 @@ import { freqMap } from "@/lib/options/options-label-maps";
 import { cnItemBg } from "@/lib/generic-cn";
 import { useGetKanjiInfoFn } from "@/kanji-worker/kanji-worker-hooks";
 import { useDeferredItemSettings } from "@/providers/item-settings-hooks";
+import { ReportBugIconBtn } from "@/components/common/ReportBugIconBtn";
 
 interface TriggerProps {
   onClick?: () => void;
@@ -103,6 +104,14 @@ const useItemBtnCn = (kanji: string) => {
       : `${btnCnRaw} border-8 flex flex-col justify-center items-center`;
 
   return { btnCn, itemType: itemSettings.cardType };
+};
+
+export const KanjiBtnErrorFallback = () => {
+  return (
+    <div className={`${loadingCn} h-full`}>
+      <ReportBugIconBtn />
+    </div>
+  );
 };
 
 const KanjiItemButton = forwardRef<HTMLButtonElement, TriggerProps>(

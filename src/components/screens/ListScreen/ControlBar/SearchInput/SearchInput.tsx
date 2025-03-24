@@ -7,10 +7,9 @@ import {
   translateMap,
 } from "@/lib/search-input-maps";
 import { translateValue } from "@/lib/wanakana-adapter";
-import { Search } from "@/components/icons";
-import BasicSelect from "@/components/common/BasicSelect";
+import { CircleX, Search } from "@/components/icons";
 import { Button } from "@/components/ui/button";
-import { CircleX } from "lucide-react";
+import BasicSelect from "@/components/common/BasicSelect";
 
 const INPUT_DEBOUNCE_TIME = 1000;
 

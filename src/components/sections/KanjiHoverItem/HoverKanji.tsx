@@ -7,7 +7,8 @@ import {
   HoverCardArrow,
 } from "@/components/ui/hover-card";
 import { ResponsiveKanjiCard } from "../KanjiInfoCard";
-import { KanjiItemButton } from "./KanjiItemButton";
+import { KanjiBtnErrorFallback, KanjiItemButton } from "./KanjiItemButton";
+import { ErrorBoundary } from "@/components/error";
 
 const HOVER_OPEN_DELAY = 400;
 const HOVER_CLOSE_DELAY = 200;
@@ -43,7 +44,7 @@ const HoverMeRaw = ({
   }, [setOpen]);
 
   return (
-    <>
+    <ErrorBoundary fallback={<KanjiBtnErrorFallback />}>
       <HoverCard open={isOpen}>
         <HoverCardTrigger asChild>
           <KanjiItemButton
@@ -62,10 +63,12 @@ const HoverMeRaw = ({
           collisionPadding={{ top: 10, left: 10, right: 10 }}
         >
           <HoverCardArrow />
-          <ResponsiveKanjiCard kanji={trigger} />
+          <ErrorBoundary>
+            <ResponsiveKanjiCard kanji={trigger} />
+          </ErrorBoundary>
         </HoverCardContent>
       </HoverCard>
-    </>
+    </ErrorBoundary>
   );
 };
 
