@@ -5,7 +5,10 @@ const assetsPaths = {
   PART_KEYWORD_FILE: "/json/component_keyword.json",
   SEGMENTED_VOCAB_FILE: "/json/vocabulary.json",
   CUM_USE: "json/cum_use.json",
-  KANJI_SVGS: "https://assets.pikapikagems.com/kanji/", // https://kanjivg.tagaini.net/kanjivg/kanji/ or "/kanji/"
+  KANJI_SVGS: "https://assets.pikapikagems.com/kanji/",
+  dev: {
+    KANJI_SVGS: "https://kanjivg.tagaini.net/kanjivg/kanji/",
+  },
 };
 
 export default assetsPaths;
