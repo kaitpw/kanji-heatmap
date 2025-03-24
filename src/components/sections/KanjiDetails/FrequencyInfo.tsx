@@ -44,7 +44,7 @@ export const FrequencyInfo = ({
                 <TableCell className="p-0">
                   <GenericPopover
                     trigger={
-                      <button className="text-left text-xs flex justify-between items-center w-[225px] lg:w-[280px] py-1">
+                      <button className="text-left text-xs flex justify-between items-center w-[225px] lg:w-[280px] py-1 ">
                         <span className="font-extrabold">
                           {label}{" "}
                           <InfoIcon className="inline-block" size={12} />

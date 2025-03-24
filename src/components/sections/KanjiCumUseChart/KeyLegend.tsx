@@ -19,7 +19,7 @@ export const KeyLegend = ({ freqKey }: { freqKey: string }) => {
     <GenericPopover
       trigger={
         <button
-          className={`${badgeCnOutline} text-nowrap !p-3 m-1 !text-base rounded-xl`}
+          className={`${badgeCnOutline} text-nowrap !p-3 m-1 !text-base rounded-xl hover:bg-[#2effff] hover:text-black`}
         >
           <span
             className={`block  h-5 w-5 ${cnSquare} mx-2`}
