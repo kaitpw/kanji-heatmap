@@ -79,9 +79,10 @@ const App = () => {
                 />
                 <Route path={kanjiPage.href} component={kanjiPage.Component} />
                 <Route path={aboutPage.href} component={aboutPage.Component} />
-                <Route path={docsPage.href}>
-                  <pageItems.docsPage.Component />
-                </Route>
+                <Route
+                  path={docsPage.href}
+                  component={pageItems.docsPage.Component}
+                />
                 <Route path="*">
                   <div className="w-full pr-4 mt-14">
                     <PageNotFound />
