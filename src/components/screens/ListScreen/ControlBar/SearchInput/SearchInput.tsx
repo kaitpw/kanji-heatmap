@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { cn } from "@/lib/generic-utils";
+import { cn } from "@/lib/utils";
 import { SearchType } from "@/lib/settings/settings";
 import {
   placeholderMap,

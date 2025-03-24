@@ -1,4 +1,4 @@
-import { selectRandom } from "@/lib/generic-utils";
+import { selectRandom } from "@/lib/utils";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 const kaomojiFrames = {

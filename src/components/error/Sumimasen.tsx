@@ -1,4 +1,4 @@
-import { selectRandom } from "@/lib/generic-utils";
+import { selectRandom } from "@/lib/utils";
 
 const APOLOGIZING_SYMBOL = [
   "(シ_ _)シ",

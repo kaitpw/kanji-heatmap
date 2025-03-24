@@ -13,7 +13,7 @@ import { JLPT_TYPE_ARR, JLPTOptionsCount, JLTPTtypes } from "@/lib/jlpt";
 import { FrequencyType, SortKey } from "../options/options-types";
 import { translateMap } from "../search-input-maps";
 import { FREQ_RANK_OPTIONS } from "../options/options-constants";
-import { clamp, toNum } from "../generic-utils";
+import { clamp, toNum } from "../utils";
 import { URL_PARAMS } from "./url-params";
 import { translateValue } from "../wanakana-adapter";
 

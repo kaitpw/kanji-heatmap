@@ -1,6 +1,6 @@
 import { freqCategoryCn } from "./freq/freq-category";
 import { JLPTListItems, validJlpts as jlpts } from "./jlpt";
-import { selectRandom } from "./generic-utils";
+import { selectRandom } from "./utils";
 
 const duration: string[] = ["duration-1000", "duration-700"];
 const delay: string[] = ["", "delay-500", "delay-1000"];
