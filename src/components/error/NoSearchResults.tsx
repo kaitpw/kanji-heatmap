@@ -15,7 +15,7 @@ export const NoSearchResults = () => {
 
       <div className="text-xs flex items-center flex-wrap mx-4">
         <ReachOutToUs
-          prefix={`. If you think this is a mistake, you can let us know on `}
+          prefix={`If you think this is a mistake, you can let us know on `}
         />
       </div>
       <div className="text-xs pt-4 text-left">

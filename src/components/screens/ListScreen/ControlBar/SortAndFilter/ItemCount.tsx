@@ -6,7 +6,7 @@ import { shouldShowAllKanji } from "@/lib/results-utils";
 import { useKanjiSearchCount } from "@/kanji-worker/kanji-worker-hooks";
 
 const disclaimer =
-  "Given your selected frequency data source, Kanji characters with no available rank  are excluded.";
+  "Given your selected frequency data source, Kanji characters with no available rank are excluded.";
 
 const AllMatchMsg = () => {
   return (
@@ -22,10 +22,10 @@ const ItemCountComputed = ({ settings }: { settings: SearchSettings }) => {
   const data = useKanjiSearchCount(settings);
 
   if (data.data == null || data.error) {
-    return <></>;
+    return null;
   }
 
-  const textSuffix =
+  const textPrefix =
     settings.textSearch.text.length > 0 ? (
       <>
         Your Search Text is{" "}
@@ -37,26 +37,29 @@ const ItemCountComputed = ({ settings }: { settings: SearchSettings }) => {
       ""
     );
 
-  if (data.data === 0) {
-    return (
-      <>
-        {textSuffix} No Kanji characters match your applied filters. <br />
-        {disclaimer}{" "}
-      </>
-    );
-  }
-
   if (data.data >= KANJI_COUNT) {
     return <AllMatchMsg />;
   }
 
+  const textSuffix =
+    settings.filterSettings.freq.source !== "none" ? disclaimer : null;
+
+  if (data.data === 0) {
+    return (
+      <>
+        {textPrefix} No Kanji characters match your applied filters. <br />
+        {textSuffix}
+      </>
+    );
+  }
+
   return (
     <>
-      {textSuffix} A total of{" "}
+      {textPrefix} A total of{" "}
       <span className="font-extrabold mx-1">{data.data}</span> of
       <span className="font-extrabold mx-1"> {KANJI_COUNT}</span>
       Kanji characters match your applied filters. <br />
-      {disclaimer}
+      {textSuffix}
     </>
   );
 };
