@@ -41,8 +41,8 @@ export const JLPTListItems: Record<
     label: "N4",
   },
   n5: {
-    cn: "bg-lime-400",
-    cnBorder: "border-lime-400",
+    cn: "bg-green-500",
+    cnBorder: "border-green-500",
     color: "lime",
     label: "N5",
   },

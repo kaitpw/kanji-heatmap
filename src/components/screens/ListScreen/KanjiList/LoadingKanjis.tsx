@@ -17,7 +17,7 @@ const LoadingKanjisRaw = ({
 }) => {
   const itemSettings = useDeferredItemSettings();
   const isCompact = itemSettings.cardType === "compact";
-  const { itemSize, width, listHeight, cols, idealRows } = useVirtualListDims(
+  const { itemSize, width, cols, idealRows } = useVirtualListDims(
     ESTIMATE_ITEM_COUNT,
     itemSettings.cardType
   );
@@ -27,13 +27,8 @@ const LoadingKanjisRaw = ({
     : { minHeight: itemSize, minWidth: width };
 
   return (
-    <div
-      role="status"
-      style={{ height: listHeight }}
-      className="flex flex-wrap items-start justify-start"
-    >
+    <div role="status" className="flex flex-wrap items-start justify-start">
       <div className="sr-only">loading</div>
-
       {new Array(idealRows).fill(null).map((_, i) => {
         return (
           <div

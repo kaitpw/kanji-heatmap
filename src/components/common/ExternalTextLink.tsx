@@ -8,7 +8,12 @@ export const ExternalTextLink = ({
   text: string;
 }) => {
   return (
-    <a href={href} target="_blank" rel="noreferrer" className={cnTextLink}>
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className={`${cnTextLink} whitespace-nowrap`}
+    >
       {text}
     </a>
   );

@@ -1,7 +1,5 @@
 import { useWindowSize } from "@/hooks/use-window-size";
 
-export const HEADER_HEIGHT = 100;
-
 export const TILE_SIZE = {
   sm: {
     width: 50,
@@ -22,14 +20,12 @@ export const useVirtualListDims = (
 
   const cols = Math.floor(windowWidth / tileSize.width);
   const rows = Math.ceil(itemCount / cols);
-  const listHeight = windowHeight - HEADER_HEIGHT;
   const idealRows = Math.ceil(windowHeight / tileSize.height);
   const itemNums = cols * idealRows;
 
   return {
     cols,
     rows,
-    listHeight,
     itemSize: tileSize.height,
     width: tileSize.width,
     itemNums,
