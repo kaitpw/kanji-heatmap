@@ -1,9 +1,4 @@
-import {
-  ListScreen,
-  CumUseScreen,
-  DocsScreen,
-  AboutScreen,
-} from "@/components/screens";
+import { ListScreen, CumUseScreen, DocsScreen } from "@/components/screens";
 
 const kanjiPage = {
   href: "/",
@@ -25,17 +20,16 @@ const docsPage = {
   component: DocsScreen,
 };
 
-const aboutPage = {
-  href: "/about",
-  title: "About",
-  component: AboutScreen,
-};
-
 const page = {
   kanjiPage,
   cumUseGraphPage,
   docsPage,
-  aboutPage,
 };
 
-export { page };
+const docPages = {
+  privacy: { hash: "#privacy", title: "Privacy Policy" },
+  terms: { hash: "#terms", title: "Terms of Use" },
+  about: { hash: "#about", title: "About" },
+};
+
+export { page, docPages };

@@ -15,12 +15,13 @@ import { Header, Nav } from "@/components/site-layout/";
 import pageItems from "@/components/items/page-items";
 
 import { ExternalTextLink } from "@/components/common/ExternalTextLink";
+import { docPages } from "./components/items/nav-items";
 
 const LazyBottomBanner = React.lazy(
   () => import("./components/site-layout/BottomBanner")
 );
 
-const { kanjiPage, cumUseGraphPage, aboutPage, docsPage } = pageItems;
+const { kanjiPage, cumUseGraphPage } = pageItems;
 
 export const NavBar = () => {
   const location = useUrlLocation();
@@ -35,14 +36,17 @@ export const NavBar = () => {
       navItems={[kanjiPage, cumUseGraphPage]}
       footer={
         <>
-          <ExternalTextLink href={`${aboutPage.href}`} text="About" />
           <ExternalTextLink
-            href={`${docsPage.href}#privacy`}
-            text="Privacy Policy"
+            href={`${pageItems.docsPage.href}${docPages.about.hash}`}
+            text={docPages.about.title}
           />
           <ExternalTextLink
-            href={`${docsPage.href}#terms`}
-            text="Terms of Use"
+            href={`${pageItems.docsPage.href}${docPages.terms.hash}`}
+            text={docPages.terms.title}
+          />
+          <ExternalTextLink
+            href={`${pageItems.docsPage.href}${docPages.privacy.hash}`}
+            text={docPages.privacy.title}
           />
         </>
       }
@@ -78,9 +82,8 @@ const App = () => {
                   component={cumUseGraphPage.Component}
                 />
                 <Route path={kanjiPage.href} component={kanjiPage.Component} />
-                <Route path={aboutPage.href} component={aboutPage.Component} />
                 <Route
-                  path={docsPage.href}
+                  path={pageItems.docsPage.href}
                   component={pageItems.docsPage.Component}
                 />
                 <Route path="*">

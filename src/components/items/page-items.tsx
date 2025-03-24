@@ -1,9 +1,4 @@
-import {
-  ListScreen,
-  CumUseScreen,
-  DocsScreen,
-  AboutScreen,
-} from "@/components/screens";
+import { ListScreen, CumUseScreen, DocsScreen } from "@/components/screens";
 
 const kanjiPage = {
   href: "/",
@@ -25,17 +20,10 @@ const docsPage = {
   Component: DocsScreen,
 };
 
-const aboutPage = {
-  href: "/about",
-  title: "About",
-  Component: AboutScreen,
-};
-
 const pageItems = {
   kanjiPage,
   cumUseGraphPage,
   docsPage,
-  aboutPage,
 };
 
 export default pageItems;
