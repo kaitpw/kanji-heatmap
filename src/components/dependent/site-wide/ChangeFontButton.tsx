@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useCallback, useLayoutEffect, useRef } from "react";
 
 const LOCAL_STORAGE_KANJI_FONT_KEY = "kanji-font";
-const NUMBER_OF_FONTS = 8;
+const NUMBER_OF_FONTS = 7;
 
 const useChangeFont = () => {
   const fontIdRef = useRef(0);
