@@ -1,5 +1,5 @@
 export const URL_PARAMS = {
-  openKanji: "open-kanji",
+  openKanji: "open",
   textSearch: {
     type: "search-type",
     text: "search-text",
