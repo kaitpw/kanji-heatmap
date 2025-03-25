@@ -11,7 +11,7 @@ import { SuspendedKanjiList } from "./KanjiList/LazyKanjiList";
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <>
-      <div className="fixed w-full pt-12 bg-white dark:bg-black pb-2 z-40">
+      <div className="fix-scroll-layout-shift-right fixed w-full pt-12 bg-white dark:bg-black pb-2 z-40">
         <section className="mx-auto max-w-screen-xl flex border-0 space-x-1 sticky px-1 w-full scroll-x-auto">
           <ErrorBoundary fallback={<LinksOutItems />}>
             <ControlBar />

@@ -6,16 +6,16 @@ import { outLinks } from "@/lib/external-links";
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <>
-      <div className="hidden md:block fixed bottom-0 left-0 bg-lime-400 text-black w-full text-sm font-extrabold px-1 pt-1 pb-[env(safe-area-inset-bottom)]">
+      <div className="fix-scroll-layout-shift-right hidden md:block fixed bottom-0 left-0 bg-lime-400 text-black w-full text-sm font-extrabold px-1 pt-1 pb-[env(safe-area-inset-bottom)]">
         {children}
       </div>
-      <div className="w-full flex items-center justify-center">
+      <div className="fix-scroll-layout-shift-right fixed bottom-0 w-full flex items-center justify-center">
         <div
           style={{
             bottom: "env(safe-area-inset-bottom)",
             width: "calc(100vw - 30px)",
           }}
-          className="flex md:hidden fixed bottom-0 my-1 items-center justify-center text-xs font-extrabold "
+          className="flex md:hidden  my-1 items-center justify-center text-xs font-extrabold "
         >
           <div className="bg-lime-400 text-black py-1 px-4 rounded-xl w-fit">
             {children}
