@@ -21,7 +21,7 @@ const DocsScreen = () => {
   useHtmlDocumentTitle(`${getCurrentPage(state)?.title} - Kanji Heatmap`);
 
   return (
-    <div className="w-full flex justify-center my-20 text-left px-2">
+    <div className="w-full flex justify-center text-left">
       <Tabs
         value={state}
         onValueChange={(newState) => {

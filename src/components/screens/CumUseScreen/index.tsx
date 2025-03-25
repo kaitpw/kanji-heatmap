@@ -1,18 +1,13 @@
-import { lazy, Suspense } from "react";
-import { ErrorBoundary } from "@/components/error";
-import KaomojiAnimation from "@/components/common/KaomojiLoading";
+import { lazy } from "react";
+import { PageWrapper } from "@/components/dependent/site-wide/PageWrapper";
 
 const LazyCumUseScreen = lazy(() => import("./CumUseScreen"));
 
 const CumUseScreen = () => {
   return (
-    <div className="my-20">
-      <ErrorBoundary details="CumUseScreen">
-        <Suspense fallback={<KaomojiAnimation />}>
-          <LazyCumUseScreen />
-        </Suspense>
-      </ErrorBoundary>
-    </div>
+    <PageWrapper>
+      <LazyCumUseScreen />
+    </PageWrapper>
   );
 };
 

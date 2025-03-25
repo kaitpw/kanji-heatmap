@@ -6,3 +6,9 @@ export const cnTextLink =
 
 // TODO:some places this is hard coded. Make sure nothing breaks if ever you refactor
 export const cnItemBg = "bg-[#fb02a8]";
+
+export const themeColors = {
+  pink: "#fb02a8",
+  aqua: "#2effff",
+  lime: "#a3e635",
+};

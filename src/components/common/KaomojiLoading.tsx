@@ -103,8 +103,6 @@ const KaomojiAnimation = ({
 
   return (
     <>
-      <div className="font-extrabold text-xs">Loading...</div>
-
       <div
         className={cn}
         style={{
@@ -117,6 +115,7 @@ const KaomojiAnimation = ({
       <span className="text-2xl sm:text-3xl my-1 kanji-font">
         {loadingTextRef.current}
       </span>
+      <div className="font-extrabold text-xs">Loading...</div>
     </>
   );
 };

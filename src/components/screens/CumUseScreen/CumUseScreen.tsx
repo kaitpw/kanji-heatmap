@@ -18,11 +18,7 @@ const CumUseScreen = () => {
   }
 
   if (status === "error" || data == null) {
-    return (
-      <div className="my-20">
-        <DefaultErrorFallback message="Cannot load graph at this time" />
-      </div>
-    );
+    return <DefaultErrorFallback message="Cannot load graph at this time" />;
   }
 
   return <KanjiCumUseChart data={data as ChartData} />;
