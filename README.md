@@ -8,42 +8,47 @@
 
 ![sort and filter dialog](./IMG/sort-dialog.png)
 
-## Data (Re) Generation
+## Running the app
 
 ```
-$ cd ./DATA-SCRIPTS
-
-# inspect input data
-$ python3 ./kanji_inspect.py
-$ ls -la ./original_data/*.json
- 12154421 ./original_data/MERGED_KANJI.json
-      356 ./original_data/PIKAPIKAGEMS_KEYWORDS.json
-       63 ./original_data/PIKAPIKAGEMS_PARTS_OVERRIDE.json
-    11318 ./original_data/cum_use.json
-  1686914 ./original_data/kanji_to_vocabulary.json
-     2183 ./original_data/missing_components.json
-     2693 ./original_data/phonetic_components.json
-
-# generate output jsons from input `./DATA-SCRIPTS/original_data/*`
-$ python3 ./kanji_build_output_jsons.py
-$ ls -la ./generated/*.json
-  1759 component_keyword.json
-  2118 cum_use.json
-392623 kanji_extended.json
-284748 kanji_main.json
-  2187 phonetic.json
-512324 vocabulary.json
-
-# copy to public folder
-$ cp ./generated/*.json ../public/json/
-
-# Check if everything is working
-$ cd ..
 $ pnpm install
 $ pnpm run peek
   ➜  Local:   http://localhost:4173/
   ➜  Network: http://192.168.254.107:4173/
   ➜  press h + enter to show help
+```
+
+## Updating the Data
+
+Get the latest `tar.gz` from the [Kanji Heatmap Data](https://github.com/PikaPikaGems/kanji-heatmap-data) repository
+
+```
+curl -OL https://github.com/PikaPikaGems/kanji-heatmap-data/releases/latest/download/kanji-heatmap-data.tar.gz
+```
+
+Uncompress and store the json files in `./public/json`
+
+```
+tar -xzf ./kanji-heatmap-data.tar.gz -C ./public/json/
+```
+
+You should have the following files updated
+
+```
+ls -la public/json
+
+  1759 component_keyword.json
+  2118 cum_use.json
+366900 kanji_extended.json
+284748 kanji_main.json
+  2187 phonetic.json
+510601 vocabulary.json
+```
+
+Delete the `tar.gz` file since it's not needed anymore
+
+```
+rm kanji-heatmap-data.tar.gz
 ```
 
 ## Talk to Us
