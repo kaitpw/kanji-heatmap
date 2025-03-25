@@ -18,15 +18,27 @@ export const CumUseChartWrapper = ({
         <div className="flex flex-wrap justify-center">{legends}</div>
         <div className="mx-2 text-left">
           <p className="text-base my-2">
-            The x-axis lists items by their frequency rank (Rank 1224**), and
-            the y-axis shows the cumulative percentage of total usage up to that
-            rank. The graph highlights how quickly the most frequent items build
-            up to account for the bulk of the overall usage.
+            This graph shows the cumulative usage percentage of different
+            character sets across various sources (e.g., novels, Netflix
+            subtitles, online news, Twitter, Wikipedia, etc.) as a function of
+            frequency rank (Rank 1224**). The graph highlights how quickly the
+            most frequent items build up to account for the bulk of the overall
+            usage.
           </p>
+          <p className="text-base my-2">
+            This shows that higher ranked characters are more frequently
+            used.The cumulative usage percentage rises steeply at first, meaning
+            a relatively small number of high-frequency characters contribute
+            significantly to the overall text coverage. As the frequency rank
+            increases, the growth rate slows down.
+          </p>
+
           <p className="my-2 text-xs">
-            **Ranks are Standard competition (or Rank 1224) means items that
-            rank equally receive the same ranking number, and then a gap is left
-            after the equally ranked items in the ranking number.
+            {`**Standard competition ranking (also called "1224" ranking) is a
+            ranking system where equal scores receive the same rank, and the
+            next rank is determined by skipping the number of tied positions
+            (e.g., if two players are tied at rank 2, the next rank is 4, not
+            3).`}
           </p>
         </div>
       </div>

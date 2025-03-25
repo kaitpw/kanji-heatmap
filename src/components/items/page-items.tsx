@@ -2,15 +2,15 @@ import { ListScreen, CumUseScreen, DocsScreen } from "@/components/screens";
 
 const kanjiPage = {
   href: "/",
-  title: "Kanji Search",
+  title: "Explore Kanji",
   Component: ListScreen,
-  description: "Quickly sort, filter and search Kanjis",
+  description: "Advanced search, sort, filter, and usage visualization tool",
 };
 
 const cumUseGraphPage = {
-  href: "/cum-use-graph",
+  href: "/cumulative-use-graph",
   title: "Cumulative Use Graph",
-  description: "Inspect Frequency Ranks vs Use trend across various datasets",
+  description: "Inspect kanji usage vs rank trends across various data sets",
   Component: CumUseScreen,
 };
 
