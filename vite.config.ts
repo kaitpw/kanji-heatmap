@@ -17,7 +17,7 @@ const pwaConfig = {
     display: "standalone" as const,
     lang: "en-US" as const,
     description:
-      "Efficiently identify, search, and study the most relevant kanji using frequency data-driven visuals. Gain real-world usage insights from data corpora drawn from 17+ sources, including Netflix, Twitter, Google, Wikipedia, and more",
+      "Efficiently identify and study the most relevant kanji using frequency data-driven visuals. Explore kanji with advanced filtering, sorting, and more.",
     start_url: ".",
     theme_color: "#fb02a8",
     background_color: "#FFFFFF",
