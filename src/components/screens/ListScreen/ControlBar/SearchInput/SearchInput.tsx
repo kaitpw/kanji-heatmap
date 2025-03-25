@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { SearchType } from "@/lib/settings/settings";
 import {
@@ -28,6 +28,11 @@ export const SearchInput = ({
     translateValue(initialText, translateMap[searchType])
   );
 
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  useEffect(() => {
+    inputRef.current?.focus?.();
+  }, []);
+
   const fontCN =
     parsedValue === "" || searchType === "meanings" || searchType === "keyword"
       ? ""
@@ -36,6 +41,7 @@ export const SearchInput = ({
   return (
     <section className="w-full relative">
       <input
+        ref={inputRef}
         className={cn(
           "flex w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-7 pr-[105px] h-9",
           fontCN
@@ -65,7 +71,7 @@ export const SearchInput = ({
       />
       {parsedValue.length > 0 && (
         <Button
-          className="absolute right-[110px] top-[6px] m-0 p-1  h-6 rounded-full"
+          className="absolute right-[120px] top-[6px] m-0 p-1  h-6 rounded-full"
           variant={"secondary"}
           onClick={() => {
             setValue("");
@@ -89,7 +95,7 @@ export const SearchInput = ({
           onSettle(newParsedValue.trim(), newType);
         }}
         triggerCN={
-          "absolute right-1 top-1 w-26 h-7 bg-gray-100 dark:bg-gray-900"
+          "absolute right-1 top-1 w-[115px]  h-7 bg-gray-100 dark:bg-gray-900"
         }
         options={SEARCH_TYPE_OPTIONS}
         label="Search Type"
