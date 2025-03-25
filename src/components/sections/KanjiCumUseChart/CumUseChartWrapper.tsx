@@ -10,7 +10,7 @@ export const CumUseChartWrapper = ({
   return (
     <article className="flex justify-center flex-col items-center">
       <div className="w-full md:w-[700px] lg:w-[1000px]">
-        <h1 className="font-bold text-lg md:text-xl">
+        <h1 className="font-bold text-lg md:text-xl my-3">
           Cumulative Usage vs Frequency Rank
         </h1>
 
