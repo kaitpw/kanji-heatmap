@@ -128,7 +128,7 @@ const toSearchParams = (
     const trimmedText = newVal.text.trim();
 
     if (trimmedText === "") {
-      prev.delete(URL_PARAMS.textSearch.type);
+      prev.set(URL_PARAMS.textSearch.type, newVal.type);
       prev.delete(URL_PARAMS.textSearch.text);
       return prev;
     }
