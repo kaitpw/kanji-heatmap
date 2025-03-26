@@ -6,6 +6,33 @@ export const AboutSection = ({ title }: { title: string }) => {
       <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
         {title}
       </h1>
+      <p className="my-5 leading-7">
+        Kanji Heatmap is an exploration tool with advanced filtering, sorting,
+        frequency heatmap visualizations, and detailed kanji information. This
+        tool can help you prioritize which kanji to learn based on your specific
+        goals.
+      </p>
+      <p className="my-5 leading-7">
+        The kanji you encounter in casual Twitter posts differ from those found
+        in literary works, and the kanji commonly used in TV dramas may vary
+        from those in news articles.
+      </p>
+      <p className="my-5 leading-7">
+        Visual learners will appreciate the heatmap feature, which highlights
+        more frequently used kanji in brighter colors, with less common
+        characters shown in progressively duller shades.{" "}
+      </p>
+      <p className="my-5 leading-7">
+        Unlike many kanji resources that display characters in a single style,
+        Kanji Heatmap lets you change fonts to see how the appearance of
+        characters can vary.
+      </p>
+      <p className="my-5 leading-7">
+        While Kanji Heatmap is not a dictionary, it offers useful kanji details.
+        Simply click on any kanji to view sample words, meanings, onyomi and
+        kunyomi readings, stroke order animations, component breakdowns, and
+        more.
+      </p>
 
       <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 mt-10 mb-4">
         License
@@ -18,11 +45,9 @@ export const AboutSection = ({ title }: { title: string }) => {
         </CustomLink>
         .
       </p>
-
       <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 mt-10 mb-4">
         Credits
       </h2>
-
       <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight mt-8 mb-4">
         Data Sources
       </h3>
@@ -250,7 +275,6 @@ export const AboutSection = ({ title }: { title: string }) => {
           </ul>
         </li>
       </ul>
-
       <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight mt-8 mb-4">
         Common Sources
       </h3>
