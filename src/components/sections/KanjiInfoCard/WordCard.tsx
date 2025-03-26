@@ -9,6 +9,8 @@ import { ExternalTextLink } from "@/components/common/ExternalTextLink";
 import { GlobalKanjiLink } from "@/components/dependent/routing";
 import { HiraganaWord } from "@/components/dependent/kana/HiraganaWord";
 import { vocabExternalLinks } from "@/lib/external-links";
+import { useSpeak } from "@/hooks/use-jp-speak";
+import { Volume2 } from "lucide-react";
 
 const SeeMoreDefinition = ({ definition }: { definition: string }) => {
   const [showMore, setShowMore] = useState(false);
@@ -36,6 +38,22 @@ const SeeMoreDefinition = ({ definition }: { definition: string }) => {
   );
 };
 
+const SpeakButton = ({ word }: { word: string }) => {
+  const speak = useSpeak(word);
+
+  return (
+    <Button
+      variant={"ghost"}
+      size="icon"
+      className="h-8 w-8 relative my-1"
+      onClick={() => {
+        speak();
+      }}
+    >
+      <Volume2 />
+    </Button>
+  );
+};
 const MAX_LEN = 200;
 export const WordCard = ({
   word,
@@ -43,16 +61,22 @@ export const WordCard = ({
   highlightIndex,
   definition,
   wordKanjis,
+  speakMethod = "kana",
 }: {
   word: string;
   spacedKana: string;
   highlightIndex: number;
   definition: string;
   wordKanjis: { kanji: string; keyword: string }[];
+  speakMethod?: "kanji" | "kana";
 }) => {
+  const wordToSpeak =
+    speakMethod === "kana" ? spacedKana.split(" ").join("") : word;
   return (
     <>
-      <HiraganaWord rawKana={spacedKana} highlightIndex={highlightIndex} />
+      <div className="flex justify-center sm:justify-start">
+        <HiraganaWord rawKana={spacedKana} highlightIndex={highlightIndex} />
+      </div>
       <GenericPopover
         trigger={
           <Button
@@ -63,7 +87,7 @@ export const WordCard = ({
           </Button>
         }
         content={
-          <div className="w-56">
+          <div className="w-64">
             <div className="flex p-1 flex-wrap justify-center">
               {wordKanjis.map((item, index) => {
                 return (
@@ -75,13 +99,13 @@ export const WordCard = ({
                 );
               })}
             </div>
+
             <DottedSeparator />
             <SeeMoreDefinition definition={definition} />
             <DottedSeparator />
             <div className="text-xs pt-2 font-bold flex flex-wrap justify-center">
               Learn more from:
             </div>
-
             <div className="text-xs pb-2 flex flex-wrap justify-center">
               {vocabExternalLinks.map((item) => {
                 return (
@@ -93,6 +117,8 @@ export const WordCard = ({
                 );
               })}
             </div>
+            <DottedSeparator />
+            <SpeakButton word={wordToSpeak} />
           </div>
         }
       />
