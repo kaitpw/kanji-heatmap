@@ -89,7 +89,7 @@ const useItemBtnCn = (kanji: string) => {
   const { jlpt } = kanjiInfo;
 
   const border = dontIncludeJLPT
-    ? "border-[#fb02a8]"
+    ? "border-[#fb02a8] border-opacity-10 dark:border-opacity-20"
     : JLPTListItems[jlpt].cnBorder;
 
   const bgColor =

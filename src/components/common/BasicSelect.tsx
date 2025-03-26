@@ -38,9 +38,7 @@ const BasicSelect = ({
   return (
     <>
       <Label
-        className={
-          isLabelSrOnly ? "sr-only text-xs font-normal" : "text-xs font-normal"
-        }
+        className={isLabelSrOnly ? "sr-only" : "text-xs font-normal"}
         htmlFor={`select-${id}`}
       >
         {label}

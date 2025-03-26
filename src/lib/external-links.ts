@@ -80,4 +80,8 @@ export const vocabExternalLinks = [
     name: "JPDB.io",
     url: (word: string) => `https://jpdb.io/search?q=${word}&lang=english#a`,
   },
+  {
+    name: "Kanshudo",
+    url: (word: string) => `https://www.kanshudo.com/searchw?q=${word}`,
+  },
 ];

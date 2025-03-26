@@ -24,7 +24,7 @@ export const RefreshOrGoBackHome = () => {
 
 export const Wrapper = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="h-full w-full flex flex-col items-center justify-center">
+    <div className="h-full w-full flex flex-col items-center justify-center pt-4">
       {children}
     </div>
   );

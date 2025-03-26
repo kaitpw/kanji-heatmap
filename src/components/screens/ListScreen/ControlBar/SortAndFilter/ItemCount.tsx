@@ -4,9 +4,10 @@ import { SearchSettings } from "@/lib/settings/settings";
 import { shouldShowAllKanji } from "@/lib/results-utils";
 
 import { useKanjiSearchCount } from "@/kanji-worker/kanji-worker-hooks";
+import { SEARCH_TYPE_OPTIONS } from "@/lib/search-input-maps";
 
 const disclaimer =
-  "Given your selected frequency data source, Kanji characters with no available rank are excluded.";
+  "Some kanji characters may be excluded based on your selected frequency source filter.";
 
 const AllMatchMsg = () => {
   return (
@@ -30,8 +31,10 @@ const ItemCountComputed = ({ settings }: { settings: SearchSettings }) => {
       <>
         Your Search Text is{" "}
         <span className="mx-1 font-extrabold">
-          {`"${settings.textSearch.text}"`}.
+          {`"${settings.textSearch.text}"`}
         </span>
+        <span>{`(Search Type: ${SEARCH_TYPE_OPTIONS.find((item) => item.value === settings.textSearch.type)?.label} )`}</span>
+        .
       </>
     ) : (
       ""

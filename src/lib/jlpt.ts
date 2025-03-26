@@ -1,7 +1,7 @@
-export const JLPT_TYPE_ARR = ["n1", "n2", "n3", "n4", "n5", "none"] as const;
+export const JLPT_TYPE_ARR = ["n5", "n4", "n3", "n2", "n1", "none"] as const;
 export type JLTPTtypes = (typeof JLPT_TYPE_ARR)[number];
 
-export const validJlpts: JLTPTtypes[] = ["n1", "n2", "n3", "n4", "n5"] as const;
+export const validJlpts: JLTPTtypes[] = ["n5", "n4", "n3", "n2", "n1"] as const;
 
 export const JLPTRank: Record<JLTPTtypes, number> = {
   n5: 0,
@@ -54,8 +54,7 @@ export const JLPTListItems: Record<
   },
 };
 
-export const allJLPTKeys = Object.keys(JLPTListItems) as JLTPTtypes[];
-export const JLPTOptions = allJLPTKeys.map((k) => {
+export const JLPTOptions = JLPT_TYPE_ARR.map((k) => {
   return {
     ...JLPTListItems[k],
     value: k,

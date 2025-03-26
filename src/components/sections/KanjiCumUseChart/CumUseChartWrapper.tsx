@@ -11,7 +11,7 @@ export const CumUseChartWrapper = ({
     <article className="flex justify-center flex-col items-center">
       <div className="w-full max-w-5xl">
         <h1 className="font-bold text-lg md:text-xl my-3">
-          Cumulative Usage vs Frequency Rank
+          Cumulative Use vs Standard competition Frequency ranking
         </h1>
 
         <div>{children}</div>
@@ -21,9 +21,9 @@ export const CumUseChartWrapper = ({
             This graph shows the cumulative usage percentage of different
             character sets across various sources (e.g., novels, Netflix
             subtitles, online news, Twitter, Wikipedia, etc.) as a function of
-            frequency rank (Rank 1224**). The graph highlights how quickly the
-            most frequent items build up to account for the bulk of the overall
-            usage.
+            frequency rank (Standard competition ranking). The graph highlights
+            how quickly the most frequent items build up to account for the bulk
+            of the overall usage.
           </p>
           <p className="text-base my-2">
             This shows that higher ranked characters are more frequently

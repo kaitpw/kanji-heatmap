@@ -21,7 +21,7 @@ import {
 } from "../options/options-constants";
 
 const scriptin_attribute_desc =
-  " Compiled by Dmitry Shpika. Converted to Rank 1224 type by @mikong.";
+  " Compiled by Dmitry Shpika. Converted to Std Comp Rank by @mikong.";
 const doc_count_desc =
   "Document count measures how many documents the kanji appears in.";
 const char_count_desc =
@@ -35,8 +35,8 @@ const ultimate_kanji_links = [
 ];
 
 export const rankTypeLabel = {
-  1224: "(Rank Type: 1224)",
-  1223: "(Rank Type: 1223)",
+  1224: "(Standard Competition Ranking)",
+  1223: "(Dense ranking)",
   "N/A": "",
 };
 

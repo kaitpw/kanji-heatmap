@@ -78,7 +78,11 @@ export const WordCard = ({
             <DottedSeparator />
             <SeeMoreDefinition definition={definition} />
             <DottedSeparator />
-            <div className="text-xs p-2 flex flex-wrap justify-center">
+            <div className="text-xs pt-2 font-bold flex flex-wrap justify-center">
+              Learn more from:
+            </div>
+
+            <div className="text-xs pb-2 flex flex-wrap justify-center">
               {vocabExternalLinks.map((item) => {
                 return (
                   <ExternalTextLink

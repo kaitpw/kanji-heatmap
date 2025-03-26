@@ -9,7 +9,7 @@ const JLPTOptionsWithIcon = JLPTOptions.map((entry) => {
     value: entry.value,
     iconNode: (
       <div
-        className={`h-2 w-2 -translate-y-[1px] rounded-sm mx-1 ${entry.cn}`}
+        className={`h-3 w-3 -translate-y-[1px] rounded-sm mr-1 ${entry.cn}`}
       />
     ),
   };
@@ -37,6 +37,7 @@ export function JLPTSelector({
         placeholder="All levels selected"
         variant="inverted"
         maxCount={JLPTOptionsWithIcon.length}
+        hasSearchInput={false}
       />
     </div>
   );
