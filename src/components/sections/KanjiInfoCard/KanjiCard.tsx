@@ -63,7 +63,11 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
   const word1Props = transformKanjiWordDetails(kanji, info.mainVocab?.first);
   const word2Props = transformKanjiWordDetails(kanji, info.mainVocab?.second);
 
-  const parts = info.parts.filter((item) => item.part !== kanji);
+  const parts = info.parts
+    .filter((item) => item.part !== kanji)
+    .filter((item) => {
+      return item.part != info.phonetic?.phonetic;
+    });
 
   const hasParts = parts.length > 0 || info.phonetic;
 
@@ -90,17 +94,14 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
                 />
               );
             })}
-            {info.phonetic &&
-              info.parts
-                .map((part) => part.part)
-                .includes(info.phonetic.phonetic) === false && (
-                <SingleKanjiPart
-                  kanji={info.phonetic.phonetic}
-                  keyword={info.phonetic.keyword}
-                  phonetics={info.phonetic.sound}
-                  isKanji={info.phonetic.isKanji}
-                />
-              )}
+            {info.phonetic && (
+              <SingleKanjiPart
+                kanji={info.phonetic.phonetic}
+                keyword={info.phonetic.keyword}
+                phonetics={info.phonetic.sound}
+                isKanji={info.phonetic.isKanji}
+              />
+            )}
           </>
         )
       }
