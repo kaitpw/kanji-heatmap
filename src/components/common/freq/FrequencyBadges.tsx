@@ -25,9 +25,9 @@ export const FrequencyBadges = ({
         content={<FreqRankTypeInfo value={inverseFreqMap.google} />}
       />
       <FrequencyBadge
-        rank={frequency.wikiChar}
+        rank={frequency.wkfr}
         text="Wikipedia"
-        content={<FreqRankTypeInfo value={inverseFreqMap.wikiChar} />}
+        content={<FreqRankTypeInfo value={inverseFreqMap.wkfr} />}
       />
 
       <FrequencyBadge
