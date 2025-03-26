@@ -7,14 +7,22 @@ import LoadingKanjis from "./KanjiList/LoadingKanjis";
 
 import { LinksOutItems } from "@/components/common/LinksOutItems";
 import { SuspendedKanjiList } from "./KanjiList/LazyKanjiList";
+import { ItemCountBadge } from "./ControlBar/ItemCountBadge";
 
-const Layout = ({ children }: { children: ReactNode }) => {
+const Layout = ({
+  children,
+  badge,
+}: {
+  children: ReactNode;
+  badge?: ReactNode;
+}) => {
   return (
     <>
       <div className="fix-scroll-layout-shift-right fixed w-full pt-12 bg-white dark:bg-black pb-2 z-40">
-        <section className="mx-auto max-w-screen-xl flex border-0 space-x-1 sticky pl-2 w-full scroll-x-auto">
+        <section className="mx-auto max-w-screen-xl flex border-0 space-x-1 sticky pt-1 pl-2 pr-1 w-full scroll-x-auto">
           <ErrorBoundary fallback={<LinksOutItems />}>
             <ControlBar />
+            {badge}
           </ErrorBoundary>
         </section>
       </div>
@@ -37,7 +45,7 @@ export const ListScreen = () => {
   }
 
   return (
-    <Layout>
+    <Layout badge={<ItemCountBadge />}>
       <SuspendedKanjiList />
     </Layout>
   );

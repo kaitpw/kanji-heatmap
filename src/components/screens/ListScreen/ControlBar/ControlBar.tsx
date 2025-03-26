@@ -1,5 +1,3 @@
-import React from "react";
-
 import { ReportBugIconBtn } from "@/components/common/ReportBugIconBtn";
 
 import ItemPresentationSettingsPopover from "./ItemPresentation/ItemPresentationPopover";
@@ -7,9 +5,8 @@ import { ItemPresentationSettingsContent } from "./ItemPresentation/ItemPresenta
 import { SettledSearchInput } from "./SearchInput/SettledSearchInput";
 import { SettledSortAndFilter } from "./SortAndFilter/SettledSortAndFilter";
 import { ErrorBoundary } from "@/components/error";
-import { ItemCountBadge } from "./ItemCountBadge";
 
-export const ControlBarRaw = () => {
+export const ControlBar = () => {
   return (
     <>
       <ErrorBoundary
@@ -31,7 +28,6 @@ export const ControlBarRaw = () => {
         }
       >
         <SettledSortAndFilter />
-        <ItemCountBadge />
       </ErrorBoundary>
       <ErrorBoundary
         details="ItemPresentationSettings in ControlBar"
@@ -50,5 +46,3 @@ export const ControlBarRaw = () => {
     </>
   );
 };
-
-export const ControlBar = React.memo(ControlBarRaw);
