@@ -12,7 +12,7 @@ import { FreqRankTypeInfo } from "./FreqRankTypeInfo";
 export function FrequencyRankDataSource({
   value,
   setValue,
-  type = "basic-select",
+  type = "combo-box",
 }: {
   value: FrequencyType;
   setValue: (v: FrequencyType) => void;
@@ -44,11 +44,10 @@ export function FrequencyRankDataSource({
       <Combobox
         value={value}
         setValue={(newValue) => setValue(newValue as FrequencyType)}
-        options={FREQUENCY_RANK_FILTER_OPTIONS.map((option) => {
-          const info = FREQ_RANK_SOURCES_INFO[option.value as FrequencyType];
-
+        options={FREQUENCY_RANK_FILTER_OPTIONS.map((item) => {
+          const info = FREQ_RANK_SOURCES_INFO[item.value as FrequencyType];
           return {
-            ...option,
+            ...item,
             description: `${info.description ?? ""} ${rankTypeLabel[info.rankType]} `,
           };
         })}

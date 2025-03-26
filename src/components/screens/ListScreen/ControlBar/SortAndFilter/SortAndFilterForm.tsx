@@ -11,7 +11,6 @@ import {
 } from "@/lib/settings/settings";
 
 import { Button } from "@/components/ui/button";
-import BasicSelect from "@/components/common/BasicSelect";
 
 import { FreqRankTypeInfo } from "@/components/common/freq/FreqRankTypeInfo";
 import { StrokeCountField } from "@/components/common/StrokeCountField";
@@ -30,6 +29,7 @@ import {
   defaultFilterSettings,
   defaultSortSettings,
 } from "@/lib/settings/search-settings-adapter";
+import { BasicComboBox } from "@/components/common/BasicComboBox";
 
 export const SortAndFilterSettingsForm = ({
   initialValue,
@@ -74,7 +74,7 @@ export const SortAndFilterSettingsForm = ({
       <SortOrderSectionLayout
         primaryField={
           <>
-            <BasicSelect
+            <BasicComboBox
               value={sortValues.primary}
               onChange={(newValue) => {
                 const isGroup = (GROUP_OPTIONS as readonly string[]).includes(
@@ -95,10 +95,8 @@ export const SortAndFilterSettingsForm = ({
                   };
                 });
               }}
-              triggerCN={"h-8 w-full"}
               options={SORT_ORDER_SELECT}
               label="Primary"
-              isLabelSrOnly={false}
             />
             <FreqRankTypeInfo value={sortValues.primary} defaultValue={null} />
           </>
@@ -107,19 +105,17 @@ export const SortAndFilterSettingsForm = ({
           sortValues.secondary &&
           isGroup && (
             <>
-              <BasicSelect
+              <BasicComboBox
                 value={sortValues.secondary}
                 onChange={(newValue) =>
                   setSortValues((prev) => {
                     return { ...prev, secondary: newValue as SortKey };
                   })
                 }
-                triggerCN={"h-8 w-full"}
                 options={SORT_ORDER_SELECT.filter((item) => {
                   return item.value !== sortValues.primary;
                 })}
                 label="Secondary"
-                isLabelSrOnly={false}
               />
               <FreqRankTypeInfo
                 value={sortValues.secondary}
