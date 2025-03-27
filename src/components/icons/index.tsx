@@ -21,6 +21,11 @@ import {
   Moon,
   Sun,
   CircleX,
+  AudioLines,
+  Volume2,
+  Headphones,
+  Copy,
+  Clipboard,
 } from "lucide-react";
 export {
   GithubIcon,
@@ -44,4 +49,9 @@ export {
   Moon,
   Sun,
   CircleX,
+  AudioLines,
+  Volume2,
+  Headphones,
+  Copy,
+  Clipboard,
 };

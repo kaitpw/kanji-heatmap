@@ -2,8 +2,8 @@ import { GenericPopover } from "@/components/common/GenericPopover";
 
 import { SpeakButton } from "@/components/common/SpeakButton";
 import { CopyButton } from "@/components/common/CopyButton";
-import { InfoIcon } from "lucide-react";
 import { ReactNode } from "react";
+import { InfoIcon } from "../icons";
 
 const IconMeanings = ({ btn, text }: { btn: ReactNode; text: string }) => {
   return (

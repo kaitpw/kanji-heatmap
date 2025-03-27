@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import { KanjiInfoContent } from "./KanjiInfoContent";
-import { CircleX } from "lucide-react";
+import { CircleX } from "@/components/icons";
 
 export function KanjiDrawerRaw({
   isOpen,

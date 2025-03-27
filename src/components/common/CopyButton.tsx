@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
-import { Copy, Clipboard, CheckCircle } from "lucide-react";
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
+import { Copy, Clipboard, CheckCircle } from "../icons";
 
 type CopyIconType = "clipboard" | "copy";
 const copyIcons: Record<CopyIconType, ReactNode> = {

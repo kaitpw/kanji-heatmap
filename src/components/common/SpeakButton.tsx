@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { useSpeak } from "@/hooks/use-jp-speak";
-import { AudioLines, Volume2, Headphones } from "lucide-react";
+import { AudioLines, Headphones, Volume2 } from "../icons";
 
 type AudioIconType = "audio-lines" | "volume-2" | "headphones";
 const audioIcons: Record<AudioIconType, ReactNode> = {
