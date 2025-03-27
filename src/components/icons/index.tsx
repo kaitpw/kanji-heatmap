@@ -26,6 +26,9 @@ import {
   Headphones,
   Copy,
   Clipboard,
+  Link,
+  Link2,
+  DotIcon,
 } from "lucide-react";
 export {
   GithubIcon,
@@ -54,4 +57,7 @@ export {
   Headphones,
   Copy,
   Clipboard,
+  Link,
+  Link2,
+  DotIcon,
 };

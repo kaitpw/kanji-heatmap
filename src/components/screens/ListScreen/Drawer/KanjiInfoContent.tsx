@@ -31,11 +31,12 @@ const Layout = ({ first, second }: { first: ReactNode; second: ReactNode }) => {
 export const KanjiInfoContent = ({ kanji }: { kanji: string }) => {
   const ready = useIsKanjiWorkerReady();
   const getFn = useGetKanjiInfoFn();
-  const info = getFn?.(kanji);
 
   if (!ready) {
     return <BasicLoading />;
   }
+
+  const info = getFn?.(kanji);
 
   if (info != null) {
     return (

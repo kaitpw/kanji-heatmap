@@ -25,8 +25,8 @@ export const VocabActions = ({
 }) => {
   return (
     <div className="flex relative flex-wrap justify-center space-x-1 items-center p-2">
-      <SpeakButton word={kana} iconType={"volume-2"} />
       <CopyButton textToCopy={word} iconType={"clipboard"} />
+      <SpeakButton word={kana} iconType={"volume-2"} />
       <GenericPopover
         trigger={
           <InfoIcon className="inline-block absolute top-2 right-2" size={18} />
@@ -34,20 +34,20 @@ export const VocabActions = ({
         content={
           <div className="flex flex-col w-full text-xs p-2 space-y-1">
             <IconMeanings
-              btn={<SpeakButton word={kana} iconType={"volume-2"} />}
-              text={"Listen to given reading"}
-            />
-            <IconMeanings
-              btn={<SpeakButton word={word} iconType="audio-lines" />}
-              text={"Listen to default reading"}
-            />
-            <IconMeanings
               btn={<CopyButton textToCopy={kana} iconType={"copy"} />}
               text={"Copy Kana"}
             />
             <IconMeanings
               btn={<CopyButton textToCopy={word} iconType={"clipboard"} />}
               text={"Copy Word"}
+            />
+            <IconMeanings
+              btn={<SpeakButton word={kana} iconType={"volume-2"} />}
+              text={"Listen to Kana reading"}
+            />
+            <IconMeanings
+              btn={<SpeakButton word={word} iconType="audio-lines" />}
+              text={"Listen to default reading"}
             />
           </div>
         }
