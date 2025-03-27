@@ -91,7 +91,7 @@ export const useClearedUrl = () => {
     : "";
 
   const link = `${textString}${typeString}`;
-  return link;
+  return encodeURI(link);
 };
 
 export { useSearchParams };
