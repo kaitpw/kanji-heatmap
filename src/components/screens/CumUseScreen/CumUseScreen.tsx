@@ -11,7 +11,7 @@ import pageItems from "@/components/items/page-items";
 
 const CumUseScreen = () => {
   const { data, status } = useJsonFetch(assetsPaths.CUM_USE);
-  useHtmlDocumentTitle(`${pageItems.cumUseGraphPage.title} - Kanji Heatmap`);
+  useHtmlDocumentTitle(pageItems.cumUseGraphPage.title);
 
   if (status == "pending") {
     return <KaomojiAnimation />;

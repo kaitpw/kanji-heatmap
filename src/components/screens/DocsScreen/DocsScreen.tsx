@@ -13,12 +13,12 @@ const getCurrentPage = (hash: string) => {
   );
 };
 const DocsScreen = () => {
-  useHtmlDocumentTitle(`Docs - Kanji Heatmap`);
+  useHtmlDocumentTitle("Docs");
   const [state, setState] = useState(() => {
     return getCurrentPage(window.location.hash).hash;
   });
 
-  useHtmlDocumentTitle(`${getCurrentPage(state)?.title} - Kanji Heatmap`);
+  useHtmlDocumentTitle(getCurrentPage(state)?.title);
 
   return (
     <div className="w-full flex justify-center text-left">

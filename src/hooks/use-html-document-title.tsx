@@ -5,11 +5,11 @@ import { useEffect, useRef } from "react";
  *
  * @param title - The title to set for the document
  */
-function useHtmlDocumentTitle(title: string): void {
+function useHtmlDocumentTitle(title?: string): void {
   const previousTitle = useRef(document.title);
 
   useEffect(() => {
-    document.title = title;
+    document.title = title ? `${title} - Heatmap` : "Kanji Heatmap";
 
     const prevTitle = previousTitle.current;
     return () => {
