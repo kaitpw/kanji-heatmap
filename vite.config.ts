@@ -3,7 +3,10 @@ import { defineConfig, UserConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import { VitePWA } from "vite-plugin-pwa";
 
+const ASSETS_URL = "https://assets.pikapikagems.com";
+
 const pwaConfig = {
+  // registerType: 'prompt' <-- if we want to ensure user updates
   registerType: "autoUpdate" as const,
   includeAssets: [
     "favicon.io",
@@ -36,17 +39,65 @@ const pwaConfig = {
       },
     ],
   },
+
   workbox: {
-    globPatterns: ["**/*.{js,css,html,json}"], // Include JSON files
+    globPatterns: ["**/*.{js,css,html}"],
     runtimeCaching: [
+      // **********************
+      // FONTS
+      // **********************
       {
-        urlPattern: /\.json$/i, // Cache JSON requests
+        urlPattern: /assets\/.*\.(woff2|woff)$/i,
+        handler: "CacheFirst" as const,
+        options: {
+          cacheName: "kanji-heatmap-fonts",
+          expiration: { maxEntries: 30, maxAgeSeconds: 365 * 24 * 60 * 60 },
+        },
+      },
+      // **********************
+      // KANJI DATA JSON FILES from public folder
+      // **********************
+      /*
+
+      precached files take precedence over runtime rules,
+      but since these json files have static file names
+      workbox won't know if it has actually been updated
+      So we don't put these json files in globPatterns/pre-cache
+
+      Trade-off: 
+        If a user visits the pp offline for the first time, 
+        the JSON files won’t be available until they go online. 
+        After the initial fetch, offline access is supported.
+      */
+      {
+        urlPattern: /\/json\/.*\.json$/i,
         handler: "StaleWhileRevalidate" as const,
         options: {
           cacheName: "kanji-heatmap-json-cache",
           expiration: {
             maxEntries: 50,
-            maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
+            maxAgeSeconds: 7 * 24 * 60 * 60, // 1 week
+          },
+        },
+      },
+      // **********************
+      // Cache KANJI SVG from external source
+      // **********************
+      {
+        urlPattern: ({ url }: { url: { pathname: string; origin: string } }) =>
+          url.origin === ASSETS_URL &&
+          url.pathname.startsWith("/kanji/") &&
+          url.pathname.endsWith(".svg"),
+        handler: "CacheFirst" as const,
+        options: {
+          cacheName: "kanji-svg-cache",
+          expiration: {
+            maxEntries: 3000,
+            maxAgeSeconds: 365 * 24 * 60 * 60, // One year
+          },
+          fetchOptions: {
+            mode: "cors" as const, // Enable cross-origin requests
+            credentials: "omit" as const, // No credentials for cross-origin
           },
         },
       },
