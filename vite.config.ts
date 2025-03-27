@@ -2,6 +2,8 @@ import path from "path";
 import { defineConfig, UserConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import { VitePWA } from "vite-plugin-pwa";
+import { visualizer } from "rollup-plugin-visualizer";
+import { TemplateType } from "rollup-plugin-visualizer/dist/plugin/template-types";
 
 const ASSETS_URL = "https://assets.pikapikagems.com";
 
@@ -104,9 +106,33 @@ const pwaConfig = {
     ],
   },
 };
+
+const visualizer_templates: TemplateType[] = [
+  "sunburst",
+  "treemap",
+  "network",
+  "list",
+  "flamegraph",
+] as const;
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), VitePWA(pwaConfig)] as UserConfig["plugins"],
+  plugins: [
+    react(),
+    VitePWA(pwaConfig),
+    process.env.ANALYZE
+      ? visualizer({
+          filename: "stats.html",
+          open: true,
+          template: visualizer_templates.includes(
+            process.env.ANALYZE_TEMPLATE as TemplateType
+          )
+            ? (process.env.ANALYZE_TEMPLATE as TemplateType)
+            : "sunburst", //  sunburst, treemap, network, raw-data, list, flamegraph
+          // sourcemap: true
+          // gzipSize: true,
+        })
+      : null,
+  ] as UserConfig["plugins"],
   build: {
     target: "esnext", // Needed for module workers
   },

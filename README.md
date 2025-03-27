@@ -18,7 +18,16 @@ $ pnpm run peek
   ➜  press h + enter to show help
 ```
 
-## Updating the Data
+or analyze the build
+
+```
+ANALYZE=true ANALYZE_TEMPLATE=flamegraph pnpm run build
+# ANALYZE_TEMPLATE can be sunburst, treemap, network, raw-data, list, or flamegraph
+```
+
+Configure the visualizer settings in vite.config.ts if you want
+
+## Updating the Data (Production)
 
 Get the latest `tar.gz` from the [Kanji Heatmap Data](https://github.com/PikaPikaGems/kanji-heatmap-data) repository
 
