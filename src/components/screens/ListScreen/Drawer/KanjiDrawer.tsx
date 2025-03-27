@@ -22,10 +22,12 @@ export function KanjiDrawerRaw({
   kanji: string;
 }) {
   useHtmlDocumentTitle(kanji ? `${kanji} - Kanji Heatmap` : "Kanji Heatmap");
+
   // need autoFocus=true see also: https://github.com/emilkowalski/vaul/issues/517#issuecomment-2571619213
-  // Also: prevents search input from retaining focus
+  // Also: autoFocus=true prevents the issue of search input from retaining focus in situations that I find hard
+  // to reproduce consistently
   return (
-    <Drawer open={isOpen} onClose={onClose} autoFocus={true}>
+    <Drawer open={isOpen} onClose={onClose}>
       <DrawerContent
         className="!select-text h-[95dvh] !duration-150"
         autoFocus={true}
