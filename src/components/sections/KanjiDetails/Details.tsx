@@ -11,6 +11,7 @@ import { LinksOutItems } from "@/components/common/LinksOutItems";
 import ChangeFontButton from "@/components/dependent/site-wide/ChangeFontButton";
 import { FrequencyInfo } from "./FrequencyInfo";
 import { General } from "./General";
+import { RequestForSuggestion } from "@/components/common/RequestForSuggestion";
 
 const StrokeAnimation = lazy(() => import("./StrokeAnimation"));
 
@@ -51,6 +52,7 @@ export const KanjiDetails = ({ kanji }: { kanji: string }) => {
       <SimpleAccordion trigger={"Frequency Ranks"}>
         <FrequencyInfo freqRankInfo={data.frequency} />
       </SimpleAccordion>
+      <RequestForSuggestion />
     </div>
   );
 };
