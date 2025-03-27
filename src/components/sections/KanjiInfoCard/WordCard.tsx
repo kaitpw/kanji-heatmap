@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { Button } from "@/components/ui/button";
 import { DottedSeparator } from "@/components/ui/dotted-separator";
 
@@ -9,69 +7,22 @@ import { ExternalTextLink } from "@/components/common/ExternalTextLink";
 import { GlobalKanjiLink } from "@/components/dependent/routing";
 import { HiraganaWord } from "@/components/dependent/kana/HiraganaWord";
 import { vocabExternalLinks } from "@/lib/external-links";
-import { useSpeak } from "@/hooks/use-jp-speak";
-import { Volume2 } from "lucide-react";
+import { SeeMore } from "@/components/common/SeeMore";
+import { VocabActions } from "@/components/common/VocabActions";
 
-const SeeMoreDefinition = ({ definition }: { definition: string }) => {
-  const [showMore, setShowMore] = useState(false);
-  const canSeeAll = definition.length <= MAX_LEN;
-
-  return (
-    <div className="text-xs py-2 px-3 text-start">
-      {canSeeAll || showMore ? (
-        <>{definition}</>
-      ) : (
-        <>{definition.slice(0, MAX_LEN)}... </>
-      )}
-      <br />
-      {!canSeeAll && (
-        <button
-          className="underline font-bold mx-2 my-1"
-          onClick={() => {
-            setShowMore((prev) => !prev);
-          }}
-        >
-          {showMore ? <>See less</> : <>See more</>}
-        </button>
-      )}
-    </div>
-  );
-};
-
-const SpeakButton = ({ word }: { word: string }) => {
-  const speak = useSpeak(word);
-
-  return (
-    <Button
-      variant={"ghost"}
-      size="icon"
-      className="h-8 w-8 relative my-1"
-      onClick={() => {
-        speak();
-      }}
-    >
-      <Volume2 />
-    </Button>
-  );
-};
-const MAX_LEN = 200;
 export const WordCard = ({
   word,
   spacedKana,
   highlightIndex,
   definition,
   wordKanjis,
-  speakMethod = "kana",
 }: {
   word: string;
   spacedKana: string;
   highlightIndex: number;
   definition: string;
   wordKanjis: { kanji: string; keyword: string }[];
-  speakMethod?: "kanji" | "kana";
 }) => {
-  const wordToSpeak =
-    speakMethod === "kana" ? spacedKana.split(" ").join("") : word;
   return (
     <>
       <div className="flex justify-center sm:justify-start">
@@ -101,7 +52,7 @@ export const WordCard = ({
             </div>
 
             <DottedSeparator />
-            <SeeMoreDefinition definition={definition} />
+            <SeeMore definition={definition} />
             <DottedSeparator />
             <div className="text-xs pt-2 font-bold flex flex-wrap justify-center">
               Learn more from:
@@ -118,7 +69,7 @@ export const WordCard = ({
               })}
             </div>
             <DottedSeparator />
-            <SpeakButton word={wordToSpeak} />
+            <VocabActions kana={spacedKana.split(" ").join("")} word={word} />
           </div>
         }
       />
