@@ -11,7 +11,7 @@ import { CircleX, Search } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import BasicSelect from "@/components/common/BasicSelect";
 
-const INPUT_DEBOUNCE_TIME = 1000;
+const INPUT_DEBOUNCE_TIME = 300;
 
 export const SearchInput = ({
   initialSearchType = "keyword",
