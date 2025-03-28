@@ -1,4 +1,5 @@
 export const externalLinks: { name: string; url: (x: string) => string }[] = [
+  { name: "JPDB", url: (kanji: string) => `https://jpdb.io/kanji/${kanji}#a` },
   {
     name: "Jotoba",
     url: (kanji: string) => `https://jotoba.de/search/1/${kanji}?l=en-US`,
@@ -23,7 +24,6 @@ export const externalLinks: { name: string; url: (x: string) => string }[] = [
     name: "Hochanh",
     url: (kanji: string) => `https://hochanh.github.io/rtk/${kanji}/index.html`,
   },
-  { name: "JPDB", url: (kanji: string) => `https://jpdb.io/kanji/${kanji}#a` },
   {
     name: "Wanikani",
     url: (kanji: string) => `https://www.wanikani.com/kanji/${kanji}`,
