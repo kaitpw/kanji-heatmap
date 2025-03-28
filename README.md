@@ -8,17 +8,24 @@
 
 ![sort and filter dialog](./IMG/sort-dialog.png)
 
-## Running the app
+## Development
 
 ```
 $ pnpm install
-$ pnpm run peek
-  ➜  Local:   http://localhost:4173/
-  ➜  Network: http://192.168.254.107:4173/
-  ➜  press h + enter to show help
+$ pnpm run dev --host
 ```
 
-or analyze the build
+## Updating Data
+
+If you have both [Kanji Heatmap Data](https://github.com/PikaPikaGems/kanji-heatmap-data) and this repository in the same directory, you can directly copy its output files
+
+```
+cp ../kanji-heatmap-data/output/*.json ./public/json
+```
+
+## Build Analysis
+
+analyze the build
 
 ```
 ANALYZE=true ANALYZE_TEMPLATE=flamegraph pnpm run build
@@ -26,6 +33,15 @@ ANALYZE=true ANALYZE_TEMPLATE=flamegraph pnpm run build
 ```
 
 Configure the visualizer settings in vite.config.ts if you want
+
+## Preview
+
+```
+$ pnpm run peek
+  ➜  Local:   http://localhost:4173/
+  ➜  Network: http://192.168.254.107:4173/
+  ➜  press h + enter to show help
+```
 
 ## Updating the Data (Production)
 

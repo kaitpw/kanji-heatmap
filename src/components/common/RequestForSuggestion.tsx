@@ -15,7 +15,7 @@ Know a more useful vocabulary word for this Kanji? Share your thoughts on Github
 export const RequestForSuggestion = () => {
   return (
     <div className="text-sm my-3 text-left">
-      Want to suggest more useful sample vocabulary for this Kanji? Share your
+      **Want to suggest more useful sample vocabulary for this Kanji? Share your
       thoughts on
       <ExternalTextLink text={"Github"} href={outLinks.githubContentIssue} />
       or <ExternalTextLink text={"Discord"} href={outLinks.discord} />
