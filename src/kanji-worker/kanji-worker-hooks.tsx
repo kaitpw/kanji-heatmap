@@ -7,6 +7,7 @@ import { KanjiInfoRequestType } from "@/lib/kanji/kanji-info-types";
 import { createContext } from "react";
 import { KanjiMainInfo } from "@/lib/kanji/kanji-worker-types";
 import { useSearchSettings } from "@/providers/search-settings-hooks";
+import { toSearchSettings } from "@/lib/settings/search-settings-adapter";
 
 export type KanjiRequestFn = (
   k: string,
@@ -181,5 +182,13 @@ export const useKanjiInfo = (
 export const useKanjiSearchResult = () => {
   const searchSettings = useSearchSettings();
   const results = useKanjiSearch(searchSettings);
+  return results;
+};
+
+// TODO FIX LATER, do it right
+const params = new URLSearchParams();
+const all = toSearchSettings(params);
+export const useAllKanjis = () => {
+  const results = useKanjiSearch(all);
   return results;
 };

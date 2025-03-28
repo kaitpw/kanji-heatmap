@@ -2,6 +2,8 @@ import { useLocation, useSearch, useSearchParams } from "wouter";
 import { useCallback, useLayoutEffect, useMemo, useState } from "react";
 import { URL_PARAMS } from "@/lib/settings/url-params";
 import usePrevious from "@/hooks/use-previous";
+import { useAllKanjis } from "@/kanji-worker/kanji-worker-hooks";
+import { selectRandom } from "@/lib/utils";
 
 export const useKanjiUrlState = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -28,6 +30,7 @@ export const useKanjiUrlState = () => {
   ];
 };
 
+/* keep the previous url but change the kanji to the new kanji */
 export const useKanjiFromUrl = (kanji: string) => {
   const [params] = useSearchParams();
 
@@ -37,6 +40,28 @@ export const useKanjiFromUrl = (kanji: string) => {
     return params.toString();
   }, [kanji, params]);
 
+  return urlState;
+};
+
+export const useRandomKanjiLinkExcept = (skipKanji: string) => {
+  const allKanjis = useAllKanjis();
+  const [params] = useSearchParams();
+
+  const urlState = useMemo(() => {
+    if (allKanjis.data == null) {
+      return null;
+    }
+
+    const remainingKanjis = allKanjis.data.filter(
+      (kanji) => kanji != skipKanji
+    );
+
+    const kanji = selectRandom(remainingKanjis);
+    params.delete(URL_PARAMS.openKanji);
+    params.set(URL_PARAMS.openKanji, kanji);
+
+    return params.toString();
+  }, [skipKanji, params, allKanjis.data]);
   return urlState;
 };
 

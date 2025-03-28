@@ -12,6 +12,7 @@ import ChangeFontButton from "@/components/dependent/site-wide/ChangeFontButton"
 import { FrequencyInfo } from "./FrequencyInfo";
 import { General } from "./General";
 import { RequestForSuggestion } from "@/components/common/RequestForSuggestion";
+import { RandomKanjiLink } from "@/components/dependent/routing";
 
 const StrokeAnimation = lazy(() => import("./StrokeAnimation"));
 
@@ -37,6 +38,7 @@ export const KanjiDetails = ({ kanji }: { kanji: string }) => {
         <div className="border-2 rounded-lg">
           <ChangeFontButton />
         </div>
+        <RandomKanjiLink exceptKanji={kanji} />
         <LinksOutItems />
       </div>
       <SimpleAccordion trigger={"General"} defaultOpen={true}>
