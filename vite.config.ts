@@ -67,7 +67,7 @@ const pwaConfig = {
       So we don't put these json files in globPatterns/pre-cache
 
       Trade-off: 
-        If a user visits the pp offline for the first time, 
+        If a user visits the app offline for the first time, 
         the JSON files won’t be available until they go online. 
         After the initial fetch, offline access is supported.
       */
