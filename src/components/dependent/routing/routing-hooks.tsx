@@ -63,11 +63,18 @@ export const useHasNavigatedToHomeKey = () => {
   const notSameSearchString =
     (searchString ?? "") !== (previousSearchString ?? "");
 
+  const isOpen = searchString.includes(URL_PARAMS.openKanji);
+  const wasPreviousOpen = previousSearchString?.includes(URL_PARAMS.openKanji);
+
+  const justClosedDrawer = wasAlreadyInHome && !isOpen && wasPreviousOpen;
+
+  const shouldRefocus =
+    wasAlreadyInHome && notSameSearchString && !justClosedDrawer && !isOpen;
   useLayoutEffect(() => {
-    if (wasAlreadyInHome && notSameSearchString) {
+    if (shouldRefocus) {
       setKey((key) => key + 1);
     }
-  }, [wasAlreadyInHome, notSameSearchString]);
+  }, [shouldRefocus]);
 
   return key;
 };
