@@ -62,6 +62,14 @@ export const StrokeAnimation = ({ kanji }: { kanji: string }) => {
 
   return (
     <div className="p-4">
+      {/** key needed to redraw on change  */}
+      <div
+        className={CONTAINER_CN}
+        style={{ height: SVG_SIZE }}
+        key={`${kanji}-${speed}-${key}`}
+      >
+        <KanjiDMAK kanji={kanji} step={SPEEDS[speed].rate} />
+      </div>
       <div className="flex justify-center space-x-2">
         <Button
           onClick={() => {
@@ -86,14 +94,6 @@ export const StrokeAnimation = ({ kanji }: { kanji: string }) => {
           <Snail className="scale-150" />{" "}
           <span className="sr-only">Animate Slowly</span>
         </Button>
-      </div>
-      {/** key needed to redraw on change  */}
-      <div
-        className={CONTAINER_CN}
-        style={{ height: SVG_SIZE }}
-        key={`${kanji}-${speed}-${key}`}
-      >
-        <KanjiDMAK kanji={kanji} step={SPEEDS[speed].rate} />
       </div>
     </div>
   );
