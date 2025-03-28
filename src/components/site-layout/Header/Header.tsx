@@ -20,7 +20,7 @@ const HeaderLayout = ({
         {title}
         {main && <div className="flex space-x-1">{main}</div>}
       </section>
-      {side && <section className="flex space-x-1 my-1">{side}</section>}
+      {side && <section className="flex space-x-1 my-1 pr-1">{side}</section>}
     </header>
   );
 };

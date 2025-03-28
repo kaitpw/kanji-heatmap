@@ -59,12 +59,12 @@ export const BottomBanner = () => {
 
   return (
     <Layout>
-      {"(◍•ᴗ•◍)"} Say hi on
+      {"(◠_◠)"} Say hi on
       <ExternalTextLink href={outLinks.koFi} text={"Ko-Fi,"} />
       <ExternalTextLink href={outLinks.discord} text="Discord," />
       or
       <ExternalTextLink href={outLinks.githubIssue} text={"GitHub"} />
-      {"🫰"}
+      {"👋"}
     </Layout>
   );
 };

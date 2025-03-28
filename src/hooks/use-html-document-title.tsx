@@ -9,7 +9,7 @@ function useHtmlDocumentTitle(title?: string): void {
   const previousTitle = useRef(document.title);
 
   useEffect(() => {
-    document.title = title ? `${title} - Heatmap` : "Kanji Heatmap";
+    document.title = title ? `${title} • Kanji Heatmap` : "Kanji Heatmap";
 
     const prevTitle = previousTitle.current;
     return () => {

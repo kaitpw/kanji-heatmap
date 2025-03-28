@@ -18,7 +18,7 @@ export const NoSearchResults = () => {
           prefix={`If you think this is a mistake, you can let us know on `}
         />
       </div>
-      <div className="text-xs pt-4 text-left">
+      <div className="text-xs pt-4 text-left px-2">
         <span>Alternatively, you can try looking in the following places:</span>
         <div className="flex flex-col items-center justify-center my-2 max-w-96">
           <ExternalKanjiLinks kanji={"捜"} />
