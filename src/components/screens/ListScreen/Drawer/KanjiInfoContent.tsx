@@ -41,7 +41,7 @@ export const KanjiInfoContent = ({ kanji }: { kanji: string }) => {
   if (info != null) {
     return (
       <Layout
-        first={<KanjiCard kanji={kanji} />}
+        first={<KanjiCard key={kanji} kanji={kanji} />}
         second={<KanjiDetails kanji={kanji} />}
       />
     );
