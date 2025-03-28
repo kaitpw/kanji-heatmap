@@ -176,3 +176,16 @@ button:focus-visible {
 .fix-scroll-layout-shift-left {
   padding-left: var(--removed-body-scroll-bar-size);
 }
+
+.animate-fade-in {
+  animation: fade-in 1s;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100;
+  }
+}
