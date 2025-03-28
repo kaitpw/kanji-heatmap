@@ -13,32 +13,37 @@ export const KanjiCardLayout = ({
   components?: ReactNode;
   badges?: ReactNode;
 }) => {
+  const hasWords = firstWord && secondWord;
   return (
     <article className="w-full rounded-lg border-2 border-dotted">
       <div className="hidden sm:flex">
         <div className=" border-r-2 border-dotted">{main}</div>
-        <div className="px-2 w-full pb-4 pt-4">
-          {firstWord}
-          {firstWord && secondWord && (
-            <div className="mt-6 mb-2 border-b-2 border-dotted w-full" />
-          )}
-          {secondWord}
-        </div>
+        {hasWords && (
+          <div className="px-2 w-full pb-4 pt-4">
+            {firstWord}
+            {hasWords && (
+              <div className="mt-6 mb-2 border-b-2 border-dotted w-full" />
+            )}
+            {secondWord}
+          </div>
+        )}
       </div>
 
       <div className="flex flex-col sm:hidden">
         <div>{main}</div>
-        <div className="px-2 w-full pb-4 pt-4  mt-4 border-t-2 border-dotted flex flex-col justify-center">
-          {firstWord}
-          {firstWord && secondWord && (
-            <div className="mt-6 mb-2 border-b-2 border-dotted w-full" />
-          )}
-          {secondWord}
-        </div>
+        {hasWords && (
+          <div className="px-2 w-full py-2 mt-2 border-t-2 border-dotted flex flex-col justify-center">
+            {firstWord}
+            {hasWords && (
+              <div className="mt-2 mb-2 border-b-2 border-dotted w-full" />
+            )}
+            {secondWord}
+          </div>
+        )}
       </div>
       {components && (
         <>
-          <div className="flex justify-center flex-wrap mr-4  border-t-2 border-dotted pt-1 w-full">
+          <div className="flex justify-center flex-wrap mr-4 border-t-2 border-dotted pt-1 w-full">
             {components}
           </div>
         </>
