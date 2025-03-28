@@ -32,7 +32,7 @@ export const KanjiDetails = ({ kanji }: { kanji: string }) => {
     <div className="py-2 mx-2">
       <div className="flex space-x-1 items-center py-2  border-b-2 border-dotted">
         <KanjiActionsBtns kanji={kanji} />
-        <DotIcon />
+        <DotIcon className="w-3 m-0" />
 
         <div className="border-2 rounded-lg">
           <ChangeFontButton />

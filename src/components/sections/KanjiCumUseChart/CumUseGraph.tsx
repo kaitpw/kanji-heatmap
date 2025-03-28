@@ -128,7 +128,7 @@ const renderTooltip = (
 
   tooltipEl.style.opacity = "1";
   tooltipEl.style.left = horizontalPosition;
-  tooltipEl.style.top = `350px`;
+  tooltipEl.style.top = `250px`;
   tooltipEl.style.transform = horizontalTransform;
 
   verticalLineEl.style.opacity = "1";
@@ -304,7 +304,7 @@ function MultiLineChart({
   }, [data, config, isDarkMode]);
 
   return (
-    <div className={"relative min-h-[600px] w-full"} ref={containerRef}>
+    <div className={"relative min-h-[300px]  w-full"} ref={containerRef}>
       <div
         ref={verticalLineRef}
         className="absolute opacity-0 pointer-events-none w-px bg-gray-500 "
