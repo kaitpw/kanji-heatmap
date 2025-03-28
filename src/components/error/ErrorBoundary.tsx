@@ -1,6 +1,7 @@
 import { Component, ErrorInfo, ReactNode } from "react";
 import { DefaultErrorFallback } from "./DefaultErrorFallback";
 import { useNetworkState } from "@/hooks/use-network-state";
+import { DefaultOfflineFallback } from "./DefaultOfflineFallback";
 
 interface ErrorBoundaryProps {
   fallback?: ReactNode;
@@ -56,21 +57,13 @@ class ErrorBoundaryRaw extends Component<
   }
 }
 
-const offlineMessage = `This feature isn’t cached yet 😅—Try it out once while online, and it'll be available anytime, anywhere—even offline! 📱✨`;
 const ErrorBoundary = (props: ErrorBoundaryProps) => {
   const network = useNetworkState();
   const offline = !network.online;
   return (
     <ErrorBoundaryRaw
       {...props}
-      fallback={
-        (props.fallback ?? offline) ? (
-          <DefaultErrorFallback
-            message={offlineMessage}
-            showDefaultCta={false}
-          />
-        ) : null
-      }
+      fallback={(props.fallback ?? offline) ? <DefaultOfflineFallback /> : null}
     />
   );
 };
