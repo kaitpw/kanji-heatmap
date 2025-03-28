@@ -27,39 +27,20 @@ let KANJI_SEGMENTED_VOCAB_CACHE: Record<string, SegmentedVocabInfo> = {};
 let KANJI_PHONETIC_MAP_CACHE: Record<string, string> = {};
 let KANJI_PART_KEYWORD_MAP_CACHE: Record<string, string> = {};
 
-let mainComplete = false;
-let extendedInfoComplete = false;
-let phoneticComplete = false;
-let partKeywordComplete = false;
-let segmentedVocabComplete = false;
-
 const loadMainKanjiInfo = (items: MainKanjiInfoResponseType) => {
-  if (mainComplete) {
-    return;
-  }
   Object.keys(items).forEach((k) => {
     KANJI_INFO_MAIN_CACHE[k] = transformToMainKanjiInfo(items[k]);
   });
-  mainComplete = true;
 };
 
 const loadExtendedKanjiInfo = (items: ExtendedKanjiInfoResponseType) => {
-  if (extendedInfoComplete) {
-    return;
-  }
   Object.keys(items).forEach((k) => {
     KANJI_INFO_EXTENDED_CACHE[k] = transformToExtendedKanjiInfo(items[k]);
   });
-  extendedInfoComplete = true;
 };
 
 const loadSegmentedVocabInfo = (map: SegmentedVocabResponseType) => {
-  if (segmentedVocabComplete) {
-    return;
-  }
-
   KANJI_SEGMENTED_VOCAB_CACHE = map;
-  segmentedVocabComplete = true;
 };
 
 const retrieveVocabInfo = (word?: string) => {
@@ -107,10 +88,6 @@ self.onmessage = function (event: { data: OnMessageRequestType }) {
   };
 
   if (eventType === "initialize-extended-kanji-map") {
-    if (extendedInfoComplete) {
-      sendResponse();
-      return;
-    }
     fetchExtendedKanjiInfo()
       .then(loadExtendedKanjiInfo)
       .then(sendResponse)
@@ -120,10 +97,6 @@ self.onmessage = function (event: { data: OnMessageRequestType }) {
   }
 
   if (eventType === "initalize-segmented-vocab-map") {
-    if (segmentedVocabComplete) {
-      sendResponse();
-      return;
-    }
     fetchSegmentedVocab()
       .then(loadSegmentedVocabInfo)
       .then(sendResponse)
@@ -133,11 +106,6 @@ self.onmessage = function (event: { data: OnMessageRequestType }) {
   }
 
   if (eventType === "kanji-main-map") {
-    if (mainComplete) {
-      sendResponse();
-      return;
-    }
-
     fetchMainManjiInfo()
       .then(loadMainKanjiInfo)
       .then(() => sendResponse(KANJI_INFO_MAIN_CACHE))
@@ -147,18 +115,9 @@ self.onmessage = function (event: { data: OnMessageRequestType }) {
   }
 
   if (eventType === "part-keyword-map") {
-    if (partKeywordComplete) {
-      sendResponse();
-      return;
-    }
-
     fetchPartKeywordInfo()
       .then((r) => {
-        if (partKeywordComplete) {
-          return;
-        }
         KANJI_PART_KEYWORD_MAP_CACHE = r;
-        partKeywordComplete = true;
       })
       .then(() => sendResponse(KANJI_PART_KEYWORD_MAP_CACHE))
       .catch(sendError);
@@ -167,18 +126,9 @@ self.onmessage = function (event: { data: OnMessageRequestType }) {
   }
 
   if (eventType === "phonetic-map") {
-    if (phoneticComplete) {
-      sendResponse();
-      return;
-    }
-
     fetchPhoneticInfo()
       .then((r) => {
-        if (phoneticComplete) {
-          return;
-        }
         KANJI_PHONETIC_MAP_CACHE = r;
-        phoneticComplete = true;
       })
       .then(() => sendResponse(KANJI_PHONETIC_MAP_CACHE))
       .catch(sendError);
