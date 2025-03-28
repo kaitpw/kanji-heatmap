@@ -29,7 +29,7 @@ import {
   defaultFilterSettings,
   defaultSortSettings,
 } from "@/lib/settings/search-settings-adapter";
-import { BasicComboBox } from "@/components/common/BasicComboBox";
+import { ResponsiveSelect } from "@/components/common/ResponsiveSelect";
 
 export const SortAndFilterSettingsForm = ({
   initialValue,
@@ -74,7 +74,7 @@ export const SortAndFilterSettingsForm = ({
       <SortOrderSectionLayout
         primaryField={
           <>
-            <BasicComboBox
+            <ResponsiveSelect
               value={sortValues.primary}
               onChange={(newValue) => {
                 const isGroup = (GROUP_OPTIONS as readonly string[]).includes(
@@ -105,7 +105,7 @@ export const SortAndFilterSettingsForm = ({
           sortValues.secondary &&
           isGroup && (
             <>
-              <BasicComboBox
+              <ResponsiveSelect
                 value={sortValues.secondary}
                 onChange={(newValue) =>
                   setSortValues((prev) => {

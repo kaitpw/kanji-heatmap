@@ -12,15 +12,26 @@ import { FreqRankTypeInfo } from "./FreqRankTypeInfo";
 export function FrequencyRankDataSource({
   value,
   setValue,
-  type = "combo-box",
 }: {
   value: FrequencyType;
   setValue: (v: FrequencyType) => void;
-  type?: "basic-select" | "combo-box";
 }) {
-  if (type == "basic-select") {
-    return (
-      <>
+  return (
+    <>
+      <div className="hidden sm:block">
+        <Combobox
+          value={value}
+          setValue={(newValue) => setValue(newValue as FrequencyType)}
+          options={FREQUENCY_RANK_FILTER_OPTIONS.map((item) => {
+            const info = FREQ_RANK_SOURCES_INFO[item.value as FrequencyType];
+            return {
+              ...item,
+              description: `${info.description ?? ""} ${rankTypeLabel[info.rankType]} `,
+            };
+          })}
+        />
+      </div>
+      <div className="block sm:hidden">
         <BasicSelect
           value={value}
           onChange={(newValue) => setValue(newValue as FrequencyType)}
@@ -35,23 +46,7 @@ export function FrequencyRankDataSource({
           label="Frequency Data Source"
           isLabelSrOnly={false}
         />
-        <FreqRankTypeInfo value={value} defaultValue={null} />
-      </>
-    );
-  }
-  return (
-    <>
-      <Combobox
-        value={value}
-        setValue={(newValue) => setValue(newValue as FrequencyType)}
-        options={FREQUENCY_RANK_FILTER_OPTIONS.map((item) => {
-          const info = FREQ_RANK_SOURCES_INFO[item.value as FrequencyType];
-          return {
-            ...item,
-            description: `${info.description ?? ""} ${rankTypeLabel[info.rankType]} `,
-          };
-        })}
-      />
+      </div>
       <FreqRankTypeInfo value={value} defaultValue={null} />
     </>
   );
