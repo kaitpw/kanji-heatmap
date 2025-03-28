@@ -28,7 +28,7 @@ export function KanjiDrawerRaw({
   // to reproduce consistently
   return (
     <Drawer open={isOpen} onClose={onClose} autoFocus={true}>
-      <DrawerContent className="!select-text h-[95dvh] !duration-150">
+      <DrawerContent className="!select-text h-[95dvh] !duration-200">
         <DrawerTitle className="sr-only">Information for Kanji</DrawerTitle>
         <DrawerDescription className="sr-only">
           Includes Sample Usage, Semantic Phonetic Compositions etc.
