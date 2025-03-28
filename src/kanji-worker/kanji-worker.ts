@@ -16,15 +16,14 @@ import {
   fetchSegmentedVocab,
   transformToExtendedKanjiInfo,
   transformToMainKanjiInfo,
-  transformToSegmentedVocab,
 } from "./helpers";
 import { filterKanji, searchKanji } from "./kanji-search";
 import { SearchSettings } from "@/lib/settings/settings";
 
 const KANJI_INFO_MAIN_CACHE: Record<string, KanjiMainInfo> = {};
 const KANJI_INFO_EXTENDED_CACHE: Record<string, KanjiExtendedInfo> = {};
-const KANJI_SEGMENTED_VOCAB_CACHE: Record<string, SegmentedVocabInfo> = {};
 
+let KANJI_SEGMENTED_VOCAB_CACHE: Record<string, SegmentedVocabInfo> = {};
 let KANJI_PHONETIC_MAP_CACHE: Record<string, string> = {};
 let KANJI_PART_KEYWORD_MAP_CACHE: Record<string, string> = {};
 
@@ -59,10 +58,7 @@ const loadSegmentedVocabInfo = (map: SegmentedVocabResponseType) => {
     return;
   }
 
-  Object.keys(map).forEach((word) => {
-    KANJI_SEGMENTED_VOCAB_CACHE[word] = transformToSegmentedVocab(map[word]);
-  });
-
+  KANJI_SEGMENTED_VOCAB_CACHE = map;
   segmentedVocabComplete = true;
 };
 

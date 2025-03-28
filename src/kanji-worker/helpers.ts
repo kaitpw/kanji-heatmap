@@ -8,7 +8,7 @@ import {
   KanjiMainInfo,
   MainKanjiInfoResponseType,
   SegmentedVocabInfo,
-  SegmentedVocabResponseType,
+  WordPartDetail,
 } from "@/lib/kanji/kanji-worker-types";
 import assetsPaths from "@/lib/assets-paths";
 
@@ -40,15 +40,31 @@ export const fetchPartKeywordInfo = createFetch<Record<string, string>>(
   assetsPaths.PART_KEYWORD_FILE
 );
 
-export const fetchSegmentedVocab = createFetch<SegmentedVocabResponseType>(
-  assetsPaths.SEGMENTED_VOCAB_FILE
+export const fetchVocabFurigana = createFetch<Record<string, WordPartDetail[]>>(
+  assetsPaths.VOCAB_FURIGANA
 );
 
-export const transformToSegmentedVocab = (
-  raw: [string, string[][]]
-): SegmentedVocabInfo => {
-  const [meaning, parts] = raw;
-  return { meaning, parts };
+export const fetchVocabMeaning = createFetch<Record<string, string>>(
+  assetsPaths.VOCAB_MEANING
+);
+
+export const fetchSegmentedVocab = () => {
+  return Promise.all([fetchVocabFurigana(), fetchVocabMeaning()]).then(
+    async (result) => {
+      const [allFurigana, allMeanings] = result;
+
+      const allWords = Object.keys(allFurigana);
+      const cache: Record<string, SegmentedVocabInfo> = {};
+      allWords.forEach((word) => {
+        cache[word] = {
+          meaning: allMeanings[word],
+          parts: allFurigana[word],
+        };
+      });
+
+      return cache;
+    }
+  );
 };
 
 export const transformToMainKanjiInfo = (

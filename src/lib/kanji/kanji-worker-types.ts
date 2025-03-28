@@ -50,11 +50,8 @@ export type KanjiExtendedInfo = {
 };
 
 export type WordMeaning = string;
-export type WordPartDetail = string[];
-export type SegmentedVocabResponseType = Record<
-  string,
-  [WordMeaning, WordPartDetail[]]
->;
+export type WordPartDetail = [string, string | undefined];
+export type SegmentedVocabResponseType = Record<string, SegmentedVocabInfo>;
 
 export type SegmentedVocabInfo = {
   meaning: WordMeaning;
