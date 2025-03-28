@@ -2,7 +2,7 @@ import { ReachOutToUs, RefreshOrGoBackHome, Wrapper } from "./common";
 import { Sumimasen } from "./Sumimasen";
 
 export const DefaultErrorFallback = ({
-  message = "This is unexpected.",
+  message = "This is unexpected. 🫣",
   showDefaultCta = true,
 }: {
   message?: string;
@@ -11,7 +11,7 @@ export const DefaultErrorFallback = ({
   return (
     <Wrapper>
       <Sumimasen />
-      <div className="my-1 font-bold text-xs">{message}</div>
+      <div className="my-1 font-bold text-xs max-w-96">{message}</div>
       {showDefaultCta && (
         <div className="mx-2 text-xs">
           <div>
