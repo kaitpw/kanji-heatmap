@@ -10,11 +10,12 @@ import wanakana, { translateValue, hasKanji } from "@/lib/wanakana-adapter";
 import { CircleX, Search } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import BasicSelect from "@/components/common/BasicSelect";
+import { defaultSearchType } from "@/lib/settings/search-settings-adapter";
 
 const INPUT_DEBOUNCE_TIME = 300;
 
 export const SearchInput = ({
-  initialSearchType = "keyword",
+  initialSearchType = defaultSearchType,
   initialText = "",
   onSettle,
 }: {

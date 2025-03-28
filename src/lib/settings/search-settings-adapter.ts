@@ -36,12 +36,14 @@ const defaultSearchTextSettings: TextSearch = {
   type: "keyword",
 };
 
+const defaultSearchType = defaultSearchTextSettings.type;
+
 const toSearchType = (val?: string | null): SearchType => {
   if (val != null && SEARCH_TYPE_ARR.includes(val as SearchType)) {
     return val as SearchType;
   }
 
-  return defaultSearchTextSettings.type;
+  return defaultSearchType;
 };
 
 const toJLPT = (jlptString?: string | null) => {
@@ -128,7 +130,10 @@ const toSearchParams = (
     const trimmedText = newVal.text.trim();
 
     if (trimmedText === "") {
-      prev.set(URL_PARAMS.textSearch.type, newVal.type);
+      // if search type is the default one , don't show in url
+      newVal.type === defaultSearchType
+        ? prev.delete(URL_PARAMS.textSearch.type)
+        : prev.set(URL_PARAMS.textSearch.type, newVal.type);
       prev.delete(URL_PARAMS.textSearch.text);
       return prev;
     }
@@ -136,11 +141,12 @@ const toSearchParams = (
     const text = translateValue(trimmedText, translateMap[newVal.type]);
     prev.set(URL_PARAMS.textSearch.text, text);
 
-    if (newVal.type !== "keyword") {
+    if (newVal.type !== defaultSearchType) {
       prev.set(URL_PARAMS.textSearch.type, newVal.type);
       return prev;
     }
 
+    // if search type is the default one , don't show in url
     prev.delete(URL_PARAMS.textSearch.type);
     return prev;
   }
@@ -218,4 +224,5 @@ export {
   defaultFilterSettings,
   defaultSortSettings,
   defaultSearchTextSettings,
+  defaultSearchType,
 };
