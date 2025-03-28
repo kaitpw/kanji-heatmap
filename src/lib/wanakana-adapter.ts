@@ -27,6 +27,19 @@ export const tryConvertRomaji = (kana: string) => {
   }
 };
 
+export const hasKanji = (text: string) => {
+  return (
+    text.split("").findIndex((character) => {
+      return (
+        wanakana.isHiragana(character) === false &&
+        wanakana.isKatakana(character) === false &&
+        wanakana.isRomaji(character) === false &&
+        wanakana.isJapanese(character)
+      );
+    }) !== -1
+  );
+};
+
 const wanakanaAdapter = {
   toKatakana: wanakana.toKatakana,
   toRomaji: wanakana.toRomaji,
@@ -36,6 +49,7 @@ const wanakanaAdapter = {
   isKatakana: wanakana.isKatakana,
   isHiragana: wanakana.isHiragana,
   isRomaji: wanakana.isRomaji,
+  isKana: wanakana.isKana,
 };
 
 export default wanakanaAdapter;

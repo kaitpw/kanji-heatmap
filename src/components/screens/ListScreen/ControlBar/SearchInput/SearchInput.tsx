@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, ClipboardEvent } from "react";
 import { cn } from "@/lib/utils";
 import { SearchType } from "@/lib/settings/settings";
 import {
@@ -6,7 +6,7 @@ import {
   SEARCH_TYPE_OPTIONS,
   translateMap,
 } from "@/lib/search-input-maps";
-import { translateValue } from "@/lib/wanakana-adapter";
+import wanakana, { translateValue, hasKanji } from "@/lib/wanakana-adapter";
 import { CircleX, Search } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import BasicSelect from "@/components/common/BasicSelect";
@@ -29,9 +29,17 @@ export const SearchInput = ({
   );
 
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  // force focus input ref on mount
   useEffect(() => {
     inputRef.current?.focus?.();
   }, []);
+
+  const onSyncAll = (text: string, finalSearchType: SearchType) => {
+    setValue(text);
+    onSettle(text, finalSearchType);
+    setSearchType(finalSearchType);
+  };
 
   const fontCN =
     parsedValue === "" || searchType === "meanings" || searchType === "keyword"
@@ -61,6 +69,49 @@ export const SearchInput = ({
             onSettle(e.target.value.trim() ?? "", searchType);
           }, INPUT_DEBOUNCE_TIME);
         }}
+        onPaste={(event: ClipboardEvent<HTMLInputElement>) => {
+          event.preventDefault();
+          const clipboardData = event.clipboardData;
+
+          if (!clipboardData) {
+            return;
+          }
+
+          const processedText = clipboardData.getData("text/plain").trim();
+
+          if (processedText.length === 0) {
+            // it's as if you didn't paste anything at all
+            return;
+          }
+
+          if (hasKanji(processedText)) {
+            onSyncAll(processedText, "multi-kanji");
+            return;
+          }
+
+          if (
+            wanakana.isKana(processedText) &&
+            !["kunyomi", "onyomi", "readings"].includes(searchType)
+          ) {
+            onSyncAll(processedText, "readings");
+            return;
+          }
+
+          if (
+            wanakana.isRomaji(processedText) &&
+            !["keyword", "meanings"].includes(searchType)
+          ) {
+            onSyncAll(processedText, "keyword");
+            return;
+          }
+
+          // default behavior
+          const updatedValue = translateValue(
+            processedText,
+            translateMap[searchType]
+          );
+          onSyncAll(updatedValue, searchType);
+        }}
         placeholder={placeholderMap[searchType]}
       />
 
@@ -74,8 +125,7 @@ export const SearchInput = ({
           className="absolute right-[120px] top-[6px] m-0 p-1  h-6 rounded-full"
           variant={"secondary"}
           onClick={() => {
-            setValue("");
-            onSettle("", searchType);
+            onSyncAll("", searchType);
           }}
         >
           <CircleX />
@@ -95,7 +145,7 @@ export const SearchInput = ({
           onSettle(newParsedValue.trim(), newType);
         }}
         triggerCN={
-          "absolute right-1 top-1 w-[115px]  h-7 bg-gray-100 dark:bg-gray-900"
+          "absolute right-1 top-1 w-[115px] h-7 bg-gray-100 dark:bg-gray-900"
         }
         options={SEARCH_TYPE_OPTIONS}
         label="Search Type"
