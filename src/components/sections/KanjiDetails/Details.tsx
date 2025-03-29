@@ -1,18 +1,12 @@
 import { lazy, Suspense } from "react";
 import { useGetKanjiInfoFn } from "@/kanji-worker/kanji-worker-hooks";
-
 import { DefaultErrorFallback, ErrorBoundary } from "@/components/error";
-
-import { DotIcon } from "@/components/icons";
-import { KanjiActionsBtns } from "@/components/common/KanjiActionBtns";
 import SimpleAccordion from "@/components/common/SimpleAccordion";
 import { BasicLoading } from "@/components/common/BasicLoading";
 import { LinksOutItems } from "@/components/common/LinksOutItems";
-import ChangeFontButton from "@/components/dependent/site-wide/ChangeFontButton";
 import { FrequencyInfo } from "./FrequencyInfo";
 import { General } from "./General";
 import { RequestForSuggestion } from "@/components/common/RequestForSuggestion";
-import { RandomKanjiLink } from "@/components/dependent/routing";
 
 const StrokeAnimation = lazy(() => import("./StrokeAnimation"));
 
@@ -31,16 +25,6 @@ export const KanjiDetails = ({ kanji }: { kanji: string }) => {
 
   return (
     <div className="py-2 mx-2">
-      <div className="flex space-x-1 items-center py-2  border-b-2 border-dotted">
-        <KanjiActionsBtns kanji={kanji} />
-        <DotIcon className="w-3 m-0" />
-
-        <div className="border-2 rounded-lg">
-          <ChangeFontButton />
-        </div>
-        <RandomKanjiLink exceptKanji={kanji} />
-        <LinksOutItems />
-      </div>
       <SimpleAccordion trigger={"General"} defaultOpen={true}>
         <General kanji={kanji} />
       </SimpleAccordion>
@@ -55,6 +39,9 @@ export const KanjiDetails = ({ kanji }: { kanji: string }) => {
         <FrequencyInfo freqRankInfo={data.frequency} />
       </SimpleAccordion>
       <RequestForSuggestion />
+      <div className="w-full flex justify-start space-x-1">
+        <LinksOutItems />
+      </div>
     </div>
   );
 };
