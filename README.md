@@ -1,12 +1,12 @@
 # Kanji Heatmap (previously Kanji Companion)
 
-![main page](./IMG/preview.png)
+![main page](./docs/images/preview.png)
 
-| ![kanji details](./IMG/kanji-details.png) | ![mobile screen](./IMG/kanji-expanded.png) |
-| ----------------------------------------- | ------------------------------------------ |
-|                                           |                                            |
+| ![kanji details](./docs/images/kanji-details.png) | ![mobile screen](./docs/images/kanji-expanded.png) |
+| ------------------------------------------------- | -------------------------------------------------- |
+|                                                   |                                                    |
 
-![sort and filter dialog](./IMG/sort-dialog.png)
+![sort and filter dialog](./docs/images/sort-dialog.png)
 
 ## Development
 
