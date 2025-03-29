@@ -67,7 +67,7 @@ export const PrivacyPolicySection = ({ title }: { title: string }) => {
       </h2>
 
       <p className="leading-7 mb-4">
-        The anonymized data from Cloudflare helps us monitor the {`Site's`}
+        The anonymized data from Cloudflare helps us monitor the {`Site's `}
         performance and improve its functionality. We do not use this data to
         identify or track individual visitors.
       </p>

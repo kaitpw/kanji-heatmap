@@ -1,5 +1,6 @@
 import React from "react";
 import useHtmlDocumentTitle from "@/hooks/use-html-document-title";
+import { CircleX } from "@/components/icons";
 import { ErrorBoundary } from "@/components/error";
 import {
   Drawer,
@@ -9,8 +10,8 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
+
 import { KanjiInfoContent } from "./KanjiInfoContent";
-import { CircleX } from "@/components/icons";
 
 export function KanjiDrawerRaw({
   isOpen,
@@ -24,8 +25,7 @@ export function KanjiDrawerRaw({
   useHtmlDocumentTitle(kanji);
 
   // need autoFocus=true see also: https://github.com/emilkowalski/vaul/issues/517#issuecomment-2571619213
-  // Also: autoFocus=true prevents the issue of search input from retaining focus in situations that I find hard
-  // to reproduce consistently
+  // Also: autoFocus=true prevents the issue of search input from unnecessarily retaining focus
   return (
     <Drawer open={isOpen} onClose={onClose} autoFocus={true}>
       <DrawerContent className="!select-text h-[95dvh] !duration-200">
