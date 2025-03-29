@@ -25,7 +25,7 @@ cp ../kanji-heatmap-data/output/*.json ./public/json
 
 ## Build Analysis
 
-analyze the build
+Analyze the build with
 
 ```
 ANALYZE=true ANALYZE_TEMPLATE=flamegraph pnpm run build
@@ -62,12 +62,13 @@ You should have the following files updated
 ```
 ls -la public/json
 
-  1759 component_keyword.json
-  2118 cum_use.json
-366900 kanji_extended.json
-284748 kanji_main.json
-  2187 phonetic.json
-510601 vocabulary.json
+    1759 component_keyword.json
+    2118 cum_use.json
+  369264 kanji_extended.json
+  284376 kanji_main.json
+    2187 phonetic.json
+  200687 vocab_furigana.json
+  191712 vocab_meaning.json
 ```
 
 Delete the `tar.gz` file since it's not needed anymore
