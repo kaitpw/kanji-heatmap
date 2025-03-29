@@ -2,8 +2,7 @@ import { useLocation, useSearch, useSearchParams } from "wouter";
 import { useCallback, useLayoutEffect, useMemo, useState } from "react";
 import { URL_PARAMS } from "@/lib/settings/url-params";
 import usePrevious from "@/hooks/use-previous";
-import { useAllKanjis } from "@/kanji-worker/kanji-worker-hooks";
-import { selectRandom } from "@/lib/utils";
+import { useKanjiSearchResult } from "@/kanji-worker/kanji-worker-hooks";
 
 export const useKanjiUrlState = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -43,26 +42,50 @@ export const useKanjiFromUrl = (kanji: string) => {
   return urlState;
 };
 
-export const useRandomKanjiLinkExcept = (skipKanji: string) => {
-  const allKanjis = useAllKanjis();
+const buildKanjiParamStr = (paramStr: string, kanji: string) => {
+  const params = new URLSearchParams(paramStr);
+  params.delete(URL_PARAMS.openKanji);
+  params.set(URL_PARAMS.openKanji, kanji);
+  return params.toString();
+};
+
+export const useNextPrevUrls = (currentKanji: string) => {
+  const kanjisData = useKanjiSearchResult();
   const [params] = useSearchParams();
 
-  const urlState = useMemo(() => {
-    if (allKanjis.data == null) {
+  const nextPrevUrls = useMemo(() => {
+    const kanjis = kanjisData.data;
+
+    if (kanjis == null || kanjis.length <= 0) {
       return null;
     }
 
-    const remainingKanjis = allKanjis.data.filter(
-      (kanji) => kanji != skipKanji
-    );
+    const paramsStr = params.toString();
+    const index = kanjis.findIndex((kanji) => kanji == currentKanji);
 
-    const kanji = selectRandom(remainingKanjis);
-    params.delete(URL_PARAMS.openKanji);
-    params.set(URL_PARAMS.openKanji, kanji);
+    // not in current displayed kanjis
+    if (index === -1) {
+      return {
+        next: buildKanjiParamStr(paramsStr, kanjis[0]),
+      };
+    }
 
-    return params.toString();
-  }, [skipKanji, params, allKanjis.data]);
-  return urlState;
+    // the current kanji is the only one in the list
+    if (kanjis.length === 1) {
+      return null;
+    }
+
+    return {
+      next:
+        index + 1 === kanjis.length
+          ? null
+          : buildKanjiParamStr(paramsStr, kanjis[index + 1]),
+      prev:
+        index === 0 ? null : buildKanjiParamStr(paramsStr, kanjis[index - 1]),
+    };
+  }, [currentKanji, kanjisData, params]);
+
+  return nextPrevUrls;
 };
 
 export const useUrlLocation = () => {

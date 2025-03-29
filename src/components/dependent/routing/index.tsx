@@ -4,9 +4,10 @@ import { Badge } from "@/components/ui/badge";
 import {
   useClearedUrl,
   useKanjiFromUrl,
-  useRandomKanjiLinkExcept,
+  useNextPrevUrls,
 } from "./routing-hooks";
-import { Dices } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export const GlobalHomeLink = () => {
   return (
@@ -64,17 +65,38 @@ export const ClearFiltersCTA = () => {
 };
 
 const btnLinkCn =
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-8 w-8";
-
-export const RandomKanjiLink = ({ exceptKanji }: { exceptKanji: string }) => {
-  const link = useRandomKanjiLinkExcept(exceptKanji);
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-8 w-8 relative rounded-xl";
+export const NextPrevLinks = ({ currentKanji }: { currentKanji: string }) => {
+  const links = useNextPrevUrls(currentKanji);
   return (
     <>
-      {" "}
-      {link && (
-        <Link className={btnLinkCn} to={`?${link}`}>
-          <Dices />
+      {links?.prev ? (
+        <Link className={btnLinkCn} to={`?${links.prev}`}>
+          <ArrowLeft />
         </Link>
+      ) : (
+        <Button
+          disabled
+          size="icon"
+          variant={"outline"}
+          className="h-8 w-8 relative rounded-xl cursor-not-allowed"
+        >
+          <ArrowLeft />
+        </Button>
+      )}
+      {links?.next ? (
+        <Link className={btnLinkCn} to={`?${links.next}`}>
+          <ArrowRight />
+        </Link>
+      ) : (
+        <Button
+          disabled
+          size="icon"
+          variant={"outline"}
+          className="h-8 w-8 relative rounded-xl cursor-not-allowed"
+        >
+          <ArrowRight />
+        </Button>
       )}
     </>
   );
