@@ -20,8 +20,10 @@ import {
   K_RANK_WKFR,
 } from "../options/options-constants";
 
-const scriptin_attribute_desc =
-  " Compiled by Dmitry Shpika. Converted to Std Comp Rank by @mikong.";
+const scriptin_attribute_desc = " Compiled by Dmitry Shpika.";
+
+const std_comp_rank_attribution_desc = "Converted to Std Comp Rank by @mikong.";
+
 const doc_count_desc =
   "Document count measures how many documents the kanji appears in.";
 const char_count_desc =
@@ -79,7 +81,8 @@ export const FREQ_RANK_SOURCES_INFO: Record<
   [K_RANK_TWITTER]: {
     description:
       "Derived from Twitter messages collected last June 2015 containing about 10M total kanji occurrences. " +
-      scriptin_attribute_desc,
+      scriptin_attribute_desc +
+      std_comp_rank_attribution_desc,
     links: [
       "https://github.com/scriptin/kanji-frequency/tree/master/data2015",
       "https://github.com/scriptin/kanji-frequency/blob/master/data2015/data/twitter.json",
@@ -92,13 +95,14 @@ export const FREQ_RANK_SOURCES_INFO: Record<
       doc_count_desc +
       scriptin_attribute_desc,
     links: ["https://scriptin.github.io/kanji-frequency/wikipedia/"],
-    rankType: "1224",
+    rankType: "1223",
   },
   [K_RANK_WIKIPEDIA_CHAR]: {
     description:
       "Derived from 100,000 Wikipedia articles sampled in 2023 and contained 59M total kanji occurrences. " +
       char_count_desc +
-      scriptin_attribute_desc,
+      scriptin_attribute_desc +
+      std_comp_rank_attribution_desc,
     links: ["https://scriptin.github.io/kanji-frequency/wikipedia/"],
     rankType: "1224",
   },
@@ -109,14 +113,15 @@ export const FREQ_RANK_SOURCES_INFO: Record<
       doc_count_desc +
       scriptin_attribute_desc,
     links: ["https://scriptin.github.io/kanji-frequency/news/"],
-    rankType: "1224",
+    rankType: "1223",
   },
   [K_RANK_ONLINE_NEWS_CHAR]: {
     description:
       "Derived from over 3,700 articles from Japanese Wikinews that were published from 2005 to 2023 and " +
       "contained 1.1M total kanji occurrences. " +
       char_count_desc +
-      scriptin_attribute_desc,
+      scriptin_attribute_desc +
+      std_comp_rank_attribution_desc,
     links: ["https://scriptin.github.io/kanji-frequency/news/"],
     rankType: "1224",
   },
@@ -127,14 +132,15 @@ export const FREQ_RANK_SOURCES_INFO: Record<
       doc_count_desc +
       scriptin_attribute_desc,
     links: ["https://scriptin.github.io/kanji-frequency/aozora/"],
-    rankType: "1224",
+    rankType: "1223",
   },
   [K_RANK_AOZORA_CHAR]: {
     description:
       "Derived from over 17,000 books from Aozora Bunko, the vast majority of which are more than 70 " +
       "years old, and contained 67.8M total kanji occurrences. " +
       char_count_desc +
-      scriptin_attribute_desc,
+      scriptin_attribute_desc +
+      std_comp_rank_attribution_desc,
     links: ["https://scriptin.github.io/kanji-frequency/aozora/"],
     rankType: "1224",
   },
