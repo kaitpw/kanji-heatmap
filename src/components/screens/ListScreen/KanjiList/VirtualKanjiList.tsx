@@ -26,14 +26,13 @@ const KanjiListRaw = ({
     <>
       <WindowVirtualizer>
         {Array.from({ length: rows }).map((_, rowIndex) => {
-          const items =
-            rowIndex < rows - 1 || kanjiKeys.length % cols === 0
-              ? cols
-              : kanjiKeys.length % cols;
+          const isNotLast = rowIndex < rows - 1;
+          const hasCompleteRows = isNotLast || kanjiKeys.length % cols === 0;
+          const items = hasCompleteRows ? cols : kanjiKeys.length % cols;
           return (
             <div
               key={rowIndex}
-              className={"flex items-center justify-center w-full pr-1 pb-1"}
+              className={`flex items-center justify-center w-full pr-1 ${isNotLast ? "pb-1" : "pb-16"}`}
             >
               {new Array(items).fill(null).map((_, colIndex: number) => {
                 const index = cols * rowIndex + colIndex;
