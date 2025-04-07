@@ -48,7 +48,7 @@ export const FreqGradientInfoIcon = () => {
                       <FreqSquare key={item} srOnly={item.toString()} cn={cn} />
                     </TableCell>
                     <TableCell className="py-2">
-                      {freqRankMaxMin[item as FreqCategory].min}
+                      {freqRankMaxMin[item as FreqCategory].min + 1}
                     </TableCell>
                     <TableCell className="py-2">
                       {freqRankMaxMin[item as FreqCategory].max}
