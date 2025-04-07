@@ -49,6 +49,23 @@ export const externalLinks: { name: string; url: (x: string) => string }[] = [
     name: "Hanziyuan",
     url: (kanji: string) => `https://hanziyuan.net/#${kanji}`,
   },
+  {
+    name: "Kakimashou",
+    url: (kanji: string) =>
+      `https://www.kakimashou.com/dictionary/character/${kanji}`,
+  },
+  {
+    name: "Ichi Moe",
+    url: (kanji: string) => `https://ichi.moe/cl/kanji/?q=${kanji}`,
+  },
+  {
+    name: "Jitenon",
+    url: (kanji: string) => `https://jitenon.com/kanji/${kanji}`,
+  },
+  {
+    name: "Niai Mrahhal",
+    url: (kanji: string) => `https://niai.mrahhal.net/similar?q=${kanji}`,
+  },
 ];
 
 export const outLinks = {
