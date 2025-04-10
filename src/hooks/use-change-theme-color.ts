@@ -9,6 +9,7 @@ export const themeColorsRgb = [
   "170, 0, 255", // purple
   "0, 170, 255", // light blue
   "236, 0, 63", // red
+  "0, 166, 62", // green
 ];
 
 // rgbToHex(color)
