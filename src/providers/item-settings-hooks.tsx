@@ -5,7 +5,6 @@ import { ItemSettings } from "@/lib/settings/settings";
 export const defaultItemSettingsValue: ItemSettings = {
   cardType: "expanded",
   borderColorAttached: true,
-  backgroundColorSettingDataSource: "rank-novels-5100",
 };
 
 export const itemSettings = createContextComponents<ItemSettings>(

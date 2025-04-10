@@ -13,21 +13,22 @@ import { FreqGradient } from "@/components/common/freq/FreqGradient";
 import { ItemTypeSwitch } from "@/components/common/ItemTypeSwitch";
 import { JLPTBordersMeanings } from "@/components/common/jlpt/JLPTBorderMeanings";
 import { FreqGradientInfoIcon } from "@/components/common/freq/FreqGradientInfoIcon";
+import {
+  useBgSrc,
+  useBgSrcDispatch,
+} from "@/components/dependent/routing/routing-hooks";
 
 const H2 = ({ children }: { children: ReactNode }) => (
   <h2 className="font-bold border-b-2 border-dotted mt-4 mb-2">{children}</h2>
 );
 
-const BackgroundColorSection = ({
-  initialState,
-  onFalse,
-  children,
-}: {
-  initialState: boolean;
-  onFalse: () => void;
-  children: ReactNode;
-}) => {
-  const [shouldAttachMeaning, setShouldAttachMeaning] = useState(initialState);
+const BackgroundColorSection = () => {
+  const initialState = useBgSrc();
+  const dispatch = useBgSrcDispatch();
+
+  const [shouldAttachMeaning, setShouldAttachMeaning] = useState(
+    initialState !== "none"
+  );
 
   return (
     <>
@@ -39,7 +40,7 @@ const BackgroundColorSection = ({
         value={shouldAttachMeaning}
         onChange={(v) => {
           if (v === false) {
-            onFalse();
+            dispatch("none");
           }
           setShouldAttachMeaning(v);
         }}
@@ -47,23 +48,24 @@ const BackgroundColorSection = ({
       {shouldAttachMeaning && (
         <>
           <FreqGradient />
-          {children}
+          <FrequencyRankDataSource
+            value={initialState}
+            setValue={(v) => {
+              dispatch(v as FrequencyType);
+            }}
+          />
         </>
       )}
     </>
   );
 };
 
-export const ItemPresentationSettingsContent = () => {
+const CardStateSettings = () => {
   const cardState = useItemSettings();
   const dispatch = useItemSettingsDispatch();
 
   return (
-    <article className="text-left">
-      <h1 className="text-lg font-bold flex space-x-2 items-center mb-0 pb-0">
-        Item Presentation Settings
-      </h1>
-      <DottedSeparator className="p-0 m-0" />
+    <>
       <H2>Design</H2>
       <ItemTypeSwitch
         value={cardState.cardType !== "compact"}
@@ -80,19 +82,19 @@ export const ItemPresentationSettingsContent = () => {
         }}
       />
       {cardState.borderColorAttached && <JLPTBordersMeanings />}
-      <BackgroundColorSection
-        onFalse={() => {
-          dispatch("backgroundColorSettingDataSource", "none");
-        }}
-        initialState={cardState.backgroundColorSettingDataSource !== "none"}
-      >
-        <FrequencyRankDataSource
-          value={cardState.backgroundColorSettingDataSource}
-          setValue={(v) => {
-            dispatch("backgroundColorSettingDataSource", v as FrequencyType);
-          }}
-        />
-      </BackgroundColorSection>
+    </>
+  );
+};
+
+export const ItemPresentationSettingsContent = () => {
+  return (
+    <article className="text-left">
+      <h1 className="text-lg font-bold flex space-x-2 items-center mb-0 pb-0">
+        Item Presentation Settings
+      </h1>
+      <DottedSeparator className="p-0 m-0" />
+      <CardStateSettings />
+      <BackgroundColorSection />
     </article>
   );
 };

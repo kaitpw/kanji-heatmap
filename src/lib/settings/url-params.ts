@@ -16,4 +16,5 @@ export const URL_PARAMS = {
     primary: "sort-primary",
     secondary: "sort-secondary",
   },
+  bgSrc: "bg-src",
 } as const;
