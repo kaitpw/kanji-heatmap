@@ -71,7 +71,7 @@ export const FrequencyInfo = ({
                   <Progress
                     className={"h-1"}
                     value={progress}
-                    primitiveCn={"!bg-[#fb02a8]"}
+                    primitiveCn={"background-theme-color-with-opacity-100"}
                   />
                 </TableCell>
               </TableRow>

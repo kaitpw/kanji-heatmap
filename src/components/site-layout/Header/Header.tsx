@@ -4,6 +4,7 @@ import { ErrorBoundary } from "@/components/error";
 import { GlobalHomeHeaderLink } from "@/components/dependent/routing";
 import { ReactNode } from "react";
 import HeaderIcons from "./HeaderIcons";
+import { ChangeThemeColorBtn } from "@/components/dependent/site-wide/ChangeThemeColorBtn";
 
 const HeaderLayout = ({
   title,
@@ -56,6 +57,7 @@ const Header = ({ nav }: { nav: ReactNode }) => {
             >
               {nav}
               <ChangeFontButton />
+              <ChangeThemeColorBtn />
             </ErrorBoundary>
           </>
         }

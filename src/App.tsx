@@ -1,4 +1,5 @@
 import "./JFonts.css";
+import "./theme.css";
 import React from "react";
 
 import { ThemeProvider } from "@/providers/theme-provider";
