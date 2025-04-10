@@ -105,15 +105,14 @@ const useItemBtnCn = (kanji: string) => {
   const border = !dontIncludeJLPT
     ? JLPTListItems[jlpt].cnBorder
     : dontIncludeFreq === false || freqRankCategory === 0
-      ? " border-black border-opacity-10 dark:border-white dark:border-opacity-10"
+      ? "border-black border-opacity-10 dark:border-white dark:border-opacity-10"
       : `border-theme-color-with-opacity-${20 * freqRankCategory}`;
 
-  const bgColor =
-    freqRankCategory === 0
+  const bgColor = dontIncludeFreq
+    ? "background-theme-color-with-opacity-100"
+    : freqRankCategory === 0
       ? "bg-background"
-      : dontIncludeFreq
-        ? "background-theme-color-with-opacity-100"
-        : freqCategoryCn[freqRankCategory];
+      : freqCategoryCn[freqRankCategory];
 
   const btnCnRaw = `${cn} ${border} ${bgColor} ${textColor}`;
   const btnCn =
