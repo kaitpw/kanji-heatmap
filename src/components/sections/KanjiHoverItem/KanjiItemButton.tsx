@@ -6,6 +6,7 @@ import { freqMap } from "@/lib/options/options-label-maps";
 import { useGetKanjiInfoFn } from "@/kanji-worker/kanji-worker-hooks";
 import { useDeferredItemSettings } from "@/providers/item-settings-hooks";
 import { ReportBugIconBtn } from "@/components/common/ReportBugIconBtn";
+import { useBgSrc } from "@/components/dependent/routing/routing-hooks";
 
 interface TriggerProps {
   onClick?: () => void;
@@ -67,11 +68,6 @@ const useItemType = () => {
   return itemSettings.cardType;
 };
 
-const useItemBgSettings = () => {
-  const itemSettings = useDeferredItemSettings();
-  return itemSettings.backgroundColorSettingDataSource;
-};
-
 const useItemDontIncludeJLPT = () => {
   const itemSettings = useDeferredItemSettings();
   return itemSettings.borderColorAttached === false;
@@ -79,7 +75,7 @@ const useItemDontIncludeJLPT = () => {
 
 const useItemBtnCn = (kanji: string) => {
   const getInfo = useGetKanjiInfoFn();
-  const bgSrc = useItemBgSettings();
+  const bgSrc = useBgSrc();
   const itemType = useItemType();
   const dontIncludeJLPT = useItemDontIncludeJLPT();
 
@@ -89,11 +85,12 @@ const useItemBtnCn = (kanji: string) => {
     return loadingCn;
   }
 
-  const dontIncludeFreq = bgSrc == null || bgSrc == "none";
+  const freqType =
+    bgSrc == null || bgSrc == "none" ? "none" : (freqMap[bgSrc] ?? "none");
+  const dontIncludeFreq = freqType == "none";
 
   const freqData = kanjiInfo.frequency;
-  const freqType = freqMap[bgSrc];
-  const freqRank = freqType ? freqData[freqType] : undefined;
+  const freqRank = freqType !== "none" ? freqData[freqType] : undefined;
   const freqRankCategory = getFreqCategory(freqRank);
 
   const textColor =

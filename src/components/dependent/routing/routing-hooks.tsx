@@ -2,6 +2,34 @@ import { useLocation, useSearch, useSearchParams } from "./router-adapter";
 import { useCallback, useLayoutEffect, useMemo, useState } from "react";
 import { URL_PARAMS } from "@/lib/settings/url-params";
 import usePrevious from "@/hooks/use-previous";
+import { FrequencyType } from "@/lib/options/options-types";
+import { K_RANK_GOOGLE } from "@/lib/options/options-constants";
+
+export const useBgSrc = () => {
+  const [searchParams] = useSearchParams();
+  const item = searchParams.get(URL_PARAMS.bgSrc);
+  return item == null ? K_RANK_GOOGLE : (item as FrequencyType);
+};
+
+export const useBgSrcDispatch = () => {
+  const setSearchParams = useSearchParams()[1];
+  const dispatch = useCallback(
+    (src: FrequencyType | null) => {
+      setSearchParams((prev) => {
+        if (src == null) {
+          prev.delete(URL_PARAMS.bgSrc);
+          return prev;
+        }
+
+        prev.set(URL_PARAMS.bgSrc, src);
+        return prev;
+      });
+    },
+    [setSearchParams]
+  );
+
+  return dispatch;
+};
 
 export const useOpenedParam = () => {
   const [searchParams] = useSearchParams();

@@ -40,5 +40,4 @@ export type SearchSettings = {
 export type ItemSettings = {
   cardType: "compact" | "expanded";
   borderColorAttached: boolean;
-  backgroundColorSettingDataSource: FrequencyType;
 };
