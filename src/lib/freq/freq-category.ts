@@ -1,16 +1,16 @@
-import { cnItemBg, cnSquare } from "../generic-cn";
+import { cnSquare } from "../generic-cn";
 
 export const freqCategoryCount = 6;
 export type FreqCategory = 0 | 1 | 2 | 3 | 4 | 5;
 // TODO: Generate this as a function of freqCategoryCount
 // generating these tw classes on the fly actually doesn't work idk why
 export const freqCategoryCn: Record<FreqCategory, string> = {
-  0: "bg-opacity-0",
-  1: "bg-opacity-20",
-  2: "bg-opacity-40",
-  3: "bg-opacity-60",
-  4: "bg-opacity-80",
-  5: "bg-opacity-100",
+  0: "background-theme-color-with-opacity-0",
+  1: "background-theme-color-with-opacity-20",
+  2: "background-theme-color-with-opacity-40",
+  3: "background-theme-color-with-opacity-60",
+  4: "background-theme-color-with-opacity-80",
+  5: "background-theme-color-with-opacity-100",
 };
 
 export const freqCategoryOpacity: Record<FreqCategory, number> = {
@@ -53,5 +53,5 @@ export const getFreqCnByRank = (rank: number | null) => {
   const freqRankCategory = rank == null || rank < 1 ? 0 : getFreqCategory(rank);
 
   const bgColor = freqCategoryCn[freqRankCategory];
-  return `${cnItemBg} ${cnSquare} ${bgColor}`;
+  return `${cnSquare} ${bgColor}`;
 };

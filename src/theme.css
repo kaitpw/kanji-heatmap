@@ -1,0 +1,61 @@
+:root {
+  --theme-color-selected: 251, 2, 168; /* Default pink color */
+}
+
+/* Combined color and opacity classes */
+.text-theme-color-with-opacity-0 {
+  color: rgba(var(--theme-color-selected), 0);
+}
+.text-theme-color-with-opacity-20 {
+  color: rgba(var(--theme-color-selected), 0.2);
+}
+.text-theme-color-with-opacity-40 {
+  color: rgba(var(--theme-color-selected), 0.4);
+}
+.text-theme-color-with-opacity-60 {
+  color: rgba(var(--theme-color-selected), 0.6);
+}
+.text-theme-color-with-opacity-80 {
+  color: rgba(var(--theme-color-selected), 0.8);
+}
+.text-theme-color-with-opacity-100 {
+  color: rgba(var(--theme-color-selected), 1);
+}
+
+.background-theme-color-with-opacity-0 {
+  background-color: rgba(var(--theme-color-selected), 0);
+}
+.background-theme-color-with-opacity-20 {
+  background-color: rgba(var(--theme-color-selected), 0.2);
+}
+.background-theme-color-with-opacity-40 {
+  background-color: rgba(var(--theme-color-selected), 0.4);
+}
+.background-theme-color-with-opacity-60 {
+  background-color: rgba(var(--theme-color-selected), 0.6);
+}
+.background-theme-color-with-opacity-80 {
+  background-color: rgba(var(--theme-color-selected), 0.8);
+}
+.background-theme-color-with-opacity-100 {
+  background-color: rgba(var(--theme-color-selected), 1);
+}
+
+.border-theme-color-with-opacity-0 {
+  border-color: rgba(var(--theme-color-selected), 0);
+}
+.border-theme-color-with-opacity-20 {
+  border-color: rgba(var(--theme-color-selected), 0.2);
+}
+.border-theme-color-with-opacity-40 {
+  border-color: rgba(var(--theme-color-selected), 0.4);
+}
+.border-theme-color-with-opacity-60 {
+  border-color: rgba(var(--theme-color-selected), 0.6);
+}
+.border-theme-color-with-opacity-80 {
+  border-color: rgba(var(--theme-color-selected), 0.8);
+}
+.border-theme-color-with-opacity-100 {
+  border-color: rgba(var(--theme-color-selected), 1);
+}

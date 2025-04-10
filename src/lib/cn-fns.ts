@@ -34,9 +34,9 @@ export const cnNormal = () => {
   return `${JLPTListItems[a].cnBorder} ${b} ${c} ${d}`;
 };
 export const randomCn = () => {
-  return `${cnNormal()} !bg-[#fb02a8] ${BIG_TILE_CN}`;
+  return `${cnNormal()} background-theme-color-with-opacity-100 ${BIG_TILE_CN}`;
 };
 
 export const randomCn2 = () => {
-  return `${cnNormal()}  !bg-[#fb02a8] ${SMALL_TILE_CN}`;
+  return `${cnNormal()}  background-theme-color-with-opacity-100 ${SMALL_TILE_CN}`;
 };

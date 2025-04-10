@@ -5,7 +5,6 @@ import {
   freqRankMaxMin,
   getFreqCategory,
 } from "@/lib/freq/freq-category";
-import { cnItemBg } from "@/lib/generic-cn";
 import { FreqSquare } from "./FreqSquare";
 import { GenericPopover } from "../GenericPopover";
 import { InfoIcon } from "@/components/icons";
@@ -40,7 +39,7 @@ export const FreqGradientInfoIcon = () => {
             <TableBody>
               {Array.from({ length: freqCategoryCount }).map((_, index) => {
                 const item = freqCategoryCount - index - 1;
-                const cn = `${freqCategoryCn[item as FreqCategory]} ${cnItemBg}`;
+                const cn = freqCategoryCn[item as FreqCategory];
 
                 return (
                   <TableRow key={item}>

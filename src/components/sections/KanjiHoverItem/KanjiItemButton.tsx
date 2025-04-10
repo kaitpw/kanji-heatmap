@@ -3,7 +3,6 @@ import wanakana from "@/lib/wanakana-adapter";
 import { JLPTListItems } from "@/lib/jlpt";
 import { freqCategoryCn, getFreqCategory } from "@/lib/freq/freq-category";
 import { freqMap } from "@/lib/options/options-label-maps";
-import { cnItemBg } from "@/lib/generic-cn";
 import { useGetKanjiInfoFn } from "@/kanji-worker/kanji-worker-hooks";
 import { useDeferredItemSettings } from "@/providers/item-settings-hooks";
 import { ReportBugIconBtn } from "@/components/common/ReportBugIconBtn";
@@ -17,7 +16,7 @@ interface TriggerProps {
   onBlur?: () => void;
 }
 
-const cn = `animate-fade-in-fast h-95 w-full p-1.5 rounded-lg text-2xl ml-1 border-4 bg-opacity-100 ${cnItemBg} z-0 hover:border-[#2effff] transition-all transition-discrete duration-500`;
+const cn = `animate-fade-in-fast h-95 w-full p-1.5 rounded-lg text-2xl ml-1 border-4 bg-opacity-100 z-0 hover:border-[#2effff] transition-all transition-discrete duration-500`;
 const ellipsisCn =
   "!text-ellipsis !text-nowrap !w-24 !overflow-hidden !whitespace-nowrap";
 const loadingCn = `${cn} animate-pulse duration-1000 h-full !bg-lime-400 !border-3 border-white dark:border-black`;
@@ -103,14 +102,18 @@ const useItemBtnCn = (kanji: string) => {
       : "dark:text-white text-gray-700";
   const { jlpt } = kanjiInfo;
 
-  const border = dontIncludeJLPT
-    ? "border-[#fb02a8] border-opacity-10 dark:border-opacity-20"
-    : JLPTListItems[jlpt].cnBorder;
+  const border = !dontIncludeJLPT
+    ? JLPTListItems[jlpt].cnBorder
+    : dontIncludeFreq === false || freqRankCategory === 0
+      ? " border-black border-opacity-10 dark:border-white dark:border-opacity-10"
+      : `border-theme-color-with-opacity-${20 * freqRankCategory}`;
 
   const bgColor =
-    freqRankCategory === 0 && dontIncludeFreq === false
+    freqRankCategory === 0
       ? "bg-background"
-      : freqCategoryCn[freqRankCategory];
+      : dontIncludeFreq
+        ? "background-theme-color-with-opacity-100"
+        : freqCategoryCn[freqRankCategory];
 
   const btnCnRaw = `${cn} ${border} ${bgColor} ${textColor}`;
   const btnCn =
