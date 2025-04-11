@@ -56,6 +56,7 @@ export const useKanjiSearch = (searchSettings: SearchSettings) => {
   const [state, setState] = useState<{
     status: Status;
     data?: string[];
+    additionalData?: unknown;
     error?: string | null;
   }>({ status: "idle" });
 
@@ -76,10 +77,11 @@ export const useKanjiSearch = (searchSettings: SearchSettings) => {
 
     requestWorker({ type: "search", payload: searchSettings })
       .then((result: unknown) => {
+        const newData = result as { kanjis: string[] };
         setState({
           status: "success",
           error: null,
-          data: result as string[],
+          data: newData.kanjis as string[],
         });
       })
       .catch((error) => {
