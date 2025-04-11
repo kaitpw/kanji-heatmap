@@ -58,7 +58,7 @@ const freqSort = (a?: number | null, b?: number | null) => {
   return numA - numB;
 };
 
-export const filterKanji = (
+export const filterByKanjiSimple = (
   allKanji: string[],
   settings: SearchSettings,
   kanjiPool: DataPool
@@ -68,6 +68,36 @@ export const filterKanji = (
   const maxStrokes = settings.filterSettings.strokeRange.max;
   const freqFilter = settings.filterSettings.freq;
 
+  return allKanji
+    .filter((kanji) => {
+      const info = kanjiPool.main[kanji];
+      if ([0, JLPTOptionsCount].includes(jlptFilters.size)) {
+        return true;
+      }
+      return jlptFilters.has(info.jlpt);
+    })
+    .filter((kanji) => {
+      const exInfo = kanjiPool.extended[kanji];
+      const withinRange =
+        maxStrokes >= exInfo.strokes && exInfo.strokes >= minStrokes;
+      return withinRange;
+    })
+    .filter((kanji) => {
+      if (freqFilter.source === "none") {
+        return true;
+      }
+      const info = kanjiPool.main[kanji];
+      const freq = getFrequency(freqFilter.source, info) ?? Number.MAX_VALUE;
+      const withinRange =
+        freq >= freqFilter.rankRange.min && freq <= freqFilter.rankRange.max;
+      return withinRange;
+    });
+};
+export const filterKanji = (
+  allKanji: string[],
+  settings: SearchSettings,
+  kanjiPool: DataPool
+) => {
   const textSearch = settings.textSearch;
 
   const trimmedSearchText = textSearch.text.trim();
@@ -102,81 +132,65 @@ export const filterKanji = (
   // - freq filter source = none
   // - all-jlpt selected
   // Also add a LRU cache of recently computed results
-  return allKanji
-    .filter((kanji) => {
-      if (textToSearch === "") {
-        return true;
-      }
-
-      if (textSearch.type === "keyword") {
-        const info = kanjiPool.main[kanji];
-        return fuzzysearch(textToSearch, info.keyword);
-      }
-
-      if (textSearch.type === "meanings") {
-        const info = kanjiPool.main[kanji];
-        const meanings = kanjiPool.extended[kanji].meanings;
-        return (
-          fuzzysearch(textToSearch, info.keyword) ||
-          meanings.find((meaning) => meaning.includes(textToSearch))
-        );
-      }
-
-      const exInfo = kanjiPool.extended[kanji];
-      if (textSearch.type === "kunyomi") {
-        const hit = exInfo.allKunStripped.has(textToSearch);
-        return hit;
-      }
-
-      if (textSearch.type === "onyomi") {
-        return exInfo.allOn.has(textToSearch);
-      }
-
-      if (textSearch.type === "readings") {
-        return (
-          exInfo.allOn.has(textToSearch) ||
-          exInfo.allKunStripped.has(textToSearch)
-        );
-      }
-
-      if (textSearch.type === "multi-kanji") {
-        return kanjiToSearchSet.has(kanji);
-      }
-
+  const filteredBySearchText = allKanji.filter((kanji) => {
+    if (textToSearch === "") {
       return true;
-    })
-    .filter((kanji) => {
+    }
+
+    if (textSearch.type === "keyword") {
       const info = kanjiPool.main[kanji];
-      if ([0, JLPTOptionsCount].includes(jlptFilters.size)) {
-        return true;
-      }
-      return jlptFilters.has(info.jlpt);
-    })
-    .filter((kanji) => {
-      const exInfo = kanjiPool.extended[kanji];
-      const withinRange =
-        maxStrokes >= exInfo.strokes && exInfo.strokes >= minStrokes;
-      return withinRange;
-    })
-    .filter((kanji) => {
-      if (freqFilter.source === "none") {
-        return true;
-      }
+      return fuzzysearch(textToSearch, info.keyword);
+    }
+
+    if (textSearch.type === "meanings") {
       const info = kanjiPool.main[kanji];
-      const freq = getFrequency(freqFilter.source, info) ?? Number.MAX_VALUE;
-      const withinRange =
-        freq >= freqFilter.rankRange.min && freq <= freqFilter.rankRange.max;
-      return withinRange;
-    });
+      const meanings = kanjiPool.extended[kanji].meanings;
+      return (
+        fuzzysearch(textToSearch, info.keyword) ||
+        meanings.find((meaning) => meaning.includes(textToSearch))
+      );
+    }
+
+    const exInfo = kanjiPool.extended[kanji];
+    if (textSearch.type === "kunyomi") {
+      const hit = exInfo.allKunStripped.has(textToSearch);
+      return hit;
+    }
+
+    if (textSearch.type === "onyomi") {
+      return exInfo.allOn.has(textToSearch);
+    }
+
+    if (textSearch.type === "readings") {
+      return (
+        exInfo.allOn.has(textToSearch) ||
+        exInfo.allKunStripped.has(textToSearch)
+      );
+    }
+
+    if (textSearch.type === "multi-kanji") {
+      return kanjiToSearchSet.has(kanji);
+    }
+
+    return true;
+  });
+
+  return filterByKanjiSimple(filteredBySearchText, settings, kanjiPool);
 };
 
-export const searchKanji = (settings: SearchSettings, kanjiPool: DataPool) => {
-  const allKanji = Object.keys(kanjiPool.main);
-
+export const sortKanji = (
+  kanjiList: string[],
+  settings: SearchSettings,
+  kanjiPool: DataPool
+) => {
   const primarySort = settings.sortSettings.primary;
   const secondarySort = settings.sortSettings.secondary;
 
-  const kanjiList = filterKanji(allKanji, settings, kanjiPool).sort((a, b) => {
+  if (primarySort === "none") {
+    return kanjiList;
+  }
+
+  return kanjiList.sort((a, b) => {
     const infoA = kanjiPool.main[a];
     const infoB = kanjiPool.main[b];
     const exInfoA = kanjiPool.extended[a];
@@ -185,24 +199,35 @@ export const searchKanji = (settings: SearchSettings, kanjiPool: DataPool) => {
     const sortBy = (sortKey: SortKey) => {
       if (sortKey === K_JLPT) {
         return jlptSort(infoA.jlpt, infoB.jlpt);
-      } else if (sortKey === K_JOUYOU_KEY) {
+      }
+
+      if (sortKey === K_JOUYOU_KEY) {
         return simpleSort(exInfoA.jouyouGrade, exInfoB.jouyouGrade);
-      } else if (sortKey === K_STROKES) {
+      }
+
+      if (sortKey === K_STROKES) {
         return numericSort(exInfoA.strokes, exInfoB.strokes);
-      } else if (sortKey === K_WK_LVL) {
+      }
+
+      if (sortKey === K_WK_LVL) {
         return numericSort(exInfoA.wk, exInfoB.wk);
-      } else if (sortKey === K_RTK_INDEX) {
+      }
+
+      if (sortKey === K_RTK_INDEX) {
         return numericSort(exInfoA.rtk, exInfoB.rtk);
-      } else if (sortKey === K_MEANING_KEY) {
+      }
+
+      if (sortKey === K_MEANING_KEY) {
         return alphaSort(infoA.keyword, infoB.keyword);
-      } else if (
-        (FREQ_RANK_OPTIONS_NONE_REMOVED as string[]).includes(sortKey)
-      ) {
+      }
+
+      if ((FREQ_RANK_OPTIONS_NONE_REMOVED as string[]).includes(sortKey)) {
         return freqSort(
           getFrequency(sortKey, infoA),
           getFrequency(sortKey, infoB)
         );
       }
+
       return 0;
     };
 
@@ -210,8 +235,13 @@ export const searchKanji = (settings: SearchSettings, kanjiPool: DataPool) => {
     if (compareVal != 0) {
       return compareVal;
     }
+
     return sortBy(secondarySort);
   });
+};
 
-  return kanjiList;
+export const searchKanji = (settings: SearchSettings, kanjiPool: DataPool) => {
+  const allKanji = Object.keys(kanjiPool.main);
+  const filteredKanji = filterKanji(allKanji, settings, kanjiPool);
+  return sortKanji(filteredKanji, settings, kanjiPool);
 };
