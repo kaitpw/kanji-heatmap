@@ -38,7 +38,7 @@ export const nonFreqOptionLabels: Record<SortGroup | SortNonGroup, string> = {
   [K_JOUYOU_KEY]: "Jouyou Grade",
   [K_STROKES]: "Stroke Count",
   [K_WK_LVL]: "Wanikani Level",
-  [K_RTK_INDEX]: "Remember the Kanji Index",
+  [K_RTK_INDEX]: "(RTK) James W. Heisig's Remembering the Kanji Index",
   [K_MEANING_KEY]: "Keyword",
 };
 
