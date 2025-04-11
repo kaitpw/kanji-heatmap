@@ -60,6 +60,9 @@
   background: var(--scrollbar-bg);
 }
 
+.scrollbar-thin {
+  scrollbar-width: none;
+}
 *,
 *::before,
 *::after {
