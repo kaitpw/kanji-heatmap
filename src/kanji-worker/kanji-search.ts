@@ -29,10 +29,6 @@ const jlptSort = (a: JLTPTtypes, b: JLTPTtypes) => {
   return rankA - rankB;
 };
 
-const simpleSort = (a: number, b: number) => {
-  return a - b;
-};
-
 const alphaSort = (a: string, b: string) => {
   const lowerA = a.toLowerCase();
   const lowerB = b.toLowerCase();
@@ -46,9 +42,9 @@ const alphaSort = (a: string, b: string) => {
 };
 
 const numericSort = (a: number, b: number) => {
-  if (a == b) return 0;
-  if (a == -1) return 1;
-  if (b == -1) return -1;
+  if (a === b) return 0;
+  if (a === -1) return 1;
+  if (b === -1) return -1;
   return a - b;
 };
 
@@ -202,7 +198,7 @@ export const sortKanji = (
       }
 
       if (sortKey === K_JOUYOU_KEY) {
-        return simpleSort(exInfoA.jouyouGrade, exInfoB.jouyouGrade);
+        return numericSort(exInfoA.jouyouGrade, exInfoB.jouyouGrade);
       }
 
       if (sortKey === K_STROKES) {
