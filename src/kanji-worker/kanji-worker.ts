@@ -152,7 +152,7 @@ self.onmessage = function (event: { data: OnMessageRequestType }) {
 
   if (eventType === "search") {
     const kanjiList: string[] = searchKanji(settings, kanjiPool);
-    sendResponse(kanjiList);
+    sendResponse({ kanjis: kanjiList });
     return;
   }
 
