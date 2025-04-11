@@ -63,6 +63,14 @@ export const externalLinks: { name: string; url: (x: string) => string }[] = [
     url: (kanji: string) => `https://jitenon.com/kanji/${kanji}`,
   },
   {
+    name: "Takoboto",
+    url: (kanji: string) => `https://takoboto.jp/?q=${kanji}`,
+  },
+  {
+    name: "JLearn",
+    url: (kanji: string) => `https://jlearn.net/search/${kanji}`,
+  },
+  {
     name: "Niai Mrahhal",
     url: (kanji: string) => `https://niai.mrahhal.net/similar?q=${kanji}`,
   },
@@ -103,4 +111,22 @@ export const vocabExternalLinks = [
     name: "Kanshudo",
     url: (word: string) => `https://www.kanshudo.com/searchw?q=${word}`,
   },
+  {
+    name: "JLearn",
+    url: (word: string) => `https://jlearn.net/dictionary/${word}`,
+  },
+  {
+    name: "Takoboto",
+    url: (word: string) => `https://takoboto.jp/?q=${word}`,
+  },
+  {
+    name: "Ichi Moe",
+    url: (word: string) => `https://ichi.moe/cl/word/?q=${word}`,
+  },
+  {
+    name: "Kakimashou",
+    url: (word: string) => `https://www.kakimashou.com/dictionary/word/${word}`,
+  },
 ];
+
+// https://www.kakimashou.com/dictionary/word/%E5%9B%9B%E5%8D%8A%E6%9C%9F
