@@ -1,6 +1,7 @@
 import { createContextComponents, useContextWithCatch } from "./helpers";
 import { SearchSettings } from "@/lib/settings/settings";
 import { MAX_FREQ_RANK, MAX_STROKE_COUNT } from "@/lib/options/constants";
+import { JLPT_TYPE_ARR } from "@/lib/jlpt";
 
 export const searchSettings = createContextComponents<SearchSettings>({
   textSearch: {
@@ -9,9 +10,9 @@ export const searchSettings = createContextComponents<SearchSettings>({
   },
   filterSettings: {
     strokeRange: { min: 1, max: MAX_STROKE_COUNT },
-    jlpt: ["n1", "n2", "n3", "n4", "n5", "none"] as const,
+    jlpt: JLPT_TYPE_ARR.map((r) => r),
     freq: {
-      source: "rank-netflix" as const,
+      source: "none" as const,
       rankRange: { min: 1, max: MAX_FREQ_RANK },
     },
   },
