@@ -10,6 +10,7 @@ const assetsPaths = {
   dev: {
     KANJI_SVGS: "https://kanjivg.tagaini.net/kanjivg/kanji/",
   },
+  KANJI_DECOMPOSITION: "/json/kanji_decomposition.json",
 };
 
 export default assetsPaths;
