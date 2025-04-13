@@ -5,7 +5,7 @@ import {
   KanjiMainInfo,
 } from "./kanji-worker-types";
 
-export type KanjiInfoRequestType = "hover-card" | "general";
+export type KanjiInfoRequestType = "hover-card" | "general" | "radical-keyword";
 
 export type VocabExtendedInfo = {
   vocabInfo?: {

@@ -12,6 +12,14 @@ import { Button } from "@/components/ui/button";
 import BasicSelect from "@/components/common/BasicSelect";
 import { defaultSearchType } from "@/lib/settings/search-settings-adapter";
 
+import {
+  RadicalScreenContent,
+  RadicalScreenLayout,
+  RadicalsResultsPreview,
+  RadicalsSelected,
+} from "./RadicalScreen/RadicalScreen";
+import { RadicalsScreenDialog } from "./RadicalScreen/RadicalScreenDialog";
+
 const INPUT_DEBOUNCE_TIME = 300;
 
 export const SearchInput = ({
@@ -24,12 +32,13 @@ export const SearchInput = ({
   onSettle: (searchText: string, searchType: SearchType) => void;
 }) => {
   const timeoutRef = useRef<NodeJS.Timeout>();
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const [searchType, setSearchType] = useState(initialSearchType);
   const [parsedValue, setValue] = useState(
     translateValue(initialText, translateMap[searchType])
   );
 
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const [isOpenRadicals, setIsOpenRadicals] = useState(false);
 
   // force focus input ref on mount
   useEffect(() => {
@@ -56,6 +65,11 @@ export const SearchInput = ({
           fontCN
         )}
         value={parsedValue}
+        onClick={() => {
+          if (searchType === "radicals") {
+            setIsOpenRadicals(true);
+          }
+        }}
         onChange={(e) => {
           const updatedValue = translateValue(
             e.target.value,
@@ -137,9 +151,16 @@ export const SearchInput = ({
         value={searchType}
         onChange={(val) => {
           const newType = val as SearchType;
+
+          if (newType === "radicals") {
+            onSyncAll("", "radicals");
+            setIsOpenRadicals(true);
+            return;
+          }
+
           setSearchType(newType);
           const newParsedValue = translateValue(
-            parsedValue,
+            searchType === "radicals" ? "" : parsedValue,
             translateMap[newType]
           );
           setValue(newParsedValue);
@@ -152,6 +173,44 @@ export const SearchInput = ({
         label="Search Type"
         isLabelSrOnly={true}
       />
+
+      <RadicalsScreenDialog
+        isOpen={isOpenRadicals}
+        onClose={() => {
+          setIsOpenRadicals(false);
+        }}
+      >
+        <RadicalScreenLayout
+          count={[...parsedValue].length}
+          top={
+            <RadicalScreenContent
+              value={new Set([...parsedValue])}
+              setValue={(radicals) => {
+                const newStr = [...radicals].join("");
+                onSyncAll(newStr, "radicals");
+              }}
+            />
+          }
+          middle={
+            <RadicalsSelected
+              value={[...parsedValue]}
+              onClick={(radical) => {
+                const radicals = new Set([...parsedValue]);
+                radicals.delete(radical);
+                const newStr = [...radicals].join("");
+                onSyncAll(newStr, "radicals");
+              }}
+            />
+          }
+          bottom={
+            <RadicalsResultsPreview
+              onClick={() => {
+                setIsOpenRadicals(false);
+              }}
+            />
+          }
+        />
+      </RadicalsScreenDialog>
     </section>
   );
 };

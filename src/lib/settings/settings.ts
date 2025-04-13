@@ -8,6 +8,7 @@ export const SEARCH_TYPE_ARR = [
   "onyomi",
   "kunyomi",
   "multi-kanji",
+  "radicals",
 ] as const;
 
 export type SearchType = (typeof SEARCH_TYPE_ARR)[number];

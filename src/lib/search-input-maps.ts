@@ -8,6 +8,7 @@ export const translateMap: Record<SearchType, TranslateType> = {
   meanings: "romaji",
   readings: "hiragana",
   "multi-kanji": "none",
+  radicals: "none",
 };
 
 export const placeholderMap: Record<SearchType, string> = {
@@ -17,6 +18,7 @@ export const placeholderMap: Record<SearchType, string> = {
   meanings: `e.g. "world" or "person"`,
   readings: "Any Kun or On Reading",
   "multi-kanji": "e.g paste 鼻詰まり ",
+  radicals: "Click to open radical selection",
 };
 
 export const SEARCH_TYPE_OPTIONS: {
@@ -24,9 +26,10 @@ export const SEARCH_TYPE_OPTIONS: {
   label: string;
 }[] = [
   { value: "keyword", label: "Keyword" },
-  { value: "multi-kanji", label: "Multi-Kanji" },
   { value: "meanings", label: "Meanings" },
   { value: "readings", label: "Readings" },
   { value: "onyomi", label: "Onyomi" },
   { value: "kunyomi", label: "Kunyomi" },
+  { value: "multi-kanji", label: "Multi-Kanji" },
+  { value: "radicals", label: "Radicals" },
 ];
