@@ -4,7 +4,7 @@ import { useKanjiSearchResult } from "@/kanji-worker/kanji-worker-hooks";
 export const useNextPrevKanji = (currentKanji: string) => {
   const kanjisData = useKanjiSearchResult();
 
-  const nextPrevUrls = useMemo(() => {
+  const nextPrev = useMemo(() => {
     const kanjis = kanjisData.data;
 
     if (kanjis == null || kanjis.length <= 0) {
@@ -31,5 +31,5 @@ export const useNextPrevKanji = (currentKanji: string) => {
     };
   }, [currentKanji, kanjisData]);
 
-  return nextPrevUrls;
+  return nextPrev;
 };
