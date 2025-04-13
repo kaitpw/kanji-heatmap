@@ -12,6 +12,7 @@ import {
   VocabExtendedInfo,
 } from "@/lib/kanji/kanji-info-types";
 import {
+  GetBasicKanjiInfo,
   KanjiExtendedInfo,
   KanjiMainInfo,
 } from "@/lib/kanji/kanji-worker-types";
@@ -20,9 +21,6 @@ import {
   GetBasicKanjiInfoContext,
   IsReadyContext,
 } from "./kanji-worker-hooks";
-
-type GetBasicKanjiInfo = (kanji: string) => KanjiMainInfo | null;
-
 const requestWorker = KANJI_WORKER_SINGLETON.request;
 
 const extractKanjiHoverData = (
@@ -125,40 +123,37 @@ export function KanjiWorkerProvider({
     let mainReady = false;
     let partReady = false;
     let phoneticReady = false;
-    let extendedReady = false;
-    let segmentedVocabReady = false;
+    let othersReady = false;
 
     const checkIfDone = () => {
-      if (
-        mainReady &&
-        partReady &&
-        phoneticReady &&
-        extendedReady &&
-        segmentedVocabReady
-      ) {
+      if (mainReady && partReady && phoneticReady && othersReady) {
         setIsReady(true);
         return;
       }
     };
 
-    requestWorker({ type: "kanji-main-map" }).then((r) => {
-      const res = r as Record<string, KanjiMainInfo>;
-      kanjiCacheRef.current = {};
-      Object.keys(res ?? {}).map((item) => {
-        const info = res[item];
-        // I don't know why typescript cannot detect this
-        if (kanjiCacheRef.current == null) {
-          console.error(
-            "Please check your logic. kanjiCacheRef.current shouldn't be null at this point"
-          );
-          return;
-        }
+    requestWorker({ type: "kanji-main-map" })
+      .then((r) => {
+        const res = r as Record<string, KanjiMainInfo>;
+        kanjiCacheRef.current = {};
+        Object.keys(res ?? {}).map((item) => {
+          const info = res[item];
+          // I don't know why typescript cannot detect this
+          if (kanjiCacheRef.current == null) {
+            console.error(
+              "Please check your logic. kanjiCacheRef.current shouldn't be null at this point"
+            );
+            return;
+          }
 
-        kanjiCacheRef.current[item] = { main: info };
+          kanjiCacheRef.current[item] = { main: info };
+        });
+        mainReady = true;
+        checkIfDone();
+      })
+      .catch(() => {
+        setWorkerError(true);
       });
-      mainReady = true;
-      checkIfDone();
-    });
 
     requestWorker({
       type: "part-keyword-map",
@@ -182,20 +177,15 @@ export function KanjiWorkerProvider({
         setWorkerError(true);
       });
 
-    requestWorker({
-      type: "initialize-extended-kanji-map",
-    })
+    Promise.all([
+      requestWorker({
+        type: "initialize-extended-kanji-map",
+      }),
+      requestWorker({ type: "initalize-segmented-vocab-map" }),
+      requestWorker({ type: "initialize-decomposition-map" }),
+    ])
       .then(() => {
-        extendedReady = true;
-        checkIfDone();
-      })
-      .catch(() => {
-        setWorkerError(true);
-      });
-
-    requestWorker({ type: "initalize-segmented-vocab-map" })
-      .then(() => {
-        segmentedVocabReady = true;
+        othersReady = true;
         checkIfDone();
       })
       .catch(() => {
@@ -274,7 +264,10 @@ export function KanjiWorkerProvider({
   );
 
   const getKanjiBasicInfo: GetBasicKanjiInfo = useCallback((kanji) => {
-    return kanjiCacheRef.current?.[kanji]?.main ?? null;
+    const main = kanjiCacheRef.current?.[kanji]?.main;
+    const keyword = main == null ? partKeywordCacheRef.current?.[kanji] : null;
+
+    return main ? main : keyword ? { keyword } : null;
   }, []);
 
   if (workerError) {

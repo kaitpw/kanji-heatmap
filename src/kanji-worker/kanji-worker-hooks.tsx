@@ -5,15 +5,13 @@ import { useContextWithCatch } from "../providers/helpers";
 import { SearchSettings } from "@/lib/settings/settings";
 import { KanjiInfoRequestType } from "@/lib/kanji/kanji-info-types";
 import { createContext } from "react";
-import { KanjiMainInfo } from "@/lib/kanji/kanji-worker-types";
 import { useSearchSettings } from "@/providers/search-settings-hooks";
+import { GetBasicKanjiInfo } from "@/lib/kanji/kanji-worker-types";
 
 export type KanjiRequestFn = (
   k: string,
   type: KanjiInfoRequestType
 ) => Promise<unknown>;
-
-export type GetBasicKanjiInfo = (kanji: string) => KanjiMainInfo | null;
 
 export const ActionContext = createContext<KanjiRequestFn | null>(null);
 export const IsReadyContext = createContext<boolean>(false);
@@ -77,11 +75,15 @@ export const useKanjiSearch = (searchSettings: SearchSettings) => {
 
     requestWorker({ type: "search", payload: searchSettings })
       .then((result: unknown) => {
-        const newData = result as { kanjis: string[] };
+        const newData = result as {
+          kanjis: string[];
+          possibleRadicals: Set<string> | undefined;
+        };
         setState({
           status: "success",
           error: null,
           data: newData.kanjis as string[],
+          additionalData: newData.possibleRadicals,
         });
       })
       .catch((error) => {

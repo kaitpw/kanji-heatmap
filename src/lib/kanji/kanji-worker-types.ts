@@ -15,6 +15,14 @@ export type KanjiMainInfo = {
   frequency: KanjiInfoFrequency;
 };
 
+export type GetBasicKanjiInfo = (kanji: string) => {
+  keyword: string;
+  jlpt?: JLTPTtypes;
+  on?: string;
+  kun?: string;
+  frequency?: KanjiInfoFrequency;
+} | null;
+
 export type KanjiInfoFrequency = {
   netflix: number | null; //rank_netflix,
   twitter: number | null; //rank_twitter,
@@ -105,6 +113,7 @@ export type KanjiWorkerRequestName =
   | KanjiSearchRequestType
   | "initialize-extended-kanji-map"
   | "initalize-segmented-vocab-map"
+  | "initialize-decomposition-map"
   | "kanji-main-map"
   | "phonetic-map"
   | "part-keyword-map";
