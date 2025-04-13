@@ -10,6 +10,7 @@ import {
 } from "@/lib/kanji/kanji-worker-types";
 import {
   fetchExtendedKanjiInfo,
+  fetchKanjiDecomposition,
   fetchMainManjiInfo,
   fetchPartKeywordInfo,
   fetchPhoneticInfo,
@@ -17,15 +18,22 @@ import {
   transformToExtendedKanjiInfo,
   transformToMainKanjiInfo,
 } from "./helpers";
-import { filterKanji, searchKanji } from "./kanji-search";
+import {
+  filterKanji,
+  getSortedByStrokeCount,
+  searchByRadical,
+  searchKanji,
+} from "./kanji-search";
 import { SearchSettings } from "@/lib/settings/settings";
 
 const KANJI_INFO_MAIN_CACHE: Record<string, KanjiMainInfo> = {};
 const KANJI_INFO_EXTENDED_CACHE: Record<string, KanjiExtendedInfo> = {};
+const KANJI_DECOMPOSITION_CACHE: Record<string, Set<string>> = {};
 
 let KANJI_SEGMENTED_VOCAB_CACHE: Record<string, SegmentedVocabInfo> = {};
 let KANJI_PHONETIC_MAP_CACHE: Record<string, string> = {};
 let KANJI_PART_KEYWORD_MAP_CACHE: Record<string, string> = {};
+let KANJI_BY_STROKE_ORDER_CACHE: string[] = [];
 
 const loadMainKanjiInfo = (items: MainKanjiInfoResponseType) => {
   Object.keys(items).forEach((k) => {
@@ -36,6 +44,12 @@ const loadMainKanjiInfo = (items: MainKanjiInfoResponseType) => {
 const loadExtendedKanjiInfo = (items: ExtendedKanjiInfoResponseType) => {
   Object.keys(items).forEach((k) => {
     KANJI_INFO_EXTENDED_CACHE[k] = transformToExtendedKanjiInfo(items[k]);
+  });
+};
+
+const loadKanjiDecomposition = (items: Record<string, string>) => {
+  Object.keys(items).forEach((k) => {
+    KANJI_DECOMPOSITION_CACHE[k] = new Set([...items[k]]);
   });
 };
 
@@ -90,6 +104,15 @@ self.onmessage = function (event: { data: OnMessageRequestType }) {
   if (eventType === "initialize-extended-kanji-map") {
     fetchExtendedKanjiInfo()
       .then(loadExtendedKanjiInfo)
+      .then(sendResponse)
+      .catch(sendError);
+
+    return;
+  }
+
+  if (eventType === "initialize-decomposition-map") {
+    fetchKanjiDecomposition()
+      .then(loadKanjiDecomposition)
       .then(sendResponse)
       .catch(sendError);
 
@@ -151,8 +174,30 @@ self.onmessage = function (event: { data: OnMessageRequestType }) {
   };
 
   if (eventType === "search") {
-    const kanjiList: string[] = searchKanji(settings, kanjiPool);
-    sendResponse({ kanjis: kanjiList });
+    // Side effect, the first time we search
+    // we need to store this in cache which will be useful
+    // when searching by radical
+    if (KANJI_BY_STROKE_ORDER_CACHE.length === 0) {
+      KANJI_BY_STROKE_ORDER_CACHE = getSortedByStrokeCount(kanjiPool);
+    }
+
+    if (
+      settings.textSearch.type === "radicals" &&
+      settings.textSearch.text !== ""
+    ) {
+      const { kanjis, possibleRadicals } = searchByRadical(
+        KANJI_BY_STROKE_ORDER_CACHE,
+        settings,
+        kanjiPool,
+        KANJI_DECOMPOSITION_CACHE
+      );
+
+      sendResponse({ kanjis, possibleRadicals });
+      return;
+    }
+
+    const kanjis: string[] = searchKanji(settings, kanjiPool);
+    sendResponse({ kanjis });
     return;
   }
 
