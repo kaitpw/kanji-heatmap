@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useKanjiUrlState } from "@/components/dependent/routing/routing-hooks";
 import { KanjiDrawer } from "../Drawer";
 
-export const KanjiDrawerGlobal = () => {
+const KanjiDrawerGlobal = () => {
   const [openedKanji, setOpenedKanji] = useKanjiUrlState();
 
   const onDrawerClose = useCallback(() => {
@@ -18,3 +18,5 @@ export const KanjiDrawerGlobal = () => {
     </>
   );
 };
+
+export default KanjiDrawerGlobal;
