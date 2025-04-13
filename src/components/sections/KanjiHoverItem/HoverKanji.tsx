@@ -17,12 +17,10 @@ const HoverMeRaw = ({
   trigger,
   isOpen,
   setOpen,
-  openDrawer,
 }: {
   trigger: string;
   isOpen: boolean;
   setOpen: (kanji: string | null) => void;
-  openDrawer: (kanji: string | null) => void;
 }) => {
   const openTimeoutRef = React.useRef<NodeJS.Timeout>();
   const closeTimeoutRef = React.useRef<NodeJS.Timeout>();
@@ -51,7 +49,6 @@ const HoverMeRaw = ({
             kanji={trigger}
             onClick={() => {
               setOpen(null);
-              openDrawer(trigger);
             }}
             onMouseEnter={handleOpen}
             onMouseLeave={handleClose}

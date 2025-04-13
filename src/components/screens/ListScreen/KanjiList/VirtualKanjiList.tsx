@@ -1,9 +1,7 @@
 import { WindowVirtualizer } from "virtua";
-import React, { useCallback, useState } from "react";
-import { useKanjiUrlState } from "@/components/dependent/routing/routing-hooks";
+import React, { useState } from "react";
 import { HoverKanji } from "@/components/sections/KanjiHoverItem";
 import { useVirtualListDims } from "./useVirtualDims";
-import { KanjiDrawer } from "../Drawer";
 
 const KanjiListRaw = ({
   kanjiKeys = [],
@@ -13,13 +11,6 @@ const KanjiListRaw = ({
   size: "compact" | "expanded";
 }) => {
   const [hoveredKanji, setHoveredKanji] = useState<string | null>(null);
-
-  const [openedKanji, setOpenedKanji] = useKanjiUrlState();
-
-  const onDrawerClose = useCallback(() => {
-    setOpenedKanji(null);
-  }, [setOpenedKanji]);
-
   const { cols, rows } = useVirtualListDims(kanjiKeys.length, size);
 
   return (
@@ -43,7 +34,6 @@ const KanjiListRaw = ({
                     trigger={key}
                     isOpen={hoveredKanji === key}
                     setOpen={setHoveredKanji}
-                    openDrawer={setOpenedKanji}
                   />
                 );
               })}
@@ -51,12 +41,6 @@ const KanjiListRaw = ({
           );
         })}
       </WindowVirtualizer>
-
-      <KanjiDrawer
-        isOpen={openedKanji !== null}
-        onClose={onDrawerClose}
-        kanji={openedKanji ?? ""}
-      />
     </>
   );
 };
