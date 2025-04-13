@@ -4,6 +4,7 @@ import { useSearchSettings } from "@/providers/search-settings-hooks";
 import { hasNoFilters } from "@/lib/results-utils";
 import { URL_PARAMS } from "@/lib/settings/url-params";
 import { Link } from "./router-adapter";
+import { ReactNode } from "react";
 
 // Create an url param with only the existing search-text and search-type
 // e.g search-text=xxx&search-type=meanings
@@ -27,14 +28,18 @@ const useClearedUrl = (): string => {
   return encodeURI(link);
 };
 
-export const ClearFiltersCTA = () => {
+export const ClearFiltersCTA = ({
+  defaultMsg = "Small typo, maybe?",
+}: {
+  defaultMsg?: ReactNode;
+}) => {
   const settings = useSearchSettings();
 
   const link = useClearedUrl();
   const noFilters = hasNoFilters(settings);
 
   if (noFilters) {
-    return <>{"Small typo, maybe?"}</>;
+    return <>{defaultMsg}</>;
   }
 
   return (
