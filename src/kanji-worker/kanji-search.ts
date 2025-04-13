@@ -17,6 +17,7 @@ import {
 import { FREQ_RANK_OPTIONS_NONE_REMOVED } from "@/lib/options/options-arr";
 import { getFrequency } from "@/lib/options/options-label-maps";
 import { SortKey } from "@/lib/options/options-types";
+import { radicalStrokeCountMap } from "@/lib/radicals";
 
 type DataPool = {
   main: Record<string, KanjiMainInfo>;
@@ -89,6 +90,7 @@ export const filterByKanjiSimple = (
       return withinRange;
     });
 };
+
 export const filterKanji = (
   allKanji: string[],
   settings: SearchSettings,
@@ -128,48 +130,47 @@ export const filterKanji = (
   // - freq filter source = none
   // - all-jlpt selected
   // Also add a LRU cache of recently computed results
-  const filteredBySearchText = allKanji.filter((kanji) => {
-    if (textToSearch === "") {
-      return true;
-    }
+  const filteredBySearchText =
+    textToSearch === ""
+      ? allKanji
+      : allKanji.filter((kanji) => {
+          if (textSearch.type === "keyword") {
+            const info = kanjiPool.main[kanji];
+            return fuzzysearch(textToSearch, info.keyword);
+          }
 
-    if (textSearch.type === "keyword") {
-      const info = kanjiPool.main[kanji];
-      return fuzzysearch(textToSearch, info.keyword);
-    }
+          if (textSearch.type === "meanings") {
+            const info = kanjiPool.main[kanji];
+            const meanings = kanjiPool.extended[kanji].meanings;
+            return (
+              fuzzysearch(textToSearch, info.keyword) ||
+              meanings.find((meaning) => meaning.includes(textToSearch))
+            );
+          }
 
-    if (textSearch.type === "meanings") {
-      const info = kanjiPool.main[kanji];
-      const meanings = kanjiPool.extended[kanji].meanings;
-      return (
-        fuzzysearch(textToSearch, info.keyword) ||
-        meanings.find((meaning) => meaning.includes(textToSearch))
-      );
-    }
+          const exInfo = kanjiPool.extended[kanji];
+          if (textSearch.type === "kunyomi") {
+            const hit = exInfo.allKunStripped.has(textToSearch);
+            return hit;
+          }
 
-    const exInfo = kanjiPool.extended[kanji];
-    if (textSearch.type === "kunyomi") {
-      const hit = exInfo.allKunStripped.has(textToSearch);
-      return hit;
-    }
+          if (textSearch.type === "onyomi") {
+            return exInfo.allOn.has(textToSearch);
+          }
 
-    if (textSearch.type === "onyomi") {
-      return exInfo.allOn.has(textToSearch);
-    }
+          if (textSearch.type === "readings") {
+            return (
+              exInfo.allOn.has(textToSearch) ||
+              exInfo.allKunStripped.has(textToSearch)
+            );
+          }
 
-    if (textSearch.type === "readings") {
-      return (
-        exInfo.allOn.has(textToSearch) ||
-        exInfo.allKunStripped.has(textToSearch)
-      );
-    }
+          if (textSearch.type === "multi-kanji") {
+            return kanjiToSearchSet.has(kanji);
+          }
 
-    if (textSearch.type === "multi-kanji") {
-      return kanjiToSearchSet.has(kanji);
-    }
-
-    return true;
-  });
+          return true;
+        });
 
   return filterByKanjiSimple(filteredBySearchText, settings, kanjiPool);
 };
@@ -240,4 +241,57 @@ export const searchKanji = (settings: SearchSettings, kanjiPool: DataPool) => {
   const allKanji = Object.keys(kanjiPool.main);
   const filteredKanji = filterKanji(allKanji, settings, kanjiPool);
   return sortKanji(filteredKanji, settings, kanjiPool);
+};
+
+export const getSortedByStrokeCount = (kanjiPool: DataPool) => {
+  const allKanji = Object.keys(kanjiPool.main);
+  return allKanji.sort((a, b) => {
+    const exInfoA = kanjiPool.extended[a];
+    const exInfoB = kanjiPool.extended[b];
+    return numericSort(exInfoA.strokes, exInfoB.strokes);
+  });
+};
+
+export const searchByRadical = (
+  initialKanjis: string[],
+  settings: SearchSettings,
+  kanjiPool: DataPool,
+  kanjiDecompositionCache: Record<string, Set<string>>
+) => {
+  // override minimum stroke count by user with
+  // the largest stroke count given all the selected radicals
+  // if largest strokecount is creater than user input minimum stroke count
+  const prevMin = settings.filterSettings.strokeRange.min;
+  const radicalPayload = [...settings.textSearch.text];
+  const newMin = radicalPayload.reduce((acc, current) => {
+    const count = radicalStrokeCountMap[current];
+    return Math.max(acc, Number(count));
+  }, prevMin);
+  settings.filterSettings.strokeRange.min = newMin;
+
+  // apply user filter settings first
+  const filteredKanjisSimple = filterByKanjiSimple(
+    initialKanjis,
+    settings,
+    kanjiPool
+  );
+
+  // if kanji has all the radicals in the set then include this in the search result
+  const filteredKanjis = filteredKanjisSimple.filter((kanji) => {
+    const kanjiRadicalSet = kanjiDecompositionCache[kanji];
+    return radicalPayload.every((radical) => {
+      return kanjiRadicalSet.has(radical);
+    });
+  });
+
+  const kanjis = sortKanji(filteredKanjis, settings, kanjiPool);
+
+  // get all radicals in all the remaining kanjis
+  const possibleRadicals = kanjis.reduce((acc, kanji) => {
+    const kanjiRadicalSet = kanjiDecompositionCache[kanji];
+    kanjiRadicalSet.forEach((item) => acc.add(item));
+    return acc;
+  }, new Set<string>([]));
+
+  return { kanjis, possibleRadicals };
 };
