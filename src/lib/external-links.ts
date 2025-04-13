@@ -13,8 +13,12 @@ export const externalLinks: { name: string; url: (x: string) => string }[] = [
     url: (kanji: string) => `https://jisho.org/search/${kanji}%20%23kanji`,
   },
   {
-    name: "Kai Kanji Api",
+    name: "Kai",
     url: (kanji: string) => `https://kai.kanjiapi.dev/#!/${kanji}`,
+  },
+  {
+    name: "Kanshudo",
+    url: (kanji: string) => `https://www.kanshudo.com/kanji/${kanji}`,
   },
   {
     name: "Kanji Alive",
@@ -27,10 +31,6 @@ export const externalLinks: { name: string; url: (x: string) => string }[] = [
   {
     name: "Wanikani",
     url: (kanji: string) => `https://www.wanikani.com/kanji/${kanji}`,
-  },
-  {
-    name: "Kanshudo",
-    url: (kanji: string) => `https://www.kanshudo.com/kanji/${kanji}`,
   },
   {
     name: "Kanji Garden",
