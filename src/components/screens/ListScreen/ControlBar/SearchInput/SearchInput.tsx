@@ -19,6 +19,8 @@ import {
   RadicalsSelected,
 } from "./RadicalScreen/RadicalScreen";
 import { RadicalsScreenDialog } from "./RadicalScreen/RadicalScreenDialog";
+import { ErrorBoundary } from "@/components/error";
+import { SmallUnexpectedErrorFallback } from "@/components/error/SmallUnexpectedErrorFallback";
 
 const INPUT_DEBOUNCE_TIME = 300;
 
@@ -180,36 +182,44 @@ export const SearchInput = ({
           setIsOpenRadicals(false);
         }}
       >
-        <RadicalScreenLayout
-          count={[...parsedValue].length}
-          top={
-            <RadicalScreenContent
-              value={new Set([...parsedValue])}
-              setValue={(radicals) => {
-                const newStr = [...radicals].join("");
-                onSyncAll(newStr, "radicals");
-              }}
-            />
-          }
-          middle={
-            <RadicalsSelected
-              value={[...parsedValue]}
-              onClick={(radical) => {
-                const radicals = new Set([...parsedValue]);
-                radicals.delete(radical);
-                const newStr = [...radicals].join("");
-                onSyncAll(newStr, "radicals");
-              }}
-            />
-          }
-          bottom={
-            <RadicalsResultsPreview
-              onClick={() => {
-                setIsOpenRadicals(false);
-              }}
-            />
-          }
-        />
+        <ErrorBoundary fallback={<SmallUnexpectedErrorFallback />}>
+          <RadicalScreenLayout
+            count={[...parsedValue].length}
+            top={
+              <ErrorBoundary>
+                <RadicalScreenContent
+                  value={new Set([...parsedValue])}
+                  setValue={(radicals) => {
+                    const newStr = [...radicals].join("");
+                    onSyncAll(newStr, "radicals");
+                  }}
+                />
+              </ErrorBoundary>
+            }
+            middle={
+              <ErrorBoundary fallback={<SmallUnexpectedErrorFallback />}>
+                <RadicalsSelected
+                  value={[...parsedValue]}
+                  onClick={(radical) => {
+                    const radicals = new Set([...parsedValue]);
+                    radicals.delete(radical);
+                    const newStr = [...radicals].join("");
+                    onSyncAll(newStr, "radicals");
+                  }}
+                />
+              </ErrorBoundary>
+            }
+            bottom={
+              <ErrorBoundary fallback={<SmallUnexpectedErrorFallback />}>
+                <RadicalsResultsPreview
+                  onClick={() => {
+                    setIsOpenRadicals(false);
+                  }}
+                />
+              </ErrorBoundary>
+            }
+          />
+        </ErrorBoundary>
       </RadicalsScreenDialog>
     </section>
   );
