@@ -34,7 +34,15 @@ const KanjiItemButton = forwardRef<HTMLButtonElement, TriggerProps>(
 
     if (itemType === "compact") {
       return (
-        <button className={`${btnCn}`} ref={ref} {...rest}>
+        <button
+          className={`${btnCn}`}
+          onClick={() => {
+            onClick?.();
+            setKanji(kanji);
+          }}
+          ref={ref}
+          {...rest}
+        >
           {kanji}
         </button>
       );
@@ -70,7 +78,7 @@ const KanjiItemSimpleButton = ({
 
   return (
     <button
-      className={`${btnCn}`}
+      className={`${btnCn} flex flex-col justify-center items-center w-full `}
       onClick={() => {
         onClick();
         setKanji(kanji);
