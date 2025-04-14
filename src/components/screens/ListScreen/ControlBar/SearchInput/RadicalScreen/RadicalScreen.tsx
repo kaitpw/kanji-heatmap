@@ -10,6 +10,7 @@ import {
   moreRadicalKeywords,
   radicalsGroupedByStrokeCount,
 } from "@/lib/radicals";
+import { CircleX } from "@/components/icons";
 import { KanjiItemSimpleButton } from "@/components/sections/KanjiHoverItem/KanjiItemButton";
 import { ClearFiltersCTA } from "@/components/dependent/routing/ClearFiltersCTA";
 import { externalLinks, outLinks } from "@/lib/external-links";
@@ -69,37 +70,38 @@ const RadicalBtn = ({
 };
 
 const ExpandedRadicalBtn = ({
-  isTouchDevice,
   onClick,
   radical,
   radicalKeyword,
 }: {
-  isTouchDevice: boolean;
   radical: string;
   radicalKeyword: string;
   onClick: () => void;
 }) => {
   return (
-    <button
+    <div
       className={`
+            relative
             grow min-w-[85px] h-full ml-1 -mt-1 mb-0 py-0
             flex flex-col justify-center items-center shrink-0 
             rounded-xl  
             bg-black text-white dark:bg-white dark:text-black
-            duration-500 transition-all ${isTouchDevice ? "" : "hover:bg-red-600 hover:opacity-20 hover:text-black hover:border-dashed hover:border-4 hover:border-current"}
             `}
-      onClick={onClick}
     >
+      <button onClick={onClick}>
+        <CircleX className="absolute top-1 right-1 scale-75 hover:text-red-500" />
+        <span className="sr-only">Close</span>
+      </button>
       <span className="block text-4xl kanji-font mb-1">{radical}</span>
       <span
         className="
               block !text-ellipsis !text-nowrap mx-4 !overflow-hidden !whitespace-nowrap 
-              text-xs font-bold px-2 rounded-full 
+              text-xs font-bold px-2 rounded-full
               dark:bg-black dark:text-white bg-white text-black"
       >
         {radicalKeyword}
       </span>
-    </button>
+    </div>
   );
 };
 
@@ -126,9 +128,10 @@ export const ResultPreviewTitle = () => {
 };
 
 export const SelectRadicalTitle = ({ count }: { count: number }) => {
-  return (
-    <TitleLayout>Select Radicals {count > 0 ? `(${count})` : ""}</TitleLayout>
-  );
+  if (count <= 0) {
+    return <TitleLayout>Select Radicals</TitleLayout>;
+  }
+  return <TitleLayout>Radicals Selected {`(${count})`}</TitleLayout>;
 };
 
 export const RadicalScreenLayout = ({
@@ -256,7 +259,6 @@ export const RadicalsSelected = ({
   onClick: (radical: string) => void;
 }) => {
   const getBasicInfo = useGetKanjiInfoFn();
-  const isTouchDevice = useIsTouchDevice();
 
   if (getBasicInfo == null) {
     return null;
@@ -273,7 +275,6 @@ export const RadicalsSelected = ({
         return (
           <ExpandedRadicalBtn
             key={radical}
-            isTouchDevice={isTouchDevice}
             radical={radical}
             radicalKeyword={radicalKeyword}
             onClick={() => {
@@ -293,8 +294,12 @@ export const RadicalsResultsPreview = ({
 }) => {
   const { data, status } = useKanjiSearchResult();
 
-  if (status === "loading") {
-    return null;
+  if (status === "loading" || data == null) {
+    return (
+      <div className="w-full text-xs h-full font-bold flex justify-center items-center p-2">
+        <div>読み込み中 {`(Loading..)`}</div>
+      </div>
+    );
   }
 
   if (status === "error") {
@@ -311,7 +316,7 @@ export const RadicalsResultsPreview = ({
     );
   }
 
-  if (data == null || data.length === 0) {
+  if (data.length === 0) {
     return (
       <div className="w-full text-xs h-full font-bold flex justify-center items-center p-2">
         <div>
