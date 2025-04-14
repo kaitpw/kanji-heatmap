@@ -60,10 +60,11 @@ class ErrorBoundaryRaw extends Component<
 const ErrorBoundary = (props: ErrorBoundaryProps) => {
   const network = useNetworkState();
   const offline = !network.online;
+
   return (
     <ErrorBoundaryRaw
       {...props}
-      fallback={(props.fallback ?? offline) ? <DefaultOfflineFallback /> : null}
+      fallback={props.fallback ?? (offline ? <DefaultOfflineFallback /> : null)}
     />
   );
 };
