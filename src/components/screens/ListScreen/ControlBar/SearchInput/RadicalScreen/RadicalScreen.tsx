@@ -13,8 +13,9 @@ import {
 import { CircleX } from "@/components/icons";
 import { KanjiItemSimpleButton } from "@/components/sections/KanjiHoverItem/KanjiItemButton";
 import { ClearFiltersCTA } from "@/components/dependent/routing/ClearFiltersCTA";
-import { externalLinks, outLinks } from "@/lib/external-links";
+import { externalLinks } from "@/lib/external-links";
 import { ExternalTextLink } from "@/components/common/ExternalTextLink";
+import { SmallUnexpectedErrorFallback } from "@/components/error/SmallUnexpectedErrorFallback";
 
 const StrokeDivider = ({ stroke }: { stroke: string }) => {
   return (
@@ -152,7 +153,7 @@ export const RadicalScreenLayout = ({
           <SelectRadicalTitle count={count} />
         </div>
         <div
-          className="w-full px-2 mt-2 py-3 border-2 border-dotted overflow-y-auto flex flex-wrap justify-center items-start rounded-md relative"
+          className="w-full px-2 mt-2 py-3 border-2 border-dotted dark:border-slate-600 overflow-y-auto flex flex-wrap justify-center items-start rounded-md relative"
           style={{ maxHeight: "calc(100dvh - 10px)" }}
         >
           {top}
@@ -168,7 +169,7 @@ export const RadicalScreenLayout = ({
       </div>
 
       <div
-        className="w-full px-2 mt-2 py-3 border-2 border-dotted overflow-y-auto flex flex-wrap justify-center items-start rounded-md relative"
+        className="w-full px-2 mt-2 py-3 border-2 border-dotted dark:border-slate-600 overflow-y-auto flex flex-wrap justify-center items-start rounded-md relative"
         style={{ maxHeight: "calc(100dvh - 280px)" }}
       >
         {top}
@@ -177,7 +178,7 @@ export const RadicalScreenLayout = ({
         {middle}
       </div>
 
-      <div className="border-2 border-dotted pt-3 mt-2 w-full h-36 my-1 py-1 overflow-x-auto overflow-y-hidden flex rounded-md scrollbar-thin z-50">
+      <div className="border-2 border-dotted dark:border-slate-600 pt-3 mt-2 w-full h-36 my-1 py-1 overflow-x-auto overflow-y-hidden flex rounded-md scrollbar-thin z-50">
         {bottom}
       </div>
       <div className="absolute bottom-[136px] w-full m-auto z-50">
@@ -303,17 +304,7 @@ export const RadicalsResultsPreview = ({
   }
 
   if (status === "error") {
-    return (
-      <div className="w-full text-xs h-full font-bold flex justify-center items-center p-2">
-        <div>
-          (｡•́︿•̀｡) すみません 🙇🏽‍♀️ 🙇.
-          <ExternalTextLink
-            text="Report error on Discord."
-            href={outLinks.discord}
-          />
-        </div>
-      </div>
-    );
+    return <SmallUnexpectedErrorFallback />;
   }
 
   if (data.length === 0) {
