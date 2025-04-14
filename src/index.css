@@ -61,7 +61,7 @@
 }
 
 .scrollbar-thin {
-  scrollbar-width: none;
+  scrollbar-width: auto;
 }
 *,
 *::before,
