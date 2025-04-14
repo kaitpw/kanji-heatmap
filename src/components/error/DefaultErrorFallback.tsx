@@ -2,7 +2,7 @@ import { ReachOutToUs, RefreshOrGoBackHome, Wrapper } from "./common";
 import { Sumimasen } from "./Sumimasen";
 
 export const DefaultErrorFallback = ({
-  message = "This is unexpected. 🫣",
+  message = "( •́ ‿ •̀ )ゞ Welp... this isn’t supposed to happen! 🫣🫣",
   showDefaultCta = true,
 }: {
   message?: string;
