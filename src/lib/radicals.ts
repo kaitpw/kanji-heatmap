@@ -1,3 +1,66 @@
+/*
+Credits to this project: https://github.com/rewhowe/kanji/tree/develop
+
+# Alternate forms
+
+Radical | Alternate Form
+人	⺅
+八	丷
+氷	冫
+刀	⺉
+小	⺌
+川	巛
+心	⺖
+手	⺘
+水	⺡
+火	灬
+犬	⺨
+草	⺾
+
+# Look alike radicals 
+
+- (hyphen) or ー (elongated-vowel)	            一
+^ (circumflex) or ＾ (full-width circumflex)	𠆢
++ (plus) or ＋ (full-width plus)	            十
+| (pipe) or ｜ (full-width pipe)	            ｜
+J or Ｊ (full-width J)	                        亅
+B or Ｂ (full-width B)	                        ⻏, ⻖
+ル (katakana 'ru')	                            儿
+リ (katakana 'ri')	                            ⺉
+カ (katakana 'ka')	                            力
+ヒ (katakana 'hi')	                            匕
+イ (katakana 'i')	                            ⺅
+ト (katakana 'to')	                            卜
+ム (katakana 'mu')	                            厶
+エ (katakana 'e')	                            工
+ネ (katakana 'ne')	                            ⺭, ⻂
+囗 (※) or 口 (※) or ロ (katakana 'ro')	         囗, 口
+
+==============
+"⻏",
+"⻖",
+
+"口",
+"囗",
+
+"土",
+"士",
+
+"夂",
+"夕",
+
+"小",
+"⺌",
+
+"川",
+"巛",
+
+"⻏",
+"⻖",
+
+"日",
+"曰",
+*/
 export const radicalsGroupedByStrokeCount = {
   "1": ["一", "｜", "丶", "ノ", "乙", "亅"],
   "2": [
@@ -217,22 +280,22 @@ export const radicalsGroupedByStrokeCount = {
 };
 
 export const moreRadicalKeywords: Record<string, string> = {
-  "｜": "vertical bar",
+  "｜": "vertical line",
   ノ: "diagonal stroke",
-  "⺅": "person variant",
-  "𠆢": "person enclosure",
+  "⺅": "thin person",
+  "𠆢": "person hat",
   ハ: "eight variant",
   丷: "double dot",
   "⺉": "sun variant",
-  マ: "square box",
+  マ: "katakana ma",
   ユ: "hook variant",
-  "𠂉": "downward stroke",
+  "𠂉": "gun person",
   "⻌": "movement radical",
   "⺌": "small sun",
   已: "snake variant",
   ヨ: "katakana yo",
   "⺖": "heart variant",
-  "⺘": "moon variant",
+  "⺘": "thin hand",
   "⺡": "water variant",
   "⺨": "dog variant",
   "⺾": "grass variant",
@@ -242,9 +305,9 @@ export const moreRadicalKeywords: Record<string, string> = {
   无: "nothingness",
   曰: "speaking box",
   "⺣": "small sun variant",
-  爻: "crossed lines",
+  爻: "xx",
   爿: "split wood",
-  "⺭": "altar variant",
+  "⺭": "spirit / katakana ne",
   尤: "peculiar",
   禸: "track",
   "⻂": "shell variant",
