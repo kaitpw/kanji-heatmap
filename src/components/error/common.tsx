@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 import { ExternalTextLink } from "@/components/common/ExternalTextLink";
 
 import { cnTextLink } from "@/lib/generic-cn";
-import { GlobalHomeLink } from "../dependent/routing";
 import { outLinks } from "@/lib/external-links";
 
 export const RefreshOrGoBackHome = () => {
@@ -16,8 +15,8 @@ export const RefreshOrGoBackHome = () => {
         }}
       >
         refreshing the page
-      </button>{" "}
-      or go back <GlobalHomeLink />
+      </button>
+      or try again later.
     </>
   );
 };
