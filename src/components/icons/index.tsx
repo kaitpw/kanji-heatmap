@@ -32,6 +32,7 @@ import {
   ArrowLeft,
   ArrowRight,
   Keyboard,
+  AlertCircle,
 } from "lucide-react";
 export {
   GithubIcon,
@@ -66,4 +67,5 @@ export {
   ArrowLeft,
   ArrowRight,
   Keyboard,
+  AlertCircle,
 };
