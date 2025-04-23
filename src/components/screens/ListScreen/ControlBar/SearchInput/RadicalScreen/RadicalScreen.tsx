@@ -47,23 +47,25 @@ const RadicalBtn = ({
   radical: string;
   isTouchDevice: boolean;
 }) => {
+  const cn1 = isDisabled
+    ? "opacity-10"
+    : isTouchDevice
+      ? ""
+      : "hover:bg-[#2effff] hover:text-black hover:border-4 hover:border-solid hover:border-[#2effff] rounded-sm";
+
+  const cn2 = isSelected
+    ? "rounded-xl bg-black text-white dark:bg-white dark:text-black"
+    : "border border-dotted border-current rounded-sm";
   return (
     <button
       disabled={isDisabled}
       onClick={onClick}
       className={`
-                      w-[47px] h-[45px] transition-all duration-500 ml-1 mb-1 kanji-font text-2xl
-                      disabled:cursor-not-allowed disabled:border-dotted
-                      ${
-                        isDisabled
-                          ? "opacity-10"
-                          : isTouchDevice
-                            ? ""
-                            : "hover:bg-[#2effff] hover:text-black hover:border-4 hover:border-current rounded-sm"
-                      }
-                      ${isSelected ? "rounded-xl bg-black text-white dark:bg-white dark:text-black" : "border border-dotted border-current rounded-sm"} 
-
-                      `}
+        w-[47px] h-[45px] transition-all duration-500 ml-1 mb-1 kanji-font text-2xl
+        disabled:cursor-not-allowed disabled:border-dotted
+        ${cn1}
+        ${cn2} 
+      `}
     >
       {radical}
     </button>
@@ -82,11 +84,11 @@ const ExpandedRadicalBtn = ({
   return (
     <div
       className={`
-            relative
-            grow min-w-[85px] h-full ml-1 -mt-1 mb-0 py-0
-            flex flex-col justify-center items-center shrink-0 
-            rounded-xl  
-            bg-black text-white dark:bg-white dark:text-black
+        relative
+        grow min-w-[85px] h-full ml-1 -mt-1 mb-0 py-0
+        flex flex-col justify-center items-center shrink-0 
+        rounded-xl  
+        bg-black text-white dark:bg-white dark:text-black
             `}
     >
       <button onClick={onClick}>
@@ -96,9 +98,9 @@ const ExpandedRadicalBtn = ({
       <span className="block text-4xl kanji-font mb-1">{radical}</span>
       <span
         className="
-              block !text-ellipsis !text-nowrap mx-4 !overflow-hidden !whitespace-nowrap 
-              text-xs font-bold px-2 rounded-full
-              dark:bg-black dark:text-white bg-white text-black"
+          block !text-ellipsis !text-nowrap mx-4 !overflow-hidden !whitespace-nowrap 
+          text-xs font-bold px-2 rounded-full
+          dark:bg-black dark:text-white bg-white text-black"
       >
         {radicalKeyword}
       </span>
@@ -154,7 +156,7 @@ export const RadicalScreenLayout = ({
         </div>
         <div
           className="w-full px-2 mt-2 py-3 border-2 border-dotted dark:border-slate-600 overflow-y-auto flex flex-wrap justify-center items-start rounded-md relative"
-          style={{ maxHeight: "calc(100dvh - 10px)" }}
+          style={{ maxHeight: "calc(100dvh - 30px)" }}
         >
           {top}
         </div>
@@ -174,11 +176,11 @@ export const RadicalScreenLayout = ({
       >
         {top}
       </div>
-      <div className="w-full h-24 mt-1 pt-1 mb-1 pb-0 overflow-x-auto overflow-y-hidden flex rounded-md scrollbar-thin relative">
+      <div className="w-full h-24 mt-1 pt-1 mb-1 pb-0 overflow-x-auto overflow-y-hidden flex rounded-md scrollbar-thin relative transition-all animate-fade-in">
         {middle}
       </div>
 
-      <div className="border-2 border-dotted dark:border-slate-600 pt-3 mt-2 w-full h-36 my-1 py-1 overflow-x-auto overflow-y-hidden flex rounded-md scrollbar-thin z-50">
+      <div className="border-2 border-dotted dark:border-slate-600 pt-3 mt-2 w-full h-36 my-1 py-1 overflow-x-auto overflow-y-hidden flex rounded-md scrollbar-thin z-50 animate-fade-in">
         {bottom}
       </div>
       <div className="absolute bottom-[136px] w-full m-auto z-50">
