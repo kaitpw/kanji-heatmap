@@ -28,35 +28,37 @@ export const RequestForSuggestionCasual = () => {
 
 export const RequestForSuggestion = () => {
   return (
-    <Alert className="my-2  border-yellow-400 border-2 border-dashed">
+    <Alert className="my-2 border-yellow-400 border-2 border-dashed">
       <AlertCircle className="h-4 w-4 text-left flex items-start" />
-      <AlertTitle className="text-left text-xs font-bold">Notice:</AlertTitle>
+      <AlertTitle className="text-left text-xs font-bold">
+        Disclaimer:
+      </AlertTitle>
       <AlertDescription className="text-xs text-left">
         <ul>
           <li>
-            {`- 🔊 Audio's powered by your browser’s`}
+            {`- Word Readings 📖  are pulled from`}
+            <ExternalTextLink
+              text={" doublevil/JmdictFurigana"}
+              href={otherOutLinks.jmdictFurigana}
+            />
+            {`... they’re not all manually-checked yet, so don’t be surprised if some are a little... unique 🧐😅`}
+          </li>
+          <li>
+            {`- The audio? 🔊 That’s your browser’s`}
             <ExternalTextLink
               text={"Web Speech Synthesis API."}
               href={otherOutLinks.webSpeechApi}
             />
-            {`🤖 It’s a robot. It tries. 😅`}{" "}
+            {`doing its best impression of a native speaker. Robot vibes included. 🤖`}
           </li>
           <li>
-            {`- 📖 Word Readings are pulled from`}
-            <ExternalTextLink
-              text={" doublevil/JmdictFurigana."}
-              href={otherOutLinks.jmdictFurigana}
-            />
-            {`- They’re not all manually-checked yet, so don’t be surprised if some are a little... unique 🧐`}
-          </li>
-          <li>
-            {`- 💬 Something off? Drop us a note on`}
+            {`- If you catch anything weird, drop us a note on`}
             <ExternalTextLink
               text={"Github"}
               href={outLinks.githubContentIssue}
             />
             or <ExternalTextLink text={"Discord"} href={outLinks.discord} />
-            {`- No promises, but we might fix it.. eventually 😁`}
+            {`- We might fix it.. eventually 😁`}
           </li>
         </ul>
       </AlertDescription>
