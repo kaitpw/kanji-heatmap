@@ -84,6 +84,12 @@ export const outLinks = {
   discord: "https://discord.gg/Ash8ZrGb4s",
 };
 
+export const otherOutLinks = {
+  webSpeechApi:
+    "https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis",
+  jmdictFurigana: "https://github.com/Doublevil/JmdictFurigana",
+};
+
 export const vocabExternalLinks = [
   {
     name: "Immersion Kit",
@@ -127,6 +133,8 @@ export const vocabExternalLinks = [
     name: "Kakimashou",
     url: (word: string) => `https://www.kakimashou.com/dictionary/word/${word}`,
   },
+  {
+    name: "Sentence Search",
+    url: (word: string) => `https://sentencesearch.neocities.org/#${word}`,
+  },
 ];
-
-// https://www.kakimashou.com/dictionary/word/%E5%9B%9B%E5%8D%8A%E6%9C%9F
