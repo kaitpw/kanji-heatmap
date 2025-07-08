@@ -1,5 +1,5 @@
 import type { GeneralKanjiItem } from "@/lib/kanji/kanji-info-types";
-import { useKanjiInfo } from "@/kanji-worker/kanji-worker-hooks";
+import type { ReactNode } from "react";
 
 import { DefaultErrorFallback } from "@/components/error";
 
@@ -11,7 +11,6 @@ import { BasicLoading } from "@/components/common/BasicLoading";
 import { ExternalKanjiLinks } from "@/components/common/ExternalKanjiLinks";
 
 import { RomajiBadge } from "@/components/dependent/kana/RomajiBadge";
-import type { ReactNode } from "react";
 
 const hasData = (data?: number) => data != null && data !== -1;
 
@@ -23,18 +22,26 @@ const TableCellGrow = ({ children }: { children: ReactNode }) => (
   <TableCell>{children}</TableCell>
 );
 
-export const General = ({ kanji }: { kanji: string }) => {
-  const info = useKanjiInfo(kanji, "general");
-
-  if (info.error) {
+export const General = ({
+  kanji,
+  generalInfo,
+}: {
+  kanji: string;
+  generalInfo: {
+    status: string;
+    data?: unknown;
+    error?: { message: string } | null | undefined;
+  };
+}) => {
+  if (generalInfo.error) {
     return <DefaultErrorFallback message="Failed to load data." />;
   }
 
-  if (info.data == null) {
+  if (generalInfo.data == null) {
     return <BasicLoading />;
   }
 
-  const data = info.data as GeneralKanjiItem;
+  const data = generalInfo.data as GeneralKanjiItem;
 
   return (
     <>

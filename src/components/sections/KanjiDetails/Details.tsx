@@ -1,12 +1,14 @@
 import { lazy, Suspense } from "react";
 import { useGetKanjiInfoFn } from "@/kanji-worker/kanji-worker-hooks";
+import { useKanjiInfo } from "@/kanji-worker/kanji-worker-hooks";
+import type { GeneralKanjiItem } from "@/lib/kanji/kanji-info-types";
 import { DefaultErrorFallback, ErrorBoundary } from "@/components/error";
 import SimpleAccordion from "@/components/common/SimpleAccordion";
 import { BasicLoading } from "@/components/common/BasicLoading";
 import { LinksOutItems } from "@/components/common/LinksOutItems";
 import { FrequencyInfo } from "./FrequencyInfo";
 import { General } from "./General";
-import { RequestForSuggestion } from "@/components/common/RequestForSuggestion";
+import { MiscellaneousCallout } from "@/components/common/RequestForSuggestion";
 import { Button } from "@/components/ui/button";
 import { GenericPopover } from "@/components/common/GenericPopover";
 
@@ -46,11 +48,11 @@ const IconMeanings = ({
   );
 };
 
-const KanjiKeyboardShortcuts = ({ kanji }: { kanji: string }) => {
-  const kanjis = useNextPrevKanji(kanji);
+const KanjiKeyboardShortcuts = ({ kana }: { kana: string }) => {
+  const kanjis = useNextPrevKanji(kana);
   const setOpen = useSetOpenedParam();
   const nextFont = useChangeFont();
-  const { speak: speakKanji, isLoading } = useSpeak(kanji);
+  const { speak: speakKanji } = useSpeak(kana);
   const prevKanji = () => {
     if (kanjis?.prev) {
       setOpen(kanjis?.prev);
@@ -114,6 +116,7 @@ const KanjiKeyboardShortcuts = ({ kanji }: { kanji: string }) => {
 
 export const KanjiDetails = ({ kanji }: { kanji: string }) => {
   const getInfo = useGetKanjiInfoFn();
+  const generalInfo = useKanjiInfo(kanji, "general");
 
   if (getInfo == null) {
     return <BasicLoading />;
@@ -125,10 +128,14 @@ export const KanjiDetails = ({ kanji }: { kanji: string }) => {
     return <DefaultErrorFallback message="Failed to load data." />;
   }
 
+  // Get the first kun reading for TTS, fallback to kanji if no kun readings
+  const kanaForTTS = (generalInfo.data as GeneralKanjiItem)?.allKun?.[0] ||
+    kanji;
+
   return (
     <div className="py-2 mx-2">
       <SimpleAccordion trigger={"General"} defaultOpen={true}>
-        <General kanji={kanji} />
+        <General kanji={kanji} generalInfo={generalInfo} />
       </SimpleAccordion>
       <SimpleAccordion trigger={"Stroke Order Animation"}>
         <ErrorBoundary details="StrokeAnimation in KanjiDetails">
@@ -140,10 +147,10 @@ export const KanjiDetails = ({ kanji }: { kanji: string }) => {
       <SimpleAccordion trigger={"Frequency Ranks"}>
         <FrequencyInfo freqRankInfo={data.frequency} />
       </SimpleAccordion>
-      <RequestForSuggestion />
+      <MiscellaneousCallout />
       <div className="w-full flex justify-start space-x-1">
         <LinksOutItems />
-        <KanjiKeyboardShortcuts kanji={kanji} />
+        <KanjiKeyboardShortcuts kana={kanaForTTS} />
       </div>
     </div>
   );

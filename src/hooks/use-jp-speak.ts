@@ -1,9 +1,5 @@
 import { useCallback, useState } from "react";
 
-interface ElevenLabsResponse {
-  audio: string; // base64 encoded audio
-}
-
 export const useSpeak = (word: string) => {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -19,19 +15,25 @@ export const useSpeak = (word: string) => {
 
     try {
       const response = await fetch(
-        "https://api.elevenlabs.io/v1/text-to-speech/j210dv0vWm7fCknyQpbA?optimize_streaming_latency=0",
+        "https://api.elevenlabs.io/v1/text-to-speech/j210dv0vWm7fCknyQpbA",
         {
           method: "POST",
           headers: {
-            "Accept": "audio/mpeg",
+            Accept: "audio/mpeg",
             "Content-Type": "application/json",
             "xi-api-key": apiKey,
           },
           body: JSON.stringify({
-            text: `「${text}」。。。「${text}」`,
+            text: `この言い方は:「${text}」ーー「${text}」`,
             model_id: "eleven_turbo_v2_5",
             language_code: "ja",
-            voice_settings: {},
+            voice_settings: {
+              speed: 0.9,
+              similarity_boost: 0.9,
+              stability: 0.5,
+              style: 0.0,
+              use_speaker_boost: true,
+            },
           }),
         },
       );

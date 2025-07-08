@@ -18,7 +18,7 @@ import { CardLoadingScreen } from "@/components/common/CardLoadingScreen";
 
 const transformKanjiWordDetails = (
   kanji: string,
-  wordDetails?: KanjiWordDetails,
+  wordDetails?: KanjiWordDetails
 ) => {
   if (wordDetails == null) {
     return null;
@@ -30,9 +30,10 @@ const transformKanjiWordDetails = (
     })
     .join(" ");
 
-  const highlightIndex = wordDetails.wordPartDetails.findIndex((item) => {
-    return item[0] === kanji;
-  }) ?? -1;
+  const highlightIndex =
+    wordDetails.wordPartDetails.findIndex((item) => {
+      return item[0] === kanji;
+    }) ?? -1;
 
   const result = {
     word: wordDetails.word,
@@ -79,28 +80,30 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
       }
       firstWord={word1Props && <WordCard {...word1Props} />}
       secondWord={word2Props && <WordCard {...word2Props} />}
-      components={hasParts && (
-        <>
-          {parts.map((item) => {
-            return (
+      components={
+        hasParts && (
+          <>
+            {parts.map((item) => {
+              return (
+                <SingleKanjiPart
+                  key={item.part}
+                  kanji={item.part}
+                  keyword={item.keyword}
+                  isKanji={item.isKanji}
+                />
+              );
+            })}
+            {info.phonetic && (
               <SingleKanjiPart
-                key={item.part}
-                kanji={item.part}
-                keyword={item.keyword}
-                isKanji={item.isKanji}
+                kanji={info.phonetic.phonetic}
+                keyword={info.phonetic.keyword}
+                phonetics={info.phonetic.sound}
+                isKanji={info.phonetic.isKanji}
               />
-            );
-          })}
-          {info.phonetic && (
-            <SingleKanjiPart
-              kanji={info.phonetic.phonetic}
-              keyword={info.phonetic.keyword}
-              phonetics={info.phonetic.sound}
-              isKanji={info.phonetic.isKanji}
-            />
-          )}
-        </>
-      )}
+            )}
+          </>
+        )
+      }
       badges={
         <>
           <JLPTBadge jlpt={info.jlpt} />

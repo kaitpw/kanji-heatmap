@@ -26,7 +26,7 @@ export const RequestForSuggestionCasual = () => {
   );
 };
 
-export const RequestForSuggestion = () => {
+export const MiscellaneousCallout = () => {
   return (
     <Alert className="my-2 border-yellow-400 border-2 border-dashed">
       <AlertCircle className="h-4 w-4 text-left flex items-start" />
