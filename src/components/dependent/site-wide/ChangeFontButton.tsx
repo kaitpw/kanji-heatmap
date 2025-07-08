@@ -10,10 +10,10 @@ const ChangeFontButton = () => {
   const nextFont = useChangeFont();
 
   return (
-    <HoverCard openDelay={0}>
+    <HoverCard>
       <HoverCardTrigger asChild>
         <Button
-          className="h-7 px-2 kanji-font rounded-lg"
+          className="h-7 px-2 kanji-font"
           variant={"secondary"}
           onClick={nextFont}
         >

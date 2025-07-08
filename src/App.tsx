@@ -1,5 +1,5 @@
 import "./JFonts.css";
-import "./theme.css";
+
 import React from "react";
 
 import { ThemeProvider } from "@/providers/theme-provider";
@@ -20,7 +20,7 @@ import { docPages } from "./components/items/nav-items";
 import { GlobalKeyboardShortcutProvider } from "./providers/global-keyboard-shortcut-provider";
 
 const LazyBottomBanner = React.lazy(
-  () => import("./components/site-layout/BottomBanner")
+  () => import("./components/site-layout/BottomBanner"),
 );
 
 const { kanjiPage } = pageItems;

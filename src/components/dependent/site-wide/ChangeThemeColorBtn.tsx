@@ -12,6 +12,7 @@ export const ChangeThemeColorBtn = () => {
     <HoverCard openDelay={0}>
       <HoverCardTrigger asChild>
         <button
+          type="button"
           className="h-7 px-2 kanji-font background-theme-color-with-opacity-100 rounded-lg text-white"
           onClick={nextColor}
         >

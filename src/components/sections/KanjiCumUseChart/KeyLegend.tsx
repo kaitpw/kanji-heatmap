@@ -1,38 +1,38 @@
-import {
-  frequencyRankLabels,
-  inverseFreqMap,
-} from "@/lib/options/options-label-maps";
+import { FreqRankTypeInfo } from "@/components/common/freq/FreqRankTypeInfo";
 import { GenericPopover } from "@/components/common/GenericPopover";
 import { badgeCnOutline } from "@/components/ui/badge-utils";
 import { cnSquare } from "@/lib/generic-cn";
-import { FreqRankTypeInfo } from "@/components/common/freq/FreqRankTypeInfo";
+import {
+    frequencyRankLabels,
+    inverseFreqMap,
+} from "@/lib/options/options-label-maps";
 import { colorMap, freqKeyMap } from "./helpers";
 
 export const KeyLegend = ({ freqKey }: { freqKey: string }) => {
-  const infoKey = freqKeyMap[freqKey];
-  const config = {
-    label: frequencyRankLabels[infoKey],
-    color: colorMap[freqKey],
-  };
+    const infoKey = freqKeyMap[freqKey];
+    const config = {
+        label: frequencyRankLabels[infoKey],
+        color: colorMap[freqKey],
+    };
 
-  return (
-    <GenericPopover
-      trigger={
-        <button
-          className={`${badgeCnOutline} text-nowrap my-1 mx-1 !px-3 !py-2 rounded-xl hover:bg-[#2effff] hover:text-black`}
-        >
-          <span
-            className={`block h-4 w-4 ${cnSquare} mx-1`}
-            style={{ backgroundColor: config.color }}
-          />
-          {config.label}
-        </button>
-      }
-      content={
-        <div className="px-4 py-3 w-64">
-          <FreqRankTypeInfo value={inverseFreqMap[infoKey]} />
-        </div>
-      }
-    />
-  );
+    return (
+        <GenericPopover
+            trigger={
+                <button
+                    className={`${badgeCnOutline} text-nowrap my-1 mx-1 !px-3 !py-2 rounded-xl hover:bg-[#6495ed] hover:text-black`}
+                >
+                    <span
+                        className={`block h-4 w-4 ${cnSquare} mx-1`}
+                        style={{ backgroundColor: config.color }}
+                    />
+                    {config.label}
+                </button>
+            }
+            content={
+                <div className="px-4 py-3 w-64">
+                    <FreqRankTypeInfo value={inverseFreqMap[infoKey]} />
+                </div>
+            }
+        />
+    );
 };
