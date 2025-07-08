@@ -180,7 +180,7 @@ self.onmessage = (event: { data: OnMessageRequestType }) => {
     const kanji = payload as string;
     const sentenceSearchResult = searchSentencesForKanji(
       SENTENCES_CACHE,
-      kanji,
+      kanji
     );
     sendResponse(sentenceSearchResult);
     return;
@@ -216,7 +216,7 @@ self.onmessage = (event: { data: OnMessageRequestType }) => {
         KANJI_BY_STROKE_ORDER_CACHE,
         settings,
         kanjiPool,
-        KANJI_DECOMPOSITION_CACHE,
+        KANJI_DECOMPOSITION_CACHE
       );
 
       sendResponse({ kanjis, possibleRadicals });

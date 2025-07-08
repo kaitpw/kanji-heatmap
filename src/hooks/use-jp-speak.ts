@@ -9,7 +9,7 @@ export const useSpeak = (word: string, options?: { directText?: boolean }) => {
 
       if (!apiKey) {
         console.warn(
-          "ElevenLabs API key not found, falling back to SpeechSynthesis",
+          "ElevenLabs API key not found, falling back to SpeechSynthesis"
         );
         return false;
       }
@@ -41,7 +41,7 @@ export const useSpeak = (word: string, options?: { directText?: boolean }) => {
                 use_speaker_boost: true,
               },
             }),
-          },
+          }
         );
 
         if (!response.ok) {
@@ -65,7 +65,7 @@ export const useSpeak = (word: string, options?: { directText?: boolean }) => {
         return false;
       }
     },
-    [options?.directText],
+    [options?.directText]
   );
 
   const speakWithSpeechSynthesis = useCallback((text: string) => {

@@ -26,33 +26,32 @@ const createFetch = <T>(path: string) => {
 };
 
 export const fetchMainManjiInfo = createFetch<MainKanjiInfoResponseType>(
-  assetsPaths.MAIN_KANJI_INFO_FILE_PATH,
+  assetsPaths.MAIN_KANJI_INFO_FILE_PATH
 );
 
-export const fetchExtendedKanjiInfo = createFetch<
-  ExtendedKanjiInfoResponseType
->(
-  assetsPaths.EXTENDED_KANJI_INFO_FILE_PATH,
-);
+export const fetchExtendedKanjiInfo =
+  createFetch<ExtendedKanjiInfoResponseType>(
+    assetsPaths.EXTENDED_KANJI_INFO_FILE_PATH
+  );
 
 export const fetchPhoneticInfo = createFetch<Record<string, string>>(
-  assetsPaths.PHONETIC_FILE,
+  assetsPaths.PHONETIC_FILE
 );
 
 export const fetchPartKeywordInfo = createFetch<Record<string, string>>(
-  assetsPaths.PART_KEYWORD_FILE,
+  assetsPaths.PART_KEYWORD_FILE
 );
 
 export const fetchKanjiDecomposition = createFetch<Record<string, string>>(
-  assetsPaths.KANJI_DECOMPOSITION,
+  assetsPaths.KANJI_DECOMPOSITION
 );
 
 export const fetchVocabFurigana = createFetch<Record<string, WordPartDetail[]>>(
-  assetsPaths.VOCAB_FURIGANA,
+  assetsPaths.VOCAB_FURIGANA
 );
 
 export const fetchVocabMeaning = createFetch<Record<string, string>>(
-  assetsPaths.VOCAB_MEANING,
+  assetsPaths.VOCAB_MEANING
 );
 
 export const fetchSegmentedVocab = () => {
@@ -70,18 +69,18 @@ export const fetchSegmentedVocab = () => {
       }
 
       return cache;
-    },
+    }
   );
 };
 
 export const fetchSentences = createFetch<Sentence[]>(
-  assetsPaths.SENTENCES_DATA,
+  assetsPaths.SENTENCES_DATA
 );
 
 export const searchSentencesForKanji = (
   sentences: Sentence[],
   kanji: string,
-  limit = 20,
+  limit = 20
 ): SentenceSearchResult => {
   const matchingSentences = sentences.filter((sentence) =>
     sentence.jap.includes(kanji)
@@ -95,21 +94,22 @@ export const searchSentencesForKanji = (
 };
 
 export const transformToMainKanjiInfo = (
-  raw: [string, string, string, number, FreqList],
+  raw: [string, string, string, number, FreqList]
 ): KanjiMainInfo => {
   const [keyword, on, kun, jlptRaw, freq] = raw;
 
-  const jlpt: JLTPTtypes = jlptRaw === 5
-    ? "n5"
-    : jlptRaw === 4
-    ? "n4"
-    : jlptRaw === 3
-    ? "n3"
-    : jlptRaw === 2
-    ? "n2"
-    : jlptRaw === 1
-    ? "n1"
-    : "none";
+  const jlpt: JLTPTtypes =
+    jlptRaw === 5
+      ? "n5"
+      : jlptRaw === 4
+        ? "n4"
+        : jlptRaw === 3
+          ? "n3"
+          : jlptRaw === 2
+            ? "n2"
+            : jlptRaw === 1
+              ? "n1"
+              : "none";
 
   // TODO: This assumes that the "raw" which is the data from JSON
   // has no issues. (IE. No missing values, numbers are not string, undefined or NaN)
@@ -142,7 +142,7 @@ export const transformToMainKanjiInfo = (
 };
 
 export const transformToExtendedKanjiInfo = (
-  item: ExtendedKanjiInfoItemType,
+  item: ExtendedKanjiInfoItemType
 ): KanjiExtendedInfo => {
   const [
     parts,

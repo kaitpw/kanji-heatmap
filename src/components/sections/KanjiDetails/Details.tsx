@@ -130,8 +130,8 @@ export const KanjiDetails = ({ kanji }: { kanji: string }) => {
   }
 
   // Get the first kun reading for TTS, fallback to kanji if no kun readings
-  const kanaForTTS = (generalInfo.data as GeneralKanjiItem)?.allKun?.[0] ||
-    kanji;
+  const kanaForTTS =
+    (generalInfo.data as GeneralKanjiItem)?.allKun?.[0] || kanji;
 
   return (
     <div className="py-2 mx-2">
