@@ -10,13 +10,13 @@ const audioIcons: Record<AudioIconType, ReactNode> = {
   headphones: <Headphones />,
 };
 export const SpeakButton = ({
-  word,
+  text, // this should be kana
   iconType,
 }: {
-  word: string;
+  text: string;
   iconType: AudioIconType;
 }) => {
-  const speak = useSpeak(word);
+  const speak = useSpeak(text);
 
   return (
     <Button

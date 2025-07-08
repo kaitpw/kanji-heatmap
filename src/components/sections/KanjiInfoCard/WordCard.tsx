@@ -8,7 +8,8 @@ import { GlobalKanjiLink } from "@/components/dependent/routing";
 import { HiraganaWord } from "@/components/dependent/kana/HiraganaWord";
 import { externalLinks } from "@/lib/external-links";
 import { SeeMore } from "@/components/common/SeeMore";
-import { VocabActions } from "@/components/common/VocabActions";
+import { CopyButton } from "@/components/common/CopyButton";
+import { InfoIcon } from "lucide-react";
 
 export const WordCard = ({
   word,
@@ -67,9 +68,30 @@ export const WordCard = ({
                   />
                 );
               })}
+              <GenericPopover
+                trigger={
+                  <InfoIcon
+                    className="inline-block absolute top-2 right-2"
+                    size={18}
+                  />
+                }
+                content={
+                  <div className="flex flex-col w-full text-xs p-2 space-y-1">
+                    <div className="flex items-center w-full justify-left">
+                      <CopyButton textToCopy={word} iconType={"clipboard"} />
+                      <span className="ml-2">{"Copy Kanji"}</span>
+                    </div>
+                    <div className="flex items-center w-full justify-left">
+                      <CopyButton
+                        textToCopy={spacedKana.split(" ").join("")}
+                        iconType={"copy"}
+                      />
+                      <span className="ml-2">{"Copy Kana"}</span>
+                    </div>
+                  </div>
+                }
+              />
             </div>
-            <DottedSeparator />
-            <VocabActions kana={spacedKana.split(" ").join("")} word={word} />
           </div>
         }
       />

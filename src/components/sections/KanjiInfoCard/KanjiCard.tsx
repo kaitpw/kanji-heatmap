@@ -1,4 +1,4 @@
-import {
+import type {
   HoverItemReturnData,
   KanjiWordDetails,
 } from "@/lib/kanji/kanji-info-types";
@@ -18,7 +18,7 @@ import { CardLoadingScreen } from "@/components/common/CardLoadingScreen";
 
 const transformKanjiWordDetails = (
   kanji: string,
-  wordDetails?: KanjiWordDetails
+  wordDetails?: KanjiWordDetails,
 ) => {
   if (wordDetails == null) {
     return null;
@@ -30,10 +30,9 @@ const transformKanjiWordDetails = (
     })
     .join(" ");
 
-  const highlightIndex =
-    wordDetails.wordPartDetails.findIndex((item) => {
-      return item[0] === kanji;
-    }) ?? -1;
+  const highlightIndex = wordDetails.wordPartDetails.findIndex((item) => {
+    return item[0] === kanji;
+  }) ?? -1;
 
   const result = {
     word: wordDetails.word,
@@ -65,7 +64,7 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
   const parts = info.parts
     .filter((item) => item.part !== kanji)
     .filter((item) => {
-      return item.part != info.phonetic?.phonetic;
+      return item.part !== info.phonetic?.phonetic;
     });
 
   const hasParts = parts.length > 0 || info.phonetic;
@@ -80,30 +79,28 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
       }
       firstWord={word1Props && <WordCard {...word1Props} />}
       secondWord={word2Props && <WordCard {...word2Props} />}
-      components={
-        hasParts && (
-          <>
-            {parts.map((item) => {
-              return (
-                <SingleKanjiPart
-                  key={item.part}
-                  kanji={item.part}
-                  keyword={item.keyword}
-                  isKanji={item.isKanji}
-                />
-              );
-            })}
-            {info.phonetic && (
+      components={hasParts && (
+        <>
+          {parts.map((item) => {
+            return (
               <SingleKanjiPart
-                kanji={info.phonetic.phonetic}
-                keyword={info.phonetic.keyword}
-                phonetics={info.phonetic.sound}
-                isKanji={info.phonetic.isKanji}
+                key={item.part}
+                kanji={item.part}
+                keyword={item.keyword}
+                isKanji={item.isKanji}
               />
-            )}
-          </>
-        )
-      }
+            );
+          })}
+          {info.phonetic && (
+            <SingleKanjiPart
+              kanji={info.phonetic.phonetic}
+              keyword={info.phonetic.keyword}
+              phonetics={info.phonetic.sound}
+              isKanji={info.phonetic.isKanji}
+            />
+          )}
+        </>
+      )}
       badges={
         <>
           <JLPTBadge jlpt={info.jlpt} />

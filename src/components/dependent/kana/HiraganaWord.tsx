@@ -1,58 +1,43 @@
-import { useState } from "react";
-import wanakana from "@/lib/wanakana-adapter";
-import { Button } from "@/components/ui/button";
-import { SpanBadge } from "@/components/ui/badge";
-import { badgeCn } from "@/components/ui/badge-utils";
-
-const useHiraganaWordButton = (rawKana: string) => {
-  const [showRomaji, setShowRomaji] = useState(false);
-  const fontCss = !showRomaji ? "kanji-font" : "romaji-font";
-  const kana = showRomaji
-    ? wanakana.toRomaji(rawKana.split(",")[0])
-    : rawKana.split(",")[0];
-
-  return { kana, fontCss, onToggle: () => setShowRomaji((prev) => !prev) };
-};
+import { Badge } from "@/components/ui/badge";
+import { useSpeak } from "@/hooks/use-jp-speak";
 
 export const HiraganaWord = ({
   rawKana,
   highlightIndex,
-  spanCn = "",
-  btnCn = "",
 }: {
   rawKana: string;
   highlightIndex: number;
-  spanCn?: string;
-  btnCn?: string;
 }) => {
-  const { kana, fontCss, onToggle } = useHiraganaWordButton(rawKana);
+  const kana = rawKana.split(",")[0];
 
   return (
-    <Button
-      variant="ghost"
-      className={`flex px-1 z-0 text-md lg:text-2xl ${fontCss} ${btnCn}`}
-      onClick={onToggle}
+    <Badge
+      variant={"ja_outline"}
+      className={"flex gap-2 m-1 cursor-pointer text-lg kanji-font hover:bg-[#2effff] hover:text-black"}
+      onClick={useSpeak(rawKana)}
     >
       {kana.split(" ").map((mora, index) => {
         const key = `${mora}-${index}`;
 
         if (index === highlightIndex) {
           return (
-            <SpanBadge
-              className={`${badgeCn} text-[15px] md:text-[20px] ${spanCn}`}
+            <div
+              className={"text-[15px] md:text-[20px] relative"}
               key={key}
             >
               {mora}
-            </SpanBadge>
+              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3/4 h-0.5 bg-current">
+              </div>
+            </div>
           );
         }
 
         return (
-          <span className={`text-[15px] md:text-[20px] ${spanCn}`} key={key}>
+          <span className={"text-[15px] md:text-[20px]"} key={key}>
             {mora}
           </span>
         );
       })}
-    </Button>
+    </Badge>
   );
 };
