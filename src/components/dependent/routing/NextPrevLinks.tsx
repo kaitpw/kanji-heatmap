@@ -38,34 +38,38 @@ export const NextPrevLinks = ({ currentKanji }: { currentKanji: string }) => {
   const links = useNextPrevUrls(currentKanji);
   return (
     <>
-      {links?.prev ? (
-        <Link className={btnLinkCn} to={`?${links.prev}`}>
-          <ArrowLeft />
-        </Link>
-      ) : (
-        <Button
-          disabled
-          size="icon"
-          variant={"outline"}
-          className="h-8 w-8 relative rounded-xl cursor-not-allowed"
-        >
-          <ArrowLeft />
-        </Button>
-      )}
-      {links?.next ? (
-        <Link className={btnLinkCn} to={`?${links.next}`}>
-          <ArrowRight />
-        </Link>
-      ) : (
-        <Button
-          disabled
-          size="icon"
-          variant={"outline"}
-          className="h-8 w-8 relative rounded-xl cursor-not-allowed"
-        >
-          <ArrowRight />
-        </Button>
-      )}
+      {links?.prev
+        ? (
+          <Link className={btnLinkCn} to={`?${links.prev}`}>
+            <ArrowLeft />
+          </Link>
+        )
+        : (
+          <Button
+            disabled
+            size="icon"
+            variant={"outline"}
+            className="h-8 w-8 relative rounded-xl cursor-not-allowed"
+          >
+            <ArrowLeft />
+          </Button>
+        )}
+      {links?.next
+        ? (
+          <Link className={btnLinkCn} to={`?${links.next}`}>
+            <ArrowRight />
+          </Link>
+        )
+        : (
+          <Button
+            disabled
+            size="icon"
+            variant={"outline"}
+            className="h-8 w-8 relative rounded-xl cursor-not-allowed"
+          >
+            <ArrowRight />
+          </Button>
+        )}
     </>
   );
 };

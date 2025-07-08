@@ -9,7 +9,7 @@ const storageKey = "item-settings";
 export function ItemSettingsProvider({ children }: { children: ReactNode }) {
   const [storageData, setItem] = useLocalStorage<ItemSettings>(
     storageKey,
-    defaultItemSettingsValue
+    defaultItemSettingsValue,
   );
 
   return (

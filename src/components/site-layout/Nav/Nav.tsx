@@ -50,9 +50,7 @@ export const NavigationListItem = ({
       <NavigationMenuLink asChild>
         <Link
           href={href}
-          className={
-            "mt-1 ml-1 mr-2 block select-none space-y-1 rounded-md px-3 py-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-          }
+          className={"mt-1 ml-1 mr-2 block select-none space-y-1 rounded-md px-3 py-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"}
         >
           <div className="text-sm font-medium leading-none w-48">{title}</div>
           <p className="line-clamp-2 text-xs leading-snug text-muted-foreground">

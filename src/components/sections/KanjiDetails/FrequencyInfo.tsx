@@ -31,10 +31,9 @@ export const FrequencyInfo = ({
           {frequencyRankNamesOrdered.map((item) => {
             const rank = freqRankInfo[item as keyof KanjiInfoFrequency];
             const label = frequencyRankLabels[item as keyof KanjiInfoFrequency];
-            const progress =
-              rank == null || rank < 1
-                ? 0
-                : (Math.max(KANJI_COUNT - rank, 0) * 100) / KANJI_COUNT;
+            const progress = rank == null || rank < 1
+              ? 0
+              : (Math.max(KANJI_COUNT - rank, 0) * 100) / KANJI_COUNT;
 
             const category = getFreqCnByRank(rank);
             const freqkey = inverseFreqMap[item as keyof KanjiInfoFrequency];

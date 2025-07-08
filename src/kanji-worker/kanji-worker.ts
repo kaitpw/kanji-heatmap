@@ -189,7 +189,7 @@ self.onmessage = function (event: { data: OnMessageRequestType }) {
         KANJI_BY_STROKE_ORDER_CACHE,
         settings,
         kanjiPool,
-        KANJI_DECOMPOSITION_CACHE
+        KANJI_DECOMPOSITION_CACHE,
       );
 
       sendResponse({ kanjis, possibleRadicals });

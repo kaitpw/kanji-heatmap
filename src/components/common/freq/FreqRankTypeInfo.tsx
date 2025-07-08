@@ -30,7 +30,7 @@ export const FreqRankTypeInfo = ({
       </span>
       {sourceInfo.links && sourceInfo.links.length > 0 && (
         <div className="my-1">
-          <span className="font-extrabold">Visit related link(s): </span>[
+          <span className="font-extrabold">Visit related link(s):</span>[
           {sourceInfo.links.map((link, index) => {
             return (
               <React.Fragment key={link}>

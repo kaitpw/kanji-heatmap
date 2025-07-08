@@ -4,8 +4,8 @@ import { FilterSettings, SearchSettings } from "@/lib/settings/settings";
 
 export const hasNoFilters = (settings: SearchSettings) => {
   const { strokeRange, freq, jlpt } = settings.filterSettings;
-  const fullRangeStrokes =
-    strokeRange.min <= 1 && strokeRange.max >= MAX_STROKE_COUNT;
+  const fullRangeStrokes = strokeRange.min <= 1 &&
+    strokeRange.max >= MAX_STROKE_COUNT;
   const fullRangeFreq = freq.source === "none";
   const allJLPT = jlpt.length === 0 || jlpt.length === JLPTOptions.length;
 
@@ -18,7 +18,7 @@ export const shouldShowAllKanji = (settings: SearchSettings) => {
 
 export const isEqualFilters = (
   a: FilterSettings,
-  b: FilterSettings
+  b: FilterSettings,
 ): boolean => {
   if (a === null || b === null) return a === b;
   if (a === undefined || b === undefined) return a === b;

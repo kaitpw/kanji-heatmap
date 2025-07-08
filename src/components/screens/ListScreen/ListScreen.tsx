@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { useIsKanjiWorkerReady } from "@/kanji-worker/kanji-worker-hooks";
 import { ErrorBoundary } from "@/components/error";
 
@@ -39,7 +39,7 @@ export const ListScreen = () => {
   if (!ready) {
     return (
       <Layout>
-        <LoadingKanjis />;
+        <LoadingKanjis />
       </Layout>
     );
   }

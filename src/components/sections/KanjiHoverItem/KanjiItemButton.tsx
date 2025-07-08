@@ -1,5 +1,6 @@
 import { forwardRef } from "react";
 import { ReportBugIconBtn } from "@/components/common/ReportBugIconBtn";
+import { CircularJLPTBadge } from "@/components/common/jlpt/CircularJLPTBadge";
 import {
   loadingCn,
   useItemBtnCn,
@@ -7,6 +8,7 @@ import {
 } from "./kanji-item-button-hooks";
 import { ExpandedBtnContent } from "./ExpandedBtnContent";
 import { useSetOpenedParam } from "@/components/dependent/routing/routing-hooks";
+import { useGetKanjiInfoFn } from "@/kanji-worker/kanji-worker-hooks";
 
 export const KanjiBtnErrorFallback = () => {
   return (
@@ -31,11 +33,14 @@ const KanjiItemButton = forwardRef<HTMLButtonElement, TriggerProps>(
     const btnCn = useItemBtnCn(kanji);
     const itemType = useItemType();
     const setKanji = useSetOpenedParam();
+    const getInfo = useGetKanjiInfoFn();
+    const kanjiInfo = getInfo?.(kanji);
 
     if (itemType === "compact") {
       return (
         <button
-          className={`${btnCn}`}
+          type="button"
+          className={`${btnCn} relative`}
           onClick={() => {
             onClick?.();
             setKanji(kanji);
@@ -44,13 +49,17 @@ const KanjiItemButton = forwardRef<HTMLButtonElement, TriggerProps>(
           {...rest}
         >
           {kanji}
+          {kanjiInfo?.jlpt && kanjiInfo.jlpt !== "none" && (
+            <CircularJLPTBadge jlpt={kanjiInfo.jlpt} />
+          )}
         </button>
       );
     }
 
     return (
       <button
-        className={`${btnCn} `}
+        type="button"
+        className={`${btnCn} relative`}
         onClick={() => {
           onClick?.();
           setKanji(kanji);
@@ -59,9 +68,12 @@ const KanjiItemButton = forwardRef<HTMLButtonElement, TriggerProps>(
         {...rest}
       >
         <ExpandedBtnContent kanji={kanji} />
+        {kanjiInfo?.jlpt && kanjiInfo.jlpt !== "none" && (
+          <CircularJLPTBadge jlpt={kanjiInfo.jlpt} />
+        )}
       </button>
     );
-  }
+  },
 );
 
 KanjiItemButton.displayName = "KanjiItemButton";
@@ -78,6 +90,7 @@ const KanjiItemSimpleButton = ({
 
   return (
     <button
+      type="button"
       className={`${btnCn} flex flex-col justify-center items-center w-full `}
       onClick={() => {
         onClick();

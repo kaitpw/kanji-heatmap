@@ -51,7 +51,8 @@ export const BottomBanner = () => {
   if (["slow-2g", "2g", "3g"].includes(network.effectiveType ?? "")) {
     return (
       <Layout>
-        {`(๑ > ᴗ < ๑) Your connection seems a bit slow (${network.effectiveType}),`}{" "}
+        {`(๑ > ᴗ < ๑) Your connection seems a bit slow (${network.effectiveType}),`}
+        {" "}
         {longerToLoadMsg}
       </Layout>
     );

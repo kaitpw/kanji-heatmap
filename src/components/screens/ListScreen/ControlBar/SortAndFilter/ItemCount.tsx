@@ -26,17 +26,24 @@ const ItemCountComputed = ({ settings }: { settings: SearchSettings }) => {
     return null;
   }
 
-  const textPrefix =
-    settings.textSearch.text.length > 0 ? (
+  const textPrefix = settings.textSearch.text.length > 0
+    ? (
       <>
         Your Search Text is{" "}
         <span className="mx-1 font-extrabold">
           {`"${settings.textSearch.text}"`}
         </span>
-        <span>{`(Search Type: ${SEARCH_TYPE_OPTIONS.find((item) => item.value === settings.textSearch.type)?.label} )`}</span>
+        <span>
+          {`(Search Type: ${
+            SEARCH_TYPE_OPTIONS.find((item) =>
+              item.value === settings.textSearch.type
+            )?.label
+          } )`}
+        </span>
         .
       </>
-    ) : (
+    )
+    : (
       ""
     );
 
@@ -44,8 +51,9 @@ const ItemCountComputed = ({ settings }: { settings: SearchSettings }) => {
     return <AllMatchMsg />;
   }
 
-  const textSuffix =
-    settings.filterSettings.freq.source !== "none" ? disclaimer : null;
+  const textSuffix = settings.filterSettings.freq.source !== "none"
+    ? disclaimer
+    : null;
 
   if (data.data === 0) {
     return (
@@ -60,7 +68,7 @@ const ItemCountComputed = ({ settings }: { settings: SearchSettings }) => {
     <>
       {textPrefix} A total of{" "}
       <span className="font-extrabold mx-1">{data.data}</span> of
-      <span className="font-extrabold mx-1"> {KANJI_COUNT}</span>
+      <span className="font-extrabold mx-1">{KANJI_COUNT}</span>
       Kanji characters match your applied filters. <br />
       {textSuffix}
     </>

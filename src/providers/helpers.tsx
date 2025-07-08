@@ -5,8 +5,9 @@ export type DispatchFunctionWithUndefined<T> = DispatchFunction<T> | undefined;
 
 export function createContextComponents<T>(defaultValue: T) {
   const StateContext = createContext<T>(defaultValue);
-  const DispatchContext =
-    createContext<DispatchFunctionWithUndefined<T>>(undefined);
+  const DispatchContext = createContext<DispatchFunctionWithUndefined<T>>(
+    undefined,
+  );
 
   return { StateContext, DispatchContext };
 }
@@ -14,13 +15,13 @@ export function createContextComponents<T>(defaultValue: T) {
 export function useContextWithCatch<T>(
   Context: React.Context<T>,
   provider: string,
-  hook?: string
+  hook?: string,
 ) {
   // if not provided assume that the provider name is the name of the hook
   const context = useContext(Context);
   if (context === undefined) {
     throw new Error(
-      `use${hook ?? provider} must be used within a ${provider}Provider`
+      `use${hook ?? provider} must be used within a ${provider}Provider`,
     );
   }
   return context;

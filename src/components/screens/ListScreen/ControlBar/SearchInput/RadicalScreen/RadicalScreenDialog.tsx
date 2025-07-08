@@ -2,11 +2,11 @@ import ErrorBoundary from "@/components/error/ErrorBoundary";
 import { CircleX } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import {
+  Drawer,
   DrawerClose,
   DrawerContent,
   DrawerDescription,
   DrawerTitle,
-  Drawer,
 } from "@/components/ui/drawer";
 import { ReactNode } from "react";
 

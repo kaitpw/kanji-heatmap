@@ -12,8 +12,8 @@ export const TermsOfUseSection = ({ title }: { title: string }) => {
         </p>
 
         <p className="leading-7 mb-4">
-          By using kanjiheatmap.com (the {`"Site"`}), you agree to these Terms
-          of Use and our{" "}
+          By using kanjiheatmap.com (the{" "}
+          {`"Site"`}), you agree to these Terms of Use and our{" "}
           <CustomLink href={"https://kanjiheatmap.com/docs#privacy"}>
             Privacy Policy
           </CustomLink>
@@ -40,9 +40,9 @@ export const TermsOfUseSection = ({ title }: { title: string }) => {
         </h2>
 
         <p className="leading-7 mb-4">
-          The Site is provided {`"as is."`} We do not guarantee that the
-          information is accurate, complete, or up-to-date. Use it at your own
-          risk.
+          The Site is provided {`"as is."`}{" "}
+          We do not guarantee that the information is accurate, complete, or
+          up-to-date. Use it at your own risk.
         </p>
 
         <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 mt-10 mb-4">
@@ -61,8 +61,9 @@ export const TermsOfUseSection = ({ title }: { title: string }) => {
 
         <p className="leading-7 mb-4">
           We may update these Terms of Use at any time. Changes will be posted
-          here with an updated {`"Last Updated"`} date. Your continued use of
-          the Site means you accept the revised terms.
+          here with an updated {`"Last Updated"`}{" "}
+          date. Your continued use of the Site means you accept the revised
+          terms.
         </p>
 
         <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 mt-10 mb-4">

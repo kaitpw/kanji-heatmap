@@ -10,13 +10,13 @@ import { GetBasicKanjiInfo } from "@/lib/kanji/kanji-worker-types";
 
 export type KanjiRequestFn = (
   k: string,
-  type: KanjiInfoRequestType
+  type: KanjiInfoRequestType,
 ) => Promise<unknown>;
 
 export const ActionContext = createContext<KanjiRequestFn | null>(null);
 export const IsReadyContext = createContext<boolean>(false);
 export const GetBasicKanjiInfoContext = createContext<GetBasicKanjiInfo | null>(
-  null
+  null,
 );
 
 const requestWorker = KANJI_WORKER_SINGLETON.request;
@@ -27,7 +27,7 @@ export const useKanjiWorkerRequest = () => {
   const fn = useContextWithCatch(
     ActionContext,
     "KanjiWorker",
-    "KanjirWorkerRequest"
+    "KanjirWorkerRequest",
   );
   return fn;
 };
@@ -36,7 +36,7 @@ export const useIsKanjiWorkerReady = () => {
   const ready = useContextWithCatch(
     IsReadyContext,
     "KanjiWorker",
-    "IsKanjiWorkerReady"
+    "IsKanjiWorkerReady",
   );
   return ready;
 };
@@ -45,7 +45,7 @@ export const useGetKanjiInfoFn = () => {
   const fn = useContextWithCatch(
     GetBasicKanjiInfoContext,
     "KanjiWorker",
-    "GetKanjiInfoFn"
+    "GetKanjiInfoFn",
   );
   return fn;
 };
@@ -134,7 +134,7 @@ export const useKanjiSearchCount = (searchSettings: SearchSettings) => {
 
 export const useKanjiInfo = (
   kanji: string,
-  requestType: KanjiInfoRequestType | "none"
+  requestType: KanjiInfoRequestType | "none",
 ) => {
   const [state, setState] = useState<{
     status: Status;

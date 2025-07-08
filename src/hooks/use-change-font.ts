@@ -9,7 +9,7 @@ export const useChangeFont = () => {
   const setFont = useCallback((fontNum: number) => {
     document.documentElement.style.setProperty(
       "--kanji-font",
-      `var(--jap-font-${fontNum})`
+      `var(--jap-font-${fontNum})`,
     );
     localStorage.setItem(LOCAL_STORAGE_KANJI_FONT_KEY, fontNum.toString());
   }, []);
@@ -21,7 +21,7 @@ export const useChangeFont = () => {
 
   useLayoutEffect(() => {
     const kanjiFont = Number(
-      localStorage.getItem(LOCAL_STORAGE_KANJI_FONT_KEY)
+      localStorage.getItem(LOCAL_STORAGE_KANJI_FONT_KEY),
     );
 
     if (Number.isNaN(kanjiFont)) {

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 type KeyHandler = (event: KeyboardEvent) => void;
 type KeyEventMap = {
@@ -29,7 +29,7 @@ interface KeyboardListenerOptions {
  */
 function useKeyboardListener(
   keyEventMap: KeyEventMap,
-  options: KeyboardListenerOptions = {}
+  options: KeyboardListenerOptions = {},
 ): void {
   // Default options
   const {
@@ -59,7 +59,7 @@ function useKeyboardListener(
         handler(event);
       }
     },
-    [preventDefault, stopPropagation]
+    [preventDefault, stopPropagation],
   );
 
   // Set up and clean up the event listener
@@ -71,7 +71,7 @@ function useKeyboardListener(
     return () => {
       currentTarget.removeEventListener(
         eventType,
-        handleKeyEvent as EventListener
+        handleKeyEvent as EventListener,
       );
     };
   }, [target, eventType, handleKeyEvent]);

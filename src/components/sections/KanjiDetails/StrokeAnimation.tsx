@@ -23,24 +23,26 @@ const KanjiDMAK = ({
   kanji: string;
   step?: number;
 }) => {
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   const dmakInstanceRef = useRef<any>(null);
   const id = useId();
   const kanjiId = `${id}-${kanji}-draw`;
 
   useEffect(() => {
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     (window as any).Raphael = Raphael;
 
     if (dmakInstanceRef.current) {
       return;
     }
 
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     dmakInstanceRef.current = new (window as any).Dmak(kanji, {
       element: kanjiId,
-      uri:
-        import.meta.env.MODE === "development" ||
-        window.location.protocol === "http:"
-          ? assetsPaths.dev.KANJI_SVGS
-          : assetsPaths.KANJI_SVGS,
+      uri: import.meta.env.MODE === "development" ||
+          window.location.protocol === "http:"
+        ? assetsPaths.dev.KANJI_SVGS
+        : assetsPaths.KANJI_SVGS,
       height: SVG_SIZE,
       width: SVG_SIZE,
       step: step,
@@ -49,6 +51,7 @@ const KanjiDMAK = ({
     });
 
     return () => {
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       (window as any).Raphael = null;
     };
   }, [kanji, kanjiId, step]);

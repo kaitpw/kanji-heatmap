@@ -1,5 +1,5 @@
 import type React from "react";
-import { useState, useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 type CopyStatus = "inactive" | "copied" | "failed";
 

@@ -66,9 +66,9 @@ const pwaConfig = {
       workbox won't know if it has actually been updated
       So we don't put these json files in globPatterns/pre-cache
 
-      Trade-off: 
-        If a user visits the app offline for the first time, 
-        the JSON files won’t be available until they go online. 
+      Trade-off:
+        If a user visits the app offline for the first time,
+        the JSON files won’t be available until they go online.
         After the initial fetch, offline access is supported.
       */
       {
@@ -121,16 +121,16 @@ export default defineConfig({
     VitePWA(pwaConfig),
     process.env.ANALYZE
       ? visualizer({
-          filename: "stats.html",
-          open: true,
-          template: visualizer_templates.includes(
-            process.env.ANALYZE_TEMPLATE as TemplateType
+        filename: "stats.html",
+        open: true,
+        template: visualizer_templates.includes(
+            process.env.ANALYZE_TEMPLATE as TemplateType,
           )
-            ? (process.env.ANALYZE_TEMPLATE as TemplateType)
-            : "sunburst", //  sunburst, treemap, network, raw-data, list, flamegraph
-          // sourcemap: true
-          // gzipSize: true,
-        })
+          ? (process.env.ANALYZE_TEMPLATE as TemplateType)
+          : "sunburst", //  sunburst, treemap, network, raw-data, list, flamegraph
+        // sourcemap: true
+        // gzipSize: true,
+      })
       : null,
   ] as UserConfig["plugins"],
   build: {

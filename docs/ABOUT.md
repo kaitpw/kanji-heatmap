@@ -1,31 +1,35 @@
 # About
 
-Kanji Heatmap is an exploration tool with advanced filtering, sorting, frequency heatmap
-visualizations, and detailed kanji information.
+Kanji Heatmap is an exploration tool with advanced filtering, sorting, frequency
+heatmap visualizations, and detailed kanji information.
 
-This tool can help you prioritize which kanji to learn based on your specific goals.
-The kanji you encounter in casual Twitter posts differ from those found in literary works,
-and the kanji commonly used in TV dramas may vary from those in news articles.
+This tool can help you prioritize which kanji to learn based on your specific
+goals. The kanji you encounter in casual Twitter posts differ from those found
+in literary works, and the kanji commonly used in TV dramas may vary from those
+in news articles.
 
-Visual learners will appreciate the heatmap feature, which highlights more frequently
-used kanji in brighter colors, with less common characters shown in progressively duller shades.
+Visual learners will appreciate the heatmap feature, which highlights more
+frequently used kanji in brighter colors, with less common characters shown in
+progressively duller shades.
 
-Unlike many kanji resources that display characters in a single style, Kanji Heatmap lets you
-change fonts to see how the appearance of characters can vary.
+Unlike many kanji resources that display characters in a single style, Kanji
+Heatmap lets you change fonts to see how the appearance of characters can vary.
 
-While Kanji Heatmap is not a dictionary, it offers useful kanji details. Simply click on any
-kanji to view sample words, meanings, onyomi and kunyomi readings, stroke order animations,
-component breakdowns, and more.
+While Kanji Heatmap is not a dictionary, it offers useful kanji details. Simply
+click on any kanji to view sample words, meanings, onyomi and kunyomi readings,
+stroke order animations, component breakdowns, and more.
 
 ## License
 
-The data published in kanjiheatmap.com by PikaPikaGems are licensed under [CC BY-SA 4.0][cc-by-sa-4].
+The data published in kanjiheatmap.com by PikaPikaGems are licensed under
+[CC BY-SA 4.0][cc-by-sa-4].
 
 ## Credits
 
 ### Data Sources
 
-- [KanjiVG](http://kanjivg.tagaini.net/) project by Ulrich Apel under [CC BY-SA 3.0][cc-by-sa-3]
+- [KanjiVG](http://kanjivg.tagaini.net/) project by Ulrich Apel under
+  [CC BY-SA 3.0][cc-by-sa-3]
 - Dmitry Shpika's projects under [CC BY 4.0][cc-by-4]:
   - [Kanji Keys](https://github.com/scriptin/kanji-keys/)
   - [TopoKanji](https://github.com/scriptin/topokanji) that used data from:
@@ -41,7 +45,8 @@ The data published in kanjiheatmap.com by PikaPikaGems are licensed under [CC BY
 - [Shirabe Jisho's](https://ricoapps.com/) data:
   - Kanji lists by JLPT
   - Common Words list
-  - from [EDRDG's][edrdg] projects and [Jonathan Waller's JLPT resources][waller-jlpt]
+  - from [EDRDG's][edrdg] projects and
+    [Jonathan Waller's JLPT resources][waller-jlpt]
 - [WaniKani](https://www.wanikani.com/) ([Terms of Service][wanikani-terms])
 - Drew Edwards' [Kanji School](https://github.com/Lemmmy/KanjiSchool) project
   - Kanji School's kanji data is from [Jisho.org](https://jisho.org/)
@@ -51,9 +56,13 @@ The data published in kanjiheatmap.com by PikaPikaGems are licensed under [CC BY
   - [KANJIDIC][kanjidic-project]
 - [Usagi Chan Kanji Phonetics Deck][moe-way] by [shoui520][shoui]
 - [JmdictFurigana][jmdictfurigana] project under [CC BY-SA 4.0][cc-by-sa-4]
-- [Netflix Japanese Frequency List][netflix-freq-mediafire] by [OhTalkWho オタク][netflix-freq] (Dave Doebrick)
-- Chris Kempson's [Japanese Subtitles Word & Kanji Frequency Lists][ckempson-subtitles] project under [MIT][mit-license]
-- Patrick Kandrac's 2242 Kanji Frequency List ([1][pkandrac-freq-list], [2][pkandrac-research]) which sources data from:
+- [Netflix Japanese Frequency List][netflix-freq-mediafire] by
+  [OhTalkWho オタク][netflix-freq] (Dave Doebrick)
+- Chris Kempson's
+  [Japanese Subtitles Word & Kanji Frequency Lists][ckempson-subtitles] project
+  under [MIT][mit-license]
+- Patrick Kandrac's 2242 Kanji Frequency List ([1][pkandrac-freq-list],
+  [2][pkandrac-research]) which sources data from:
   - Kouji Shibano's Google Kanji Data
   - Kanji Usage Frequency (KUF)
   - Matsushita's Character Database (MCD)
@@ -65,7 +74,9 @@ The data published in kanjiheatmap.com by PikaPikaGems are licensed under [CC BY
 
 ### Common Sources
 
-Data owned by Electronic Dictionary Research and Development Group such as KANJIDIC and EDICT are used under the Group's [license](https://www.edrdg.org/edrdg/licence.html).
+Data owned by Electronic Dictionary Research and Development Group such as
+KANJIDIC and EDICT are used under the Group's
+[license](https://www.edrdg.org/edrdg/licence.html).
 
 Jonathan Waller's JLPT resources are licensed under [CC BY 4.0][cc-by-4].
 

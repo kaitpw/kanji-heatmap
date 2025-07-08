@@ -32,7 +32,9 @@ export function FrequencyRankDataSource({
             const info = FREQ_RANK_SOURCES_INFO[item.value as FrequencyType];
             return {
               ...item,
-              description: `${info.description ?? ""} ${rankTypeLabel[info.rankType]} `,
+              description: `${info.description ?? ""} ${
+                rankTypeLabel[info.rankType]
+              } `,
             };
           })}
           label={label}
@@ -54,7 +56,9 @@ export function FrequencyRankDataSource({
             const info = FREQ_RANK_SOURCES_INFO[item.value as FrequencyType];
             return {
               ...item,
-              description: `${info.description ?? ""} ${rankTypeLabel[info.rankType]} `,
+              description: `${info.description ?? ""} ${
+                rankTypeLabel[info.rankType]
+              } `,
             };
           })}
         />
@@ -68,7 +72,9 @@ export function FrequencyRankDataSource({
             const info = FREQ_RANK_SOURCES_INFO[item.value as FrequencyType];
             return {
               ...item,
-              description: `${info.description ?? ""} ${rankTypeLabel[info.rankType]} `,
+              description: `${info.description ?? ""} ${
+                rankTypeLabel[info.rankType]
+              } `,
             };
           })}
           label={label}

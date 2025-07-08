@@ -1,4 +1,4 @@
-import { HoverItemReturnData } from "@/lib/kanji/kanji-info-types";
+import type { HoverItemReturnData } from "@/lib/kanji/kanji-info-types";
 import {
   useIsKanjiWorkerReady,
   useKanjiInfo,
@@ -8,7 +8,7 @@ import { DefaultErrorFallback } from "@/components/error";
 
 import { Badge } from "@/components/ui/badge";
 import { JLPTBadge } from "@/components/common/jlpt/JLPTBadge";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 const Wrapper = ({ kanji, badges }: { kanji: string; badges: ReactNode }) => {
   return (

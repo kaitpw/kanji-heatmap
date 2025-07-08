@@ -58,7 +58,7 @@ declare module "raphael" {
       attributes: object,
       duration: number,
       easing?: string,
-      callback?: () => void
+      callback?: () => void,
     ): RaphaelElement;
     // Add more methods as needed
   }
@@ -66,20 +66,20 @@ declare module "raphael" {
   function Raphael(
     element: HTMLElement | string,
     width: number,
-    height: number
+    height: number,
   ): RaphaelPaper;
   function Raphael(
     element: HTMLElement | string,
     width: number,
     height: number,
     // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    callback: Function
+    callback: Function,
   ): RaphaelPaper;
   function Raphael(
     x: number,
     y: number,
     width: number,
-    height: number
+    height: number,
   ): RaphaelPaper;
   function Raphael(
     x: number,
@@ -87,7 +87,7 @@ declare module "raphael" {
     width: number,
     height: number,
     // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    callback: Function
+    callback: Function,
   ): RaphaelPaper;
   function Raphael(parentId: string): RaphaelPaper;
 

@@ -28,7 +28,7 @@ const extractKanjiHoverData = (
   kanjiInfoExtended: KanjiExtendedInfo & VocabExtendedInfo,
   kanjiCache?: KanjiCacheType | null,
   partKeywordCache?: KanjiPartKeywordCacheType | null,
-  phoneticCache?: KanjiPhoneticCacheType | null
+  phoneticCache?: KanjiPhoneticCacheType | null,
 ) => {
   const getPhonetic = () => {
     if (kanjiInfoExtended.phonetic == null) {
@@ -78,9 +78,9 @@ const extractKanjiHoverData = (
         : undefined,
       second: vocab?.second
         ? {
-            ...vocab.second,
-            partsList: getPartsList(vocab.second.word),
-          }
+          ...vocab.second,
+          partsList: getPartsList(vocab.second.word),
+        }
         : undefined,
     },
     parts: Array.from(kanjiInfoExtended.parts).map((part) => {
@@ -99,7 +99,7 @@ const extractKanjiHoverData = (
 
 export function KanjiWorkerProvider({
   children,
-  fallback = <div className="py-20"> Worker failed to load</div>,
+  fallback = <div className="py-20">Worker failed to load</div>,
 }: {
   children: ReactNode;
   fallback?: ReactNode;
@@ -141,7 +141,7 @@ export function KanjiWorkerProvider({
           // I don't know why typescript cannot detect this
           if (kanjiCacheRef.current == null) {
             console.error(
-              "Please check your logic. kanjiCacheRef.current shouldn't be null at this point"
+              "Please check your logic. kanjiCacheRef.current shouldn't be null at this point",
             );
             return;
           }
@@ -208,7 +208,7 @@ export function KanjiWorkerProvider({
       const getNecessaryValues = () => {
         if (kanjiInfo.extended == null) {
           throw Error(
-            "Please fix logic. By the time you get here. kanjiInfo.extended should exist"
+            "Please fix logic. By the time you get here. kanjiInfo.extended should exist",
           );
         }
 
@@ -218,7 +218,7 @@ export function KanjiWorkerProvider({
             kanjiInfo.extended,
             kanjiCacheRef.current,
             partKeywordCacheRef.current,
-            phoneticCacheRef.current
+            phoneticCacheRef.current,
           );
         }
 
@@ -260,7 +260,7 @@ export function KanjiWorkerProvider({
 
       return getNecessaryValues();
     },
-    []
+    [],
   );
 
   const getKanjiBasicInfo: GetBasicKanjiInfo = useCallback((kanji) => {

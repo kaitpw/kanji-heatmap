@@ -2,9 +2,9 @@ import React, { useCallback } from "react";
 import { useIsTouchDevice } from "@/hooks/use-is-touch-device";
 import {
   HoverCard,
+  HoverCardArrow,
   HoverCardContent,
   HoverCardTrigger,
-  HoverCardArrow,
 } from "@/components/ui/hover-card";
 import { ResponsiveKanjiCard } from "../KanjiInfoCard";
 import { KanjiBtnErrorFallback, KanjiItemButton } from "./KanjiItemButton";

@@ -8,9 +8,9 @@ import { useUrlLocation } from "./components/dependent/routing/routing-hooks";
 import { Route, Switch } from "./components/dependent/routing";
 
 import {
+  DefaultErrorFallback,
   ErrorBoundary,
   PageNotFound,
-  DefaultErrorFallback,
 } from "./components/error";
 import { Header, Nav } from "@/components/site-layout/";
 import pageItems from "@/components/items/page-items";
@@ -20,22 +20,21 @@ import { docPages } from "./components/items/nav-items";
 import { GlobalKeyboardShortcutProvider } from "./providers/global-keyboard-shortcut-provider";
 
 const LazyBottomBanner = React.lazy(
-  () => import("./components/site-layout/BottomBanner")
+  () => import("./components/site-layout/BottomBanner"),
 );
 
-const { kanjiPage, cumUseGraphPage } = pageItems;
+const { kanjiPage } = pageItems;
 
 export const NavBar = () => {
   const location = useUrlLocation();
 
-  const triggerTitle =
-    [kanjiPage, cumUseGraphPage].find((item) => item.href === location)
-      ?.title ?? "Menu";
+  const triggerTitle = [kanjiPage].find((item) => item.href === location)
+    ?.title ?? "Menu";
 
   return (
     <Nav
       triggerTitle={triggerTitle}
-      navItems={[kanjiPage, cumUseGraphPage]}
+      navItems={[kanjiPage]}
       footer={
         <>
           <ExternalTextLink
@@ -80,10 +79,6 @@ const App = () => {
             >
               <KanjiFunctionalityProvider>
                 <Switch>
-                  <Route
-                    path={cumUseGraphPage.href}
-                    component={cumUseGraphPage.Component}
-                  />
                   <Route
                     path={kanjiPage.href}
                     component={kanjiPage.Component}

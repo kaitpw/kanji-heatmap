@@ -27,7 +27,7 @@ const BackgroundColorSection = () => {
   const dispatch = useBgSrcDispatch();
 
   const [shouldAttachMeaning, setShouldAttachMeaning] = useState(
-    initialState !== "none"
+    initialState !== "none",
   );
 
   return (

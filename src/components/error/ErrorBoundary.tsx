@@ -40,7 +40,7 @@ class ErrorBoundaryRaw extends Component<
       "ErrorBoundary caught an error:",
       error,
       errorInfo,
-      this.props.details
+      this.props.details,
     );
 
     if (this.props.onError) {

@@ -1,7 +1,8 @@
 const BadgeLoading = ({ text }: { text: string }) => {
   return (
     <div className="inline-flex items-center rounded-full border px-2.5 text-nowrap py-1 m-1 text-xs border-dashed ">
-      <span className="block h-3 w-3 bg-gray-300 dark:bg-gray-500 rounded-sm  border-opacity-50 border-gray-500 dark:border-gray-600 dark:border-opacity-50 bg-opacity-80 mr-1 animate-pulse"></span>
+      <span className="block h-3 w-3 bg-gray-300 dark:bg-gray-500 rounded-sm  border-opacity-50 border-gray-500 dark:border-gray-600 dark:border-opacity-50 bg-opacity-80 mr-1 animate-pulse">
+      </span>
       <span className="font-normal mr-1 !text-xs opacity-0">{text}</span>
     </div>
   );
@@ -22,10 +23,12 @@ const WordPart = () => {
         <div className="items-center justify-center whitespace-nowrap rounded-md font-medium space-x-2 h-9 py-2 flex px-1 z-0 text-md lg:text-2xl kanji-font">
           <span
             className={`w-10  h-6 rounded-full border  border-dashed animate-pulse`}
-          ></span>
+          >
+          </span>
           <span
             className={`w-20  h-6 rounded-full border border-dashed animate-pulse`}
-          ></span>
+          >
+          </span>
         </div>
       </div>
       <div

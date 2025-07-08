@@ -5,10 +5,10 @@ import {
   GlobalKanjiLink,
 } from "./global-links";
 export {
-  Route,
-  Switch,
-  Link,
   GlobalHomeHeaderLink,
   GlobalHomeLink,
   GlobalKanjiLink,
+  Link,
+  Route,
+  Switch,
 };

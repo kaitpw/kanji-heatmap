@@ -45,7 +45,7 @@ export const buildChartConfig = (data: ChartData) => {
       };
       return acc;
     },
-    {} as Record<string, { label: string; color: string }>
+    {} as Record<string, { label: string; color: string }>,
   );
 
   return chartConfig;

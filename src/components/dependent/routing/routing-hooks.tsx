@@ -25,7 +25,7 @@ export const useBgSrcDispatch = () => {
         return prev;
       });
     },
-    [setSearchParams]
+    [setSearchParams],
   );
 
   return dispatch;
@@ -51,7 +51,7 @@ export const useSetOpenedParam = () => {
         return prev;
       });
     },
-    [setSearchParams]
+    [setSearchParams],
   );
 
   return setOpenedKanji;
@@ -85,13 +85,13 @@ export const useUrlLocation = () => {
   return location;
 };
 
-/* 
+/*
 
-  UPDATE: This is unused for now 
+  UPDATE: This is unused for now
 
   Increments key everytime user has
   gone from "/?xxxx" to "/" or viceversia
-  this is used to keep the search bar value 
+  this is used to keep the search bar value
   correct
 */
 export const useHasNavigatedToHomeKey = () => {
@@ -110,8 +110,8 @@ export const useHasNavigatedToHomeKey = () => {
 
   const justClosedDrawer = wasAlreadyInHome && !isOpen && wasPreviousOpen;
 
-  const shouldRefocus =
-    wasAlreadyInHome && notSameSearchString && !justClosedDrawer && !isOpen;
+  const shouldRefocus = wasAlreadyInHome && notSameSearchString &&
+    !justClosedDrawer && !isOpen;
   useLayoutEffect(() => {
     if (shouldRefocus) {
       setKey((key) => key + 1);

@@ -2,7 +2,8 @@
 
 _Last Updated: March 24, 2025_
 
-By using kanjiheatmap.com (the “Site”), you agree to these Terms of Use and our [Privacy Policy](#).
+By using kanjiheatmap.com (the “Site”), you agree to these Terms of Use and our
+[Privacy Policy](#).
 
 ## Acceptable Use
 
@@ -14,15 +15,20 @@ You may not:
 
 ## Disclaimer of Warranties
 
-The Site is provided “as is.” We do not guarantee that the information is accurate, complete, or up-to-date. Use it at your own risk.
+The Site is provided “as is.” We do not guarantee that the information is
+accurate, complete, or up-to-date. Use it at your own risk.
 
 ## Limitation of Liability
 
-To the fullest extent allowed by law, we are not liable for any damages arising from your use of the Site, including indirect, incidental, or consequential damages.
+To the fullest extent allowed by law, we are not liable for any damages arising
+from your use of the Site, including indirect, incidental, or consequential
+damages.
 
 ## Changes to These Terms
 
-We may update these Terms of Use at any time. Changes will be posted here with an updated “Last Updated” date. Your continued use of the Site means you accept the revised terms.
+We may update these Terms of Use at any time. Changes will be posted here with
+an updated “Last Updated” date. Your continued use of the Site means you accept
+the revised terms.
 
 ## Contact Us
 

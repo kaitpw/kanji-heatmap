@@ -54,7 +54,9 @@ const BasicSelect = ({
             {options.map((option) => {
               return (
                 <SelectItem
-                  className={`block max-w-72 sm:max-w-96 text-left ${selectItemCNFunc?.(option.value)}`}
+                  className={`block max-w-72 sm:max-w-96 text-left ${
+                    selectItemCNFunc?.(option.value)
+                  }`}
                   key={option.value}
                   value={option.value}
                   disabled={option.disabled}

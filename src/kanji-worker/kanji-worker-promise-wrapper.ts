@@ -1,5 +1,4 @@
 /**
- *
  * Note I have asked Grok and Deepseek to help me generate this file.
  * This is the prompt I used.
  *

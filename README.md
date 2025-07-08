@@ -17,7 +17,9 @@ $ pnpm run dev --host
 
 ## Updating Data
 
-If you have both [Kanji Heatmap Data](https://github.com/PikaPikaGems/kanji-heatmap-data) and this repository in the same directory, you can directly copy its output files
+If you have both
+[Kanji Heatmap Data](https://github.com/PikaPikaGems/kanji-heatmap-data) and
+this repository in the same directory, you can directly copy its output files
 
 ```
 cp ../kanji-heatmap-data/output/*.json ./public/json
@@ -45,7 +47,9 @@ $ pnpm run peek
 
 ## Updating the Data (Production)
 
-Get the latest `tar.gz` from the [Kanji Heatmap Data](https://github.com/PikaPikaGems/kanji-heatmap-data) repository
+Get the latest `tar.gz` from the
+[Kanji Heatmap Data](https://github.com/PikaPikaGems/kanji-heatmap-data)
+repository
 
 ```
 curl -OL https://github.com/PikaPikaGems/kanji-heatmap-data/releases/latest/download/kanji-heatmap-data.tar.gz

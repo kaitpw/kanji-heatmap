@@ -38,15 +38,15 @@ export const getFreqCategory = (freqRank?: number | null) => {
   return freqRank == null || freqRank < 1 || freqRank > 2250
     ? 0
     : freqRankMaxMin[1].min < freqRank && freqRank <= freqRankMaxMin[1].max
-      ? 1
-      : freqRankMaxMin[2].min < freqRank && freqRank <= freqRankMaxMin[2].max
-        ? 2
-        : freqRankMaxMin[3].min < freqRank && freqRank <= freqRankMaxMin[3].max
-          ? 3
-          : freqRankMaxMin[4].min < freqRank &&
-              freqRank <= freqRankMaxMin[4].max
-            ? 4
-            : 5;
+    ? 1
+    : freqRankMaxMin[2].min < freqRank && freqRank <= freqRankMaxMin[2].max
+    ? 2
+    : freqRankMaxMin[3].min < freqRank && freqRank <= freqRankMaxMin[3].max
+    ? 3
+    : freqRankMaxMin[4].min < freqRank &&
+        freqRank <= freqRankMaxMin[4].max
+    ? 4
+    : 5;
 };
 
 export const getFreqCnByRank = (rank: number | null) => {

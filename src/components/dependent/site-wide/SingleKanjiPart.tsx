@@ -19,7 +19,9 @@ export const SingleKanjiPart = ({
     <GenericPopover
       trigger={
         <button
-          className={`flex flex-col m-1 kanji-font text-2xl border-2 rounded-2xl p-1 hover:border-solid hover:border-[#2effff] ${phonetics.length > 0 ? " border-lime-400" : "border-dotted"}`}
+          className={`flex flex-col m-1 kanji-font text-2xl border-2 rounded-2xl p-1 hover:border-solid hover:border-[#2effff] ${
+            phonetics.length > 0 ? " border-lime-400" : "border-dotted"
+          }`}
         >
           {kanji}
         </button>
@@ -30,18 +32,18 @@ export const SingleKanjiPart = ({
             <RomajiBadge key={phonetic} kana={phonetic} />
           ))}
 
-          {keyword == null ? (
-            <div className="w-32 my-2">
-              Keyword Missing
-              <br />
-              <ExternalTextLink text="Report Bug" href={outLinks.discord} />
-              {"🐛🐞"}
-            </div>
-          ) : isKanji ? (
-            <GlobalKanjiLink keyword={keyword} kanji={kanji} />
-          ) : (
-            <span className="block">{keyword}</span>
-          )}
+          {keyword == null
+            ? (
+              <div className="w-32 my-2">
+                Keyword Missing
+                <br />
+                <ExternalTextLink text="Report Bug" href={outLinks.discord} />
+                {"🐛🐞"}
+              </div>
+            )
+            : isKanji
+            ? <GlobalKanjiLink keyword={keyword} kanji={kanji} />
+            : <span className="block">{keyword}</span>}
         </div>
       }
     />

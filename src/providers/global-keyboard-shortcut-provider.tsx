@@ -28,7 +28,7 @@ export const GlobalKeyboardShortcutProvider = ({
     {
       preventDefault: false, // We'll handle preventDefault manually in the handler
       eventType: "keydown",
-    }
+    },
   );
 
   return children;

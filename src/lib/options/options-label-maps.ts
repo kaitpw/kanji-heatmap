@@ -128,8 +128,8 @@ export const inverseFreqMap = Object.keys(freqMap).reduce((acc, item) => {
 
 export const getFrequency = (freq: FrequencyType, info: KanjiMainInfo) => {
   return freqMap[freq] &&
-    info.frequency &&
-    (info.frequency[freqMap[freq]] ?? 0) > 0
+      info.frequency &&
+      (info.frequency[freqMap[freq]] ?? 0) > 0
     ? info.frequency[freqMap[freq]]
     : undefined;
 };

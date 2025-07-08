@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, ClipboardEvent } from "react";
+import { ClipboardEvent, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { SearchType } from "@/lib/settings/settings";
 import {
@@ -6,7 +6,7 @@ import {
   SEARCH_TYPE_OPTIONS,
   translateMap,
 } from "@/lib/search-input-maps";
-import wanakana, { translateValue, hasKanji } from "@/lib/wanakana-adapter";
+import wanakana, { hasKanji, translateValue } from "@/lib/wanakana-adapter";
 import { CircleX, Search } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import BasicSelect from "@/components/common/BasicSelect";
@@ -37,7 +37,7 @@ export const SearchInput = ({
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [searchType, setSearchType] = useState(initialSearchType);
   const [parsedValue, setValue] = useState(
-    translateValue(initialText, translateMap[searchType])
+    translateValue(initialText, translateMap[searchType]),
   );
 
   const [isOpenRadicals, setIsOpenRadicals] = useState(false);
@@ -64,7 +64,7 @@ export const SearchInput = ({
         ref={inputRef}
         className={cn(
           "flex w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-7 pr-[105px] h-9",
-          fontCN
+          fontCN,
         )}
         value={parsedValue}
         onClick={() => {
@@ -75,7 +75,7 @@ export const SearchInput = ({
         onChange={(e) => {
           const updatedValue = translateValue(
             e.target.value,
-            translateMap[searchType]
+            translateMap[searchType],
           );
 
           setValue(updatedValue);
@@ -125,7 +125,7 @@ export const SearchInput = ({
           // default behavior
           const updatedValue = translateValue(
             processedText,
-            translateMap[searchType]
+            translateMap[searchType],
           );
           onSyncAll(updatedValue, searchType);
         }}
@@ -133,9 +133,7 @@ export const SearchInput = ({
       />
 
       <Search
-        className={
-          "pointer-events-none absolute left-2 top-2 size-4 translate-y-0.5 select-none opacity-50"
-        }
+        className={"pointer-events-none absolute left-2 top-2 size-4 translate-y-0.5 select-none opacity-50"}
       />
       {parsedValue.length > 0 && (
         <Button
@@ -146,7 +144,7 @@ export const SearchInput = ({
           }}
         >
           <CircleX />
-          <span className="sr-only"> Clear search text</span>
+          <span className="sr-only">Clear search text</span>
         </Button>
       )}
       <BasicSelect
@@ -163,14 +161,12 @@ export const SearchInput = ({
           setSearchType(newType);
           const newParsedValue = translateValue(
             searchType === "radicals" ? "" : parsedValue,
-            translateMap[newType]
+            translateMap[newType],
           );
           setValue(newParsedValue);
           onSettle(newParsedValue.trim(), newType);
         }}
-        triggerCN={
-          "absolute right-1 top-1 w-[115px] h-7 bg-gray-100 dark:bg-gray-900"
-        }
+        triggerCN={"absolute right-1 top-1 w-[115px] h-7 bg-gray-100 dark:bg-gray-900"}
         options={SEARCH_TYPE_OPTIONS}
         label="Search Type"
         isLabelSrOnly={true}

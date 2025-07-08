@@ -22,8 +22,10 @@ const KanjiListRaw = ({
           const items = hasCompleteRows ? cols : kanjiKeys.length % cols;
           return (
             <div
-              key={rowIndex}
-              className={`flex items-center justify-center w-full pr-1 ${isNotLast ? "pb-1" : "pb-16"}`}
+              key={`row-${rowIndex}-${items}`}
+              className={`flex items-center justify-start w-full gap-2 sm:gap-3 px-2 sm:px-3 ${
+                isNotLast ? "pb-2" : "pb-16"
+              }`}
             >
               {new Array(items).fill(null).map((_, colIndex: number) => {
                 const index = cols * rowIndex + colIndex;

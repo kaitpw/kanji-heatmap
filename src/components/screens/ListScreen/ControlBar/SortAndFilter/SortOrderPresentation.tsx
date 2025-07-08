@@ -28,7 +28,7 @@ export const SortAdditionalInfo = ({
       {v2 && (
         <>
           <div className="m-2">Then By</div>
-          <Badge>{v2} </Badge>
+          <Badge>{v2}</Badge>
         </>
       )}
     </>

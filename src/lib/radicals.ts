@@ -17,7 +17,7 @@ Radical | Alternate Form
 犬	⺨
 草	⺾
 
-# Look alike radicals 
+# Look alike radicals
 
 - (hyphen) or ー (elongated-vowel)	            一
 ^ (circumflex) or ＾ (full-width circumflex)	𠆢

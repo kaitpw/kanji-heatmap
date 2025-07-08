@@ -1,18 +1,18 @@
-import { useRef, useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import {
+  CategoryScale,
   Chart,
+  ChartData as ChartJSData,
+  ChartOptions,
+  ChartType,
+  ChartTypeRegistry,
+  LinearScale,
   LineController,
   LineElement,
   PointElement,
-  LinearScale,
-  CategoryScale,
   Tooltip,
   TooltipModel,
-  ChartType,
-  ChartOptions,
-  ChartData as ChartJSData,
-  ChartTypeRegistry,
 } from "chart.js";
 import { useTheme } from "@/providers/theme-hooks";
 import { buildChartConfig, ChartData } from "./helpers";
@@ -23,7 +23,7 @@ Chart.register(
   PointElement,
   LinearScale,
   CategoryScale,
-  Tooltip
+  Tooltip,
 );
 
 type MultiLineChartData = Record<string, [number, number][]>;
@@ -87,7 +87,7 @@ const renderTooltip = (
   context: TooltipContext,
   tooltipEl: HTMLDivElement,
   verticalLineEl: HTMLDivElement,
-  containerEl: HTMLDivElement
+  containerEl: HTMLDivElement,
 ) => {
   const { chart, tooltip } = context;
 
@@ -134,7 +134,9 @@ const renderTooltip = (
   verticalLineEl.style.opacity = "1";
   verticalLineEl.style.left = `${xPosition}px`;
   verticalLineEl.style.top = `${chart.chartArea.top}px`;
-  verticalLineEl.style.height = `${chart.chartArea.bottom - chart.chartArea.top}px`;
+  verticalLineEl.style.height = `${
+    chart.chartArea.bottom - chart.chartArea.top
+  }px`;
   verticalLineEl.style.zIndex = "1";
 };
 
@@ -158,19 +160,25 @@ const buildTooltipInnerHtml = (context: TooltipContext) => {
 
   return `
     <div class="flex flex-col gap-2 p-2 text-xs w-56">
-      ${xValue !== undefined ? `<div class="border-b pb-1 mb-1 font-bold">Frequency Rank ${xValue}</div>` : ""}
-      ${sortedItems
-        .map(
-          (item) => `
+      ${
+    xValue !== undefined
+      ? `<div class="border-b pb-1 mb-1 font-bold">Frequency Rank ${xValue}</div>`
+      : ""
+  }
+      ${
+    sortedItems
+      .map(
+        (item) => `
           <div class="flex items-center justify-between">
           <div class="flex">
             <span class="block w-3 h-3 rounded-sm mr-2" style="background-color: ${item.color}"></span>
             <span>${item.label}</span>
           </div>
             <span>${item.value.toFixed(2)}%</span>
-          </div>`
-        )
-        .join("")}
+          </div>`,
+      )
+      .join("")
+  }
     </div>
   `;
 };
@@ -183,7 +191,7 @@ interface TooltipContext {
 const buildChartJSConfig = (
   datasets: DataSet[],
   isDarkMode: boolean,
-  externalTooltipHandler: (context: TooltipContext) => void
+  externalTooltipHandler: (context: TooltipContext) => void,
 ): {
   type: ChartType;
   data: ChartJSData<keyof ChartTypeRegistry>;
@@ -292,7 +300,7 @@ function MultiLineChart({
       ctx,
       buildChartJSConfig(datasets, isDarkMode, (context: TooltipContext) => {
         renderTooltip(context, tooltipEl, verticalLineEl, containerEl);
-      })
+      }),
     );
 
     return () => {
@@ -312,9 +320,7 @@ function MultiLineChart({
       <canvas ref={canvasRef} />
       <div
         ref={tooltipRef}
-        className={
-          "absolute z-10 rounded-lg shadow-md min-w-[150px] opacity-0 pointer-events-none bg-background border border-gray-200 dark:border-gray-800"
-        }
+        className={"absolute z-10 rounded-lg shadow-md min-w-[150px] opacity-0 pointer-events-none bg-background border border-gray-200 dark:border-gray-800"}
       />
     </div>
   );

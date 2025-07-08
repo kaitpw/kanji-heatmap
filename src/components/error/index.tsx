@@ -3,4 +3,4 @@ import { KanjiNotFound } from "./KanjiNotFound";
 import { PageNotFound } from "./PageNotFound";
 import ErrorBoundary from "./ErrorBoundary";
 
-export { DefaultErrorFallback, KanjiNotFound, PageNotFound, ErrorBoundary };
+export { DefaultErrorFallback, ErrorBoundary, KanjiNotFound, PageNotFound };

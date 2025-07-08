@@ -1,5 +1,5 @@
 import { outLinks } from "@/lib/external-links";
-import { BugIcon, KoFiIcon, DiscordIcon } from "../icons";
+import { BugIcon, DiscordIcon, KoFiIcon } from "../icons";
 
 const bugItem = {
   href: outLinks.githubIssue,

@@ -7,4 +7,4 @@ import {
   useSearchParams,
 } from "wouter";
 
-export { Route, Switch, Link, useLocation, useSearch, useSearchParams };
+export { Link, Route, Switch, useLocation, useSearch, useSearchParams };
