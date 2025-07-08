@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { useSpeak } from "@/hooks/use-jp-speak";
 
 export const RomajiBadge = ({ kana }: { kana: string }) => {
-  const { speak, isLoading } = useSpeak(kana);
+  const { speak } = useSpeak(kana);
 
   return (
     <Badge
