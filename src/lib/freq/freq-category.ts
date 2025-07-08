@@ -1,52 +1,54 @@
 import { cnSquare } from "../generic-cn";
 
-export const freqCategoryCount = 6;
-export type FreqCategory = 0 | 1 | 2 | 3 | 4 | 5;
+export const freqCategoryCount = 10;
+export type FreqCategory = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 // TODO: Generate this as a function of freqCategoryCount
 // generating these tw classes on the fly actually doesn't work idk why
 export const freqCategoryCn: Record<FreqCategory, string> = {
-  0: "background-theme-color-with-opacity-0",
-  1: "background-theme-color-with-opacity-20",
-  2: "background-theme-color-with-opacity-40",
-  3: "background-theme-color-with-opacity-60",
-  4: "background-theme-color-with-opacity-80",
-  5: "background-theme-color-with-opacity-100",
-};
-
-export const freqCategoryOpacity: Record<FreqCategory, number> = {
-  0: 0.1,
-  1: 0.25,
-  2: 0.45,
-  3: 0.65,
-  4: 0.85,
-  5: 1,
+  0: "bg-gray-200 dark:bg-gray-700",
+  1: "bg-pink-100 dark:bg-pink-900",
+  2: "bg-pink-200 dark:bg-pink-800",
+  3: "bg-pink-300 dark:bg-pink-700",
+  4: "bg-pink-400 dark:bg-pink-600",
+  5: "bg-pink-500 dark:bg-pink-500",
+  6: "bg-pink-600 dark:bg-pink-400",
+  7: "bg-pink-700 dark:bg-pink-300",
+  8: "bg-pink-800 dark:bg-pink-200",
+  9: "bg-pink-900 dark:bg-pink-100",
 };
 
 export const freqRankMaxMin: Record<
   FreqCategory,
   { min: number; max: number }
 > = {
-  0: { min: 2250, max: Infinity },
-  1: { min: 1700, max: 2250 },
-  2: { min: 1100, max: 1700 },
-  3: { min: 650, max: 1100 },
-  4: { min: 300, max: 650 },
-  5: { min: 0, max: 300 },
+  0: { min: 2200, max: Number.POSITIVE_INFINITY },
+  1: { min: 2000, max: 2200 },
+  2: { min: 1800, max: 2000 },
+  3: { min: 1600, max: 1800 },
+  4: { min: 1400, max: 1600 },
+  5: { min: 1200, max: 1400 },
+  6: { min: 1000, max: 1200 },
+  7: { min: 800, max: 1000 },
+  8: { min: 600, max: 800 },
+  9: { min: 400, max: 600 },
 };
 
-export const getFreqCategory = (freqRank?: number | null) => {
-  return freqRank == null || freqRank < 1 || freqRank > 2250
-    ? 0
-    : freqRankMaxMin[1].min < freqRank && freqRank <= freqRankMaxMin[1].max
-    ? 1
-    : freqRankMaxMin[2].min < freqRank && freqRank <= freqRankMaxMin[2].max
-    ? 2
-    : freqRankMaxMin[3].min < freqRank && freqRank <= freqRankMaxMin[3].max
-    ? 3
-    : freqRankMaxMin[4].min < freqRank &&
-        freqRank <= freqRankMaxMin[4].max
-    ? 4
-    : 5;
+export const getFreqCategory = (freqRank?: number | null): FreqCategory => {
+  if (freqRank == null || freqRank < 1 || freqRank > 2400) {
+    return 0;
+  }
+
+  for (let i = 1; i <= 9; i++) {
+    const category = i as FreqCategory;
+    if (
+      freqRankMaxMin[category].min < freqRank &&
+      freqRank <= freqRankMaxMin[category].max
+    ) {
+      return category;
+    }
+  }
+
+  return 9; // Default to highest frequency category
 };
 
 export const getFreqCnByRank = (rank: number | null) => {

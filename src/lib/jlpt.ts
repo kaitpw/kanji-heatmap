@@ -19,33 +19,33 @@ export const JLPTListItems: Record<
   { cn: string; color: string; label: string; cnBorder: string }
 > = {
   n1: {
-    cn: "bg-red-400",
-    cnBorder: "border-red-400",
-    color: "orange",
+    cn: "bg-blue-900",
+    cnBorder: "border-blue-900",
+    color: "dark blue",
     label: "N1",
   },
   n2: {
-    cn: "bg-pink-400",
-    cnBorder: "border-pink-400",
-    color: "pink",
+    cn: "bg-blue-700",
+    cnBorder: "border-blue-700",
+    color: "blue",
     label: "N2",
   },
   n3: {
-    cn: "bg-blue-400",
-    cnBorder: "border-blue-400",
-    color: "blue",
+    cn: "bg-blue-500",
+    cnBorder: "border-blue-500",
+    color: "medium blue",
     label: "N3",
   },
   n4: {
-    cn: "bg-yellow-400",
-    cnBorder: "border-yellow-400",
-    color: "yellow",
+    cn: "bg-blue-300",
+    cnBorder: "border-blue-300",
+    color: "light blue",
     label: "N4",
   },
   n5: {
-    cn: "bg-green-500",
-    cnBorder: "border-green-500",
-    color: "lime",
+    cn: "bg-blue-100",
+    cnBorder: "border-blue-100",
+    color: "very light blue",
     label: "N5",
   },
   none: {

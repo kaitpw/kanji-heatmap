@@ -1,14 +1,18 @@
 import { forwardRef } from "react";
 import { ReportBugIconBtn } from "@/components/common/ReportBugIconBtn";
-import { CircularJLPTBadge } from "@/components/common/jlpt/CircularJLPTBadge";
+import { CircularFreqBadge } from "@/components/common/freq";
 import {
   loadingCn,
   useItemBtnCn,
   useItemType,
 } from "./kanji-item-button-hooks";
 import { ExpandedBtnContent } from "./ExpandedBtnContent";
-import { useSetOpenedParam } from "@/components/dependent/routing/routing-hooks";
+import {
+  useBgSrc,
+  useSetOpenedParam,
+} from "@/components/dependent/routing/routing-hooks";
 import { useGetKanjiInfoFn } from "@/kanji-worker/kanji-worker-hooks";
+import { freqMap } from "@/lib/options/options-label-maps";
 
 export const KanjiBtnErrorFallback = () => {
   return (
@@ -34,7 +38,16 @@ const KanjiItemButton = forwardRef<HTMLButtonElement, TriggerProps>(
     const itemType = useItemType();
     const setKanji = useSetOpenedParam();
     const getInfo = useGetKanjiInfoFn();
+    const bgSrc = useBgSrc();
     const kanjiInfo = getInfo?.(kanji);
+
+    // Get frequency data
+    const freqType = bgSrc === null || bgSrc === "none"
+      ? "none"
+      : (freqMap[bgSrc] ?? "none");
+    const freqRank = freqType !== "none" && kanjiInfo?.frequency
+      ? kanjiInfo.frequency[freqType]
+      : undefined;
 
     if (itemType === "compact") {
       return (
@@ -49,9 +62,8 @@ const KanjiItemButton = forwardRef<HTMLButtonElement, TriggerProps>(
           {...rest}
         >
           {kanji}
-          {kanjiInfo?.jlpt && kanjiInfo.jlpt !== "none" && (
-            <CircularJLPTBadge jlpt={kanjiInfo.jlpt} />
-          )}
+
+          {freqRank && <CircularFreqBadge freqRank={freqRank} />}
         </button>
       );
     }
@@ -68,9 +80,8 @@ const KanjiItemButton = forwardRef<HTMLButtonElement, TriggerProps>(
         {...rest}
       >
         <ExpandedBtnContent kanji={kanji} />
-        {kanjiInfo?.jlpt && kanjiInfo.jlpt !== "none" && (
-          <CircularJLPTBadge jlpt={kanjiInfo.jlpt} />
-        )}
+
+        {freqRank && <CircularFreqBadge freqRank={freqRank} />}
       </button>
     );
   },
