@@ -25,6 +25,7 @@ const IconMeanings = ({
       <button
         onClick={onClick}
         className="flex items-center w-full justify-left"
+        type="button"
       >
         <kbd className={kbdClass}>{kbd}</kbd>
         <span className="ml-2 text-xs">{text}</span>

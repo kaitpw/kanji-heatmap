@@ -2,7 +2,7 @@ import { GenericPopover } from "@/components/common/GenericPopover";
 
 import { SpeakButton } from "@/components/common/SpeakButton";
 import { CopyButton } from "@/components/common/CopyButton";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { InfoIcon } from "../icons";
 
 const IconMeanings = ({ btn, text }: { btn: ReactNode; text: string }) => {
@@ -25,9 +25,7 @@ export const VocabActions = ({
 }) => {
   return (
     <div className="flex relative flex-wrap justify-center space-x-1 items-center p-2">
-      <CopyButton textToCopy={word} iconType={"clipboard"} />
-      <SpeakButton word={word} iconType="volume-2" />
-      <SpeakButton word={kana} iconType={"audio-lines"} />
+      <SpeakButton word={kana} iconType="volume-2" />
       <GenericPopover
         trigger={
           <InfoIcon className="inline-block absolute top-2 right-2" size={18} />
@@ -41,14 +39,6 @@ export const VocabActions = ({
             <IconMeanings
               btn={<CopyButton textToCopy={word} iconType={"clipboard"} />}
               text={"Copy Word"}
-            />
-            <IconMeanings
-              btn={<SpeakButton word={kana} iconType={"audio-lines"} />}
-              text={"Listen to Kana reading"}
-            />
-            <IconMeanings
-              btn={<SpeakButton word={word} iconType="volume-2" />}
-              text={"Listen to default reading"}
             />
           </div>
         }

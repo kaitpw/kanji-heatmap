@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { useSpeak } from "@/hooks/use-jp-speak";
 import { AudioLines, Headphones, Volume2 } from "../icons";

@@ -6,7 +6,7 @@ import { ExternalTextLink } from "@/components/common/ExternalTextLink";
 
 import { GlobalKanjiLink } from "@/components/dependent/routing";
 import { HiraganaWord } from "@/components/dependent/kana/HiraganaWord";
-import { vocabExternalLinks } from "@/lib/external-links";
+import { externalLinks } from "@/lib/external-links";
 import { SeeMore } from "@/components/common/SeeMore";
 import { VocabActions } from "@/components/common/VocabActions";
 
@@ -58,7 +58,7 @@ export const WordCard = ({
               Learn more from:
             </div>
             <div className="text-xs pb-2 flex flex-wrap justify-center">
-              {vocabExternalLinks.map((item) => {
+              {externalLinks.map((item) => {
                 return (
                   <ExternalTextLink
                     key={item.name}
