@@ -9,12 +9,13 @@ export const HiraganaWord = ({
   highlightIndex: number;
 }) => {
   const kana = rawKana.split(",")[0];
+  const { speak } = useSpeak(rawKana);
 
   return (
     <Badge
       variant={"ja_outline"}
       className={"flex gap-2 m-1 cursor-pointer text-lg kanji-font hover:bg-[#2effff] hover:text-black"}
-      onClick={useSpeak(rawKana)}
+      onClick={() => speak()}
     >
       {kana.split(" ").map((mora, index) => {
         const key = `${mora}-${index}`;

@@ -1,4 +1,4 @@
-import { GeneralKanjiItem } from "@/lib/kanji/kanji-info-types";
+import type { GeneralKanjiItem } from "@/lib/kanji/kanji-info-types";
 import { useKanjiInfo } from "@/kanji-worker/kanji-worker-hooks";
 
 import { DefaultErrorFallback } from "@/components/error";
@@ -11,7 +11,7 @@ import { BasicLoading } from "@/components/common/BasicLoading";
 import { ExternalKanjiLinks } from "@/components/common/ExternalKanjiLinks";
 
 import { RomajiBadge } from "@/components/dependent/kana/RomajiBadge";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 const hasData = (data?: number) => data != null && data !== -1;
 
@@ -62,7 +62,7 @@ export const General = ({ kanji }: { kanji: string }) => {
                 );
               })}
 
-              {data.meanings.length === 0 && <div> - </div>}
+              {data.meanings.length === 0 && <div>-</div>}
             </TableCellGrow>
           </TableRow>
           <TableRow className="text-left">
@@ -71,7 +71,7 @@ export const General = ({ kanji }: { kanji: string }) => {
               {data.allKun.map((kun) => {
                 return <RomajiBadge key={kun} kana={kun} />;
               })}
-              {data.allKun.length === 0 && <div> - </div>}
+              {data.allKun.length === 0 && <div>-</div>}
             </TableCellGrow>
           </TableRow>
           <TableRow className="text-left">
@@ -80,14 +80,14 @@ export const General = ({ kanji }: { kanji: string }) => {
               {data.allOn.map((on) => {
                 return <RomajiBadge key={on} kana={on} />;
               })}
-              {data.allOn.length === 0 && <div> - </div>}
+              {data.allOn.length === 0 && <div>-</div>}
             </TableCellGrow>
           </TableRow>
         </TableBody>
       </Table>
       <DottedSeparator className="border-b-2 mb-4" />
       <div className="text-left">
-        <h1 className="font-bold mb-1">Learn more from: </h1>
+        <h1 className="font-bold mb-1">Learn more from:</h1>
         <ExternalKanjiLinks kanji={kanji} />
       </div>
     </>

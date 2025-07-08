@@ -16,7 +16,7 @@ export const SpeakButton = ({
   text: string;
   iconType: AudioIconType;
 }) => {
-  const speak = useSpeak(text);
+  const { speak, isLoading } = useSpeak(text);
 
   return (
     <Button
@@ -26,6 +26,7 @@ export const SpeakButton = ({
       onClick={() => {
         speak();
       }}
+      disabled={isLoading}
     >
       {audioIcons[iconType]}
     </Button>

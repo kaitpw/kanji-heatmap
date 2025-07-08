@@ -9,13 +9,14 @@ import { General } from "./General";
 import { RequestForSuggestion } from "@/components/common/RequestForSuggestion";
 import { Button } from "@/components/ui/button";
 import { GenericPopover } from "@/components/common/GenericPopover";
-import { useSpeak } from "@/hooks/use-jp-speak";
+
 import useKeyboardListener from "@/hooks/use-keyboard-listener";
 import { useNextPrevKanji } from "@/hooks/use-next-prev-kanji";
 import { useSetOpenedParam } from "@/components/dependent/routing/routing-hooks";
 import { GLOBAL_KEYBOARD_SHORTCUTS } from "@/lib/options/constants";
 import { useChangeFont } from "@/hooks/use-change-font";
 import { Keyboard } from "@/components/icons";
+import { useSpeak } from "@/hooks/use-jp-speak";
 
 const StrokeAnimation = lazy(() => import("./StrokeAnimation"));
 
@@ -49,7 +50,7 @@ const KanjiKeyboardShortcuts = ({ kanji }: { kanji: string }) => {
   const kanjis = useNextPrevKanji(kanji);
   const setOpen = useSetOpenedParam();
   const nextFont = useChangeFont();
-
+  const { speak: speakKanji, isLoading } = useSpeak(kanji);
   const prevKanji = () => {
     if (kanjis?.prev) {
       setOpen(kanjis?.prev);
@@ -64,6 +65,7 @@ const KanjiKeyboardShortcuts = ({ kanji }: { kanji: string }) => {
   useKeyboardListener({
     ArrowLeft: prevKanji,
     ArrowRight: nextKanji,
+    0: speakKanji,
   });
 
   if (kanjis == null) {
@@ -92,6 +94,11 @@ const KanjiKeyboardShortcuts = ({ kanji }: { kanji: string }) => {
       }
       content={
         <div className="p-2 flex flex-col space-y-1">
+          <IconMeanings
+            kbd="0"
+            text="Kanji Default Reading"
+            onClick={speakKanji}
+          />
           <IconMeanings
             kbd={GLOBAL_KEYBOARD_SHORTCUTS.nextFont}
             onClick={nextFont}
