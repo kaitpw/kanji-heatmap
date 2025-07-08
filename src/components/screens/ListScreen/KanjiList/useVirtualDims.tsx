@@ -2,18 +2,18 @@ import { useWindowSize } from "@/hooks/use-window-size";
 
 export const TILE_SIZE = {
   sm: {
-    width: 50,
-    height: 55,
+    width: 70,
+    height: 75,
   },
   lg: {
-    width: 135,
-    height: 118,
+    width: 140,
+    height: 150,
   },
 };
 
 export const useVirtualListDims = (
   itemCount: number,
-  size: "compact" | "expanded"
+  size: "compact" | "expanded",
 ) => {
   const [windowWidth, windowHeight] = useWindowSize();
   const tileSize = size === "compact" ? TILE_SIZE.sm : TILE_SIZE.lg;

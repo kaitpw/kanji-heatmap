@@ -19,11 +19,11 @@ const LoadingKanjisRaw = ({
   const isCompact = itemSettings.cardType === "compact";
   const { itemSize, width, cols, idealRows } = useVirtualListDims(
     ESTIMATE_ITEM_COUNT,
-    itemSettings.cardType
+    itemSettings.cardType,
   );
 
   const itemStyle = isCompact
-    ? { minHeight: itemSize - 6, minWidth: width - 6 }
+    ? { minHeight: itemSize - 1, minWidth: width - 1 }
     : { minHeight: itemSize, minWidth: width };
 
   return (
@@ -37,18 +37,15 @@ const LoadingKanjisRaw = ({
           >
             {new Array(cols).fill(null).map((_, j) => {
               const colorCn = isCompact
-                ? type === "colorful"
-                  ? randomCn2Colorful()
-                  : randomCn2()
+                ? type === "colorful" ? randomCn2Colorful() : randomCn2()
                 : type === "colorful"
-                  ? randomCnColorful()
-                  : randomCn();
+                ? randomCnColorful()
+                : randomCn();
               return (
                 <div
                   key={`item-${i}-${
                     // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-                    j
-                  }`}
+                    j}`}
                   style={itemStyle}
                   className={`animate-pulse transition-all transition-discrete  mr-1 mb-1 grow ${colorCn}`}
                 />

@@ -21,7 +21,7 @@ const Layout = ({
 }) => {
   return (
     <>
-      <div className="w-full flex flex-col overflow-y-scroll overflow-x-hidden md:flex-row md:space-x-1 ">
+      <div className="w-full flex flex-col overflow-y-scroll overflow-x-hidden md:flex-row md:space-x-1 px-12 md:px-0">
         <div className="px-1 md:sticky md:top-[0px] md:left-[0px] md:min-w-96 md:max-w-96 md:w-96">
           <ErrorBoundary details="Kanji Card in KanjiDrawer Layout">
             <div className="block md:hidden">{actionBar}</div>

@@ -1,6 +1,6 @@
-import { ClipboardEvent, useEffect, useRef, useState } from "react";
+import { type ClipboardEvent, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
-import { SearchType } from "@/lib/settings/settings";
+import type { SearchType } from "@/lib/settings/settings";
 import {
   placeholderMap,
   SEARCH_TYPE_OPTIONS,
@@ -21,6 +21,7 @@ import {
 import { RadicalsScreenDialog } from "./RadicalScreen/RadicalScreenDialog";
 import { ErrorBoundary } from "@/components/error";
 import { SmallUnexpectedErrorFallback } from "@/components/error/SmallUnexpectedErrorFallback";
+import { ResultCounter } from "./ResultCounter";
 
 const INPUT_DEBOUNCE_TIME = 300;
 
@@ -37,7 +38,7 @@ export const SearchInput = ({
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [searchType, setSearchType] = useState(initialSearchType);
   const [parsedValue, setValue] = useState(
-    translateValue(initialText, translateMap[searchType])
+    translateValue(initialText, translateMap[searchType]),
   );
 
   const [isOpenRadicals, setIsOpenRadicals] = useState(false);
@@ -64,7 +65,7 @@ export const SearchInput = ({
         ref={inputRef}
         className={cn(
           "flex w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-7 pr-[105px] h-9",
-          fontCN
+          fontCN,
         )}
         value={parsedValue}
         onClick={() => {
@@ -75,7 +76,7 @@ export const SearchInput = ({
         onChange={(e) => {
           const updatedValue = translateValue(
             e.target.value,
-            translateMap[searchType]
+            translateMap[searchType],
           );
 
           setValue(updatedValue);
@@ -125,7 +126,7 @@ export const SearchInput = ({
           // default behavior
           const updatedValue = translateValue(
             processedText,
-            translateMap[searchType]
+            translateMap[searchType],
           );
           onSyncAll(updatedValue, searchType);
         }}
@@ -133,10 +134,9 @@ export const SearchInput = ({
       />
 
       <Search
-        className={
-          "pointer-events-none absolute left-2 top-2 size-4 translate-y-0.5 select-none opacity-50"
-        }
+        className={"pointer-events-none absolute left-2 top-2 size-4 translate-y-0.5 select-none opacity-50"}
       />
+      <ResultCounter hasText={parsedValue.length > 0} />
       {parsedValue.length > 0 && (
         <Button
           className="absolute right-[120px] top-[6px] m-0 p-1  h-6 rounded-full"
@@ -163,14 +163,12 @@ export const SearchInput = ({
           setSearchType(newType);
           const newParsedValue = translateValue(
             searchType === "radicals" ? "" : parsedValue,
-            translateMap[newType]
+            translateMap[newType],
           );
           setValue(newParsedValue);
           onSettle(newParsedValue.trim(), newType);
         }}
-        triggerCN={
-          "absolute right-1 top-1 w-[115px] h-7 bg-gray-100 dark:bg-gray-900"
-        }
+        triggerCN={"absolute right-1 top-1 w-[90px] h-7 bg-gray-100 dark:bg-gray-900"}
         options={SEARCH_TYPE_OPTIONS}
         label="Search Type"
         isLabelSrOnly={true}

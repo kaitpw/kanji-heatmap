@@ -1,5 +1,5 @@
-import { JLTPTtypes } from "../jlpt";
-import { FrequencyType, SortKey } from "../options/options-types";
+import type { JLTPTtypes } from "../jlpt";
+import type { FrequencyType, SortKey } from "../options/options-types";
 
 export const SEARCH_TYPE_ARR = [
   "keyword",
@@ -40,5 +40,4 @@ export type SearchSettings = {
 
 export type ItemSettings = {
   cardType: "compact" | "expanded";
-  borderColorAttached: boolean;
 };

@@ -15,7 +15,7 @@ export const KanjiCardLayout = ({
 }) => {
   const hasWords = firstWord && secondWord;
   return (
-    <article className="w-full rounded-lg border-2 border-dotted animate-fade-in">
+    <article className="w-full rounded-lg border-2 border-dotted animate-fade-in bg-black">
       <div className="hidden sm:flex">
         <div className=" border-r-2 border-dotted">{main}</div>
         {hasWords && (

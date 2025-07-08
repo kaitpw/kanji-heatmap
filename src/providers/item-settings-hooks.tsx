@@ -1,14 +1,13 @@
 import { useDeferredValue } from "react";
 import { createContextComponents, useContextWithCatch } from "./helpers";
-import { ItemSettings } from "@/lib/settings/settings";
+import type { ItemSettings } from "@/lib/settings/settings";
 
 export const defaultItemSettingsValue: ItemSettings = {
   cardType: "expanded",
-  borderColorAttached: true,
 };
 
 export const itemSettings = createContextComponents<ItemSettings>(
-  defaultItemSettingsValue
+  defaultItemSettingsValue,
 );
 
 const providerName = "ItemSettings";
@@ -27,7 +26,7 @@ export function useItemSettingsDispatch() {
   const context = useContextWithCatch(
     itemSettings.DispatchContext,
     providerName,
-    `${providerName}Dispatch`
+    `${providerName}Dispatch`,
   );
   return context;
 }

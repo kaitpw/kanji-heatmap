@@ -1,5 +1,5 @@
-import { SearchType } from "@/lib/settings/settings";
-import { TranslateType } from "./wanakana-adapter";
+import type { SearchType } from "@/lib/settings/settings";
+import type { TranslateType } from "./wanakana-adapter";
 
 export const translateMap: Record<SearchType, TranslateType> = {
   keyword: "romaji",

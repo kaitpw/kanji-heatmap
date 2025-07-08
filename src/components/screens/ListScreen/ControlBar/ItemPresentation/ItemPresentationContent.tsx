@@ -1,5 +1,5 @@
-import { ReactNode, useState } from "react";
-import { FrequencyType } from "@/lib/options/options-types";
+import type { ReactNode } from "react";
+import type { FrequencyType } from "@/lib/options/options-types";
 import {
   useItemSettings,
   useItemSettingsDispatch,
@@ -7,7 +7,6 @@ import {
 
 import { DottedSeparator } from "@/components/ui/dotted-separator";
 
-import { LabeledCheckbox } from "@/components/common/LabeledCheckbox";
 import { FrequencyRankDataSource } from "@/components/common/freq/FrequencyRankDataSource";
 import { FreqGradient } from "@/components/common/freq/FreqGradient";
 import { ItemTypeSwitch } from "@/components/common/ItemTypeSwitch";
@@ -26,36 +25,20 @@ const BackgroundColorSection = () => {
   const initialState = useBgSrc();
   const dispatch = useBgSrcDispatch();
 
-  const [shouldAttachMeaning, setShouldAttachMeaning] = useState(
-    initialState !== "none"
-  );
-
   return (
     <>
       <H2>
         Background Color Meaning <FreqGradientInfoIcon />
       </H2>
-      <LabeledCheckbox
-        label="Attach Background Color Meaning"
-        value={shouldAttachMeaning}
-        onChange={(v) => {
-          if (v === false) {
-            dispatch("none");
-          }
-          setShouldAttachMeaning(v);
-        }}
-      />
-      {shouldAttachMeaning && (
-        <>
-          <FreqGradient />
-          <FrequencyRankDataSource
-            value={initialState}
-            setValue={(v) => {
-              dispatch(v as FrequencyType);
-            }}
-          />
-        </>
-      )}
+      <>
+        <FreqGradient />
+        <FrequencyRankDataSource
+          value={initialState}
+          setValue={(v) => {
+            dispatch(v as FrequencyType);
+          }}
+        />
+      </>
     </>
   );
 };
@@ -74,14 +57,7 @@ const CardStateSettings = () => {
         }}
       />
       <H2>Border Color Meaning</H2>
-      <LabeledCheckbox
-        label="Attach Border Color Meaning (JLPT)"
-        value={cardState.borderColorAttached}
-        onChange={(v) => {
-          dispatch("borderColorAttached", v);
-        }}
-      />
-      {cardState.borderColorAttached && <JLPTBordersMeanings />}
+      <JLPTBordersMeanings />
     </>
   );
 };

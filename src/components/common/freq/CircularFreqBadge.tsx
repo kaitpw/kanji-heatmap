@@ -27,17 +27,23 @@ export const CircularFreqBadge = ({
   const { max } = freqRankMaxMin[freqCategory];
 
   // Display the upper bound of the frequency bin in Japanese
-  const displayValue =
-    max === Number.POSITIVE_INFINITY ? "2400+" : toJapaneseHundreds(max);
+  const displayValue = max === Number.POSITIVE_INFINITY
+    ? "2400+"
+    : toJapaneseHundreds(max);
 
   return (
-    <div
-      className={`absolute -bottom-2 -right-2 w-8 h-8 rounded-full flex items-center justify-center text-[9px] font-bold shadow-md ${
-        freqCategoryCn[freqCategory]
-      } text-black`}
-      title={`Frequency rank: ${freqRank} (bin: ${displayValue})`}
-    >
-      {displayValue}
+    <div className="absolute -bottom-2 -right-2">
+      {/* Background circle underlay */}
+      <div className="absolute inset-0 w-6 h-6 rounded-full bg-background shadow-md" />
+      {/* Colored badge with reduced opacity */}
+      <div
+        className={`relative w-6 h-6 rounded-full flex items-center justify-center text-[8px] font-bold ${
+          freqCategoryCn[freqCategory]
+        } text-black `}
+        title={`Frequency rank: ${freqRank} (bin: ${displayValue})`}
+      >
+        {displayValue}
+      </div>
     </div>
   );
 };
