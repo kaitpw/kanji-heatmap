@@ -14,7 +14,7 @@ export const SettledSearchInput = () => {
     (text: string, searchType: SearchType) => {
       dispatch("textSearch", { text, type: searchType });
     },
-    [dispatch],
+    [dispatch]
   );
 
   return (

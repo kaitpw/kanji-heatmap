@@ -1,4 +1,4 @@
-import {
+import type {
   ExtendedKanjiInfoResponseType,
   KanjiExtendedInfo,
   KanjiMainInfo,
@@ -7,6 +7,7 @@ import {
   PostMessageResponseType,
   SegmentedVocabInfo,
   SegmentedVocabResponseType,
+  Sentence,
 } from "@/lib/kanji/kanji-worker-types";
 import {
   fetchExtendedKanjiInfo,
@@ -15,6 +16,8 @@ import {
   fetchPartKeywordInfo,
   fetchPhoneticInfo,
   fetchSegmentedVocab,
+  fetchSentences,
+  searchSentencesForKanji,
   transformToExtendedKanjiInfo,
   transformToMainKanjiInfo,
 } from "./helpers";
@@ -24,7 +27,7 @@ import {
   searchByRadical,
   searchKanji,
 } from "./kanji-search";
-import { SearchSettings } from "@/lib/settings/settings";
+import type { SearchSettings } from "@/lib/settings/settings";
 
 const KANJI_INFO_MAIN_CACHE: Record<string, KanjiMainInfo> = {};
 const KANJI_INFO_EXTENDED_CACHE: Record<string, KanjiExtendedInfo> = {};
@@ -34,27 +37,32 @@ let KANJI_SEGMENTED_VOCAB_CACHE: Record<string, SegmentedVocabInfo> = {};
 let KANJI_PHONETIC_MAP_CACHE: Record<string, string> = {};
 let KANJI_PART_KEYWORD_MAP_CACHE: Record<string, string> = {};
 let KANJI_BY_STROKE_ORDER_CACHE: string[] = [];
+let SENTENCES_CACHE: Sentence[] = [];
 
 const loadMainKanjiInfo = (items: MainKanjiInfoResponseType) => {
-  Object.keys(items).forEach((k) => {
+  for (const k of Object.keys(items)) {
     KANJI_INFO_MAIN_CACHE[k] = transformToMainKanjiInfo(items[k]);
-  });
+  }
 };
 
 const loadExtendedKanjiInfo = (items: ExtendedKanjiInfoResponseType) => {
-  Object.keys(items).forEach((k) => {
+  for (const k of Object.keys(items)) {
     KANJI_INFO_EXTENDED_CACHE[k] = transformToExtendedKanjiInfo(items[k]);
-  });
+  }
 };
 
 const loadKanjiDecomposition = (items: Record<string, string>) => {
-  Object.keys(items).forEach((k) => {
+  for (const k of Object.keys(items)) {
     KANJI_DECOMPOSITION_CACHE[k] = new Set([...items[k]]);
-  });
+  }
 };
 
 const loadSegmentedVocabInfo = (map: SegmentedVocabResponseType) => {
   KANJI_SEGMENTED_VOCAB_CACHE = map;
+};
+
+const loadSentences = (sentences: Sentence[]) => {
+  SENTENCES_CACHE = sentences;
 };
 
 const retrieveVocabInfo = (word?: string) => {
@@ -69,7 +77,7 @@ const retrieveVocabInfo = (word?: string) => {
   };
 };
 
-self.onmessage = function (event: { data: OnMessageRequestType }) {
+self.onmessage = (event: { data: OnMessageRequestType }) => {
   const eventType = event.data.data.type;
   const payload = event.data.data.payload;
   const id = event.data.id;
@@ -156,6 +164,25 @@ self.onmessage = function (event: { data: OnMessageRequestType }) {
       .then(() => sendResponse(KANJI_PHONETIC_MAP_CACHE))
       .catch(sendError);
 
+    return;
+  }
+
+  if (eventType === "initialize-sentences") {
+    fetchSentences()
+      .then(loadSentences)
+      .then(() => sendResponse(SENTENCES_CACHE))
+      .catch(sendError);
+
+    return;
+  }
+
+  if (eventType === "search-sentences") {
+    const kanji = payload as string;
+    const sentenceSearchResult = searchSentencesForKanji(
+      SENTENCES_CACHE,
+      kanji,
+    );
+    sendResponse(sentenceSearchResult);
     return;
   }
 

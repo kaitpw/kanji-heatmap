@@ -1,4 +1,4 @@
-import { JLTPTtypes } from "../jlpt";
+import type { JLTPTtypes } from "../jlpt";
 
 export type KanjiWorkerInfoRequestType = "kanji-extended";
 // | "kanji-related-kanji"
@@ -116,7 +116,9 @@ export type KanjiWorkerRequestName =
   | "initialize-decomposition-map"
   | "kanji-main-map"
   | "phonetic-map"
-  | "part-keyword-map";
+  | "part-keyword-map"
+  | "search-sentences"
+  | "initialize-sentences";
 
 export type KanjiWorkerRequest = {
   type: KanjiWorkerRequestName;
@@ -136,4 +138,18 @@ export type PostMessageResponseType = {
     status: "COMPLETED" | "ERRORED";
     data?: unknown;
   };
+};
+
+// Sentence search types
+export type Sentence = {
+  source: string;
+  audio_jap?: string;
+  jap: string;
+  eng: string;
+};
+
+export type SentenceSearchResult = {
+  sentences: Sentence[];
+  totalCount: number;
+  searchTerm: string;
 };

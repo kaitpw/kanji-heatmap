@@ -2,7 +2,7 @@ export const JLPT_TYPE_ARR = ["n5", "n4", "n3", "n2", "n1", "none"] as const;
 export type JLTPTtypes = (typeof JLPT_TYPE_ARR)[number];
 
 export const validJlpts: JLTPTtypes[] = JLPT_TYPE_ARR.filter(
-  (jlpt) => jlpt !== "none",
+  (jlpt) => jlpt !== "none"
 );
 
 export const JLPTRank: Record<JLTPTtypes, number> = {

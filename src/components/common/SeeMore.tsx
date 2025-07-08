@@ -12,9 +12,11 @@ export const SeeMore = ({
 
   return (
     <div className="text-xs py-2 px-3 text-start">
-      {canSeeAll || showMore
-        ? <>{definition}</>
-        : <>{definition.slice(0, maxLen)}...</>}
+      {canSeeAll || showMore ? (
+        <>{definition}</>
+      ) : (
+        <>{definition.slice(0, maxLen)}...</>
+      )}
       <br />
       {!canSeeAll && (
         <button

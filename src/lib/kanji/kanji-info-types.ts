@@ -1,11 +1,15 @@
-import { JLTPTtypes } from "../jlpt";
-import {
+import type { JLTPTtypes } from "../jlpt";
+import type {
   KanjiExtendedInfo,
   KanjiInfoFrequency,
   KanjiMainInfo,
 } from "./kanji-worker-types";
 
-export type KanjiInfoRequestType = "hover-card" | "general" | "radical-keyword";
+export type KanjiInfoRequestType =
+  | "hover-card"
+  | "general"
+  | "radical-keyword"
+  | "search-sentences";
 
 export type VocabExtendedInfo = {
   vocabInfo?: {

@@ -14,9 +14,8 @@ export const PrivacyPolicySection = ({ title }: { title: string }) => {
         <CustomLink href="https://github.com/PikaPikaGems">
           PikaPikaGems
         </CustomLink>{" "}
-        operates kanjiheatmap.com (the{" "}
-        {`"Site"`}). This Privacy Policy explains how we handle information
-        related to your use of the Site.
+        operates kanjiheatmap.com (the {`"Site"`}). This Privacy Policy explains
+        how we handle information related to your use of the Site.
       </p>
 
       <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 mt-10 mb-4">
@@ -34,9 +33,8 @@ export const PrivacyPolicySection = ({ title }: { title: string }) => {
       </h2>
 
       <p className="leading-7 mb-4">
-        We use {"Cloudflare's"}{" "}
-        analytics tools to understand how the Site performs and how visitors
-        interact with it. These tools include:
+        We use {"Cloudflare's"} analytics tools to understand how the Site
+        performs and how visitors interact with it. These tools include:
       </p>
 
       <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
@@ -80,9 +78,8 @@ export const PrivacyPolicySection = ({ title }: { title: string }) => {
 
       <p className="leading-7 mb-4">
         We do not sell, trade, or share any personal information with third
-        parties because we {"don't"}{" "}
-        collect it. The aggregated analytics data from Cloudflare is used solely
-        by us for the purposes described above.
+        parties because we {"don't"} collect it. The aggregated analytics data
+        from Cloudflare is used solely by us for the purposes described above.
       </p>
 
       <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 mt-10 mb-4">
@@ -90,13 +87,12 @@ export const PrivacyPolicySection = ({ title }: { title: string }) => {
       </h2>
 
       <p className="leading-7 mb-4">
-        Since we {"don't"}{" "}
-        collect personal information or use cookies, there are no specific
-        privacy settings for you to manage on the Site. If you have concerns
-        about {"Cloudflare's"}{" "}
-        analytics, you can review their practices directly or use browser tools
-        (like Do Not Track settings) to limit data collection, though this may
-        not fully apply to aggregated analytics.
+        Since we {"don't"} collect personal information or use cookies, there
+        are no specific privacy settings for you to manage on the Site. If you
+        have concerns about {"Cloudflare's"} analytics, you can review their
+        practices directly or use browser tools (like Do Not Track settings) to
+        limit data collection, though this may not fully apply to aggregated
+        analytics.
       </p>
 
       <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 mt-10 mb-4">
@@ -105,8 +101,7 @@ export const PrivacyPolicySection = ({ title }: { title: string }) => {
 
       <p className="leading-7 mb-4">
         We may update this Privacy Policy from time to time. If we do, the
-        updated version will be posted here with a revised {`"Last Updated"`}
-        {" "}
+        updated version will be posted here with a revised {`"Last Updated"`}{" "}
         date.
       </p>
 

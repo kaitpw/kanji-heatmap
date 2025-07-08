@@ -22,7 +22,9 @@ export const GlobalKanjiLink = ({
   return (
     <Link
       to={`/?${urlState}`}
-      className={"flex flex-col m-1 p-1 text-xl hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md"}
+      className={
+        "flex flex-col m-1 p-1 text-xl hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md"
+      }
     >
       <Badge className="text-center justify-center">{keyword}</Badge>
       <div className="kanji-font">{kanji}</div>

@@ -26,8 +26,8 @@ const ItemCountComputed = ({ settings }: { settings: SearchSettings }) => {
     return null;
   }
 
-  const textPrefix = settings.textSearch.text.length > 0
-    ? (
+  const textPrefix =
+    settings.textSearch.text.length > 0 ? (
       <>
         Your Search Text is{" "}
         <span className="mx-1 font-extrabold">
@@ -35,15 +35,14 @@ const ItemCountComputed = ({ settings }: { settings: SearchSettings }) => {
         </span>
         <span>
           {`(Search Type: ${
-            SEARCH_TYPE_OPTIONS.find((item) =>
-              item.value === settings.textSearch.type
+            SEARCH_TYPE_OPTIONS.find(
+              (item) => item.value === settings.textSearch.type
             )?.label
           } )`}
         </span>
         .
       </>
-    )
-    : (
+    ) : (
       ""
     );
 
@@ -51,9 +50,8 @@ const ItemCountComputed = ({ settings }: { settings: SearchSettings }) => {
     return <AllMatchMsg />;
   }
 
-  const textSuffix = settings.filterSettings.freq.source !== "none"
-    ? disclaimer
-    : null;
+  const textSuffix =
+    settings.filterSettings.freq.source !== "none" ? disclaimer : null;
 
   if (data.data === 0) {
     return (

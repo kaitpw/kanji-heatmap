@@ -39,10 +39,11 @@ const KanjiDMAK = ({
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     dmakInstanceRef.current = new (window as any).Dmak(kanji, {
       element: kanjiId,
-      uri: import.meta.env.MODE === "development" ||
-          window.location.protocol === "http:"
-        ? assetsPaths.dev.KANJI_SVGS
-        : assetsPaths.KANJI_SVGS,
+      uri:
+        import.meta.env.MODE === "development" ||
+        window.location.protocol === "http:"
+          ? assetsPaths.dev.KANJI_SVGS
+          : assetsPaths.KANJI_SVGS,
       height: SVG_SIZE,
       width: SVG_SIZE,
       step: step,

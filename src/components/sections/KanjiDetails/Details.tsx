@@ -8,6 +8,7 @@ import { BasicLoading } from "@/components/common/BasicLoading";
 import { LinksOutItems } from "@/components/common/LinksOutItems";
 import { FrequencyInfo } from "./FrequencyInfo";
 import { General } from "./General";
+import { Sentences } from "./Sentences";
 import { MiscellaneousCallout } from "@/components/common/RequestForSuggestion";
 import { Button } from "@/components/ui/button";
 import { GenericPopover } from "@/components/common/GenericPopover";
@@ -146,6 +147,9 @@ export const KanjiDetails = ({ kanji }: { kanji: string }) => {
       </SimpleAccordion>
       <SimpleAccordion trigger={"Frequency Ranks"}>
         <FrequencyInfo freqRankInfo={data.frequency} />
+      </SimpleAccordion>
+      <SimpleAccordion trigger={"Sample Sentences"}>
+        <Sentences kanji={kanji} />
       </SimpleAccordion>
       <MiscellaneousCallout />
       <div className="w-full flex justify-start space-x-1">

@@ -26,7 +26,7 @@ export function SearchSettingsProvider({ children }: { children: ReactNode }) {
   const updateItem = useCallback(
     (
       key: keyof SearchSettings,
-      value: TextSearch | FilterSettings | SortSettings,
+      value: TextSearch | FilterSettings | SortSettings
     ) => {
       setSearchParams((prev) => {
         // if only text search type is changed, but no search text
@@ -42,7 +42,7 @@ export function SearchSettingsProvider({ children }: { children: ReactNode }) {
         return toSearchParams(prev, key, value);
       });
     },
-    [setSearchParams],
+    [setSearchParams]
   );
 
   useLayoutEffect(() => {
@@ -56,22 +56,22 @@ export function SearchSettingsProvider({ children }: { children: ReactNode }) {
         const partial1 = toSearchParams(
           prev,
           "textSearch",
-          searchSettings.textSearch,
+          searchSettings.textSearch
         );
         const partial2 = toSearchParams(
           partial1,
           "filterSettings",
-          searchSettings.filterSettings,
+          searchSettings.filterSettings
         );
         const final = toSearchParams(
           partial2,
           "sortSettings",
-          searchSettings.sortSettings,
+          searchSettings.sortSettings
         );
 
         return final;
       },
-      { replace: true },
+      { replace: true }
     );
   }, [setSearchParams, location]);
 

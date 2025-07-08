@@ -20,7 +20,7 @@ import { docPages } from "./components/items/nav-items";
 import { GlobalKeyboardShortcutProvider } from "./providers/global-keyboard-shortcut-provider";
 
 const LazyBottomBanner = React.lazy(
-  () => import("./components/site-layout/BottomBanner"),
+  () => import("./components/site-layout/BottomBanner")
 );
 
 const { kanjiPage } = pageItems;
@@ -28,8 +28,8 @@ const { kanjiPage } = pageItems;
 export const NavBar = () => {
   const location = useUrlLocation();
 
-  const triggerTitle = [kanjiPage].find((item) => item.href === location)
-    ?.title ?? "Menu";
+  const triggerTitle =
+    [kanjiPage].find((item) => item.href === location)?.title ?? "Menu";
 
   return (
     <Nav

@@ -58,7 +58,7 @@ const freqSort = (a?: number | null, b?: number | null) => {
 export const filterByKanjiSimple = (
   allKanji: string[],
   settings: SearchSettings,
-  kanjiPool: DataPool,
+  kanjiPool: DataPool
 ) => {
   const jlptFilters = new Set(settings.filterSettings.jlpt);
   const minStrokes = settings.filterSettings.strokeRange.min;
@@ -75,8 +75,8 @@ export const filterByKanjiSimple = (
     })
     .filter((kanji) => {
       const exInfo = kanjiPool.extended[kanji];
-      const withinRange = maxStrokes >= exInfo.strokes &&
-        exInfo.strokes >= minStrokes;
+      const withinRange =
+        maxStrokes >= exInfo.strokes && exInfo.strokes >= minStrokes;
       return withinRange;
     })
     .filter((kanji) => {
@@ -85,8 +85,8 @@ export const filterByKanjiSimple = (
       }
       const info = kanjiPool.main[kanji];
       const freq = getFrequency(freqFilter.source, info) ?? Number.MAX_VALUE;
-      const withinRange = freq >= freqFilter.rankRange.min &&
-        freq <= freqFilter.rankRange.max;
+      const withinRange =
+        freq >= freqFilter.rankRange.min && freq <= freqFilter.rankRange.max;
       return withinRange;
     });
 };
@@ -94,29 +94,31 @@ export const filterByKanjiSimple = (
 export const filterKanji = (
   allKanji: string[],
   settings: SearchSettings,
-  kanjiPool: DataPool,
+  kanjiPool: DataPool
 ) => {
   const textSearch = settings.textSearch;
 
   const trimmedSearchText = textSearch.text.trim();
-  const textToSearch = textSearch.type === "onyomi" ||
-      textSearch.type === "kunyomi" ||
-      textSearch.type === "readings"
-    ? wanakana.toHiragana(trimmedSearchText)
-    : textSearch.type == "meanings" || textSearch.type === "keyword"
-    ? wanakana.toRomaji(trimmedSearchText.toLowerCase())
-    : trimmedSearchText;
+  const textToSearch =
+    textSearch.type === "onyomi" ||
+    textSearch.type === "kunyomi" ||
+    textSearch.type === "readings"
+      ? wanakana.toHiragana(trimmedSearchText)
+      : textSearch.type == "meanings" || textSearch.type === "keyword"
+        ? wanakana.toRomaji(trimmedSearchText.toLowerCase())
+        : trimmedSearchText;
 
-  const kanjisToSearchList = textSearch.type === "multi-kanji"
-    ? textToSearch.split("").filter((character) => {
-      return (
-        wanakana.isHiragana(character) === false &&
-        wanakana.isKatakana(character) === false &&
-        wanakana.isRomaji(character) === false &&
-        wanakana.isJapanese(character)
-      );
-    })
-    : [];
+  const kanjisToSearchList =
+    textSearch.type === "multi-kanji"
+      ? textToSearch.split("").filter((character) => {
+          return (
+            wanakana.isHiragana(character) === false &&
+            wanakana.isKatakana(character) === false &&
+            wanakana.isRomaji(character) === false &&
+            wanakana.isJapanese(character)
+          );
+        })
+      : [];
 
   const kanjiToSearchSet = new Set(kanjisToSearchList);
 
@@ -128,46 +130,47 @@ export const filterKanji = (
   // - freq filter source = none
   // - all-jlpt selected
   // Also add a LRU cache of recently computed results
-  const filteredBySearchText = textToSearch === ""
-    ? allKanji
-    : allKanji.filter((kanji) => {
-      if (textSearch.type === "keyword") {
-        const info = kanjiPool.main[kanji];
-        return fuzzysearch(textToSearch, info.keyword);
-      }
+  const filteredBySearchText =
+    textToSearch === ""
+      ? allKanji
+      : allKanji.filter((kanji) => {
+          if (textSearch.type === "keyword") {
+            const info = kanjiPool.main[kanji];
+            return fuzzysearch(textToSearch, info.keyword);
+          }
 
-      if (textSearch.type === "meanings") {
-        const info = kanjiPool.main[kanji];
-        const meanings = kanjiPool.extended[kanji].meanings;
-        return (
-          fuzzysearch(textToSearch, info.keyword) ||
-          meanings.find((meaning) => meaning.includes(textToSearch))
-        );
-      }
+          if (textSearch.type === "meanings") {
+            const info = kanjiPool.main[kanji];
+            const meanings = kanjiPool.extended[kanji].meanings;
+            return (
+              fuzzysearch(textToSearch, info.keyword) ||
+              meanings.find((meaning) => meaning.includes(textToSearch))
+            );
+          }
 
-      const exInfo = kanjiPool.extended[kanji];
-      if (textSearch.type === "kunyomi") {
-        const hit = exInfo.allKunStripped.has(textToSearch);
-        return hit;
-      }
+          const exInfo = kanjiPool.extended[kanji];
+          if (textSearch.type === "kunyomi") {
+            const hit = exInfo.allKunStripped.has(textToSearch);
+            return hit;
+          }
 
-      if (textSearch.type === "onyomi") {
-        return exInfo.allOn.has(textToSearch);
-      }
+          if (textSearch.type === "onyomi") {
+            return exInfo.allOn.has(textToSearch);
+          }
 
-      if (textSearch.type === "readings") {
-        return (
-          exInfo.allOn.has(textToSearch) ||
-          exInfo.allKunStripped.has(textToSearch)
-        );
-      }
+          if (textSearch.type === "readings") {
+            return (
+              exInfo.allOn.has(textToSearch) ||
+              exInfo.allKunStripped.has(textToSearch)
+            );
+          }
 
-      if (textSearch.type === "multi-kanji") {
-        return kanjiToSearchSet.has(kanji);
-      }
+          if (textSearch.type === "multi-kanji") {
+            return kanjiToSearchSet.has(kanji);
+          }
 
-      return true;
-    });
+          return true;
+        });
 
   return filterByKanjiSimple(filteredBySearchText, settings, kanjiPool);
 };
@@ -175,7 +178,7 @@ export const filterKanji = (
 export const sortKanji = (
   kanjiList: string[],
   settings: SearchSettings,
-  kanjiPool: DataPool,
+  kanjiPool: DataPool
 ) => {
   const primarySort = settings.sortSettings.primary;
   const secondarySort = settings.sortSettings.secondary;
@@ -218,7 +221,7 @@ export const sortKanji = (
       if ((FREQ_RANK_OPTIONS_NONE_REMOVED as string[]).includes(sortKey)) {
         return freqSort(
           getFrequency(sortKey, infoA),
-          getFrequency(sortKey, infoB),
+          getFrequency(sortKey, infoB)
         );
       }
 
@@ -253,7 +256,7 @@ export const searchByRadical = (
   initialKanjis: string[],
   settings: SearchSettings,
   kanjiPool: DataPool,
-  kanjiDecompositionCache: Record<string, Set<string>>,
+  kanjiDecompositionCache: Record<string, Set<string>>
 ) => {
   // override minimum stroke count by user with
   // the largest stroke count given all the selected radicals
@@ -270,7 +273,7 @@ export const searchByRadical = (
   const filteredKanjisSimple = filterByKanjiSimple(
     initialKanjis,
     settings,
-    kanjiPool,
+    kanjiPool
   );
 
   // if kanji has all the radicals in the set then include this in the search result

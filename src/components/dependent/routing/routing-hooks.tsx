@@ -25,7 +25,7 @@ export const useBgSrcDispatch = () => {
         return prev;
       });
     },
-    [setSearchParams],
+    [setSearchParams]
   );
 
   return dispatch;
@@ -51,7 +51,7 @@ export const useSetOpenedParam = () => {
         return prev;
       });
     },
-    [setSearchParams],
+    [setSearchParams]
   );
 
   return setOpenedKanji;
@@ -110,8 +110,8 @@ export const useHasNavigatedToHomeKey = () => {
 
   const justClosedDrawer = wasAlreadyInHome && !isOpen && wasPreviousOpen;
 
-  const shouldRefocus = wasAlreadyInHome && notSameSearchString &&
-    !justClosedDrawer && !isOpen;
+  const shouldRefocus =
+    wasAlreadyInHome && notSameSearchString && !justClosedDrawer && !isOpen;
   useLayoutEffect(() => {
     if (shouldRefocus) {
       setKey((key) => key + 1);

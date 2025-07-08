@@ -1,7 +1,13 @@
-import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
+import {
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import wanakana from "@/lib/wanakana-adapter";
 import KANJI_WORKER_SINGLETON from "@/kanji-worker/kanji-worker-promise-wrapper";
-import {
+import type {
   GeneralKanjiItem,
   HoverItemReturnData,
   KanjiCacheItem,
@@ -11,7 +17,7 @@ import {
   KanjiPhoneticCacheType,
   VocabExtendedInfo,
 } from "@/lib/kanji/kanji-info-types";
-import {
+import type {
   GetBasicKanjiInfo,
   KanjiExtendedInfo,
   KanjiMainInfo,
@@ -47,7 +53,7 @@ const extractKanjiHoverData = (
     const parts = word.split("");
     const partCache: Record<string, string> = {};
     const isKanjiCache: Record<string, boolean> = {};
-    parts.forEach((part) => {
+    for (const part of parts) {
       const kanjiKeyword = kanjiCache?.[part]?.main.keyword;
       const keyword = kanjiKeyword ?? partKeywordCache?.[part];
 
@@ -55,7 +61,7 @@ const extractKanjiHoverData = (
         partCache[part] = keyword;
         isKanjiCache[part] = kanjiKeyword != null;
       }
-    });
+    }
 
     return Object.keys(partCache).map((part) => {
       return {
@@ -183,6 +189,7 @@ export function KanjiWorkerProvider({
       }),
       requestWorker({ type: "initalize-segmented-vocab-map" }),
       requestWorker({ type: "initialize-decomposition-map" }),
+      requestWorker({ type: "initialize-sentences" }),
     ])
       .then(() => {
         othersReady = true;
@@ -196,6 +203,14 @@ export function KanjiWorkerProvider({
   // function that can accept kanji info requests
   const kanjiInfoRequest = useCallback(
     async (kanji: string, type: KanjiInfoRequestType) => {
+      // Handle sentence search requests
+      if (type === "search-sentences") {
+        return requestWorker({
+          type: "search-sentences",
+          payload: kanji,
+        });
+      }
+
       if (kanjiCacheRef.current == null) {
         throw Error("kanjiCache not initialized");
       }

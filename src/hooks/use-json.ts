@@ -14,7 +14,7 @@ type Status = "idle" | "pending" | "success" | "error";
  */
 export const useAsync = <T>(
   asyncFunction: () => Promise<T>,
-  immediate: boolean = true,
+  immediate: boolean = true
 ): {
   execute: () => Promise<T>;
   status: Status;
@@ -62,7 +62,7 @@ export const useAsync = <T>(
  */
 export const useJsonFetch = <T>(
   path: string,
-  immediate: boolean = true,
+  immediate: boolean = true
 ): {
   execute: () => Promise<T>;
   status: Status;
@@ -74,7 +74,7 @@ export const useJsonFetch = <T>(
     const response = await fetch(path);
     if (!response.ok) {
       throw new Error(
-        `Failed to fetch JSON: ${response.status} ${response.statusText}`,
+        `Failed to fetch JSON: ${response.status} ${response.statusText}`
       );
     }
     return response.json() as Promise<T>;

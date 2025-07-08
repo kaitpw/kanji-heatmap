@@ -50,8 +50,8 @@ const RadicalBtn = ({
   const cn1 = isDisabled
     ? "opacity-10"
     : isTouchDevice
-    ? ""
-    : "hover:bg-[#2effff] hover:text-black hover:border-4 hover:border-solid hover:border-[#2effff] rounded-sm";
+      ? ""
+      : "hover:bg-[#2effff] hover:text-black hover:border-4 hover:border-solid hover:border-[#2effff] rounded-sm";
 
   const cn2 = isSelected
     ? "rounded-xl bg-black text-white dark:bg-white dark:text-black"
@@ -96,10 +96,12 @@ const ExpandedRadicalBtn = ({
         <span className="sr-only">Close</span>
       </button>
       <span className="block text-4xl kanji-font mb-1">{radical}</span>
-      <span className="
+      <span
+        className="
           block !text-ellipsis !text-nowrap mx-4 !overflow-hidden !whitespace-nowrap 
           text-xs font-bold px-2 rounded-full
-          dark:bg-black dark:text-white bg-white text-black">
+          dark:bg-black dark:text-white bg-white text-black"
+      >
         {radicalKeyword}
       </span>
     </div>
@@ -108,10 +110,12 @@ const ExpandedRadicalBtn = ({
 
 const TitleLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <span className="
+    <span
+      className="
         font-bold px-1 rounded-full text-sm
         dark:bg-black dark:text-white bg-white text-black
-      ">
+      "
+    >
       {children}
     </span>
   );
@@ -210,11 +214,12 @@ export const RadicalScreenContent = ({
           <React.Fragment key={stroke}>
             {radicalsGroupedByStrokeCount[keyValue].map((radical, index) => {
               const isSelected = value.has(radical);
-              const isDisabled = possibleRadicals == null
-                ? false
-                : (possibleRadicals as Set<string>).has(radical) || isSelected
-                ? false
-                : true;
+              const isDisabled =
+                possibleRadicals == null
+                  ? false
+                  : (possibleRadicals as Set<string>).has(radical) || isSelected
+                    ? false
+                    : true;
 
               return (
                 <React.Fragment key={radical}>
@@ -265,7 +270,8 @@ export const RadicalsSelected = ({
   return (
     <>
       {value.map((radical) => {
-        const radicalKeyword = getBasicInfo(radical)?.keyword ??
+        const radicalKeyword =
+          getBasicInfo(radical)?.keyword ??
           moreRadicalKeywords[radical] ??
           "...";
 

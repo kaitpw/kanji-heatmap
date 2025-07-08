@@ -32,18 +32,18 @@ export const SingleKanjiPart = ({
             <RomajiBadge key={phonetic} kana={phonetic} />
           ))}
 
-          {keyword == null
-            ? (
-              <div className="w-32 my-2">
-                Keyword Missing
-                <br />
-                <ExternalTextLink text="Report Bug" href={outLinks.discord} />
-                {"🐛🐞"}
-              </div>
-            )
-            : isKanji
-            ? <GlobalKanjiLink keyword={keyword} kanji={kanji} />
-            : <span className="block">{keyword}</span>}
+          {keyword == null ? (
+            <div className="w-32 my-2">
+              Keyword Missing
+              <br />
+              <ExternalTextLink text="Report Bug" href={outLinks.discord} />
+              {"🐛🐞"}
+            </div>
+          ) : isKanji ? (
+            <GlobalKanjiLink keyword={keyword} kanji={kanji} />
+          ) : (
+            <span className="block">{keyword}</span>
+          )}
         </div>
       }
     />

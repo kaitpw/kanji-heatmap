@@ -13,8 +13,7 @@ export const FreqGradient = () => {
         const cn = freqCategoryCn[item as FreqCategory];
         return <FreqSquare key={item} srOnly={item.toString()} cn={cn} />;
       })}
-      <div className="text-xs">More</div>
-      {" "}
+      <div className="text-xs">More</div>{" "}
     </div>
   );
 };

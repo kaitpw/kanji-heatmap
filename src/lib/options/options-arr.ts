@@ -36,14 +36,15 @@ const SORT_ORDER_SELECT = ALL_SORT_OPTIONS.map((item) => {
   return {
     value: item,
     label,
-    description: item !== "none" && freqDesc
-      ? `${freqDesc} ${rankTypeLabel[rankType]}`
-      : undefined,
+    description:
+      item !== "none" && freqDesc
+        ? `${freqDesc} ${rankTypeLabel[rankType]}`
+        : undefined,
   };
 });
 
 const FREQ_RANK_OPTIONS_NONE_REMOVED = FREQ_RANK_OPTIONS.filter(
-  (option) => option != K_RANK_NONE,
+  (option) => option != K_RANK_NONE
 );
 
 export {

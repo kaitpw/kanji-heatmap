@@ -41,10 +41,14 @@ export const MiscellaneousCallout = () => {
               text={" doublevil/JmdictFurigana"}
               href={otherOutLinks.jmdictFurigana}
             />
-            {"... they're not all manually-checked yet, so don't be surprised if some are a little... unique 🧐😅"}
+            {
+              "... they're not all manually-checked yet, so don't be surprised if some are a little... unique 🧐😅"
+            }
           </li>
           <li>
-            {"- The audio? 🔊 We use ElevenLabs AI for high-quality Japanese pronunciation, with browser Speech Synthesis as a fallback. Much better than robot vibes! 🎤✨"}
+            {
+              "- The audio? 🔊 We use ElevenLabs AI for high-quality Japanese pronunciation, with browser Speech Synthesis as a fallback. Much better than robot vibes! 🎤✨"
+            }
           </li>
           <li>
             {"- If you catch anything weird, drop us a note on"}

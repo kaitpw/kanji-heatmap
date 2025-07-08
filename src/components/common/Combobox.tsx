@@ -74,7 +74,7 @@ export function Combobox<T>({
                     <CheckCircle
                       className={cn(
                         "ml-2 h-4 w-4 py-0 my-0 text-green-500",
-                        value === option.value ? "opacity-100" : "opacity-0",
+                        value === option.value ? "opacity-100" : "opacity-0"
                       )}
                     />
                   </span>

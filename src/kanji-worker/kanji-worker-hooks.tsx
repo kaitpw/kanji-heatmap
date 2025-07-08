@@ -2,11 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import KANJI_WORKER_SINGLETON from "@/kanji-worker/kanji-worker-promise-wrapper";
 import { useContextWithCatch } from "../providers/helpers";
 
-import { SearchSettings } from "@/lib/settings/settings";
-import { KanjiInfoRequestType } from "@/lib/kanji/kanji-info-types";
+import type { SearchSettings } from "@/lib/settings/settings";
+import type { KanjiInfoRequestType } from "@/lib/kanji/kanji-info-types";
+import type { SentenceSearchResult } from "@/lib/kanji/kanji-worker-types";
 import { createContext } from "react";
 import { useSearchSettings } from "@/providers/search-settings-hooks";
-import { GetBasicKanjiInfo } from "@/lib/kanji/kanji-worker-types";
+import type { GetBasicKanjiInfo } from "@/lib/kanji/kanji-worker-types";
 
 export type KanjiRequestFn = (
   k: string,
@@ -186,4 +187,47 @@ export const useKanjiSearchResult = () => {
   const searchSettings = useSearchSettings();
   const results = useKanjiSearch(searchSettings);
   return results;
+};
+
+export const useSentenceSearch = (kanji: string) => {
+  const [state, setState] = useState<{
+    status: Status;
+    data?: SentenceSearchResult;
+    error?: string | null;
+  }>({ status: "idle" });
+
+  const requestFn = useKanjiWorkerRequest();
+
+  useEffect(() => {
+    if (requestFn == null) {
+      setState({
+        status: "error",
+        error: "requestFn does not exist. Please check KanjiWorkerProvider",
+      });
+      return;
+    }
+
+    if (!kanji || kanji.trim() === "") {
+      setState({ status: "idle" });
+      return;
+    }
+
+    setState((prev) => {
+      return { status: "loading", data: prev.data };
+    });
+
+    requestFn(kanji, "search-sentences")
+      .then((result: unknown) => {
+        setState({
+          status: "success",
+          error: null,
+          data: result as SentenceSearchResult,
+        });
+      })
+      .catch((error) => {
+        setState({ status: "error", error });
+      });
+  }, [kanji, requestFn]);
+
+  return state;
 };

@@ -19,7 +19,7 @@ export const useChangeThemeColor = () => {
   const setThemeColor = useCallback((colorIndex: number) => {
     document.documentElement.style.setProperty(
       "--theme-color-selected",
-      themeColorsRgb[colorIndex],
+      themeColorsRgb[colorIndex]
     );
     localStorage.setItem(LOCAL_STORAGE_THEME_COLOR_KEY, colorIndex.toString());
   }, []);
@@ -31,7 +31,7 @@ export const useChangeThemeColor = () => {
 
   useLayoutEffect(() => {
     const themeColor = Number(
-      localStorage.getItem(LOCAL_STORAGE_THEME_COLOR_KEY),
+      localStorage.getItem(LOCAL_STORAGE_THEME_COLOR_KEY)
     );
 
     if (Number.isNaN(themeColor)) {

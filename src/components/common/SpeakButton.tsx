@@ -9,14 +9,16 @@ const audioIcons: Record<AudioIconType, ReactNode> = {
   "volume-2": <Volume2 />,
   headphones: <Headphones />,
 };
-export const SpeakButton = ({
+export const TtsSpeakButton = ({
   text, // this should be kana
   iconType,
+  directText,
 }: {
   text: string;
   iconType: AudioIconType;
+  directText?: boolean;
 }) => {
-  const { speak, isLoading } = useSpeak(text);
+  const { speak, isLoading } = useSpeak(text, { directText });
 
   return (
     <Button

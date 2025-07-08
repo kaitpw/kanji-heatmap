@@ -1,6 +1,6 @@
 import wanakana from "@/lib/wanakana-adapter";
-import { JLTPTtypes } from "@/lib/jlpt";
-import {
+import type { JLTPTtypes } from "@/lib/jlpt";
+import type {
   ExtendedKanjiInfoItemType,
   ExtendedKanjiInfoResponseType,
   FreqList,
@@ -8,6 +8,8 @@ import {
   KanjiMainInfo,
   MainKanjiInfoResponseType,
   SegmentedVocabInfo,
+  Sentence,
+  SentenceSearchResult,
   WordPartDetail,
 } from "@/lib/kanji/kanji-worker-types";
 import assetsPaths from "@/lib/assets-paths";
@@ -60,16 +62,36 @@ export const fetchSegmentedVocab = () => {
 
       const allWords = Object.keys(allFurigana);
       const cache: Record<string, SegmentedVocabInfo> = {};
-      allWords.forEach((word) => {
+      for (const word of allWords) {
         cache[word] = {
           meaning: allMeanings[word],
           parts: allFurigana[word],
         };
-      });
+      }
 
       return cache;
     },
   );
+};
+
+export const fetchSentences = createFetch<Sentence[]>(
+  assetsPaths.SENTENCES_DATA,
+);
+
+export const searchSentencesForKanji = (
+  sentences: Sentence[],
+  kanji: string,
+  limit = 20,
+): SentenceSearchResult => {
+  const matchingSentences = sentences.filter((sentence) =>
+    sentence.jap.includes(kanji)
+  );
+
+  return {
+    sentences: matchingSentences.slice(0, limit),
+    totalCount: matchingSentences.length,
+    searchTerm: kanji,
+  };
 };
 
 export const transformToMainKanjiInfo = (

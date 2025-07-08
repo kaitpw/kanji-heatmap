@@ -27,7 +27,7 @@ const providerName = "SearchSettings";
 export function useSearchSettings() {
   const context = useContextWithCatch(
     searchSettings.StateContext,
-    providerName,
+    providerName
   );
   return context;
 }
@@ -36,7 +36,7 @@ export function useSearchSettingsDispatch() {
   const context = useContextWithCatch(
     searchSettings.DispatchContext,
     providerName,
-    `${providerName}Dispatch`,
+    `${providerName}Dispatch`
   );
   return context;
 }

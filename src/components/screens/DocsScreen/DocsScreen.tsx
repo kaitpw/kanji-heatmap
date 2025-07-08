@@ -9,7 +9,7 @@ import { AboutSection } from "./AboutSection";
 const getCurrentPage = (hash: string) => {
   return (
     Object.values(docPages).find((current) => current.hash === hash) ??
-      docPages.about
+    docPages.about
   );
 };
 const DocsScreen = () => {

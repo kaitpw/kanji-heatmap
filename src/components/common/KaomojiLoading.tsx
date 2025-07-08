@@ -89,7 +89,7 @@ const KaomojiAnimation = ({
   }, []);
   useEffect(() => {
     const frameName = selectRandom(
-      Object.keys(kaomojiFrames),
+      Object.keys(kaomojiFrames)
     ) as keyof typeof kaomojiFrames;
     const frames = kaomojiFrames[frameName] ?? kaomojiFrames.wFace;
     framesRef.current = frames;

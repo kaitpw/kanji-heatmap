@@ -53,8 +53,7 @@ export const AboutSection = ({ title }: { title: string }) => {
       </h3>
       <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
         <li>
-          <CustomLink href="http://kanjivg.tagaini.net/">KanjiVG</CustomLink>
-          {" "}
+          <CustomLink href="http://kanjivg.tagaini.net/">KanjiVG</CustomLink>{" "}
           project by Ulrich Apel under{" "}
           <CustomLink href="https://creativecommons.org/licenses/by-sa/3.0">
             CC BY-SA 3.0
@@ -146,8 +145,7 @@ export const AboutSection = ({ title }: { title: string }) => {
             <li>Common Words list</li>
             <li>
               from{" "}
-              <CustomLink href="https://www.edrdg.org/">{"EDRDG's"}</CustomLink>
-              {" "}
+              <CustomLink href="https://www.edrdg.org/">{"EDRDG's"}</CustomLink>{" "}
               projects and{" "}
               <CustomLink href="https://www.tanos.co.uk/jlpt/">
                 Jonathan {"Waller's"} JLPT resources
@@ -185,8 +183,7 @@ export const AboutSection = ({ title }: { title: string }) => {
           </ul>
         </li>
         <li>
-          <CustomLink href="https://kanjiapi.dev/">kanjiapi.dev</CustomLink>
-          {" "}
+          <CustomLink href="https://kanjiapi.dev/">kanjiapi.dev</CustomLink>{" "}
           which uses data from:
           <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
             <li>
