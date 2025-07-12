@@ -20,6 +20,8 @@ import { useSearchSettings } from "@/providers/search-settings-hooks";
 import ItemPresentationSettingsPopover from "../ListScreen/ControlBar/ItemPresentation/ItemPresentationPopover";
 import { SettledSortAndFilter } from "../ListScreen/ControlBar/SortAndFilter/SettledSortAndFilter";
 import { ItemPresentationSettingsContent } from "../ListScreen/ControlBar/ItemPresentation/ItemPresentationContent";
+import { MiniKanjiSearch } from "./MiniKanjiSearch";
+import { Search } from "@/components/icons";
 
 type RouletteMode = "kanji" | "sentences";
 
@@ -32,6 +34,7 @@ const RouletteScreen = () => {
     const [mode, setMode] = useState<RouletteMode>("sentences");
     const [items, setItems] = useState<RouletteItem[]>([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
 
     const kanjiResult = useKanjiSearchResult();
     const allSentencesResult = useAllSentences();
@@ -123,7 +126,7 @@ const RouletteScreen = () => {
     }
 
     return (
-        <div className="container mx-auto max-w-4xl">
+        <div className="container mx-auto max-w-4xl relative">
             <Card>
                 <CardHeader>
                     <CardTitle className="flex items-center justify-between">
@@ -248,7 +251,22 @@ const RouletteScreen = () => {
                     </div>
                 </CardContent>
             </Card>
+
+            {/* Floating Search Button */}
+            <Button
+                onClick={() => setIsSearchOpen(true)}
+                className="fixed bottom-6 right-6 h-12 w-12 rounded-full shadow-lg z-40"
+                size="icon"
+            >
+                <Search className="h-5 w-5" />
+                <span className="sr-only">Open Kanji Search</span>
+            </Button>
+
             <KanjiDrawerGlobal />
+            <MiniKanjiSearch
+                isOpen={isSearchOpen}
+                onClose={() => setIsSearchOpen(false)}
+            />
         </div>
     );
 };

@@ -16,11 +16,12 @@ interface TriggerProps {
   onMouseLeave?: () => void;
   onFocus?: () => void;
   onBlur?: () => void;
+  disableUrlUpdate?: boolean;
 }
 
 const KanjiItemButton = forwardRef<HTMLButtonElement, TriggerProps>(
   (props, ref) => {
-    const { kanji, onClick, ...rest } = props;
+    const { kanji, onClick, disableUrlUpdate = false, ...rest } = props;
     const btnCn = useItemBtnCn(kanji);
     const itemType = useItemType();
     const setKanji = useSetOpenedParam();
@@ -36,15 +37,19 @@ const KanjiItemButton = forwardRef<HTMLButtonElement, TriggerProps>(
       ? kanjiInfo.frequency[freqType]
       : undefined;
 
+    const handleClick = () => {
+      onClick?.();
+      if (!disableUrlUpdate) {
+        setKanji(kanji);
+      }
+    };
+
     if (itemType === "compact") {
       return (
         <button
           type="button"
           className={`${btnCn} relative`}
-          onClick={() => {
-            onClick?.();
-            setKanji(kanji);
-          }}
+          onClick={handleClick}
           ref={ref}
           {...rest}
         >
@@ -59,10 +64,7 @@ const KanjiItemButton = forwardRef<HTMLButtonElement, TriggerProps>(
       <button
         type="button"
         className={`${btnCn} relative`}
-        onClick={() => {
-          onClick?.();
-          setKanji(kanji);
-        }}
+        onClick={handleClick}
         ref={ref}
         {...rest}
       >
