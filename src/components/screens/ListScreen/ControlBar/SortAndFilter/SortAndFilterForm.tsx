@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-import { FrequencyType, SortKey } from "@/lib/options/options-types";
+import type { FrequencyType, SortKey } from "@/lib/options/options-types";
 import { isEqualFilters } from "@/lib/results-utils";
 import { SORT_ORDER_SELECT } from "@/lib/options/options-arr";
 import { MAX_FREQ_RANK, MAX_STROKE_COUNT } from "@/lib/options/constants";
-import {
+import type {
   FilterSettings,
   SearchSettings,
   SortSettings,
@@ -39,24 +39,24 @@ export const SortAndFilterSettingsForm = ({
   initialValue: SearchSettings;
 }) => {
   const [sortValues, setSortValues] = useState<SortSettings>(
-    initialValue.sortSettings
+    initialValue.sortSettings,
   );
   const [filterValues, setFilterValues] = useState<FilterSettings>(
-    initialValue.filterSettings
+    initialValue.filterSettings,
   );
 
   const noChangeInSortValues =
     sortValues.primary === initialValue.sortSettings.primary &&
-    sortValues.secondary == initialValue.sortSettings.secondary;
+    sortValues.secondary === initialValue.sortSettings.secondary;
 
   const noChangeInFilterValues = isEqualFilters(
     initialValue.filterSettings,
-    filterValues
+    filterValues,
   );
 
   const isDisabled = noChangeInFilterValues && noChangeInSortValues;
   const isGroup = (GROUP_OPTIONS as readonly string[]).includes(
-    sortValues.primary
+    sortValues.primary,
   );
 
   return (
@@ -78,16 +78,15 @@ export const SortAndFilterSettingsForm = ({
               value={sortValues.primary}
               onChange={(newValue) => {
                 const isGroup = (GROUP_OPTIONS as readonly string[]).includes(
-                  newValue
+                  newValue,
                 );
 
                 setSortValues((prev) => {
-                  const newSecondary =
-                    newValue === prev.secondary
-                      ? "none"
-                      : isGroup
-                        ? prev.secondary
-                        : "none";
+                  const newSecondary = newValue === prev.secondary
+                    ? "none"
+                    : isGroup
+                    ? prev.secondary
+                    : "none";
                   return {
                     ...prev,
                     primary: newValue as SortKey,
@@ -101,29 +100,26 @@ export const SortAndFilterSettingsForm = ({
             <FreqRankTypeInfo value={sortValues.primary} defaultValue={null} />
           </>
         }
-        secondaryField={
-          sortValues.secondary &&
+        secondaryField={sortValues.secondary &&
           isGroup && (
-            <>
-              <ResponsiveSelect
-                value={sortValues.secondary}
-                onChange={(newValue) =>
-                  setSortValues((prev) => {
-                    return { ...prev, secondary: newValue as SortKey };
-                  })
-                }
-                options={SORT_ORDER_SELECT.filter((item) => {
-                  return item.value !== sortValues.primary;
+          <>
+            <ResponsiveSelect
+              value={sortValues.secondary}
+              onChange={(newValue) =>
+                setSortValues((prev) => {
+                  return { ...prev, secondary: newValue as SortKey };
                 })}
-                label="Secondary"
-              />
-              <FreqRankTypeInfo
-                value={sortValues.secondary}
-                defaultValue={null}
-              />
-            </>
-          )
-        }
+              options={SORT_ORDER_SELECT.filter((item) => {
+                return item.value !== sortValues.primary;
+              })}
+              label="Secondary"
+            />
+            <FreqRankTypeInfo
+              value={sortValues.secondary}
+              defaultValue={null}
+            />
+          </>
+        )}
         additionalInfo={
           <SortAdditionalInfo
             val1={sortValues.primary}
@@ -172,40 +168,37 @@ export const SortAndFilterSettingsForm = ({
                   freq: {
                     ...prev.freq,
                     source: val as FrequencyType,
-                    rankRange:
-                      val === "none"
-                        ? { min: 1, max: MAX_FREQ_RANK }
-                        : prev.freq.rankRange,
+                    rankRange: val === "none"
+                      ? { min: 1, max: MAX_FREQ_RANK }
+                      : prev.freq.rankRange,
                   },
                 };
               });
             }}
           />
         }
-        freqRankRangeField={
-          filterValues.freq.source !== "none" && (
-            <FrequencyRankingRangeField
-              values={[
-                filterValues.freq.rankRange.min,
-                filterValues.freq.rankRange.max,
-              ]}
-              setValues={(val) => {
-                setFilterValues((prev) => {
-                  return {
-                    ...prev,
-                    freq: {
-                      ...prev.freq,
-                      rankRange: {
-                        min: val[0] ?? 1,
-                        max: val[1] ?? MAX_FREQ_RANK,
-                      },
+        freqRankRangeField={filterValues.freq.source !== "none" && (
+          <FrequencyRankingRangeField
+            values={[
+              filterValues.freq.rankRange.min,
+              filterValues.freq.rankRange.max,
+            ]}
+            setValues={(val) => {
+              setFilterValues((prev) => {
+                return {
+                  ...prev,
+                  freq: {
+                    ...prev.freq,
+                    rankRange: {
+                      min: val[0] ?? 1,
+                      max: val[1] ?? MAX_FREQ_RANK,
                     },
-                  };
-                });
-              }}
-            />
-          )
-        }
+                  },
+                };
+              });
+            }}
+          />
+        )}
       />
       {!isDisabled && (
         <ItemCount

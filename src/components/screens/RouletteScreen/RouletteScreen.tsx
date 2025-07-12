@@ -12,11 +12,14 @@ import { Separator } from "@/components/ui/separator";
 import { TtsSpeakButton } from "@/components/common/SpeakButton";
 import { AudioButton } from "@/components/common/AudioButton";
 import { KanjiItemButton } from "@/components/sections/KanjiHoverItem/KanjiItemButton";
-import { DefaultErrorFallback } from "@/components/error";
+import { DefaultErrorFallback, ErrorBoundary } from "@/components/error";
 import KaomojiLoading from "@/components/common/KaomojiLoading";
 import type { Sentence } from "@/lib/kanji/kanji-worker-types";
-import { RouletteFilters } from "./RouletteFilters";
 import KanjiDrawerGlobal from "@/components/screens/ListScreen/Drawer/KanjiDrawerGlobal";
+import { useSearchSettings } from "@/providers/search-settings-hooks";
+import ItemPresentationSettingsPopover from "../ListScreen/ControlBar/ItemPresentation/ItemPresentationPopover";
+import { SettledSortAndFilter } from "../ListScreen/ControlBar/SortAndFilter/SettledSortAndFilter";
+import { ItemPresentationSettingsContent } from "../ListScreen/ControlBar/ItemPresentation/ItemPresentationContent";
 
 type RouletteMode = "kanji" | "sentences";
 
@@ -32,6 +35,7 @@ const RouletteScreen = () => {
 
     const kanjiResult = useKanjiSearchResult();
     const allSentencesResult = useAllSentences();
+    const searchSettings = useSearchSettings();
 
     // Get random kanji based on current filters
     const getRandomKanji = useCallback(() => {
@@ -119,12 +123,23 @@ const RouletteScreen = () => {
     }
 
     return (
-        <div className="container mx-auto px-4 max-w-4xl">
+        <div className="container mx-auto max-w-4xl">
             <Card>
                 <CardHeader>
                     <CardTitle className="flex items-center justify-between">
-                        <span>Study Roulette</span>
                         <div className="flex items-center space-x-4">
+                            <Button
+                                onClick={generateNewRound}
+                                disabled={isLoading}
+                            >
+                                {isLoading ? "Loading..." : "New Round"}
+                            </Button>
+                            <SettledSortAndFilter />
+                            <ItemPresentationSettingsPopover>
+                                <ErrorBoundary details="ItemPresentationSettingsContent in RouletteFilters">
+                                    <ItemPresentationSettingsContent />
+                                </ErrorBoundary>
+                            </ItemPresentationSettingsPopover>
                             <div className="flex items-center space-x-2">
                                 <Switch
                                     id="mode-switch"
@@ -138,32 +153,28 @@ const RouletteScreen = () => {
                                     {mode === "kanji" ? "Kanji" : "Sentences"}
                                 </Label>
                             </div>
-                            <Button
-                                onClick={generateNewRound}
-                                disabled={isLoading}
-                            >
-                                {isLoading ? "Loading..." : "New Round"}
-                            </Button>
                         </div>
                     </CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <RouletteFilters />
+                    <div className="text-xs text-muted-foreground">
+                        Current filters:{" "}
+                        {searchSettings.filterSettings.jlpt.length > 0
+                            ? `JLPT ${
+                                searchSettings.filterSettings.jlpt.join(", ")
+                            }`
+                            : "All JLPT levels"} • Strokes:{" "}
+                        {searchSettings.filterSettings.strokeRange
+                            .min}-{searchSettings
+                            .filterSettings.strokeRange.max} • Frequency:{" "}
+                        {searchSettings.filterSettings.freq.source === "none"
+                            ? "All sources"
+                            : searchSettings.filterSettings.freq.source}
+                    </div>
 
-                    <Separator className="my-6" />
+                    <Separator className="my-4" />
 
                     <div className="space-y-4">
-                        <div className="flex items-center justify-between">
-                            <h3 className="text-lg font-semibold">
-                                {mode === "kanji"
-                                    ? "Random Kanji"
-                                    : "Random Sentences"}
-                            </h3>
-                            <Badge variant="secondary">
-                                {items.length} items
-                            </Badge>
-                        </div>
-
                         {isLoading
                             ? (
                                 <div className="flex items-center justify-center py-12">
@@ -175,7 +186,7 @@ const RouletteScreen = () => {
                                     {items.map((item, index) => (
                                         <div
                                             key={`${item.type}-${index}-${item.data}`}
-                                            className="border rounded-lg p-4"
+                                            className="border rounded-lg p-2"
                                         >
                                             {item.type === "kanji"
                                                 ? (

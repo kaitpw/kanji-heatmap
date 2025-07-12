@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import { ALL_SORT_OPTIONS } from "@/lib/options/options-arr";
 import {
-  FilterSettings,
+  type FilterSettings,
   SEARCH_TYPE_ARR,
-  SearchSettings,
-  SearchType,
-  SortSettings,
-  TextSearch,
+  type SearchSettings,
+  type SearchType,
+  type SortSettings,
+  type TextSearch,
 } from "@/lib/settings/settings";
 import { MAX_FREQ_RANK, MAX_STROKE_COUNT } from "@/lib/options/constants";
-import { JLPT_TYPE_ARR, JLPTOptionsCount, JLTPTtypes } from "@/lib/jlpt";
-import { FrequencyType, SortKey } from "../options/options-types";
+import { JLPT_TYPE_ARR, JLPTOptionsCount, type JLTPTtypes } from "@/lib/jlpt";
+import type { FrequencyType, SortKey } from "../options/options-types";
 import { translateMap } from "../search-input-maps";
 import { FREQ_RANK_OPTIONS } from "../options/options-constants";
 import { clamp, toNum } from "../utils";
@@ -75,7 +75,7 @@ const toSearchSettings = (sp: URLSearchParams): SearchSettings => {
 
   const text = translateValue(
     (sp.get(p.textSearch.text) ?? "").trim(),
-    translateMap[searchType]
+    translateMap[searchType],
   );
 
   return {
@@ -88,12 +88,12 @@ const toSearchSettings = (sp: URLSearchParams): SearchSettings => {
         min: clamp(
           toNum(sp.get(p.filterSettings.strokeRange.min), 1),
           1,
-          MAX_STROKE_COUNT
+          MAX_STROKE_COUNT,
         ),
         max: clamp(
           toNum(sp.get(p.filterSettings.strokeRange.max), MAX_STROKE_COUNT),
           1,
-          MAX_STROKE_COUNT
+          MAX_STROKE_COUNT,
         ),
       },
       jlpt: toJLPT(sp.get(p.filterSettings.jlpt)),
@@ -103,12 +103,12 @@ const toSearchSettings = (sp: URLSearchParams): SearchSettings => {
           min: clamp(
             toNum(sp.get(p.filterSettings.freq.rankRange.min), 1),
             1,
-            MAX_FREQ_RANK
+            MAX_FREQ_RANK,
           ),
           max: clamp(
             toNum(sp.get(p.filterSettings.freq.rankRange.max), MAX_FREQ_RANK),
             1,
-            MAX_FREQ_RANK
+            MAX_FREQ_RANK,
           ),
         },
       },
@@ -123,7 +123,7 @@ const toSearchSettings = (sp: URLSearchParams): SearchSettings => {
 const toSearchParams = (
   prev: URLSearchParams,
   key: keyof SearchSettings,
-  value: TextSearch | FilterSettings | SortSettings
+  value: TextSearch | FilterSettings | SortSettings,
 ) => {
   if (key === "textSearch") {
     const newVal = value as TextSearch;
@@ -157,16 +157,16 @@ const toSearchParams = (
     newVal.strokeRange.min <= 1
       ? prev.delete(URL_PARAMS.filterSettings.strokeRange.min)
       : prev.set(
-          URL_PARAMS.filterSettings.strokeRange.min,
-          newVal.strokeRange.min.toString()
-        );
+        URL_PARAMS.filterSettings.strokeRange.min,
+        newVal.strokeRange.min.toString(),
+      );
 
     newVal.strokeRange.max >= MAX_STROKE_COUNT
       ? prev.delete(URL_PARAMS.filterSettings.strokeRange.max)
       : prev.set(
-          URL_PARAMS.filterSettings.strokeRange.max,
-          newVal.strokeRange.max.toString()
-        );
+        URL_PARAMS.filterSettings.strokeRange.max,
+        newVal.strokeRange.max.toString(),
+      );
 
     newVal.jlpt.length === 0 || newVal.jlpt.length === JLPTOptionsCount
       ? prev.delete(URL_PARAMS.filterSettings.jlpt)
@@ -182,16 +182,16 @@ const toSearchParams = (
       newVal.freq.rankRange.min <= 1
         ? prev.delete(URL_PARAMS.filterSettings.freq.rankRange.min)
         : prev.set(
-            URL_PARAMS.filterSettings.freq.rankRange.min,
-            newVal.freq.rankRange.min.toString()
-          );
+          URL_PARAMS.filterSettings.freq.rankRange.min,
+          newVal.freq.rankRange.min.toString(),
+        );
 
       newVal.freq.rankRange.max >= MAX_FREQ_RANK
         ? prev.delete(URL_PARAMS.filterSettings.freq.rankRange.max)
         : prev.set(
-            URL_PARAMS.filterSettings.freq.rankRange.max,
-            newVal.freq.rankRange.max.toString()
-          );
+          URL_PARAMS.filterSettings.freq.rankRange.max,
+          newVal.freq.rankRange.max.toString(),
+        );
     }
     return prev;
   }
