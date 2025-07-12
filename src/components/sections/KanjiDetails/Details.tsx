@@ -130,13 +130,16 @@ export const KanjiDetails = ({ kanji }: { kanji: string }) => {
   }
 
   // Get the first kun reading for TTS, fallback to kanji if no kun readings
-  const kanaForTTS =
-    (generalInfo.data as GeneralKanjiItem)?.allKun?.[0] || kanji;
+  const kanaForTTS = (generalInfo.data as GeneralKanjiItem)?.allKun?.[0] ||
+    kanji;
 
   return (
     <div className="py-2 mx-2">
       <SimpleAccordion trigger={"General"} defaultOpen={true}>
         <General kanji={kanji} generalInfo={generalInfo} />
+      </SimpleAccordion>
+      <SimpleAccordion trigger={"Sample Sentences"} defaultOpen={true}>
+        <Sentences kanji={kanji} />
       </SimpleAccordion>
       <SimpleAccordion trigger={"Stroke Order Animation"}>
         <ErrorBoundary details="StrokeAnimation in KanjiDetails">
@@ -147,9 +150,6 @@ export const KanjiDetails = ({ kanji }: { kanji: string }) => {
       </SimpleAccordion>
       <SimpleAccordion trigger={"Frequency Ranks"}>
         <FrequencyInfo freqRankInfo={data.frequency} />
-      </SimpleAccordion>
-      <SimpleAccordion trigger={"Sample Sentences"}>
-        <Sentences kanji={kanji} />
       </SimpleAccordion>
       <MiscellaneousCallout />
       <div className="w-full flex justify-start space-x-1">

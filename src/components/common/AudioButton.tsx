@@ -11,7 +11,6 @@ interface AudioButtonProps {
 export const AudioButton = ({
   audioUrl,
   iconType = "play",
-  size = "default",
 }: AudioButtonProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -20,7 +19,7 @@ export const AudioButton = ({
   const getIcon = () => {
     if (isLoading) {
       return (
-        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary" />
+        <div className="animate-spin rounded-xl h-8 w-8 border-b-2 border-primary" />
       );
     }
 
@@ -74,17 +73,11 @@ export const AudioButton = ({
     }
   }, [audioUrl, isPlaying, audio]);
 
-  const buttonSize = size === "sm" ? "sm" : "default";
-  const buttonClass =
-    size === "sm"
-      ? "h-6 w-6 relative rounded-lg"
-      : "h-8 w-8 relative rounded-xl";
-
   return (
     <Button
       variant="outline"
-      size={buttonSize}
-      className={buttonClass}
+      size="icon"
+      className={"h-8 w-8 relative rounded-xl"}
       onClick={handlePlay}
       disabled={isLoading}
     >

@@ -41,12 +41,9 @@ export const Sentences = ({ kanji }: SentencesProps) => {
   if (sentenceResult.status === "loading") {
     return (
       <Card>
-        <CardHeader>
-          <CardTitle>Sample Sentences</CardTitle>
-        </CardHeader>
         <CardContent>
           <div className="flex items-center space-x-2">
-            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary"></div>
+            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary" />
             <span className="text-sm text-muted-foreground">
               Loading sentences...
             </span>
@@ -59,9 +56,6 @@ export const Sentences = ({ kanji }: SentencesProps) => {
   if (sentenceResult.status === "error") {
     return (
       <Card>
-        <CardHeader>
-          <CardTitle>Sample Sentences</CardTitle>
-        </CardHeader>
         <CardContent>
           <p className="text-sm text-muted-foreground">
             Failed to load sentences: {sentenceResult.error}
@@ -74,9 +68,6 @@ export const Sentences = ({ kanji }: SentencesProps) => {
   if (!sentenceResult.data || sentenceResult.data.sentences.length === 0) {
     return (
       <Card>
-        <CardHeader>
-          <CardTitle>Sample Sentences</CardTitle>
-        </CardHeader>
         <CardContent>
           <p className="text-sm text-muted-foreground">
             No sample sentences found for this kanji.
@@ -92,17 +83,16 @@ export const Sentences = ({ kanji }: SentencesProps) => {
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
-          <span>Sample Sentences</span>
           <div className="flex items-center space-x-2">
             <Select
               value={sortBy}
               onValueChange={(value: SortOption) => setSortBy(value)}
             >
-              <SelectTrigger className="w-32 h-8 text-xs">
+              <SelectTrigger className="w-36 h-8 text-xs">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="original">Original</SelectItem>
+                <SelectItem value="original">Original Order</SelectItem>
                 <SelectItem value="length-asc">Shortest first</SelectItem>
                 <SelectItem value="length-desc">Longest first</SelectItem>
               </SelectContent>
@@ -120,11 +110,6 @@ export const Sentences = ({ kanji }: SentencesProps) => {
               <div className="flex-1 space-y-1">
                 <div className="flex items-center space-x-2">
                   <p className="text-lg leading-relaxed">{sentence.jap}</p>
-                  <TtsSpeakButton
-                    text={sentence.jap}
-                    iconType="volume-2"
-                    directText={true}
-                  />
                 </div>
                 <p className="text-sm text-muted-foreground">{sentence.eng}</p>
               </div>
@@ -143,6 +128,11 @@ export const Sentences = ({ kanji }: SentencesProps) => {
                   size="sm"
                 />
               )}
+              <TtsSpeakButton
+                text={sentence.jap}
+                iconType="audio-lines"
+                directText={true}
+              />
             </div>
             {index < sortedSentences.length - 1 && <Separator />}
           </div>

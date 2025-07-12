@@ -7,7 +7,7 @@ export const RomajiBadge = ({ kana }: { kana: string }) => {
     return (
         <Badge
             variant={"outline"}
-            className={"m-1 cursor-pointer text-lg kanji-font hover:bg-[#6495ed] hover:text-black"}
+            className={"m-1 cursor-pointer text-sm kanji-font hover:bg-[#6495ed] hover:text-black"}
             onClick={(e) => {
                 e.preventDefault();
                 speak();

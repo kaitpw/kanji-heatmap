@@ -15,11 +15,11 @@ import { RomajiBadge } from "@/components/dependent/kana/RomajiBadge";
 const hasData = (data?: number) => data != null && data !== -1;
 
 const TableCellFixed = ({ children }: { children: ReactNode }) => (
-  <TableCell className="w-24 sm:w-32">{children}</TableCell>
+  <TableCell className="w-24 sm:w-32 p-2">{children}</TableCell>
 );
 
 const TableCellGrow = ({ children }: { children: ReactNode }) => (
-  <TableCell>{children}</TableCell>
+  <TableCell className="p-2">{children}</TableCell>
 );
 
 export const General = ({
@@ -54,8 +54,9 @@ export const General = ({
         )}
         {hasData(data.wk) && <Badge className="m-1">Wanikani {data.wk}</Badge>}
         {hasData(data.rtk) && <Badge className="m-1">RTK {data.rtk}</Badge>}
+        <ExternalKanjiLinks kanji={kanji} />
       </div>
-      <DottedSeparator className="border-b-2 my-4" />
+      <DottedSeparator className="border-b-2 mt-4" />
       <Table>
         <TableBody>
           <TableRow className="text-left">
@@ -92,11 +93,6 @@ export const General = ({
           </TableRow>
         </TableBody>
       </Table>
-      <DottedSeparator className="border-b-2 mb-4" />
-      <div className="text-left">
-        <h1 className="font-bold mb-1">Learn more from:</h1>
-        <ExternalKanjiLinks kanji={kanji} />
-      </div>
     </>
   );
 };

@@ -21,25 +21,29 @@ export const ExpandedBtnContent = ({ kanji }: { kanji: string }) => {
   return (
     <>
       <span className={`${ellipsisCn} block text-sm kanji-font`}>
-        {kun && kun.length > 0 ? (
-          <>
-            {kun}
-            {on && on.length > 0 && (
-              <>
-                {" • "}
-                {wanakana.toKatakana(on)}
-              </>
-            )}
-          </>
-        ) : on && on.length > 0 ? (
-          wanakana.toKatakana(on)
-        ) : (
-          ""
-        )}
+        {kun && kun.length > 0
+          ? (
+            <>
+              {kun}
+              {on && on.length > 0 && (
+                <>
+                  {" • "}
+                  {wanakana.toKatakana(on)}
+                </>
+              )}
+            </>
+          )
+          : on && on.length > 0
+          ? (
+            wanakana.toKatakana(on)
+          )
+          : (
+            ""
+          )}
       </span>
       <span className="kanji-font text-5xl block">{kanji}</span>
       <span
-        className={`${ellipsisCn} block text-xs font-extrabold uppercase mt-1 romaji-font`}
+        className={`${ellipsisCn} block text-xs uppercase mt-1 romaji-font text-gray-400 font-bold`}
       >
         {keyword}
       </span>

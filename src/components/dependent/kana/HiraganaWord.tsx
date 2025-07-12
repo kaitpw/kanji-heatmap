@@ -23,7 +23,7 @@ export const HiraganaWord = ({
                 if (index === highlightIndex) {
                     return (
                         <div
-                            className={"text-[15px] md:text-[20px] relative"}
+                            className={"text-lg relative"}
                             key={key}
                         >
                             {mora}
@@ -34,7 +34,7 @@ export const HiraganaWord = ({
                 }
 
                 return (
-                    <span className={"text-[15px] md:text-[20px]"} key={key}>
+                    <span className={"text-lg"} key={key}>
                         {mora}
                     </span>
                 );
