@@ -3,13 +3,13 @@ import { useCallback, useState } from "react";
 export const useSpeak = (word: string, options?: { directText?: boolean }) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const speakWithElevenLabs = useCallback(
+  const speakWithOpenAI = useCallback(
     async (text: string) => {
-      const apiKey = import.meta.env.VITE_ELEVENLABS_API_KEY;
+      const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
 
       if (!apiKey) {
         console.warn(
-          "ElevenLabs API key not found, falling back to SpeechSynthesis"
+          "OpenAI API key not found, falling back to SpeechSynthesis",
         );
         return false;
       }
@@ -18,34 +18,29 @@ export const useSpeak = (word: string, options?: { directText?: boolean }) => {
         // Use direct text for sentences, dynamic format for words/sounds
         const textToSpeak = options?.directText
           ? text
-          : `この言い方は:「${text}」ーー「${text}」`;
+          : `言い方は:${text}、${text}`;
 
         const response = await fetch(
-          "https://api.elevenlabs.io/v1/text-to-speech/j210dv0vWm7fCknyQpbA",
+          "https://api.openai.com/v1/audio/speech",
           {
             method: "POST",
             headers: {
-              Accept: "audio/mpeg",
+              "Authorization": `Bearer ${apiKey}`,
               "Content-Type": "application/json",
-              "xi-api-key": apiKey,
             },
             body: JSON.stringify({
-              text: textToSpeak,
-              model_id: "eleven_turbo_v2_5",
-              language_code: "ja",
-              voice_settings: {
-                speed: 0.9,
-                similarity_boost: 0.9,
-                stability: 0.5,
-                style: 0.0,
-                use_speaker_boost: true,
-              },
+              model: "gpt-4o-mini-tts",
+              input: textToSpeak,
+              voice: "nova",
+              response_format: "mp3",
+              instructions:
+                "Speak in a clear, natural Japanese tone with proper pronunciation.",
             }),
-          }
+          },
         );
 
         if (!response.ok) {
-          throw new Error(`ElevenLabs API error: ${response.status}`);
+          throw new Error(`OpenAI API error: ${response.status}`);
         }
 
         const audioBlob = await response.blob();
@@ -61,11 +56,11 @@ export const useSpeak = (word: string, options?: { directText?: boolean }) => {
 
         return true;
       } catch (error) {
-        console.error("ElevenLabs TTS failed:", error);
+        console.error("OpenAI TTS failed:", error);
         return false;
       }
     },
-    [options?.directText]
+    [options?.directText],
   );
 
   const speakWithSpeechSynthesis = useCallback((text: string) => {
@@ -83,10 +78,10 @@ export const useSpeak = (word: string, options?: { directText?: boolean }) => {
     setIsLoading(true);
 
     try {
-      // Try ElevenLabs first
-      const success = await speakWithElevenLabs(word);
+      // Try OpenAI first
+      const success = await speakWithOpenAI(word);
 
-      // If ElevenLabs fails, fall back to SpeechSynthesis
+      // If OpenAI fails, fall back to SpeechSynthesis
       if (!success) {
         speakWithSpeechSynthesis(word);
       }
@@ -97,7 +92,7 @@ export const useSpeak = (word: string, options?: { directText?: boolean }) => {
     } finally {
       setIsLoading(false);
     }
-  }, [word, speakWithElevenLabs, speakWithSpeechSynthesis]);
+  }, [word, speakWithOpenAI, speakWithSpeechSynthesis]);
 
   return { speak, isLoading };
 };

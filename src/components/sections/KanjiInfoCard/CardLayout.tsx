@@ -1,10 +1,4 @@
 import SimpleAccordion from "@/components/common/SimpleAccordion";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import type { ReactNode } from "react";
 
 export const KanjiCardLayout = ({
