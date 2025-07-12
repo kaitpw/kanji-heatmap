@@ -1,4 +1,4 @@
-import { SearchType } from "@/lib/settings/settings";
+import type { SearchType } from "@/lib/settings/settings";
 import {
   useSearchSettings,
   useSearchSettingsDispatch,
@@ -14,7 +14,7 @@ export const SettledSearchInput = () => {
     (text: string, searchType: SearchType) => {
       dispatch("textSearch", { text, type: searchType });
     },
-    [dispatch]
+    [dispatch],
   );
 
   return (

@@ -1,129 +1,154 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { X } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { KanjiItemButton } from "@/components/sections/KanjiHoverItem/KanjiItemButton";
-import { useKanjiSearch } from "@/kanji-worker/kanji-worker-hooks";
 import KaomojiLoading from "@/components/common/KaomojiLoading";
 import { ErrorBoundary } from "@/components/error";
 import {
     defaultFilterSettings,
-    defaultSearchTextSettings,
     defaultSortSettings,
 } from "@/lib/settings/search-settings-adapter";
 import { hasKanji } from "@/lib/wanakana-adapter";
 import type { SearchType } from "@/lib/settings/settings";
 import { KanjiDrawer } from "@/components/screens/ListScreen/Drawer/KanjiDrawer";
+import KANJI_WORKER_SINGLETON from "@/kanji-worker/kanji-worker-promise-wrapper";
 
 interface MiniKanjiSearchProps {
     isOpen: boolean;
     onClose: () => void;
 }
 
-const INPUT_DEBOUNCE_TIME = 300;
+const INPUT_DEBOUNCE_TIME = 150;
 
-export const MiniKanjiSearch = ({ isOpen, onClose }: MiniKanjiSearchProps) => {
+// Custom hook for direct worker calls - bypasses the expensive useKanjiSearch
+const useDirectKanjiSearch = () => {
+    const [state, setState] = useState<{
+        status: "idle" | "loading" | "success" | "error";
+        data?: string[];
+        error?: string | null;
+    }>({ status: "idle" });
+
+    const currentSearchRef = useRef<string>("");
+
+    const search = useCallback((searchText: string, searchType: SearchType) => {
+        // Track this search
+        currentSearchRef.current = searchText;
+
+        // Set loading immediately
+        setState({ status: "loading" });
+
+        const searchSettings = {
+            textSearch: {
+                type: searchType,
+                text: searchText,
+            },
+            filterSettings: defaultFilterSettings,
+            sortSettings: defaultSortSettings,
+        };
+
+        KANJI_WORKER_SINGLETON.request({
+            type: "search",
+            payload: searchSettings,
+        })
+            .then((result: unknown) => {
+                const newData = result as { kanjis: string[] };
+
+                // Only update if this is still the current search
+                if (currentSearchRef.current === searchText) {
+                    setState({
+                        status: "success",
+                        data: newData.kanjis,
+                        error: null,
+                    });
+                }
+            })
+            .catch((error) => {
+                if (currentSearchRef.current === searchText) {
+                    setState({ status: "error", error: error.message });
+                }
+            });
+    }, []);
+
+    const clear = useCallback(() => {
+        currentSearchRef.current = "";
+        setState({ status: "idle" });
+    }, []);
+
+    return { state, search, clear };
+};
+
+const MiniKanjiSearchComponent = (
+    { isOpen, onClose }: MiniKanjiSearchProps,
+) => {
     const [searchText, setSearchText] = useState("");
     const [selectedKanji, setSelectedKanji] = useState<string | null>(null);
     const timeoutRef = useRef<NodeJS.Timeout>();
-    const defaultSearchSettings = useMemo(
-        () => ({
-            textSearch: defaultSearchTextSettings,
-            filterSettings: defaultFilterSettings,
-            sortSettings: defaultSortSettings,
-        }),
-        [],
-    );
-    const [localSearchSettings, setLocalSearchSettings] = useState(
-        defaultSearchSettings,
-    );
+    const { state: kanjiResult, search, clear } = useDirectKanjiSearch();
 
-    // Only search when there's actual text
-    const kanjiResult = useKanjiSearch(localSearchSettings);
-
-    const clearSearch = () => {
-        setSearchText("");
-        setLocalSearchSettings(defaultSearchSettings);
-    };
-
-    const handleKanjiClick = (kanji: string) => {
+    const handleKanjiClick = useCallback((kanji: string) => {
         setSelectedKanji(kanji);
-    };
+    }, []);
 
-    const handleDrawerClose = () => {
+    const handleDrawerClose = useCallback(() => {
         setSelectedKanji(null);
-    };
+    }, []);
 
     // Debounced search trigger
-    const triggerSearch = (
-        text: string,
-        searchType: SearchType = "keyword",
-    ) => {
-        clearTimeout(timeoutRef.current);
-        timeoutRef.current = setTimeout(() => {
-            if (text.trim()) {
-                setLocalSearchSettings((
-                    prev: typeof defaultSearchSettings,
-                ) => ({
-                    ...prev,
-                    textSearch: {
-                        type: searchType,
-                        text: text.trim(),
-                    },
-                }));
-            } else {
-                // Reset to default when no text
-                setLocalSearchSettings(defaultSearchSettings);
-            }
-        }, INPUT_DEBOUNCE_TIME);
-    };
+    const triggerSearch = useCallback(
+        (text: string, newSearchType: SearchType = "keyword") => {
+            clearTimeout(timeoutRef.current);
+            timeoutRef.current = setTimeout(() => {
+                if (text.trim()) {
+                    search(text.trim(), newSearchType);
+                } else {
+                    clear();
+                }
+            }, INPUT_DEBOUNCE_TIME);
+        },
+        [search, clear],
+    );
 
     // Handle immediate text update and debounced search
-    const handleTextChange = (text: string) => {
-        setSearchText(text); // Update display immediately
+    const handleTextChange = useCallback((text: string) => {
+        setSearchText(text);
+        const newSearchType: SearchType = hasKanji(text)
+            ? "multi-kanji"
+            : "keyword";
+        triggerSearch(text, newSearchType);
+    }, [triggerSearch]);
 
-        // Determine search type based on content
-        let searchType: SearchType = "keyword";
-        if (hasKanji(text)) {
-            searchType = "multi-kanji";
-        }
+    // Handle paste with immediate search
+    const handlePaste = useCallback(
+        (event: React.ClipboardEvent<HTMLInputElement>) => {
+            event.preventDefault();
+            const clipboardData = event.clipboardData;
 
-        triggerSearch(text, searchType);
-    };
+            if (!clipboardData) {
+                return;
+            }
 
-    // Handle paste with immediate search (like main search input)
-    const handlePaste = (event: React.ClipboardEvent<HTMLInputElement>) => {
-        event.preventDefault();
-        const clipboardData = event.clipboardData;
+            const processedText = clipboardData.getData("text/plain").trim();
 
-        if (!clipboardData) {
-            return;
-        }
+            if (processedText.length === 0) {
+                return;
+            }
 
-        const processedText = clipboardData.getData("text/plain").trim();
-
-        if (processedText.length === 0) {
-            return;
-        }
-
-        // For kanji, trigger immediate search with "multi-kanji" type
-        if (hasKanji(processedText)) {
+            // Set search text immediately
             setSearchText(processedText);
-            setLocalSearchSettings((prev: typeof defaultSearchSettings) => ({
-                ...prev,
-                textSearch: {
-                    type: "multi-kanji",
-                    text: processedText,
-                },
-            }));
-            return;
-        }
 
-        // For other text, use normal debounced behavior
-        handleTextChange(processedText);
-    };
+            // For kanji, trigger immediate search
+            if (hasKanji(processedText)) {
+                search(processedText, "multi-kanji");
+            } else {
+                search(processedText, "keyword");
+            }
+        },
+        [search],
+    );
 
     // Cleanup timeout on unmount
     useEffect(() => {
@@ -134,7 +159,7 @@ export const MiniKanjiSearch = ({ isOpen, onClose }: MiniKanjiSearchProps) => {
 
     if (!isOpen) return null;
 
-    return (
+    const modalContent = (
         <>
             <div
                 className="fixed inset-0 z-50 bg-black/50"
@@ -255,4 +280,8 @@ export const MiniKanjiSearch = ({ isOpen, onClose }: MiniKanjiSearchProps) => {
             )}
         </>
     );
+
+    return createPortal(modalContent, document.body);
 };
+
+export const MiniKanjiSearch = memo(MiniKanjiSearchComponent);
