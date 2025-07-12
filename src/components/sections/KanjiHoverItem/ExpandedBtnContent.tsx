@@ -43,7 +43,7 @@ export const ExpandedBtnContent = ({ kanji }: { kanji: string }) => {
       </span>
       <span className="kanji-font text-5xl block">{kanji}</span>
       <span
-        className={`${ellipsisCn} block text-xs uppercase mt-1 romaji-font text-gray-400 font-bold`}
+        className={`${ellipsisCn} block text-xs uppercase mt-1 romaji-font text-gray-400 dark:text-gray-600 font-bold`}
       >
         {keyword}
       </span>

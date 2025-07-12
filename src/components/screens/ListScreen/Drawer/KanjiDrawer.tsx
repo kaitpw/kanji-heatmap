@@ -12,6 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 import { KanjiInfoContent } from "./KanjiInfoContent";
+import { KanjiActionsBtns } from "@/components/dependent/site-wide/KanjiActionBtns";
 
 export function KanjiDrawerRaw({
   isOpen,
@@ -33,18 +34,24 @@ export function KanjiDrawerRaw({
         <DrawerDescription className="sr-only">
           Includes Sample Usage, Semantic Phonetic Compositions etc.
         </DrawerDescription>
+
+        {/* Sticky Header with Action Buttons and Close Button */}
+        <div className="sticky top-0 z-10 bg-background border-b px-4 py-0 flex items-center justify-between">
+          <KanjiActionsBtns kanji={kanji} />
+          <DrawerClose asChild>
+            <Button
+              variant="secondary"
+              size="icon"
+              className="rounded-full border-2 border-dotted flex justify-center items-center"
+            >
+              <CircleX />
+            </Button>
+          </DrawerClose>
+        </div>
+
         <ErrorBoundary>
           <KanjiInfoContent kanji={kanji} />
         </ErrorBoundary>
-        <DrawerClose asChild className="absolute -top-1 right-0">
-          <Button
-            variant="secondary"
-            size="icon"
-            className="mx-3 mt-3 rounded-full border-2 border-dotted flex justify-center item-center"
-          >
-            <CircleX />
-          </Button>
-        </DrawerClose>
       </DrawerContent>
     </Drawer>
   );

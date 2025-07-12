@@ -109,7 +109,9 @@ export const Sentences = ({ kanji }: SentencesProps) => {
             <div className="flex items-start justify-between">
               <div className="flex-1 space-y-1">
                 <div className="flex items-center space-x-2">
-                  <p className="text-lg leading-relaxed">{sentence.jap}</p>
+                  <p className="text-lg leading-relaxed kanji-font">
+                    {sentence.jap}
+                  </p>
                 </div>
                 <p className="text-sm text-muted-foreground">{sentence.eng}</p>
               </div>

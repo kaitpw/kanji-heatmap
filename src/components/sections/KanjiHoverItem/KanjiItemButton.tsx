@@ -30,12 +30,12 @@ const KanjiItemButton = forwardRef<HTMLButtonElement, TriggerProps>(
     const kanjiInfo = getInfo?.(kanji);
 
     // Get frequency data
-    const freqType = bgSrc === null || bgSrc === "none"
-      ? "none"
-      : (freqMap[bgSrc] ?? "none");
-    const freqRank = freqType !== "none" && kanjiInfo?.frequency
-      ? kanjiInfo.frequency[freqType]
-      : undefined;
+    const freqType =
+      bgSrc === null || bgSrc === "none" ? "none" : (freqMap[bgSrc] ?? "none");
+    const freqRank =
+      freqType !== "none" && kanjiInfo?.frequency
+        ? kanjiInfo.frequency[freqType]
+        : undefined;
 
     const handleClick = () => {
       onClick?.();
@@ -73,7 +73,7 @@ const KanjiItemButton = forwardRef<HTMLButtonElement, TriggerProps>(
         {freqRank && <CircularFreqBadge freqRank={freqRank} />}
       </button>
     );
-  },
+  }
 );
 
 KanjiItemButton.displayName = "KanjiItemButton";

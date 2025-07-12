@@ -9,7 +9,7 @@ export const useSpeak = (word: string, options?: { directText?: boolean }) => {
 
       if (!apiKey) {
         console.warn(
-          "OpenAI API key not found, falling back to SpeechSynthesis",
+          "OpenAI API key not found, falling back to SpeechSynthesis"
         );
         return false;
       }
@@ -20,24 +20,21 @@ export const useSpeak = (word: string, options?: { directText?: boolean }) => {
           ? text
           : `言い方は:${text}、${text}`;
 
-        const response = await fetch(
-          "https://api.openai.com/v1/audio/speech",
-          {
-            method: "POST",
-            headers: {
-              "Authorization": `Bearer ${apiKey}`,
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              model: "gpt-4o-mini-tts",
-              input: textToSpeak,
-              voice: "nova",
-              response_format: "mp3",
-              instructions:
-                "Speak in a clear, natural Japanese tone with proper pronunciation.",
-            }),
+        const response = await fetch("https://api.openai.com/v1/audio/speech", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+            "Content-Type": "application/json",
           },
-        );
+          body: JSON.stringify({
+            model: "gpt-4o-mini-tts",
+            input: textToSpeak,
+            voice: "nova",
+            response_format: "mp3",
+            instructions:
+              "Speak in a clear, natural Japanese tone with proper pronunciation.",
+          }),
+        });
 
         if (!response.ok) {
           throw new Error(`OpenAI API error: ${response.status}`);
@@ -60,7 +57,7 @@ export const useSpeak = (word: string, options?: { directText?: boolean }) => {
         return false;
       }
     },
-    [options?.directText],
+    [options?.directText]
   );
 
   const speakWithSpeechSynthesis = useCallback((text: string) => {

@@ -7,8 +7,7 @@ import {
   translateMap,
 } from "@/lib/search-input-maps";
 import wanakana, { hasKanji, translateValue } from "@/lib/wanakana-adapter";
-import { CircleX, Search } from "@/components/icons";
-import { Button } from "@/components/ui/button";
+import { Search } from "@/components/icons";
 import BasicSelect from "@/components/common/BasicSelect";
 import { defaultSearchType } from "@/lib/settings/search-settings-adapter";
 
@@ -60,7 +59,7 @@ export const SearchInput = ({
       : "kanji-font";
 
   return (
-    <section className="w-full relative">
+    <section className="w-96 relative">
       <input
         ref={inputRef}
         className={cn(
@@ -137,18 +136,6 @@ export const SearchInput = ({
         className={"pointer-events-none absolute left-2 top-2 size-4 translate-y-0.5 select-none opacity-50"}
       />
       <ResultCounter hasText={parsedValue.length > 0} />
-      {parsedValue.length > 0 && (
-        <Button
-          className="absolute right-[120px] top-[6px] m-0 p-1  h-6 rounded-full"
-          variant={"secondary"}
-          onClick={() => {
-            onSyncAll("", searchType);
-          }}
-        >
-          <CircleX />
-          <span className="sr-only">Clear search text</span>
-        </Button>
-      )}
       <BasicSelect
         value={searchType}
         onChange={(val) => {

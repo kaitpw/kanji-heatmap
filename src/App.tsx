@@ -51,39 +51,41 @@ const App = () => {
     >
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <GlobalKeyboardShortcutProvider>
-          <Header nav={<NavBar />} />
-          <main className="bg-background">
-            <ErrorBoundary
-              details="App"
-              fallback={
-                <div className="w-full pr-4 mt-14">
-                  <DefaultErrorFallback />
-                </div>
-              }
-            >
-              <KanjiFunctionalityProvider>
-                <Switch>
-                  <Route
-                    path={kanjiPage.href}
-                    component={kanjiPage.Component}
-                  />
-                  <Route
-                    path={pageItems.roulettePage.href}
-                    component={pageItems.roulettePage.Component}
-                  />
-                  <Route
-                    path={pageItems.docsPage.href}
-                    component={pageItems.docsPage.Component}
-                  />
-                  <Route path="*">
-                    <div className="w-full pr-4 mt-14">
-                      <PageNotFound />
-                    </div>
-                  </Route>
-                </Switch>
-              </KanjiFunctionalityProvider>
-            </ErrorBoundary>
-          </main>
+          <div className="container mx-auto max-w-4xl w-full">
+            <Header nav={<NavBar />} />
+            <main className="bg-background">
+              <ErrorBoundary
+                details="App"
+                fallback={
+                  <div className="w-full pr-4 mt-14">
+                    <DefaultErrorFallback />
+                  </div>
+                }
+              >
+                <KanjiFunctionalityProvider>
+                  <Switch>
+                    <Route
+                      path={kanjiPage.href}
+                      component={kanjiPage.Component}
+                    />
+                    <Route
+                      path={pageItems.roulettePage.href}
+                      component={pageItems.roulettePage.Component}
+                    />
+                    <Route
+                      path={pageItems.docsPage.href}
+                      component={pageItems.docsPage.Component}
+                    />
+                    <Route path="*">
+                      <div className="w-full pr-4 mt-14">
+                        <PageNotFound />
+                      </div>
+                    </Route>
+                  </Switch>
+                </KanjiFunctionalityProvider>
+              </ErrorBoundary>
+            </main>
+          </div>
         </GlobalKeyboardShortcutProvider>
       </ThemeProvider>
     </ErrorBoundary>

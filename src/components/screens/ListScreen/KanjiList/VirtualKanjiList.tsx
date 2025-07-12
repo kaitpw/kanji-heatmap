@@ -23,7 +23,7 @@ const KanjiListRaw = ({
           return (
             <div
               key={`row-${rowIndex}-${items}`}
-              className={`flex items-center justify-start w-full gap-2 sm:gap-3 px-2 sm:px-3 ${
+              className={`flex items-center justify-center w-full gap-2 sm:gap-3 px-2 sm:px-3 ${
                 isNotLast ? "pb-2" : "pb-16"
               }`}
             >

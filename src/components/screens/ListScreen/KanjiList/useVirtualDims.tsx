@@ -13,7 +13,7 @@ export const TILE_SIZE = {
 
 export const useVirtualListDims = (
   itemCount: number,
-  size: "compact" | "expanded",
+  size: "compact" | "expanded"
 ) => {
   const [windowWidth, windowHeight] = useWindowSize();
   const tileSize = size === "compact" ? TILE_SIZE.sm : TILE_SIZE.lg;

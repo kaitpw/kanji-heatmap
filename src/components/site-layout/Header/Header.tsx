@@ -15,11 +15,13 @@ const HeaderLayout = ({
 }) => {
   return (
     <header className="fixed top-0 left-0 fix-scroll-layout-shift-right flex w-full items-center justify-between px-1 z-50 bg-background backdrop-blur-sm">
-      <section className="flex items-center space-x-1">
-        {title}
-        {main && <div className="flex space-x-1">{main}</div>}
-      </section>
-      {side && <section className="flex space-x-1 my-1 pr-1">{side}</section>}
+      <div className="container mx-auto max-w-4xl w-full flex items-center justify-between">
+        <section className="flex items-center space-x-1">
+          {title}
+          {main && <div className="flex space-x-1">{main}</div>}
+        </section>
+        {side && <section className="flex space-x-1 my-1 pr-1">{side}</section>}
+      </div>
     </header>
   );
 };
@@ -46,10 +48,7 @@ const Header = ({ nav }: { nav: ReactNode }) => {
         side={<HeaderIcons />}
         main={
           <ErrorBoundary
-            fallback={
-              <div className="flex space-x-1 my-1 mx-1">
-              </div>
-            }
+            fallback={<div className="flex space-x-1 my-1 mx-1" />}
           >
             {nav}
             <ChangeFontButton />

@@ -7,7 +7,7 @@ export const defaultItemSettingsValue: ItemSettings = {
 };
 
 export const itemSettings = createContextComponents<ItemSettings>(
-  defaultItemSettingsValue,
+  defaultItemSettingsValue
 );
 
 const providerName = "ItemSettings";
@@ -26,7 +26,7 @@ export function useItemSettingsDispatch() {
   const context = useContextWithCatch(
     itemSettings.DispatchContext,
     providerName,
-    `${providerName}Dispatch`,
+    `${providerName}Dispatch`
   );
   return context;
 }

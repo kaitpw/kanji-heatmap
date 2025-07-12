@@ -2,43 +2,41 @@ import { Badge } from "@/components/ui/badge";
 import { useSpeak } from "@/hooks/use-jp-speak";
 
 export const HiraganaWord = ({
-    rawKana,
-    highlightIndex,
+  rawKana,
+  highlightIndex,
 }: {
-    rawKana: string;
-    highlightIndex: number;
+  rawKana: string;
+  highlightIndex: number;
 }) => {
-    const kana = rawKana.split(",")[0];
-    const { speak } = useSpeak(rawKana);
+  const kana = rawKana.split(",")[0];
+  const { speak } = useSpeak(rawKana);
 
-    return (
-        <Badge
-            variant={"ja_outline"}
-            className={"flex gap-2 m-1 cursor-pointer text-lg kanji-font hover:bg-[#6495ed] hover:text-black"}
-            onClick={() => speak()}
-        >
-            {kana.split(" ").map((mora, index) => {
-                const key = `${mora}-${index}`;
+  return (
+    <Badge
+      variant={"ja_outline"}
+      className={
+        "flex gap-2 m-1 cursor-pointer text-lg kanji-font hover:bg-[#6495ed] hover:text-black"
+      }
+      onClick={() => speak()}
+    >
+      {kana.split(" ").map((mora, index) => {
+        const key = `${mora}-${index}`;
 
-                if (index === highlightIndex) {
-                    return (
-                        <div
-                            className={"text-lg relative"}
-                            key={key}
-                        >
-                            {mora}
-                            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3/4 h-0.5 bg-current">
-                            </div>
-                        </div>
-                    );
-                }
+        if (index === highlightIndex) {
+          return (
+            <div className={"text-lg relative"} key={key}>
+              {mora}
+              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3/4 h-0.5 bg-current"></div>
+            </div>
+          );
+        }
 
-                return (
-                    <span className={"text-lg"} key={key}>
-                        {mora}
-                    </span>
-                );
-            })}
-        </Badge>
-    );
+        return (
+          <span className={"text-lg"} key={key}>
+            {mora}
+          </span>
+        );
+      })}
+    </Badge>
+  );
 };

@@ -177,7 +177,7 @@ self.onmessage = (event: { data: OnMessageRequestType }) => {
       .then(() => {
         console.log(
           "Worker: sentences loaded, cache length:",
-          SENTENCES_CACHE.length,
+          SENTENCES_CACHE.length
         );
         sendResponse(SENTENCES_CACHE);
       })
@@ -190,7 +190,7 @@ self.onmessage = (event: { data: OnMessageRequestType }) => {
     const kanji = payload as string;
     const sentenceSearchResult = searchSentencesForKanji(
       SENTENCES_CACHE,
-      kanji,
+      kanji
     );
     sendResponse(sentenceSearchResult);
     return;
@@ -199,7 +199,7 @@ self.onmessage = (event: { data: OnMessageRequestType }) => {
   if (eventType === "get-all-sentences") {
     console.log(
       "Worker: get-all-sentences called, cache length:",
-      SENTENCES_CACHE.length,
+      SENTENCES_CACHE.length
     );
     sendResponse(SENTENCES_CACHE);
     return;
@@ -235,7 +235,7 @@ self.onmessage = (event: { data: OnMessageRequestType }) => {
         KANJI_BY_STROKE_ORDER_CACHE,
         settings,
         kanjiPool,
-        KANJI_DECOMPOSITION_CACHE,
+        KANJI_DECOMPOSITION_CACHE
       );
 
       sendResponse({ kanjis, possibleRadicals });

@@ -27,9 +27,8 @@ export const CircularFreqBadge = ({
   const { max } = freqRankMaxMin[freqCategory];
 
   // Display the upper bound of the frequency bin in Japanese
-  const displayValue = max === Number.POSITIVE_INFINITY
-    ? "2400+"
-    : toJapaneseHundreds(max);
+  const displayValue =
+    max === Number.POSITIVE_INFINITY ? "2400+" : toJapaneseHundreds(max);
 
   return (
     <div className="absolute -bottom-2 -right-2">
