@@ -4,20 +4,23 @@ import { useContextWithCatch } from "../providers/helpers";
 
 import type { SearchSettings } from "@/lib/settings/settings";
 import type { KanjiInfoRequestType } from "@/lib/kanji/kanji-info-types";
-import type { SentenceSearchResult } from "@/lib/kanji/kanji-worker-types";
+import type {
+  Sentence,
+  SentenceSearchResult,
+} from "@/lib/kanji/kanji-worker-types";
 import { createContext } from "react";
 import { useSearchSettings } from "@/providers/search-settings-hooks";
 import type { GetBasicKanjiInfo } from "@/lib/kanji/kanji-worker-types";
 
 export type KanjiRequestFn = (
   k: string,
-  type: KanjiInfoRequestType
+  type: KanjiInfoRequestType,
 ) => Promise<unknown>;
 
 export const ActionContext = createContext<KanjiRequestFn | null>(null);
 export const IsReadyContext = createContext<boolean>(false);
 export const GetBasicKanjiInfoContext = createContext<GetBasicKanjiInfo | null>(
-  null
+  null,
 );
 
 const requestWorker = KANJI_WORKER_SINGLETON.request;
@@ -28,7 +31,7 @@ export const useKanjiWorkerRequest = () => {
   const fn = useContextWithCatch(
     ActionContext,
     "KanjiWorker",
-    "KanjirWorkerRequest"
+    "KanjirWorkerRequest",
   );
   return fn;
 };
@@ -37,7 +40,7 @@ export const useIsKanjiWorkerReady = () => {
   const ready = useContextWithCatch(
     IsReadyContext,
     "KanjiWorker",
-    "IsKanjiWorkerReady"
+    "IsKanjiWorkerReady",
   );
   return ready;
 };
@@ -46,7 +49,7 @@ export const useGetKanjiInfoFn = () => {
   const fn = useContextWithCatch(
     GetBasicKanjiInfoContext,
     "KanjiWorker",
-    "GetKanjiInfoFn"
+    "GetKanjiInfoFn",
   );
   return fn;
 };
@@ -135,7 +138,7 @@ export const useKanjiSearchCount = (searchSettings: SearchSettings) => {
 
 export const useKanjiInfo = (
   kanji: string,
-  requestType: KanjiInfoRequestType | "none"
+  requestType: KanjiInfoRequestType | "none",
 ) => {
   const [state, setState] = useState<{
     status: Status;
@@ -228,6 +231,51 @@ export const useSentenceSearch = (kanji: string) => {
         setState({ status: "error", error });
       });
   }, [kanji, requestFn]);
+
+  return state;
+};
+
+export const useAllSentences = () => {
+  const [state, setState] = useState<{
+    status: Status;
+    data?: Sentence[];
+    error?: string | null;
+  }>({ status: "idle" });
+
+  const requestFn = useKanjiWorkerRequest();
+  const isReady = useIsKanjiWorkerReady();
+
+  useEffect(() => {
+    if (!isReady) {
+      setState({ status: "idle" });
+      return;
+    }
+
+    if (requestFn == null) {
+      setState({
+        status: "error",
+        error: "requestFn does not exist. Please check KanjiWorkerProvider",
+      });
+      return;
+    }
+
+    setState((prev) => {
+      return { status: "loading", data: prev.data };
+    });
+
+    // Use the singleton directly since this is a special case
+    KANJI_WORKER_SINGLETON.request({ type: "get-all-sentences" })
+      .then((result: unknown) => {
+        setState({
+          status: "success",
+          error: null,
+          data: result as Sentence[],
+        });
+      })
+      .catch((error) => {
+        setState({ status: "error", error });
+      });
+  }, [requestFn, isReady]);
 
   return state;
 };

@@ -168,9 +168,19 @@ self.onmessage = (event: { data: OnMessageRequestType }) => {
   }
 
   if (eventType === "initialize-sentences") {
+    console.log("Worker: initialize-sentences called");
     fetchSentences()
-      .then(loadSentences)
-      .then(() => sendResponse(SENTENCES_CACHE))
+      .then((sentences) => {
+        console.log("Worker: fetched sentences, count:", sentences.length);
+        return loadSentences(sentences);
+      })
+      .then(() => {
+        console.log(
+          "Worker: sentences loaded, cache length:",
+          SENTENCES_CACHE.length,
+        );
+        sendResponse(SENTENCES_CACHE);
+      })
       .catch(sendError);
 
     return;
@@ -180,9 +190,18 @@ self.onmessage = (event: { data: OnMessageRequestType }) => {
     const kanji = payload as string;
     const sentenceSearchResult = searchSentencesForKanji(
       SENTENCES_CACHE,
-      kanji
+      kanji,
     );
     sendResponse(sentenceSearchResult);
+    return;
+  }
+
+  if (eventType === "get-all-sentences") {
+    console.log(
+      "Worker: get-all-sentences called, cache length:",
+      SENTENCES_CACHE.length,
+    );
+    sendResponse(SENTENCES_CACHE);
     return;
   }
 
@@ -216,7 +235,7 @@ self.onmessage = (event: { data: OnMessageRequestType }) => {
         KANJI_BY_STROKE_ORDER_CACHE,
         settings,
         kanjiPool,
-        KANJI_DECOMPOSITION_CACHE
+        KANJI_DECOMPOSITION_CACHE,
       );
 
       sendResponse({ kanjis, possibleRadicals });

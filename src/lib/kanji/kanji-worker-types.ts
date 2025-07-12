@@ -118,7 +118,8 @@ export type KanjiWorkerRequestName =
   | "phonetic-map"
   | "part-keyword-map"
   | "search-sentences"
-  | "initialize-sentences";
+  | "initialize-sentences"
+  | "get-all-sentences";
 
 export type KanjiWorkerRequest = {
   type: KanjiWorkerRequestName;

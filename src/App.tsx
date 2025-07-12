@@ -22,12 +22,13 @@ export const NavBar = () => {
   const location = useUrlLocation();
 
   const triggerTitle =
-    [kanjiPage].find((item) => item.href === location)?.title ?? "Menu";
+    [kanjiPage, pageItems.roulettePage].find((item) => item.href === location)
+      ?.title ?? "Menu";
 
   return (
     <Nav
       triggerTitle={triggerTitle}
-      navItems={[kanjiPage]}
+      navItems={[kanjiPage, pageItems.roulettePage]}
       footer={
         <ExternalTextLink
           href={`${pageItems.docsPage.href}${docPages.about.hash}`}
@@ -65,6 +66,10 @@ const App = () => {
                   <Route
                     path={kanjiPage.href}
                     component={kanjiPage.Component}
+                  />
+                  <Route
+                    path={pageItems.roulettePage.href}
+                    component={pageItems.roulettePage.Component}
                   />
                   <Route
                     path={pageItems.docsPage.href}
