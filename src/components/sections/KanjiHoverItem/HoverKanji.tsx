@@ -58,7 +58,7 @@ const HoverMeRaw = ({
         className="p-1 relative w-full bg-[#6495ed]"
         collisionPadding={{ top: 10, left: 10, right: 10 }}
       >
-        <HoverCardArrow />
+        <HoverCardArrow className="fill-[#6495ed]" />
         <ErrorBoundary>
           <ResponsiveKanjiCard kanji={trigger} />
         </ErrorBoundary>

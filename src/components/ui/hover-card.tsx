@@ -4,10 +4,13 @@ import * as HoverCardPrimitive from "@radix-ui/react-hover-card";
 import { cn } from "@/lib/utils";
 
 const HoverCard = HoverCardPrimitive.Root;
-const HoverCardArrow = () => {
+const HoverCardArrow = ({ className }: { className?: string }) => {
   return (
     <HoverCardPrimitive.Arrow
-      className="-my-px border-none fill-[white] dark:fill-black drop-shadow-[0_1px_0_#dddddd] dark:drop-shadow-[0_1px_0_#262626]"
+      className={cn(
+        "-my-px border-none drop-shadow-[0_1px_0_#dddddd] dark:drop-shadow-[0_1px_0_#262626]",
+        className,
+      )}
       width={15}
       height={10}
       stroke={"3"}
