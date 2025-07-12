@@ -331,11 +331,13 @@ export const moreRadicalKeywords: Record<string, string> = {
 function transformRadicalsData(): Record<string, string> {
   const output: Record<string, string> = {};
 
-  Object.entries(radicalsGroupedByStrokeCount).forEach(([stroke, radicals]) => {
-    radicals.forEach((radical) => {
+  for (
+    const [stroke, radicals] of Object.entries(radicalsGroupedByStrokeCount)
+  ) {
+    for (const radical of radicals) {
       output[radical] = stroke;
-    });
-  });
+    }
+  }
 
   return output;
 }

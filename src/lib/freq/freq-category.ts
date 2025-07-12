@@ -5,16 +5,16 @@ export type FreqCategory = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 // TODO: Generate this as a function of freqCategoryCount
 // generating these tw classes on the fly actually doesn't work idk why
 export const freqCategoryCn: Record<FreqCategory, string> = {
-  0: "bg-gray-200 dark:bg-gray-700",
-  1: "bg-pink-100 dark:bg-pink-900",
-  2: "bg-pink-200 dark:bg-pink-800",
-  3: "bg-pink-300 dark:bg-pink-700",
-  4: "bg-pink-400 dark:bg-pink-600",
+  0: "bg-gray-700 dark:bg-gray-700",
+  1: "bg-pink-900 dark:bg-pink-900",
+  2: "bg-pink-800 dark:bg-pink-800",
+  3: "bg-pink-700 dark:bg-pink-700",
+  4: "bg-pink-600 dark:bg-pink-600",
   5: "bg-pink-500 dark:bg-pink-500",
-  6: "bg-pink-600 dark:bg-pink-400",
-  7: "bg-pink-700 dark:bg-pink-300",
-  8: "bg-pink-800 dark:bg-pink-200",
-  9: "bg-pink-900 dark:bg-pink-100",
+  6: "bg-pink-400 dark:bg-pink-400",
+  7: "bg-pink-300 dark:bg-pink-300",
+  8: "bg-pink-200 dark:bg-pink-200",
+  9: "bg-pink-100 dark:bg-pink-100",
 };
 
 export const freqRankMaxMin: Record<
