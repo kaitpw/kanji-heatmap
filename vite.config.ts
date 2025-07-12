@@ -1,9 +1,9 @@
-import path from "path";
-import { defineConfig, UserConfig } from "vite";
+import path from "node:path";
+import { defineConfig, type UserConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import { VitePWA } from "vite-plugin-pwa";
 import { visualizer } from "rollup-plugin-visualizer";
-import { TemplateType } from "rollup-plugin-visualizer/dist/plugin/template-types";
+import type { TemplateType } from "rollup-plugin-visualizer/dist/plugin/template-types";
 
 const ASSETS_URL = "https://assets.pikapikagems.com";
 
@@ -121,16 +121,16 @@ export default defineConfig({
     VitePWA(pwaConfig),
     process.env.ANALYZE
       ? visualizer({
-          filename: "stats.html",
-          open: true,
-          template: visualizer_templates.includes(
-            process.env.ANALYZE_TEMPLATE as TemplateType
+        filename: "stats.html",
+        open: true,
+        template: visualizer_templates.includes(
+            process.env.ANALYZE_TEMPLATE as TemplateType,
           )
-            ? (process.env.ANALYZE_TEMPLATE as TemplateType)
-            : "sunburst", //  sunburst, treemap, network, raw-data, list, flamegraph
-          // sourcemap: true
-          // gzipSize: true,
-        })
+          ? (process.env.ANALYZE_TEMPLATE as TemplateType)
+          : "sunburst", //  sunburst, treemap, network, raw-data, list, flamegraph
+        // sourcemap: true
+        // gzipSize: true,
+      })
       : null,
   ] as UserConfig["plugins"],
   build: {

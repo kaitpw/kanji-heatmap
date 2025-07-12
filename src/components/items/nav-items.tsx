@@ -19,8 +19,6 @@ const page = {
 };
 
 const docPages = {
-  privacy: { hash: "#privacy", title: "Privacy Policy" },
-  terms: { hash: "#terms", title: "Terms of Use" },
   about: { hash: "#about", title: "About" },
 };
 

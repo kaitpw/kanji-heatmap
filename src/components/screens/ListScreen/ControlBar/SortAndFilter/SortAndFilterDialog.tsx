@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SearchSettings } from "@/lib/settings/settings";
+import type { SearchSettings } from "@/lib/settings/settings";
 import { ErrorBoundary } from "@/components/error";
 import {
   Dialog,
@@ -43,9 +43,7 @@ export const SortAndFilterSettingsDialog = ({
         </HoverCardContent>
       </HoverCard>
       <DialogContent
-        className={
-          "overflow-y-auto max-h-svh z-50 flex flex-col px-4 pt-8 pb-4"
-        }
+        className={"overflow-y-auto max-h-svh z-50 flex flex-col px-4 pt-8 pb-4"}
       >
         <DialogHeader>
           <DialogTitle className="text-left pb-4 m-0">

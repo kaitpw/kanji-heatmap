@@ -36,20 +36,10 @@ export const NavBar = () => {
       triggerTitle={triggerTitle}
       navItems={[kanjiPage]}
       footer={
-        <>
-          <ExternalTextLink
-            href={`${pageItems.docsPage.href}${docPages.about.hash}`}
-            text={docPages.about.title}
-          />
-          <ExternalTextLink
-            href={`${pageItems.docsPage.href}${docPages.terms.hash}`}
-            text={docPages.terms.title}
-          />
-          <ExternalTextLink
-            href={`${pageItems.docsPage.href}${docPages.privacy.hash}`}
-            text={docPages.privacy.title}
-          />
-        </>
+        <ExternalTextLink
+          href={`${pageItems.docsPage.href}${docPages.about.hash}`}
+          text={docPages.about.title}
+        />
       }
     />
   );
