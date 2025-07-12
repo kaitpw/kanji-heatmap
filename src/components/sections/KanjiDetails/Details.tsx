@@ -5,7 +5,6 @@ import type { GeneralKanjiItem } from "@/lib/kanji/kanji-info-types";
 import { DefaultErrorFallback, ErrorBoundary } from "@/components/error";
 import SimpleAccordion from "@/components/common/SimpleAccordion";
 import { BasicLoading } from "@/components/common/BasicLoading";
-import { LinksOutItems } from "@/components/common/LinksOutItems";
 import { FrequencyInfo } from "./FrequencyInfo";
 import { General } from "./General";
 import { Sentences } from "./Sentences";
@@ -153,7 +152,6 @@ export const KanjiDetails = ({ kanji }: { kanji: string }) => {
       </SimpleAccordion>
       <MiscellaneousCallout />
       <div className="w-full flex justify-start space-x-1">
-        <LinksOutItems />
         <KanjiKeyboardShortcuts kana={kanaForTTS} />
       </div>
     </div>

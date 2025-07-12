@@ -15,6 +15,9 @@ import { KanjiCardLayout } from "./CardLayout";
 import { WordCard } from "./WordCard";
 import { SingleKanjiPart } from "@/components/dependent/site-wide/SingleKanjiPart";
 import { CardLoadingScreen } from "@/components/common/CardLoadingScreen";
+import { Badge } from "@/components/ui/badge";
+
+const hasData = (data?: number) => data != null && data !== -1;
 
 const transformKanjiWordDetails = (
   kanji: string,
@@ -107,6 +110,25 @@ export const KanjiCard = ({ kanji }: { kanji: string }) => {
         <>
           <JLPTBadge jlpt={info.jlpt} />
           <FrequencyBadges frequency={info.frequency} />
+
+          {hasData(info.attributes.jouyouGrade) && (
+            <Badge className="m-1 bg-gray-300">
+              Grade {info.attributes.jouyouGrade}
+            </Badge>
+          )}
+          {hasData(info.attributes.strokes) && (
+            <Badge className="m-1 bg-gray-300">
+              Strokes {info.attributes.strokes}
+            </Badge>
+          )}
+          {hasData(info.attributes.wk) && (
+            <Badge className="m-1 bg-gray-300">
+              Wanikani {info.attributes.wk}
+            </Badge>
+          )}
+          {hasData(info.attributes.rtk) && (
+            <Badge className="m-1 bg-gray-300">RTK {info.attributes.rtk}</Badge>
+          )}
         </>
       }
     />

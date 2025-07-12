@@ -12,8 +12,6 @@ import { ExternalKanjiLinks } from "@/components/common/ExternalKanjiLinks";
 
 import { RomajiBadge } from "@/components/dependent/kana/RomajiBadge";
 
-const hasData = (data?: number) => data != null && data !== -1;
-
 const TableCellFixed = ({ children }: { children: ReactNode }) => (
   <TableCell className="w-24 sm:w-32 p-2">{children}</TableCell>
 );
@@ -45,17 +43,7 @@ export const General = ({
 
   return (
     <>
-      <div className="text-left mt-6">
-        {hasData(data.jouyouGrade) && (
-          <Badge className="m-1">Grade {data.jouyouGrade}</Badge>
-        )}
-        {hasData(data.strokes) && (
-          <Badge className="m-1">Strokes {data.strokes}</Badge>
-        )}
-        {hasData(data.wk) && <Badge className="m-1">Wanikani {data.wk}</Badge>}
-        {hasData(data.rtk) && <Badge className="m-1">RTK {data.rtk}</Badge>}
-        <ExternalKanjiLinks kanji={kanji} />
-      </div>
+      <ExternalKanjiLinks kanji={kanji} />
       <DottedSeparator className="border-b-2 mt-4" />
       <Table>
         <TableBody>

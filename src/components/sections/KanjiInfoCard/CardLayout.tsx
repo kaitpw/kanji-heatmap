@@ -1,3 +1,10 @@
+import SimpleAccordion from "@/components/common/SimpleAccordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import type { ReactNode } from "react";
 
 export const KanjiCardLayout = ({
@@ -47,9 +54,12 @@ export const KanjiCardLayout = ({
         </div>
       )}
       {badges && (
-        <div className="flex space-x-1 justify-center flex-wrap space-y-1 border-t-2 border-dotted mt-1 mb-2 pt-1 px-2">
-          <div />
-          {badges}
+        <div className="border-t-2 border-dotted px-2 text-center">
+          <SimpleAccordion trigger="Show Badges">
+            <div className="flex space-x-1 justify-center flex-wrap space-y-1 mt-2">
+              {badges}
+            </div>
+          </SimpleAccordion>
         </div>
       )}
     </article>

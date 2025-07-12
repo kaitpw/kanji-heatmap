@@ -1,10 +1,8 @@
 import ChangeFontButton from "@/components/dependent/site-wide/ChangeFontButton";
-import { LinksOutItems } from "@/components/common/LinksOutItems";
 import { ErrorBoundary } from "@/components/error";
 import { GlobalHomeHeaderLink } from "@/components/dependent/routing";
 import type { ReactNode } from "react";
 import HeaderIcons from "./HeaderIcons";
-import { ChangeThemeColorBtn } from "@/components/dependent/site-wide/ChangeThemeColorBtn";
 
 const HeaderLayout = ({
   title,
@@ -50,13 +48,11 @@ const Header = ({ nav }: { nav: ReactNode }) => {
           <ErrorBoundary
             fallback={
               <div className="flex space-x-1 my-1 mx-1">
-                <LinksOutItems />
               </div>
             }
           >
             {nav}
             <ChangeFontButton />
-            <ChangeThemeColorBtn />
           </ErrorBoundary>
         }
       />

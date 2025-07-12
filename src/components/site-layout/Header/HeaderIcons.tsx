@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { LinksOutItems } from "@/components/common/LinksOutItems";
 import { ModeToggle } from "@/components/dependent/site-wide/ModeToggle";
 import { EllipsisIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
@@ -13,7 +12,6 @@ const MenuItems = () => {
   return (
     <div className="flex space-x-1">
       <ModeToggle />
-      <LinksOutItems />
     </div>
   );
 };

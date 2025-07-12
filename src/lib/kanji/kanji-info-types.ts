@@ -59,6 +59,12 @@ export type HoverItemReturnData = {
   jlpt: JLTPTtypes;
   parts: { part: string; keyword: string; isKanji: boolean }[];
   frequency?: KanjiInfoFrequency;
+  attributes: {
+    jouyouGrade: number;
+    wk: number;
+    rtk: number;
+    strokes: number;
+  };
   phonetic?: {
     phonetic: string;
     sound: string[];

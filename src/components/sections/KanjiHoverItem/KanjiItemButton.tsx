@@ -1,11 +1,6 @@
 import { forwardRef } from "react";
-import { ReportBugIconBtn } from "@/components/common/ReportBugIconBtn";
 import { CircularFreqBadge } from "@/components/common/freq";
-import {
-  loadingCn,
-  useItemBtnCn,
-  useItemType,
-} from "./kanji-item-button-hooks";
+import { useItemBtnCn, useItemType } from "./kanji-item-button-hooks";
 import { ExpandedBtnContent } from "./ExpandedBtnContent";
 import {
   useBgSrc,
@@ -13,14 +8,6 @@ import {
 } from "@/components/dependent/routing/routing-hooks";
 import { useGetKanjiInfoFn } from "@/kanji-worker/kanji-worker-hooks";
 import { freqMap } from "@/lib/options/options-label-maps";
-
-export const KanjiBtnErrorFallback = () => {
-  return (
-    <div className={`${loadingCn} h-full`}>
-      <ReportBugIconBtn />
-    </div>
-  );
-};
 
 interface TriggerProps {
   onClick?: () => void;
@@ -42,12 +29,12 @@ const KanjiItemButton = forwardRef<HTMLButtonElement, TriggerProps>(
     const kanjiInfo = getInfo?.(kanji);
 
     // Get frequency data
-    const freqType =
-      bgSrc === null || bgSrc === "none" ? "none" : (freqMap[bgSrc] ?? "none");
-    const freqRank =
-      freqType !== "none" && kanjiInfo?.frequency
-        ? kanjiInfo.frequency[freqType]
-        : undefined;
+    const freqType = bgSrc === null || bgSrc === "none"
+      ? "none"
+      : (freqMap[bgSrc] ?? "none");
+    const freqRank = freqType !== "none" && kanjiInfo?.frequency
+      ? kanjiInfo.frequency[freqType]
+      : undefined;
 
     if (itemType === "compact") {
       return (
@@ -84,7 +71,7 @@ const KanjiItemButton = forwardRef<HTMLButtonElement, TriggerProps>(
         {freqRank && <CircularFreqBadge freqRank={freqRank} />}
       </button>
     );
-  }
+  },
 );
 
 KanjiItemButton.displayName = "KanjiItemButton";
